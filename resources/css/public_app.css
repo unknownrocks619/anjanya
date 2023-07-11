@@ -1,0 +1,686 @@
+@import url('frontend/css/simple-lightbox.css');
+@import url('frontend/css/style.css');
+
+:root {
+    --primary: #242254;
+    --primary-hover: #242254;
+    --primary-font: 'Alegreyo', serif !important;
+    --bs-btn-font-family: 'Arial', serif !important;
+}
+
+p {
+    font-family: 'Arial', sans-serif !important;
+}
+
+.title {
+    color: #242154 !important;
+    font-family: var(--primary-font), sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #242154 !important;
+    font-family: var(--primary-font), sans-serif !important;
+
+
+}
+
+h1,
+h2 {
+    font-weight: 600;
+}
+
+.text-primary {
+    color: var(--primary) !important
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+.banner-title {
+    font-family: 'Lexend', sans-serif !important;
+    color: #fff !important
+}
+
+.nav-text {
+    padding: 13px 19px !important;
+}
+
+.video-background {
+    background: #000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -99;
+}
+
+.video-foreground,
+.video-background iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .video-foreground {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .video-foreground {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+.select2-selection {
+    min-height: 50px !important;
+    padding-top: 10px;
+}
+
+.select2-selection__arrow {
+    top: 25% !important
+}
+
+
+.side-card .accordion-item {
+    border: none;
+    background: transparent;
+}
+
+.side-card .accordion-button:not(.collapsed) {
+    background: transparent;
+    box-shadow: none;
+    color: #242254;
+}
+
+.side-card .accordion-button .minus-icon {
+    display: none;
+}
+
+.side-card .accordion-button:not(.collapsed) .plus-icon {
+    display: none;
+}
+
+.side-card .accordion-button:not(.collapsed) .minus-icon {
+    display: block;
+}
+
+.side-card .accordion-button::after {
+    content: none;
+}
+
+.side-card .accordion-button {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0px;
+    color: #242254;
+    font-weight: 700;
+    font-size: 18px;
+    padding-top: 12px;
+}
+
+.side-card .accordion-button:focus {
+    box-shadow: none;
+}
+
+.side-card .accordion-body {
+    padding: 15px !important;
+    max-height: 182px;
+    overflow-y: auto;
+}
+
+.side-card .accordion-body::-webkit-scrollbar-track {
+    background: #F0F0F0;
+    box-shadow: 0px 12px 23px rgba(62, 73, 84, 0.04);
+    border-radius: 20px;
+}
+
+.side-card .accordion-body::-webkit-scrollbar-thumb {
+    background: #AAAAAA;
+    box-shadow: 0px 12px 23px rgba(62, 73, 84, 0.04);
+    border-radius: 20px;
+}
+
+.side-card .accordion-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+}
+
+.textAdd {
+    border: none;
+    border-radius: 14px;
+    background: #F4F4F4;
+    display: inline-block;
+    white-space: nowrap;
+    padding: 1px 7px;
+    color: #11142D;
+}
+
+.seller-button {
+    padding: 15px 10px;
+}
+
+.text-900 {
+    color: #242254;
+}
+
+.more-btn {
+    width: 100%;
+    height: 38px;
+    border: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 500;
+    background: #BB3860;
+    border: 1px solid #BB3860;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s linear;
+
+}
+
+.more-btn:hover {
+    background: transparent;
+    color: #BB3860;
+    transition: all .3s linear;
+}
+
+.content-side li {
+    font-size: 14px;
+    color: #242254;
+}
+
+.filter-heading {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    padding: 15px 20px;
+    color: #242254;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+}
+
+
+.CheckBox {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.CheckBox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    border: 1px solid #acb5c8;
+    border-radius: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.CheckBox:hover input~.checkmark {
+    /* background-color: #ccc; */
+}
+
+/* When the checkbox is checked, add a blue background */
+.CheckBox input:checked~.checkmark {
+    background-color: #242254;
+    border: 2px solid #242254;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.CheckBox input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.CheckBox .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.filter-body {
+    padding: 10px 20px;
+}
+
+.filter-body li {
+    margin-bottom: 6px;
+}
+
+.profile-img {
+    width: 28px;
+    height: 28px;
+}
+
+.profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.location-badge {
+    background: #FFFFFF;
+    border-radius: 14px;
+    height: 46px;
+    padding: 5px 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #242254;
+}
+
+.list-badge {
+    background: #FFFFFF;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 15px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #242254;
+}
+
+.buy-btn {
+    width: 156px;
+    display: flex;
+    flex-direction: column;
+    height: 67px;
+    justify-content: center;
+    align-items: start;
+    padding: 0 12px;
+    border-radius: 2px;
+    color: #FFFFFF;
+    background: #BC0D4D;
+    border: 1px solid #BC0D4D;
+    text-transform: uppercase;
+}
+
+.buy-btn:hover {
+    color: #BC0D4D;
+    background: transparent;
+    transition: all .3s linear;
+}
+
+.buy-btn span {
+    font-weight: 700;
+}
+
+.border-btn {
+    width: 156px;
+    display: flex;
+    height: 67px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 12px;
+    color: #242254;
+    font-size: 21px;
+    font-weight: 600;
+    border: 1px solid #BC0D4D;
+    border-radius: 2px;
+}
+
+.padding-box {
+    padding: 10px 20px;
+}
+
+.view-btn {
+    border: 1px solid #242254;
+    border-radius: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #242254;
+    height: 60px;
+    transition: all .3s linear;
+}
+
+.view-btn:hover {
+    background-color: #242254;
+    color: #fff;
+    transition: all .3s linear;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 1050px;
+    }
+}
+
+.project-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.project-body {
+    padding: 17px;
+}
+
+.recommend-btn {
+    background: #BC0D4D;
+    border-radius: 2px;
+    height: 74px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 700;
+    color: #fff;
+    border: 1px solid #BC0D4D;
+    transition: all .2s ease-in-out;
+}
+
+.recommend-btn:hover {
+    background-color: white;
+    color: #BC0D4D;
+    transition: all .2s ease-in-out;
+
+}
+
+.close-modal {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    top: -1px;
+}
+
+.modal-content {
+    border-radius: 0px;
+    border: none;
+    padding: 35px;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+@media (min-width: 576px) {
+    .book-modal .modal-dialog {
+        max-width: 960px;
+    }
+}
+
+.selection-card {
+    background: #F4F4F4;
+    padding: 20px 8px;
+    border-radius: 8px;
+}
+
+.book-img {
+    width: 100%;
+    height: 102px;
+}
+
+.book-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.count-btn {
+    background: #F4F4F4;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    min-width: 52px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #242254;
+    padding: 2px;
+
+}
+
+.count-btn.active,
+.count-btn:hover {
+    background: #242254;
+    color: white;
+}
+
+.count-box {
+    font-weight: 700;
+    font-size: 19px;
+    color: #242254;
+    height: 45px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.bg-row {
+    background: rgba(0, 0, 0, 0.03)
+}
+
+.br-12 {
+    border-radius: 12px !important;
+}
+
+.checkout-btn {
+    background: #BB3860;
+    border: 1px solid #BB3860;
+    border-radius: 2px;
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease-in-out;
+}
+
+.checkout-btn:hover {
+    background: white;
+    color: #BB3860;
+    transition: all .2s ease-in-out;
+
+
+}
+
+.sm-search input {
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 14px;
+    width: 100%;
+    outline: none;
+    height: 50px;
+    padding: 0 12px;
+}
+
+.sm-icon {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #242254;
+    font-size: 22px;
+}
+
+
+
+
+@media (max-width:767px) {
+
+    .main {
+        padding: 0;
+    }
+
+    .main-layout .side {
+        display: none;
+    }
+
+    .sm-sidebar .side {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100VH;
+        display: block;
+        z-index: 11;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .fs-16 {
+        font-size: 12px;
+    }
+
+    .fs-22 {
+        font-size: 15px;
+    }
+
+    .textAdd {
+        font-size: 10px;
+    }
+
+    .more-btn {
+        font-size: 14px;
+    }
+
+    .seller-button {
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .fs-18 {
+        font-size: 14px;
+    }
+
+    .fs-23 {
+        font-size: 15px;
+    }
+
+    .buy-btn {
+        font-size: 12px;
+        width: 130px;
+    }
+
+    .border-btn {
+        font-size: 15px;
+        width: 130px;
+    }
+
+    .detail-layout .side {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 20px !important;
+    }
+
+    .recommend-btn {
+        padding: 40px;
+        font-size: 18px;
+    }
+}
+
+.search-input input {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid rgba(68, 68, 68, 0.3);
+    border-radius: 14px;
+    outline: none;
+    font-size: 15px;
+    font-weight: 400;
+    height: 64px;
+    padding: 0 12px;
+}
+
+.search-input input::placeholder {
+    font-size: 14px;
+    color: rgba(36, 34, 84, 0.3);
+}
+
+.search-input .search-icon {
+    border-left: 1px solid rgba(68, 68, 68, 0.3);
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+    color: #242254;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    font-family: 'Arial' !important;
+}
+
+.btn {
+    font-weight: bold;
+}
+
+div.form-group {
+    margin-top: 5px;
+}

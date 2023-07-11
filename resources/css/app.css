@@ -1,0 +1,37 @@
+@import url('./css/vendors/font-awesome.css');
+@import url('./css/vendors/icofont.css');
+@import url('./css/vendors/flag-icon.css');
+@import url('./css/vendors/dropzone.css');
+@import url('./css/vendors/themify.css');
+@import url('./css/vendors/scrollbar.css');
+@import url('./css/vendors/animate.css');
+@import url('./css/vendors/prism.css');
+@import url('./css/vendors/bootstrap.css');
+@import url('./css/style.css');
+@import url('./css/color-2.css');
+@import url('./css/responsive.css');
+@import url("/node_modules/select2/dist/css/select2.css");
+
+
+h1,
+h2,
+h3 {
+    color: #ced1d3 !important
+}
+
+.btn-circle {
+    padding: 8px !important;
+    border-radius: 50% !important;
+}
+
+.btn-circle-sm {
+    font-size: 16px;
+}
+
+.btn-circle-xs {
+    font-size: 14px;
+}
+
+.btn-circle-md {
+    font-size: 24px;
+}

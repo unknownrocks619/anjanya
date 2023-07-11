@@ -1,0 +1,84 @@
+@import url('frontend/css/simple-lightbox.css');
+@import url('frontend/css/landing.css');
+
+:root {
+    --primary: #242254;
+    --primary-hover: #242254;
+    --primary-text: #ffffff;
+    -primary-text-hover: #242254;
+}
+
+p {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.title {
+    color: #242154 !important;
+    font-family: 'Lexend', sans-serif !important;
+}
+
+.text-primary {
+    color: var(--primary) !important
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    color: var(--primary-text) !important
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    color: var(--primary-text-hover) !important;
+}
+
+.banner-title {
+    font-family: 'Lexend', sans-serif !important;
+    color: #fff !important
+}
+
+.nav-text {
+    padding: 13px 19px !important;
+}
+
+.video-background {
+    background: #000;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -99;
+}
+
+.video-foreground,
+.video-background iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .video-foreground {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .video-foreground {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+.select2-selection {
+    min-height: 50px !important;
+    padding-top: 10px;
+}
+
+.select2-selection__arrow {
+    top: 25% !important
+}
