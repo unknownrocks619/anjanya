@@ -50,7 +50,7 @@ class AdminLoginController extends Controller
         if ($request->ajax() && $request->method() === 'POST') {
 
             if ($request->post('type') == 'information') {
-                return $this->changePassword($request, $user);
+                return $this->updateDetail($request, $user);
             }
 
             if ($request->post('type')  == 'password') {
