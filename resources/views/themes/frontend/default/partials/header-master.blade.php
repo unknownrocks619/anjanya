@@ -40,9 +40,9 @@
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <!-- header buttons -->
                 <div class="header-buttons float-md-end mt-4 mt-md-0">
-                    <button class="search icon-button">
+                    {{-- <button class="search icon-button">
                         <i class="icon-magnifier"></i>
-                    </button>
+                    </button> --}}
                     <button class="burger-menu icon-button ms-2 float-end float-md-none">
                         <span class="burger-icon"></span>
                     </button>

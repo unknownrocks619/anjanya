@@ -14,14 +14,14 @@ Route::middleware(['web', 'maintenance'])
         /**
          * Code Test Zone
          */
-        Route::get('test-zone', [CodeTestZone::class, 'index']);
+        // Route::get('test-zone', [CodeTestZone::class, 'index']);
 
         Route::get('maintenance', function () {
             return view('maintenance.index');
         })->name('maintenance-mode');
 
         Route::get('/', [MenuController::class, 'load'])->name('home');
-
+        Route::post('/contact-submission-form', [MenuController::class, 'submit_contact_us'])->name('submit_contanct_us');
 
         /**
          * Static

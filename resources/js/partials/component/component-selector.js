@@ -181,3 +181,22 @@ $(document).on('change', '.project-list-type-selector', function (event) {
         $(this).removeClass('d-none');
     })
 })
+
+
+window.componentContactPreview = function (ele) {
+
+    let _preivewElementClass = $(ele).attr('name') + '_preview';
+
+    let _targetEle = $('.contact-preview-sample-area').find('.' + _preivewElementClass);
+
+    if ($(_targetEle).is('div')) {
+        $(_targetEle).empty().html($(ele).val());
+    }
+
+    if ($(_targetEle).is('input') || $(_targetEle).is('textarea')) {
+        $(_targetEle).attr('placeholder', $(ele).val());
+    }
+    if ($(_targetEle).is('button')) {
+        $(_targetEle).text($(ele).val());
+    }
+}

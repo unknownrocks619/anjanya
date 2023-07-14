@@ -4663,7 +4663,7 @@
         return element.ownerDocument;
     }
 
-    var SimpleBar =
+    window.SimpleBar =
         /*#__PURE__*/
         function () {
             function SimpleBar(element, options) {

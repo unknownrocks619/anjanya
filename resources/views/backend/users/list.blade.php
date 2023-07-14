@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <button class="btn btn-primary" data-bs-target='#new-user' data-bs-toggle='modal'>
-                            Add New User
+                            Add New User / Staff
                         </button>
                     </div>
                     @include('backend.users.user-list', ['users' => $users])
@@ -32,6 +32,6 @@
         </div>
     </div>
     <x-modal id='new-user'>
-        @include('backend.users.modals.new-form')
+        @include('backend.users.modals.new-staff-form')
     </x-modal>
 @endsection

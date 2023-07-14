@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Admin\AdminUser::create([
             'firstname' => 'admin',
             'lastname' => 'admin',
-            'email' => 'admin@admin.com',
+            'email' => 'admin' . \Illuminate\Support\Str::random(2) . '@admin.com',
             'password'  => Hash::make('password'),
             'role' => 1
         ]);

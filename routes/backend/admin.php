@@ -102,4 +102,9 @@ Route::prefix('admin')
          * Settings
          */
         include __DIR__ . '/settings.php';
+
+        /**
+         * Admin
+         */
+        include __DIR__ . '/account.php';
     });

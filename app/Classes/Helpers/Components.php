@@ -31,7 +31,8 @@ class Components extends Controller
         'quotes'            => 'Quotes',
         'image'            => 'Image',
         'faq'               => 'Faq',
-        'iframe'            => 'Iframe'
+        'iframe'            => 'Iframe',
+        'contact_form'      => 'ContactForm'
     ];
 
     public function getComponentList(Request $request)

@@ -57,5 +57,29 @@ class SystemSettingInstagramConfiguration extends Seeder
                 'value' => '0',
             ]);
         }
+
+        if (!Setting::where('name', 'intro_description')->exists()) {
+
+            Setting::create([
+                'name' => 'intro_description',
+                'value' => '-',
+            ]);
+        }
+
+        if (!Setting::where('name', 'short_description')->exists()) {
+
+            Setting::create([
+                'name' => 'short_description',
+                'value' => '-',
+            ]);
+        }
+
+        if (!Setting::where('name', 'full_description')->exists()) {
+
+            Setting::create([
+                'name' => 'full_description',
+                'value' => '-',
+            ]);
+        }
     }
 }

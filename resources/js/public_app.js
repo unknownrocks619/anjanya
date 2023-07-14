@@ -200,4 +200,21 @@ $(function () {
             }
         })
     })
+
+    if ($("registration").length) {
+        let _text = 'Register Now'
+
+
+        $.each($('registration'), function (registrationIndex, registrationElement) {
+
+            let _elementText = $(registrationElement).text();
+
+            if (_elementText != '') {
+                _text = _elementText;
+            }
+
+            let _button = `<a href='/register' class='detail-btn mx-1 btn btn-default' >${_text}</a>`
+            $(registrationElement).replaceWith(_button);
+        })
+    }
 })

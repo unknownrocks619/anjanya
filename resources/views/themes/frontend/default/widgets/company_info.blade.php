@@ -5,9 +5,7 @@
                 alt="{{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }} logo"
                 style="max-width:80px; max-height:80px;" />
         </a>
-        <p class="mb-4">Hello, We’re content writer who is fascinated by content fashion,
-            celebrity and lifestyle. We helps clients bring the right content to the right
-            people.</p>
+        <p class="mb-4">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('short_description') }}</p>
         <ul class="social-icons list-unstyled list-inline mb-0">
             <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a>
             </li>

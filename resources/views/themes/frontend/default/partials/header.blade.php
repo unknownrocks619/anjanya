@@ -47,9 +47,9 @@
                 </ul>
                 <!-- header buttons -->
                 <div class="header-buttons">
-                    <button class="search icon-button">
+                    {{-- <button class="search icon-button">
                         <i class="icon-magnifier"></i>
-                    </button>
+                    </button> --}}
                     <button class="burger-menu icon-button">
                         <span class="burger-icon"></span>
                     </button>

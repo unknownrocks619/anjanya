@@ -22,6 +22,9 @@ class Setting extends AdminModel
         'tagline'   => "Tagline",
         'host'      => "Host",
         'email_official'    => 'Official Contact Email',
+        'intro_description' => 'Intro Description',
+        'short_description' => 'Short Description',
+        'full_description' => 'Full Description',
     ];
 
     const SOCIAL_CONFIURATION = [

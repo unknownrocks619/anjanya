@@ -7,8 +7,10 @@ use App\Classes\Helpers\Menu;
 use App\Classes\Helpers\Meta;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Book\BookController;
+use App\Jobs\ContactUsMail;
 use App\Models\BookBundle;
 use App\Models\Category;
+use App\Models\ComponentBuilder;
 use App\Models\Menu as ModelsMenu;
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -124,5 +126,35 @@ class MenuController extends Controller
     {
         $bookBundle = BookBundle::where('active', true)->with(['getImage'])->get();
         return $bookBundle;
+    }
+
+    public function submit_contact_us(Request $request)
+    {
+        $request->validate([
+            'full_name' => 'required|string',
+            'email'     => 'required|email',
+            'subject'   => 'required',
+            'message'   => 'required|min:10'
+        ]);
+
+        $component = ComponentBuilder::where('id', decrypt($request->post('form_id')))->first();
+
+        if (!$component) {
+            return $this->json(false, 'Unauthorized Attempt. Please reload your page and try again.');
+        }
+
+
+        $params  = [
+            'email'     => $request->post('email'),
+            'subject'   => $request->post('subject'),
+            'message'   => $request->post('message'),
+            'full_name' => $request->post('full_name')
+        ];
+        $componentValue = json_decode($component->values);
+        if (ContactUsMail::dispatchSync($params)) {
+            return $this->json(false, $componentValue->error_message);
+        }
+
+        return $this->json(true, $componentValue->success_message);
     }
 }

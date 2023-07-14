@@ -47,7 +47,7 @@
         referrerpolicy="origin"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-
+    <script src="{{ asset('backend/js/notify/bootstrap-notify.min.js') }}"></script>
     <style type="text/css">
         .video-background {
             background: #000;
@@ -126,6 +126,13 @@
     @yield('content')
 
     @stack('custom_script')
+    <script src="{{ asset('backend/js/icons/feather-icon/feather.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+            feather.replace()
+        })
+    </script>
+
 </body>
 
 </html>

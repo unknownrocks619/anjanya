@@ -167,13 +167,25 @@ $(function () {
             Sticky Sidebar
     =========================================================================*/
     $.each($('.sidebar'), function (index, elm) {
-        let _prentContainer = $(elm).closest('sidebar-content')
-        $(elm).stickySidebar({
-            topSpacing: 30,
-            bottomSpacing: 90,
-            containerSelector: '.' + $(elm).attr('data-parent'),
+        if ($(elm).attr('data-parent')) {
+            $(elm).stickySidebar({
+                topSpacing: 30,
+                bottomSpacing: 90,
+                containerSelector: '.' + $(elm).attr('data-parent'),
 
-        })
+            })
+        } else {
+            let _parentContainer = $(elm).closest('sidebar-content')
+            if ($(_parentContainer)) {
+                $(elm).stickySidebar({
+                    topSpacing: 30,
+                    bottomSpacing: 90,
+                    containerSelector: '.sidebar-content',
+
+                })
+            }
+
+        }
     })
     // $('.sidebar').stickySidebar({
     //     topSpacing: 0,

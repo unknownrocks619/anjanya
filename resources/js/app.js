@@ -1,12 +1,9 @@
 import Swal from 'sweetalert2';
 //================= Themes ===========================//
-import './components/icons/feather-icon/feather.min.js';
-import './components/icons/feather-icon/feather-icon.js'
 import './components/scrollbar/simplebar.js'
 import './components/scrollbar/custom'
 import './components/config.js';
 import './components/script.js';
-import './components/notify/bootstrap-notify.min.js'
 import './components/prism/prism.min.js'
 //=================== Blueprints =====================//
 
@@ -49,7 +46,6 @@ $(function () {
 
     // Loader
     $(".loader-wrapper").fadeOut("slow", function () {
-        console.log('thsi is so');
         setTimeout(function () {
             $(this).remove();
         }, 100);

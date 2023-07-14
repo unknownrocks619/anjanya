@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('settings')
     ->name('settings.')
     ->group(function () {
-        Route::get('/', [SettingController::class, 'index'])
+        Route::match(['get', 'post'], '/', [SettingController::class, 'index'])
             ->name('list');
         Route::match(['get', 'post'], '/footer', [SettingController::class, 'footer'])
             ->name('footer-page');

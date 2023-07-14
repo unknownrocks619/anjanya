@@ -18,6 +18,7 @@
         "jquery-ui": "^1.13.2",
         "masonry-layout": "^4.2.2",
         "select2": "^4.1.0-rc.0",
+        "simplebar": "^6.2.5",
         "sweetalert2": "^11.7.3",
         "tinymce": "^6.4.1"
     }

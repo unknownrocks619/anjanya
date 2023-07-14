@@ -74,10 +74,25 @@ class Menu
 
     public static function isActiveMenu(ModelsMenu $menu)
     {
-        $activeRoutes = ['frontend.' . $menu->slug];
-        if (in_array($menu->slug, request()->route()->parameters()) || empty(request()->route()->parameters()) && $menu->menu_type == 'homepage') {
+
+        if (request()->route()->getName() == 'frontend.users.register' && $menu->menu_type == 'register') {
             return true;
         }
+
+        $activeRoutes = ['frontend.' . $menu->slug];
+        if ((request()->route()->getName() != 'frontend.users.register') && (in_array($menu->slug, request()->route()->parameters()) || empty(request()->route()->parameters()) && $menu->menu_type == 'homepage')) {
+            return true;
+        }
+        // check if child is displayed.
+        if ($menu->children->count()) {
+            foreach ($menu->children as $child_menu) {
+                if (self::isActiveMenu($child_menu)) {
+                    return true;
+                }
+                continue;
+            }
+        }
+
         return false;
     }
     public static function getBy(array|string $column_name, mixed $value = null)

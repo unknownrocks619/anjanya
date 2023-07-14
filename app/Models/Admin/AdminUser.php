@@ -14,6 +14,14 @@ class AdminUser extends Authenticatable
 
     protected $table = 'admin_users';
 
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'password',
+        'role'
+    ];
+
     public function getFullName()
     {
         return $this->firstname . ' ' . $this->lastname;

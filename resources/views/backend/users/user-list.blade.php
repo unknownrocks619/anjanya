@@ -17,7 +17,9 @@
                         <td>{{ $user->email }}</td>
                         <td>
                             <ul class="action">
-                                <li class="edit"> <a href="#"><i class="icon-pencil-alt"></i></a>
+                                <li class="edit"> <a
+                                        href="{{ route('admin.admin-account.settings', ['user' => $user]) }}"><i
+                                            class="icon-pencil-alt"></i></a>
                                 </li>
                                 <li class="delete"><a href="#"><i class="icon-trash"></i></a></li>
                             </ul>

@@ -81,6 +81,44 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if (!\App\Classes\Helpers\SystemSetting::basic_configuration('intro_description'))
+                                <div class="col-md-12 my-2">
+                                    <div class="alert alert-danger">
+                                        Some of the configuration seems to be missing ! Please Reset Configuration File.
+                                    </div>
+                                    <button class="btn btn-info data-confirm" data-confirm="Are you sure ?"
+                                        data-method="post" data-action="{{ route('admin.settings.list') }}">Reset
+                                        Configuration</button>
+                                </div>
+                            @else
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="intro_description">Intro Text</label>
+                                            <textarea name="intro_description" class="form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('intro_description') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="short_description">Short Description</label>
+                                            <textarea name="short_description" class="form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('short_description') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="full_description">Full Description</label>
+                                            <textarea name="full_description" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('full_description') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">
@@ -209,6 +247,7 @@
                 </form>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-6">
                 <form action="{{ route('admin.settings.registration-welcome-email') }}" class="ajax-form"
@@ -357,6 +396,62 @@
                         </div>
                 </form>
             </div>
+        </div>
+
+        <div class="row">
+            @if (!\App\Classes\Helpers\SystemSetting::basic_configuration('intro_description'))
+                <div class="col-md-12 my-2">
+                    <div class="alert alert-danger">
+                        Some of the configuration seems to be missing ! Please Reset Configuration File.
+                    </div>
+                    <button class="btn btn-info data-confirm" data-confirm="Are you sure ?" data-method="post"
+                        data-action="{{ route('admin.settings.list') }}">Reset Configuration</button>
+                </div>
+            @else
+                <div class="col-md-6">
+                    <form action="{{ route('admin.settings.membership-approved-registration-email') }}" class="ajax-form"
+                        method="post">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4 class="text-white">
+                                    Site Intro Text
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="intro_description">Intro Text</label>
+                                            <textarea name="intro_description" class="form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('intro_description') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="short_description">Short Description</label>
+                                            <textarea name="short_description" class="form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('short_text') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="intro_text">Full Description</label>
+                                            <textarea name="intro_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    Save Description
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
     </div>

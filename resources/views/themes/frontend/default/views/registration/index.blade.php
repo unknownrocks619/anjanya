@@ -1,6 +1,6 @@
 @extends($user_theme->frontend_layout($extends))
 
-@section('title')
+@section('page_title')
     Registration
 @endsection
 

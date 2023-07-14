@@ -17,6 +17,12 @@ class SettingController extends Controller
     //
     public function index()
     {
+        if (request()->ajax() && request()->method() === 'POST') {
+            ((new SystemSettingInstagramConfiguration())->social_instagram_footer_images());
+            Artisan::call('cache:clear');
+            return $this->json(true, 'Configuration Setting Saved.', 'reload');
+        }
+
         return $this->admin_theme('settings.index');
     }
 

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Setting;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use ReflectionClass;
 
@@ -46,6 +47,7 @@ class ClearFrontendCache extends Command
             Cache::forget(Setting::SITE_PAGE_SETTING_CACHE_NAME);
             Cache::forget('FOOTER_INSTAGRAM_IMAGE_ARRAY');
             Cache::forget('frontend_menus');
+            Artisan::call('cache:clear');
             return;
         }
 
