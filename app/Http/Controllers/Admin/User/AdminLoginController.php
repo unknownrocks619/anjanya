@@ -87,7 +87,7 @@ class AdminLoginController extends Controller
         return $this->json(true, 'New Staff / User Created', 'reload');
     }
 
-    public function changePassword(Request $request, AdminUser $user)
+    public function updateDetail(Request $request, AdminUser $user)
     {
         $request->validate([
             'first_name'    => 'required',
@@ -109,7 +109,7 @@ class AdminLoginController extends Controller
         return $this->json(true, 'Your information has been updated.');
     }
 
-    public function updateDetail(Request $request, AdminUser $user)
+    public function changePassword(Request $request, AdminUser $user)
     {
         $request->validate([
             'new_password'  => 'required|confirmed'
