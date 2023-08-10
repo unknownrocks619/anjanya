@@ -10,6 +10,7 @@ Route::prefix('menu')
         Route::get('/clear-cache', [MenuController::class, 'clearCache'])->name('clear_cache');
         Route::post('re-order/{menu?}', [MenuController::class, 'reorder'])->name('reorder');
         Route::get('/{menu}/edit/{current_tab?}', [MenuController::class, 'edit'])->name('edit');
+        Route::post('/{menu}/edit/{current_tab?}', [MenuController::class, 'update'])->name('update');
         Route::get('json/{selectionMenu?}', [MenuController::class, 'menu_json'])->name('json_output');
         Route::match(['post', 'get'], 'create', [MenuController::class, 'create'])->name('create');
         Route::post('delete/{menu}', [MenuController::class, 'delete'])->name('delete_menu');

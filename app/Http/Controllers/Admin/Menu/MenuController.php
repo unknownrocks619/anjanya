@@ -147,7 +147,7 @@ class MenuController extends Controller
         ]);
 
         $menu->slug = $request->post('slug');
-        $menu->menu_description = $request->post('description');
+        $menu->description = $request->post('description');
         $menu->menu_type = $request->post('menu_type');
         $menu->menu_position = $request->post('menu_position');
         $menu->active = $request->has('active') ? true : false;
@@ -160,7 +160,7 @@ class MenuController extends Controller
             $menu->save();
         } catch (\Throwable $th) {
             //throw $th;
-            return $this->json(false, 'Unable to update menu information.');
+            return $this->json(false, 'Unable to update menu information.', null, ['error' => $th->getMessage()]);
         }
 
         return $this->json(true, 'Menu Information Updated.');

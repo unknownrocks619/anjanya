@@ -1,4 +1,4 @@
-<form action="{{ route('admin.menu.create') }}" class="ajax-form" method="post">
+<form action="{{ route('admin.menu.update', ['menu' => $menu, 'current_tab' => 'general']) }}" class="ajax-form" method="post">
     <div class="row">
         <!-- Zero Configuration  Starts-->
         <div class="col-sm-12">

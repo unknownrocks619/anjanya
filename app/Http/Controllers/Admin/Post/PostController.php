@@ -81,7 +81,7 @@ class PostController extends Controller
             $post->full_description = $request->post('full_description');
             $post->type = $request->post('post_type');
             $post->status = $request->post('status');
-            $post->categories = array_map('intval', $request->post('categories'));
+            $post->categories = $request->post('categories') ? array_map('intval', $request->post('categories')) : [];
             try {
                 $post->save();
             } catch (\Throwable $th) {

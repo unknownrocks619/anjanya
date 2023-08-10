@@ -40,7 +40,7 @@ class Post extends AdminModel
     public function getCategories()
     {
         if (empty($this->categories)) {
-            return ['uncategorized'];
+            return [];
         }
 
         $categories = Category::whereIn('id', $this->categories)->get();
