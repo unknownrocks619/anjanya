@@ -28,8 +28,8 @@
                     <div class="md-sidebar-aside custom-scrollbar">
                         <div class="file-sidebar">
                             <div class="card">
-                                <div data-method="post" class="card-body datatable-sortable-component component-parent" style="min-height:80vh;max-height:80vh; overflow:scroll" data-action="{{ route('admin.sort.re-order-column', ['model_name' => 'ComponentBuilder']) }}">
-                                    <ul>
+                                <div  class="card-body" style="min-height:80vh;max-height:80vh; overflow:scroll">
+                                    <ul  data-method="post" class="component-parent datatable-sortable-component" style="min-height:80vh;max-height:80vh; overflow:scroll" data-action="{{ route('admin.sort.re-order-column', ['model_name' => 'ComponentBuilder']) }}">
                                         @foreach($webcomponent->getComponents as $component)
                                             <li data-sort-id="{{$component->getKey()}}" class="common-component-selector"  data-component-name="{{$component->component_type}}">
                                                 <div class="d-flex justify-content-between btn btn-primary align-items-center">
