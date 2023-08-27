@@ -3,6 +3,7 @@
 namespace App\Classes\Helpers;
 
 use App\Http\Controllers\Controller;
+use App\Models\CommonComponentConnector;
 use App\Models\ComponentBuilder;
 use Illuminate\Http\Request;
 
@@ -32,19 +33,40 @@ class Components extends Controller
         'image'            => 'Image',
         'faq'               => 'Faq',
         'iframe'            => 'Iframe',
-        'contact_form'      => 'ContactForm'
+        'contact_form'      => 'ContactForm',
+        'block_builder'     => 'BlockBuilder',
+        'alternation'       => 'Alternation'
     ];
 
     public function getComponentList(Request $request)
     {
-
-        return view('themes.components.modal.list', ['options' => array_keys(self::TYPES)]);
+        return view('themes.components.modal.list', ['options' => array_keys(self::TYPES),'model' => $request->get('modal'),'modelID'=> $request->get('modal_id')]);
     }
 
     public function renderElement(Request $request)
     {
-        $view = view("themes.components.{$request->post('component_key')}.view.create")->render();
-        return $this->json(true, 'Completed Loaded', 'componentRenderElement', ['view' => $view, 'current_component' => $request->post('component_key')]);
+        $model = $request->post('_model');
+        $relationModel = $model::find($request->post('_modelID'));
+        foreach ($request->post('web_component_enable') as $componentID => $value) {
+            // check if record exists.
+            $connectorInstance = CommonComponentConnector::where('relation_id',$request->post('_modelID'))
+                                                            ->where('relation_model', $request->post('_model'))
+                                                            ->where('web_component_id', $componentID)
+                                                            ->exists();
+            if (! $connectorInstance ) {
+                $connectorInstance = new CommonComponentConnector;
+                $connectorInstance->fill([
+                    'relation_id'   => $request->post('_modelID'),
+                    'relation_model'    => $request->post('_model'),
+                    'web_component_id'  => $componentID,
+                    'sort_by'           => CommonComponentConnector::sortBy($relationModel)
+                ]);
+                $connectorInstance->save();
+            }
+        }
+        $view = view("themes.components.view",['model' => $relationModel])->render();
+        return $this->json(true, 'Success', 'componentRenderElement', ['view' => $view]);
+
     }
 
     public function save(Request $request)
@@ -75,9 +97,8 @@ class Components extends Controller
         return $this->json(true, 'Component Updated.', 'reload');
     }
 
-    public function delete(Request $request, ComponentBuilder $componentBuilder)
+    public function delete(Request $request, CommonComponentConnector $componentBuilder)
     {
-
         if (!$componentBuilder->delete()) {
             return $this->json(false, 'Unable to delete Component');
         }
@@ -130,15 +151,14 @@ class Components extends Controller
         return $this->json(true, 'Position updated.');
     }
 
-    public function renameComponent(Request $request, ComponentBuilder $componentBuilder)
+    public function renameComponent(Request $request, $componentBuilder)
     {
+        $componentConnector = CommonComponentConnector::find($request->post('name'));
+        $componentConnector->active = $request->post('active_component_status');
 
-        $componentBuilder->component_name = $request->post('name');
-        $componentBuilder->active = (int)$request->post('active_component_status') ? true : false;
-
-        if ($componentBuilder->isDirty('component_name') || $componentBuilder->isDirty('active')) {
-            $componentBuilder->save();
-            return $this->json(true, 'Component Name Updated.');
+        if ($componentConnector->isDirty('active')) {
+            $componentConnector->save();
+            return $this->json(true,'Status updated');
         }
     }
 }

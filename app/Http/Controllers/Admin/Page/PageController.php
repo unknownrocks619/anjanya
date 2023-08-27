@@ -65,7 +65,6 @@ class PageController extends Controller
         $page->short_description = $request->post('short_description');
         $page->full_description = $request->post('full_description');
         $page->active = $request->has('active') ? true : false;
-
         try {
             $page->save();
         } catch (\Throwable $th) {

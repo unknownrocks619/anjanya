@@ -36,7 +36,7 @@ class Menu
                 $query->where('parent_id', null)
                     ->orWhere('parent_id', '0');
             })
-            ->with(['getComponents', 'getImage', 'getSeo', 'children'])
+            ->with(['webComponents.getComponents', 'getImage.image', 'getSeo', 'children'])
             ->get();
 
         return $cache_menus;
@@ -103,4 +103,5 @@ class Menu
         }
         return $menus->where($column_name, $value);
     }
+
 }

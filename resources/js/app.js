@@ -1,4 +1,4 @@
-import Swal from 'sweetalert2';
+import './bootstrap.js';
 //================= Themes ===========================//
 import './components/scrollbar/simplebar.js'
 import './components/scrollbar/custom'
@@ -15,7 +15,7 @@ import './partials/select2'
 import './partials/datatable.js'
 import './partials/tinymce.js'
 import './partials/pricing-breaks.js'
-
+import './partials/slider.js'
 //================== Components ====================//
 import './partials/component/component-selector.js'
 import './partials/course/course.js'

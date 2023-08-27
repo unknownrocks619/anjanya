@@ -47,6 +47,10 @@ class Controller extends BaseController
         return view('themes.frontend.' . $this->theme_name() . '.views.' . $view, $data);
     }
 
+    public function components($view, array $data = []) {
+        $base_path = env('APP_THEMES') ?? 'default';
+        return view('themes.frontend.' . $base_path . '.components.' . $view, $data);
+    }
     public function theme_name(): string
     {
         return env('APP_THEMES') ?? 'default';

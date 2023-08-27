@@ -16,6 +16,9 @@ class UserThemeServiceProvider extends ServiceProvider
         $this->app->singleton('user_theme', function () {
             return new Controller();
         });
+        $this->app->bind('themes_config', function () {
+            return require resource_path('views'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'frontend'.DIRECTORY_SEPARATOR.env('APP_THEMES').DIRECTORY_SEPARATOR.'config.php');
+        });
     }
 
     /**
@@ -26,6 +29,7 @@ class UserThemeServiceProvider extends ServiceProvider
         //
         view()->composer('*', function ($view) {
             $view->with('user_theme', $this->app->make('user_theme'));
+            $view->with('theme_config', $this->app->make('themes_config'));
         });
     }
 }

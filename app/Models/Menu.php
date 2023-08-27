@@ -85,20 +85,6 @@ class Menu extends AdminModel
         static::addGlobalScope(new SortableScope);
     }
 
-
-    // public static function getSlug($menu_name, $menu = null)
-    // {
-    //     $slug_name = Str::slug($menu_name);
-    //     $slugQuery = Menu::where('slug', $slug_name);
-    //     if ($menu) {
-    //         $slugQuery->where('id', '!=', $menu->getKey());
-    //     }
-    //     if ($slugQuery->exists()) {
-    //         $slug_name .= '-' . Str::slug(Str::random(6));
-    //     }
-    //     return $slug_name;
-    // }
-
     public static function getSortOrder($parentID = null)
     {
         $sortID = 0;
@@ -110,4 +96,5 @@ class Menu extends AdminModel
 
         return $sortID + 1;
     }
+
 }

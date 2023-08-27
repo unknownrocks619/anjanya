@@ -10,6 +10,7 @@ Route::prefix('admin')
         Route::match(['post', 'get'], '/logout', [AdminLoginController::class, 'logout'])
             ->name('logout');
 
+        Route::match(['post','get'],'codetest',[\App\Http\Controllers\Test\CodeTestZone::class,'index'])->name('code-test');
         /**
          * Component
          */
@@ -97,6 +98,11 @@ Route::prefix('admin')
          * Select2 Element
          */
         include __DIR__ . '/select2.php';
+
+        /**
+         * Gallery Slider
+         */
+        include __DIR__ . '/slider.php';
 
         /**
          * Settings

@@ -47,12 +47,10 @@ class MenuController extends Controller
         } else {
             $this->active_menu = $this->cached_menu->where('slug', $slug)
                 ->first();
-
             if (!$this->active_menu) {
                 $this->active_menu = ModelsMenu::where('slug', $slug)->where('active', true)->first();
             }
         }
-
 
         if (!$this->active_menu) {
             abort(404);
@@ -76,6 +74,7 @@ class MenuController extends Controller
             if (!$page->active) {
                 abort(404);
             }
+            $page->load('webComponents.getComponents','getImage.image','getSeo');
             $pageSeo = Meta::metaInfo($page);
             if ($pageSeo) {
                 $defaultSEO = $pageSeo;
@@ -150,11 +149,11 @@ class MenuController extends Controller
             'message'   => $request->post('message'),
             'full_name' => $request->post('full_name')
         ];
-        $componentValue = json_decode($component->values);
+        $componentValue = $component->values;
         if (ContactUsMail::dispatchSync($params)) {
-            return $this->json(false, $componentValue->error_message);
+            return $this->json(false, $componentValue['error_message']);
         }
 
-        return $this->json(true, $componentValue->success_message);
+        return $this->json(true, $componentValue['success_message']);
     }
 }

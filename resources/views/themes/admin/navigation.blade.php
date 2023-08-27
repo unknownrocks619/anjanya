@@ -1,5 +1,5 @@
 <!-- Page Sidebar Start-->
-<div class="sidebar-wrapper close_icon">
+<div class="sidebar-wrapper h-100">
     <div>
         <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png"
                     alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo-dark.png"
@@ -13,15 +13,15 @@
                     src="../assets/images/logo/logo-icon-dark.png" alt=""></a></div>
         <nav class="sidebar-main">
             <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
-            <div id="sidebar-menu">
+            <div>
                 @php
-                    
+
                     if (!\Illuminate\Support\Facades\Cache::has('ADMIN_NAVIGATION')) {
                         $navigation = [];
                         if (config('navigation.admin')) {
                             $navigation[] = config('navigation.admin');
                         }
-                    
+
                         // \Illuminate\Support\Facades\Cache::add('ADMIN_NAVIGATION', $navigation);
                     } else {
                         // $navigation = \Illuminate\Support\Facades\Cache::get('NAVIATION');
@@ -44,8 +44,8 @@
                             @foreach ($parent_nav as $nav_items)
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title"
-                                        href="@if (count($nav_items['children']) || !$nav_items['route']) javascript:void(0) @else  {{ route($nav_items['route']) }} @endif">
-                                        @if ($nav_items['icon'])
+                                        @if (isset($nav_items['route']) && !empty($nav_items['route'] && $nav_items['route'] != '') && count($nav_items['children']) == 0 ) href="{{ route($nav_items['route']) }}" @else href="#" @endif">
+                                        @if (isset($nav_items['icon']) && !empty($nav_items['icon']))
                                             <i class='{{ $nav_items['icon'] }}'></i>
                                         @endif
                                         <span class="lan-3">{{ $nav_items['name'] }}</span>

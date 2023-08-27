@@ -25,5 +25,14 @@ return
         'lms_resource'          => 'Learning Module Resource',
         'video_checklist'       => 'Video with Check mark',
         'image'                 => 'Image Content',
-        'contact_form'                 => 'Contact Us Form'
+        'contact_form'                 => 'Contact Us Form',
+        'block_builder'         => 'Block Builder',
+        'alternation'           => 'Alternation',
+        '_failed_save'               => 'Unable to save component',
+        '_success_save'         => 'Component Saved',
+        '_failed_update'        => 'Unable to update component',
+        '_success_update'       => 'Component updated.',
+        '_failed_media'        => 'Unable to upload media.',
+        '_success_media'        => 'Media Uploaded.',
+
     ];

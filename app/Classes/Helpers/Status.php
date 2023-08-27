@@ -28,7 +28,7 @@ class Status
         if (!in_array($active, array_keys(self::$active_choice))) {
             return;
         }
-        return "<span class='" . self::$active_choice[$active]['class'] . "'>" . self::$active_choice[$active]['text'] . "</span>";
+        return "<span class='px-2 " . self::$active_choice[$active]['class'] . "'>" . self::$active_choice[$active]['text'] . "</span>";
     }
 
     public static function  status_label($status)
@@ -41,6 +41,6 @@ class Status
 
     public static function label_text($text, $label_color = 'success')
     {
-        return "<span class='badge rounded-pill mx-1 badge-" . $label_color . "'>" . $text . "</span>";
+        return "<span class='badge rounded-pill mx-1 px-2 badge-" . $label_color . "'>" . $text . "</span>";
     }
 }

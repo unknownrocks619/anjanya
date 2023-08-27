@@ -16,6 +16,10 @@ class FileRelation extends Model
         'type'
     ];
 
+    protected $with = [
+        'image'
+    ];
+
     public function image()
     {
         return $this->hasOne(Image::class, 'id', 'image_id');

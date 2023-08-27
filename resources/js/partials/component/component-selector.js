@@ -1,13 +1,18 @@
 import Masonry from "masonry-layout";
+import tinymce from "tinymce";
 
 $(document).on('click', '.select-component', function (event) {
     event.preventDefault();
-    $('.select-component').removeClass('selected');
-    $(".component-div").removeClass('bg-success');
-
-    $(this).closest('div.component-div').addClass('bg-success').removeClass('bg-light');
-    $(this).addClass('selected');
-    $(".selected-component-input").val($(this).data('key'));
+    let _inputValue = $(this).closest('div.component-div').find("input[name='web_component[]']").val();
+    if ($(this).hasClass('selected') ) {
+        $(this).removeClass('selected');
+        $(this).closest('div.component-div').removeClass('bg-success').addClass('bg-light');
+        $(this).closest('div.component-div').find("input[type=checkbox]").removeAttr('checked');
+    } else {
+        $(this).closest('div.component-div').addClass('bg-success').removeClass('bg-light');
+        $(this).addClass('selected');
+        $(this).closest('div.component-div').find('input[type=checkbox]').attr('checked',true);
+    }
 })
 
 window.componentRenderElement = function (params) {
@@ -199,4 +204,152 @@ window.componentContactPreview = function (ele) {
     if ($(_targetEle).is('button')) {
         $(_targetEle).text($(ele).val());
     }
+}
+
+
+export default class CommonComponentSelector {
+
+    constructor(container, options=null) {
+        this.container = $(container)
+
+        if ( options !== null) {
+            this.options = options;
+        }
+
+        this.component = $(container).data('modal');
+        this.#init();
+    }
+
+    #init() {
+        this.fetchAndUpdateView(this.container);
+    }
+    fetchAndUpdate(elm,name='componentView',params={}) {
+        let _this = this;
+        this.#setLoading(true);
+
+        return this.#fetchView(name,params)
+            .then(function(view) {
+                elm.html(view)
+                _this.#setLoading(false)
+            })
+    }
+
+    #setLoading(enabled) {
+        if (enabled) {
+            $('input,select,textarea,button').prop('disabled',true);
+            $('#componentBuilder__main .loader-element').removeClass('d-none');
+        } else {
+            $('#componentBuilder__main .loader-element').removeClass('d-none');
+            $('input,select,textarea,button').prop('disabled',false);
+        }
+    }
+
+    #fetchView(url = "" , name='componentView', params= {}) {
+        return axios.get(url,{params : params})
+            .then(function(response){
+                if (response.status === 200) {
+                    return response.data;
+                }
+            })
+    }
+
+    fetchAndUpdateView(elm,name='componentView',params={}) {
+        console.log('elm: ',elm)
+    }
+
+    selectComponent(elm) {
+        this.#setLoading(true);
+        let _this = this;
+        this.#fetchView($(elm).data('url'))
+            .then(function (view) {
+                $(_this.container).find('.component-builder-loader').html(view.params.view)
+                if ($(_this.container).find('button.action-button').length) {
+                    // let's make few adjustment.
+                    if ($(_this.container).find('input[name="_source-option-id"]').length) {
+                        $(_this.container).find('button.action-button').html('Save Component')
+                    }
+                }
+                _this.#setLoading(false);
+            });
+    }
+
+    saveNewComponent() {
+        this.#setLoading(true);
+        let _this = this;
+        let componentFields = $(this.container).find('.component_field');
+        const _form = new FormData();
+        let _component_name = $(this.container).find('input[name="_component_name"]').val();
+        $.each (componentFields, function (index,field) {
+            if (! $(field).val() ) {
+                _form.append($(field).attr('name'),$(field).text());
+            } else if($(field).is(':checkbox')) {
+                console.log($(field));
+                if ($(field).is(":checked")) {
+                    _form.append($(field).attr('name'), $(field).val());
+                }
+            } else {
+                if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
+                    console.log('ddd',tinyMCE.get($(field).attr('id')).getContent());
+                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                }
+                _form.append($(field).attr('name'),$(field).val());
+            }
+        })
+        axios.post('/admin/components/common/build-save/'+_component_name,_form)
+            .then(function(response){
+               let _response = response.data;
+               window.handleOKResponse(_response);
+            }).catch(function(response) {
+                _this.#setLoading(false);
+                window.handleBadResponse(response.data);
+        });
+    }
+
+    updateComponent() {
+        this.#setLoading(true);
+        let _this = this;
+        let componentFields = $(this.container).find('.component_field');
+        const _form = new FormData();
+        let _component_ID = $(this.container).find('input[name="_source-option-id"]').val();
+        $.each (componentFields, function (index,field) {
+            if (! $(field).val() ) {
+                _form.append($(field).attr('name'),$(field).html());
+            }else if($(field).is(':checkbox')) {
+                if ($(field).is(":checked")) {
+                    _form.append($(field).attr('name'), $(field).val());
+                }
+            }  else {
+                if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
+                    console.log('dd',tinyMCE.get($(field).attr('id')).getContent());
+                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                }
+                _form.append($(field).attr('name'),$(field).val());
+            }
+        })
+        console.log('hello wolrd');
+        axios.post('/admin/components/common/build-update/'+_component_ID,_form)
+            .then(function(response){
+                let _response = response.data;
+                window.handleOKResponse(_response);
+            }).catch(function(response) {
+                _this.#setLoading(false);
+               let _response =response.data;
+               window.handleBadResponse(_response);
+        });
+    }
+
+    removeComponent(elm) {
+        this.#setLoading(true);
+        let _this = this;
+        let _componentID = $(elm).attr('data-component-id');
+        let _webComponentID = $(this.container).find('input[name="_source-option-id"]').val();
+        axios.post('/admin/components/common/delete-component/'+_webComponentID+'/'+_componentID)
+            .then(function(response) {
+                let _response = response.data;
+                window.handleOKResponse(_response);
+            })
+    }
+}
+if ($('#commonComponentBuilder').length) {
+    window.CB = new CommonComponentSelector($('#commonComponentBuilder'))
 }

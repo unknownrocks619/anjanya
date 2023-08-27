@@ -29,7 +29,6 @@
                         Limit Number of Slider
                     </label>
                     <input type='number' class='form-control' name='number_of_slider' min='1' max='30' />
-
                 </div>
             </div>
         </div>

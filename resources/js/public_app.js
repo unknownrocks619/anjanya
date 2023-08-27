@@ -217,4 +217,12 @@ $(function () {
             $(registrationElement).replaceWith(_button);
         })
     }
+
+    if ($(document).find('div[contenteditable="true"]').length) {
+        $(document).find('div[contenteditable="true"]')
+                    .removeAttr('contenteditable')
+                    .removeClass('tiny-mce')
+                    .removeClass('mce-content-body')
+                    .removeAttr('editable')
+    };
 })
