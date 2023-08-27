@@ -9,6 +9,17 @@ return [
         ],
         'quotes'    => [
             'view'  => 'components.quotes.view'
+        ],
+        'icon_column' => [
+            'preview'   => 'preview',
+            'edit'      => 'components.icon_column.edit',
+            'add'       => 'components.icon_column.add',
+            'iframe'    => 'components.icon_column.iframe',
+            'view'      => 'components.icon_column.view',
+            'namespace'  => 'IconColumn\\IconColumn'
+        ],
+        'contact_form'  => [
+            'view'  => 'components.contact_form.view'
         ]
     ],
 ];

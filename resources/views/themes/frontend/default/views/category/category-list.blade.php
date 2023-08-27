@@ -15,13 +15,13 @@
                             <div class="col-6 my-3">
                                 @php
                                     $image = \App\Classes\Helpers\SystemSetting::logo();
-                                    
+
                                     $categoryImage = $category
                                         ->getImage()
                                         ->where('type', 'featured_image')
                                         ->latest()
                                         ->first();
-                                    
+
                                     if ($categoryImage) {
                                         $featuredImage = $categoryImage->image;
                                         if ($featuredImage) {
@@ -69,6 +69,8 @@
                     </div>
                 @endif
             </div>
+            @include('frontend.components.lister', ['model' => $menu])
+
         </div>
     </section>
 @endsection

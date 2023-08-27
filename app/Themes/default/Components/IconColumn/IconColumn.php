@@ -1,15 +1,29 @@
 <?php
 
-namespace App\Classes\Components\Services\IconColumn;
+namespace App\Themes\default\Components\IconColumn;
 
 use App\Classes\Components\Services\BaseComponent;
 use App\Classes\Components\Services\ComponentInterface;
+use App\Classes\Helpers\Image;
 use App\Models\ComponentBuilder;
 use Illuminate\Http\Request;
 
 class IconColumn extends BaseComponent implements ComponentInterface
 {
+
     protected $_component_name = 'icon_column';
+
+    public function uploadMedia() {
+        $request = Request::capture();
+        $image = Image::uploadOnly($request->file('image'));
+
+
+        $source = str($request->post('name'))->before('_')->value();
+        if (! $image ) {
+            return $this->json(false,'Unable to upload image.','clearImage',['source' => $source]);
+        }
+        return $this->json(true,'Image uploaded',null,['source' => $source,'image' => Image::getImageAsSize($image[0]->filepath,'m')]);
+    }
     public function store($componentBinder)
     {
         $request = Request::capture();
@@ -33,6 +47,7 @@ class IconColumn extends BaseComponent implements ComponentInterface
         $values= [
             'row'   => $request->post('row'),
             'column'    => $request->post('column'),
+            'position'  => $request->post('column_position'),
             'subtitle'  => $request->post('subtitle'),
             'heading'   => $request->post('heading'),
         ];
@@ -45,6 +60,7 @@ class IconColumn extends BaseComponent implements ComponentInterface
                 $columnArray['icon'] = $iconValue;
                 $columnArray['title'] = $request->post('title')[$key][$iconKey];
                 $columnArray['description'] = $request->post('description')[$key][$iconKey];
+                $columnArray['image']   = $request->post('icon_image')[$key][$iconKey];
                 $innerArray[] = $columnArray;
             }
             $data[] = $innerArray;
@@ -65,6 +81,7 @@ class IconColumn extends BaseComponent implements ComponentInterface
         $values = [
             'subtitle'  => $request->post('subtitle'),
             'heading'   => $request->post('heading'),
+            'position'  => $request->post('column_position'),
         ];
         $component = ComponentBuilder::find($request->post('_componentID'));
         if (! $component ) {
@@ -82,6 +99,8 @@ class IconColumn extends BaseComponent implements ComponentInterface
                 $columnArray['icon'] = $iconValue;
                 $columnArray['title'] = $request->post('title')[$key][$iconKey];
                 $columnArray['description'] = $request->post('description')[$key][$iconKey];
+                $columnArray['image']   = $request->post('icon_image')[$key][$iconKey];
+
                 $innerArray[] = $columnArray;
             }
             $data[] = $innerArray;

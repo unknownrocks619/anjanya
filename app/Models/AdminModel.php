@@ -40,7 +40,8 @@ class AdminModel extends Model
     public function getComponents()
     {
         return $this->hasMany(ComponentBuilder::class, 'relation_id')
-                    ->where('relation_model', get_class($this));
+                    ->where('relation_model', get_class($this))
+                    ->orderBy('component_builders.id','asc');
     }
     public function webComponents() {
         return $this->hasManyThrough(WebComponents::class,CommonComponentConnector::class,'relation_id','id','id','web_component_id')

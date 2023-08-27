@@ -39,7 +39,7 @@ class MenuController extends Controller
             $this->active_menu = ModelsMenu::where('menu_type', 'homepage')
                 ->latest()
                 ->where('active', true)
-                ->with(['getComponents', 'getImage', 'getSeo', 'children'])
+                ->with(['webComponents.getComponents', 'getImage', 'getSeo', 'children'])
                 ->first();
 
             $defaultSEO = Meta::metaInfo($this->active_menu);
