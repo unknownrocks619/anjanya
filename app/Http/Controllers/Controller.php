@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Response;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-
+    protected $plugin_name='';
     /**
      * Admin Panel Access Theme
      *
@@ -25,6 +25,9 @@ class Controller extends BaseController
     public function admin_theme(string $view, array $data = []): View
     {
         $base_path = 'backend.';
+        if ($this->plugin_name) {
+            $base_path = $this->plugin_name.'::'.$base_path;
+        }
         return view($base_path . $view, $data);
     }
 
@@ -44,7 +47,11 @@ class Controller extends BaseController
     {
         $data['theme_view'] = $view;
         $data['extends'] = $layout;
-        return view('themes.frontend.' . $this->theme_name() . '.views.' . $view, $data);
+        $base_layout = 'themes.frontend.' . $this->theme_name() . '.views.' . $view;
+        if ($this->plugin_name) {
+            $base_layout = $this->plugin_name .':'.$base_layout;
+        }
+        return view($base_layout, $data);
     }
 
     public function components($view, array $data = []) {

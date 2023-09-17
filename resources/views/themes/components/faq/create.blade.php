@@ -47,7 +47,7 @@
     <div class="col-md-6 right-wrapper">
         <div class="lc-block mb-5">
             <div editable="rich">
-                <h4 class="h4 component_field" name="faq_right_title[]">Duis aute irure dolor in?</h4>
+                <h4 class="h4 component_field tiny-mce" name="faq_right_title[]">Duis aute irure dolor in?</h4>
                 <div class="component_field tiny-mce" name="faq_right_description[]">Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                 <button class="btn btn-danger" onclick="removeFaq(this)" type="button">
                     <i class="fa fa-trash"></i>

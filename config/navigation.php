@@ -9,88 +9,36 @@ return [
                 'icon' => 'icofont icofont-dashboard-web'
             ]
         ],
-        // 'Video LMS' => [
-        //     [
-        //         'name' => 'Courses',
-        //         'children' => [
-        //             [
-        //                 'name' => 'Course List',
-        //                 'children' => [],
-        //                 'route' => 'admin.courses.list',
-        //                 'icon' => ''
-        //             ],
-        //             [
-        //                 'name' => 'Chapters List',
-        //                 'children' => [],
-        //                 'route' => 'admin.chapters.list',
-        //                 'icon' => ''
-        //             ],
-        //             [
-        //                 'name' => 'Lessons List',
-        //                 'children' => [],
-        //                 'route' => 'admin.lessions.list',
-        //                 'icon' => ''
-        //             ],
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-ui-user-group'
-        //     ],
-        //     [
-        //         'name' => 'Enrollment',
-        //         'children' => [
-        //             ['name' => "Users", 'children' => [], 'route' => ''],
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-ui-image'
-        //     ]
-        // ],
-        // 'Events' => [
-        //     [
-        //         'name' => 'Programs',
-        //         'children' => [
-        //             ['name' => 'List', 'children' => [], 'route' => ''],
-        //             ['name' => 'Create Program', 'children' => [], 'route' => '']
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-database-add'
-        //     ],
-        //     [
-        //         'name' => 'Donations',
-        //         'children' => [
-        //             ['name' => 'Sales', 'children' => [], 'route' => ''],
-        //             ['name' => 'Purchase', 'children' => [], 'route' => '']
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-database-add'
-        //     ],
-        // ],
-        // 'E-Commerce' => [
-        //     [
-        //         'name' => 'Oders / Products',
-        //         'children' => [
-        //             ['name' => 'Book List', 'children' => [], 'route' => 'admin.book.list'],
-        //             ['name' => 'Book Bundle', 'children' => [], 'route' => 'admin.book.bundle.list'],
-        //             ['name' => 'Product List', 'children' => [], 'route' => 'admin.ecom.list'],
-        //             ['name' => 'Orders', 'children' => [], 'route' => 'admin.orders.list'],
-        //             ['name' => 'Transactions', 'children' => [], 'route' => 'admin.transactions.list'],
 
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-database-add'
-        //     ],
-        // ],
-        // 'Organisation' => [
-        //     [
-        //         'name' => 'Settings',
-        //         'children' => [
-        //             ['name' => 'All Organisation', 'children' => [], 'route' => 'admin.org.list'],
-        //             ['name' => 'List Project', 'children' => [], 'route' => 'admin.org.projects.list'],
-        //             ['name' => 'Project Transactions', 'children' => [], 'route' => 'admin.org.transactions.list'],
-        //         ],
-        //         'route' => '',
-        //         'icon' => 'icofont icofont-settings-alt'
-        //     ],
-        // ],
+        'Plugins'   => [
+          [
+              'name'    => 'Hotel Management',
+              'children'    => [
+                  [
+                      'name'    => 'Amenities',
+                      'route' => 'admin.amenities.list',
+                      'icon'    => ''
+                  ],
+                  [
+                      'name'    => 'Room',
+                      'route'   => 'admin.room.list',
+                      'icon'    => ''
+                  ],
+                  [
+                      'name'    => 'Testimonials',
+                      'route'   => 'admin.testimonials.list',
+                      'icon'    => ''
+                  ],
+                  [
+                      'name'    => 'Clients',
+                      'route'   => 'admin.clients.list',
+                      'icon'    => ''
+                  ],
+              ],
+              'route'   => '',
+              'icon'    => ''
+          ]  ,
+        ],
         'CRM' => [
             [
                 'name' => "Content Management",
@@ -199,3 +147,86 @@ return [
         ]
     ]
 ];
+
+// 'Video LMS' => [
+//     [
+//         'name' => 'Courses',
+//         'children' => [
+//             [
+//                 'name' => 'Course List',
+//                 'children' => [],
+//                 'route' => 'admin.courses.list',
+//                 'icon' => ''
+//             ],
+//             [
+//                 'name' => 'Chapters List',
+//                 'children' => [],
+//                 'route' => 'admin.chapters.list',
+//                 'icon' => ''
+//             ],
+//             [
+//                 'name' => 'Lessons List',
+//                 'children' => [],
+//                 'route' => 'admin.lessions.list',
+//                 'icon' => ''
+//             ],
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-ui-user-group'
+//     ],
+//     [
+//         'name' => 'Enrollment',
+//         'children' => [
+//             ['name' => "Users", 'children' => [], 'route' => ''],
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-ui-image'
+//     ]
+// ],
+// 'Events' => [
+//     [
+//         'name' => 'Programs',
+//         'children' => [
+//             ['name' => 'List', 'children' => [], 'route' => ''],
+//             ['name' => 'Create Program', 'children' => [], 'route' => '']
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-database-add'
+//     ],
+//     [
+//         'name' => 'Donations',
+//         'children' => [
+//             ['name' => 'Sales', 'children' => [], 'route' => ''],
+//             ['name' => 'Purchase', 'children' => [], 'route' => '']
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-database-add'
+//     ],
+// ],
+// 'E-Commerce' => [
+//     [
+//         'name' => 'Oders / Products',
+//         'children' => [
+//             ['name' => 'Book List', 'children' => [], 'route' => 'admin.book.list'],
+//             ['name' => 'Book Bundle', 'children' => [], 'route' => 'admin.book.bundle.list'],
+//             ['name' => 'Product List', 'children' => [], 'route' => 'admin.ecom.list'],
+//             ['name' => 'Orders', 'children' => [], 'route' => 'admin.orders.list'],
+//             ['name' => 'Transactions', 'children' => [], 'route' => 'admin.transactions.list'],
+
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-database-add'
+//     ],
+// ],
+// 'Organisation' => [
+//     [
+//         'name' => 'Settings',
+//         'children' => [
+//             ['name' => 'All Organisation', 'children' => [], 'route' => 'admin.org.list'],
+//             ['name' => 'List Project', 'children' => [], 'route' => 'admin.org.projects.list'],
+//             ['name' => 'Project Transactions', 'children' => [], 'route' => 'admin.org.transactions.list'],
+//         ],
+//         'route' => '',
+//         'icon' => 'icofont icofont-settings-alt'
+//     ],
+// ],

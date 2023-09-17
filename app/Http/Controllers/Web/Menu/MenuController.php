@@ -80,7 +80,7 @@ class MenuController extends Controller
                 $defaultSEO = $pageSeo;
             }
 
-            return $this->frontend_theme('master', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
+            return $this->frontend_theme('master', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
         }
 
         if ($this->active_menu->menu_type == 'category') {

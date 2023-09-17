@@ -56,7 +56,7 @@
         @foreach($componentValue['right'] as $rightFaq)
             <div class="lc-block mb-5">
                 <div editable="rich">
-                    <h4 class="h4 component_field" name="faq_right_title[]">{!! $rightFaq['title'] !!}</h4>
+                    <h4 class="h4 component_field tiny-mce" name="faq_right_title[]">{!! $rightFaq['title'] !!}</h4>
                     <div class="component_field tiny-mce" name="faq_right_description[]">
                         {!! $rightFaq['description'] !!}
                     </div>

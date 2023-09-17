@@ -50,8 +50,8 @@ class Meta
     {
         self::$templateString = view('themes.frontend.meta')->render();
 
-        $seoContent = $model->getSeo()->first();
-        $seoImage = $model->getImage()->where('type', 'seo')->first();
+        $seoContent = $model?->getSeo()->first();
+        $seoImage = $model?->getImage()->where('type', 'seo')->first();
 
         $image = SystemSetting::logo();
 

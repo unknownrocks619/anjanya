@@ -25,7 +25,7 @@ class Menu
         'homepage'  => '/',
         'contact'   => '/contact',
         'login'         => '/login',
-        'register'      => '/register'
+        'register'      => '/register',
     ];
     public static function all()
     {

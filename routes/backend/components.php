@@ -26,6 +26,7 @@ Route::prefix('components')
                    Route::post('build-save/{component_name?}','save')->name('save');
                     Route::post('build-update/{webcomponent}','update')->name('udpate');
                    Route::post('upload-image/{component_name}','uploadImage')->name('upload-image');
+                    Route::post('upload-common-component/{webComponent}','deleteCommonComponent')->name('delete-common-component');
                    Route::post('delete-component/{webcomponent}/{componentBuilder}','deleteComponent')->name('delete-component');
                 });
     });

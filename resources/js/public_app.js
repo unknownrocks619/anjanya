@@ -15,13 +15,9 @@ Object.defineProperty(window, 'SIDEBAR_TEXT', {
 })
 
 import './frontend_partials/ajax_form.js';
-import './frontend_partials/registration.js';
-import './frontend_partials/select2.js'
 import './frontend_partials/ajax-modal.js'
-import './frontend_partials/subscription.js';
 
 $(function () {
-
     /**
      * Ajax Setup
      */
@@ -118,12 +114,15 @@ $(function () {
         if (state == null || message == null) {
             return;
         }
-        let _class = (state == true) ? 'alert alert-success' : 'alert alert-danger';
+        let _class = (state == true) ? 'alert alert-success bg-success text-white' : 'alert alert-danger';
         // check if to display on form
         if ($('.ajax-append').length && $('.ajax-submit-success').length && $(".ajax-form-message-box").length) {
             let _div = `<div class='row'> <div class='col-md-12 ${_class}'>${message}</div></div>`
             $('.ajax-submit-success').find('.ajax-form-message-box').html(_div);
             // $('.ajax-form-message-box').html(_div);
+        }
+        if (_class =='alert alert-success bg-success text-white') {
+            $('.ajax-append').find('input').val('');
         }
     }
 

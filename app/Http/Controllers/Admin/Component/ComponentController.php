@@ -18,7 +18,6 @@ class ComponentController extends Controller
 
     public function builder(?ComponentBuilder $component =null,?WebComponents $webcomponent=null) {
         $request = Request::capture();
-
         if ($request->ajax() && $request->has('component_name')) {
             $component = new Component($request->get('component_name'));
             return $this->json(true,'Component Loaded','',['view' => $component->builder()->render()]);
@@ -33,13 +32,11 @@ class ComponentController extends Controller
     public function edit(WebComponents $webcomponent) {
         $webcomponent = $webcomponent->load('getComponents');
         $request = Request::capture();
-
         if ($request->ajax() && $request->has('component_name')) {
 
             if (! $request->get('componentID') ) {
                 return throw new \Error('Unable to find component.');
             }
-
             $componentBuilder = ComponentBuilder::find($request->get('componentID'));
             $component = new Component($request->get('component_name'));
             $component->setParams('_loadComponentBuilder', $componentBuilder)
@@ -112,6 +109,13 @@ class ComponentController extends Controller
         if ( ! $component->loader()->delete($componentBuilder) ) {
             return $this->json(false,'Failed to remove.');
         }
+        return $this->json(true,'Component Removed.','reload');
+
+    }
+
+    public function deleteCommonComponent(Request $request, WebComponents $webComponent) {
+        $webComponent->getComponents()->delete();
+        $webComponent->delete();
         return $this->json(true,'Component Removed.','reload');
 
     }

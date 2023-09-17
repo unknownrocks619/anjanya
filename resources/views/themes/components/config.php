@@ -65,5 +65,5 @@ return [
         'add'   => 'create',
         'edit'  => 'edit',
         'view'  => 'view'
-    ]
+    ],
 ];
