@@ -8,8 +8,8 @@
         $class = 'col-md-9';
     }
 @endphp
-<div class="container-fluid px-0 mx-0 my-2">
-    <div class="row d-flex justify-content-center">
+<div class="container px-0 mx-0 my-2">
+    <div class="row">
         <div class="{{$class}}">
             <div id="componentCarouselContainer" class="carousel component-carousel slide carousel-dark" data-bs-ride="carousel"  data-bs-touch="true">
                 <div class="carousel-indicators">
@@ -22,7 +22,7 @@
                 <div class="carousel-inner">
                     @foreach($sliders->sliders as $slider)
                         <div class="carousel-item @if($loop->first) active @endif">
-                            <img class="d-block w-100 img-fluid" style="max-height:90vh"
+                            <img class="d-block w-100 img-fluid"
                                  src="{{\App\Classes\Helpers\Image::getImageAsSize($slider->getImage[0]->image->filepath,'m')}}"
                                  alt="First slide"/>
                             @if($slider->heading_one || $slider->description)
