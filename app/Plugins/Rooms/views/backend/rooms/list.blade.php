@@ -57,7 +57,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="delete">
-                                                        <a href="#" data-confirm="Are you sure?" class="data-confirm" data-method="post" data-action="{{route('admin.room.delete',['room' => $room->getKey(])}}"><i class="icon-trash"></i></a>
+                                                        <a href="#" data-confirm="Are you sure?" class="data-confirm" data-method="post" data-action="{{route('admin.room.delete',['room' => $room->getKey()]}}"><i class="icon-trash"></i></a>
                                                     </li>
                                                 </ul>
                                             </td>
