@@ -66,4 +66,14 @@ return [
         'edit'  => 'edit',
         'view'  => 'view'
     ],
+    'parallax_image'    => [
+        'add'   => 'add',
+        'edit'  => 'edit',
+        'view'  => 'view'
+    ],
+    'card'  => [
+        'add'   => 'add',
+        'edit'  => 'edit',
+        'view'  => 'view'
+    ]
 ];

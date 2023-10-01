@@ -4,11 +4,9 @@
 
     $sliders = \App\Models\SliderAlbum::with(['sliders'])->first();
     $class = 'col-md-12';
-    if ($componentValue['layout'] == 'slider') {
-        $class = 'col-md-9';
-    }
+
 @endphp
-<div class="container px-0 mx-0 my-2">
+<div class="container my-2">
     <div class="row">
         <div class="{{$class}}">
             <div id="componentCarouselContainer" class="carousel component-carousel slide carousel-dark" data-bs-ride="carousel"  data-bs-touch="true">

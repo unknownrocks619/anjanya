@@ -67,7 +67,6 @@
     function generateField() {
         let _no_row = $('input[name=row]').val();
         let _no_column = $('select[name=column]').val();
-        console.log('kk',_no_row,_no_column);
         let _column = ``;
         for (let i = 1; i <= _no_row; i++) {
             _column += `<div class='row mb-2'>`;

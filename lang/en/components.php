@@ -32,6 +32,7 @@
             'bullet_column'         => 'Bullet Column',
             'clients'               => 'Client',
             'testimonials'          => 'Testimonial',
+            'parallax_image'        => 'Parallax Content',
             '_failed_save'          => 'Unable to save component',
             '_success_save'         => 'Component Saved',
             '_failed_update'        => 'Unable to update component',
