@@ -2,7 +2,7 @@
     /** @var App\Models\ComponentBuilder $_loadComponentBuilder */
     $componentValue = $_loadComponentBuilder->values;
 @endphp
-<div class="px-2 py-2 text-dark">
+<div class=" container px-2 py-2 text-dark">
     <div class="component-container">
 
         <div class="row mt-2 ">
