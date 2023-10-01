@@ -1,6 +1,6 @@
 {
-  "_bootstrap.esm-8b31b521.js": {
-    "file": "assets/bootstrap.esm-8b31b521.js"
+  "_bootstrap.esm-9bbc362d.js": {
+    "file": "assets/bootstrap.esm-9bbc362d.js"
   },
   "public/frontend/default/app.css": {
     "file": "assets/app-c81f4492.css",
@@ -53,7 +53,7 @@
     "src": "public/frontend/default/images/ajax-loader.gif"
   },
   "resources/css/app.css": {
-    "file": "assets/app-f2385887.css",
+    "file": "assets/app-3f85eb09.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -1237,25 +1237,25 @@
     "file": "assets/themify-0db5c5a1.woff",
     "src": "resources/css/fonts/themify/themify.woff"
   },
-  "resources/css/public_app.css": {
-    "file": "assets/public_app-18a76a3a.css",
-    "isEntry": true,
-    "src": "resources/css/public_app.css"
-  },
   "resources/js/app.js": {
-    "file": "assets/app-ffaafafc.js",
+    "file": "assets/app-1f6d9062.js",
     "imports": [
-      "_bootstrap.esm-8b31b521.js"
+      "_bootstrap.esm-9bbc362d.js"
     ],
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/public_app.js": {
-    "file": "assets/public_app-2e187794.js",
+    "file": "assets/public_app-033752ca.js",
     "imports": [
-      "_bootstrap.esm-8b31b521.js"
+      "_bootstrap.esm-9bbc362d.js"
     ],
     "isEntry": true,
     "src": "resources/js/public_app.js"
+  },
+  "resources/js/themes/default/js/app.js": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/js/themes/default/js/app.js"
   }
 }
