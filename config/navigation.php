@@ -124,6 +124,21 @@ return [
                 'route' => ''
             ],
         ],
+//        [
+//            'Template'  => [
+//                [
+//                    'name'  => 'Themes'
+//                ],
+//                [
+//                    'name'  => 'Header',
+//                    'children' => [],
+//                    'route' => ''
+//                ],
+//                [
+//                    'name'  => 'Footer'
+//                ]
+//            ]
+//        ],
         'System'    => [
             [
                 'name'  => 'System Health',

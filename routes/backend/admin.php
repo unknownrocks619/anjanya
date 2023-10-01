@@ -114,4 +114,9 @@ Route::prefix('admin')
          */
         include __DIR__ . '/account.php';
 
+        /**
+         * @info Header
+         */
+        include __DIR__.'/header.php';
+
     });
