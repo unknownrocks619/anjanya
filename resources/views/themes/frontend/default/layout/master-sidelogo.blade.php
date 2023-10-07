@@ -48,7 +48,7 @@
 
         {!! $user_theme->partials('insta-feed') !!}
 
-        {!! $user_theme->partials('footer-master') !!}
+        {!! $user_theme->footer() !!}
 
 
     </div><!-- end site wrapper -->

@@ -1253,9 +1253,14 @@
     "isEntry": true,
     "src": "resources/js/public_app.js"
   },
-  "resources/js/themes/default/js/app.js": {
-    "file": "assets/app-4ed993c7.js",
+  "resources/js/themes/nature/css/app.css": {
+    "file": "assets/app-ccd825a8.css",
     "isEntry": true,
-    "src": "resources/js/themes/default/js/app.js"
+    "src": "resources/js/themes/nature/css/app.css"
+  },
+  "resources/js/themes/nature/js/app.js": {
+    "file": "assets/app-b62d48cb.js",
+    "isEntry": true,
+    "src": "resources/js/themes/nature/js/app.js"
   }
 }

@@ -3,6 +3,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('themes')
         ->name('themes.')
         ->group(function() {
-            Route::get('header/list',[\App\Http\Controllers\Admin\Themes\HeaderController::class,'header'])->name('header.list');
-            Route::get('footer/list',[\App\Http\Controllers\Admin\Themes\HeaderController::class,'footer'])->name('footer.list');
+            Route::match(['get','post'],'header/list',[\App\Http\Controllers\Admin\Themes\HeaderController::class,'header'])->name('header.list');
+            Route::match(['get','post'],'footer/list',[\App\Http\Controllers\Admin\Themes\HeaderController::class,'footer'])->name('footer.list');
         });

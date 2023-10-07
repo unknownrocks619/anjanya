@@ -36,13 +36,13 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
     </div>
-    {!! $user_theme->partials('header.navbar') !!}
+    {!! $user_theme->header() !!}
     <!-- site wrapper -->
     <div class="site-wrapper">
         @yield('main')
     </div>
     <!-- end site wrapper -->
-    {!! $user_theme->partials("footer.footer") !!}
+    {!! $user_theme->footer() !!}
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{asset('frontend/bellevie/js/modernizr-2.6.2.min.js')}}"></script>

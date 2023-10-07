@@ -18,7 +18,7 @@
 
         <div class="main-overlay"></div>
 
-        {!! $user_theme->partials('header') !!}
+        {!! $user_theme->header() !!}
 
         <!-- PageTitle -->
         {!! $user_theme->partials('page-header', ['title' => 'Membership Registration']) !!}

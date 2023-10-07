@@ -36,7 +36,9 @@ class Component
     }
 
     public function previewBuilder($params = []) {
-        return view($this->config->view,$params);
+        if (view()->exists($this->config->view) ) {
+            return view($this->config->view,$params);
+        }
     }
     public function builder() {
         return view($this->config->add,$this->params);

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
 
 class Controller extends BaseController
@@ -132,5 +134,19 @@ class Controller extends BaseController
         }
 
         return response($error, 422);
+    }
+
+    public function header() {
+        $base_path = env('APP_THEMES') ?? 'default';
+         $setting = Setting::where('name','header')->first();
+        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'header/default/header')->render();
+        return $view;
+    }
+
+    public function footer() {
+        $base_path = env('APP_THEMES') ?? 'default';
+        $setting = Setting::where('name','footer')->first();
+        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'footer.default.footer')->render();
+        return $view;
     }
 }

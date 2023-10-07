@@ -1,4 +1,0 @@
-<?php
-[
-        'default'   => 'default'
-    ];
