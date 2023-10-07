@@ -133,4 +133,17 @@ class Controller extends BaseController
 
         return response($error, 422);
     }
+    public function header() {
+        $base_path = env('APP_THEMES') ?? 'default';
+        $setting = Setting::where('name','header')->first();
+        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'header/default/header')->render();
+        return $view;
+    }
+
+    public function footer() {
+        $base_path = env('APP_THEMES') ?? 'default';
+        $setting = Setting::where('name','footer')->first();
+        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'footer.default.footer')->render();
+        return $view;
+    }
 }
