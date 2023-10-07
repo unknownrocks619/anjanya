@@ -13,6 +13,11 @@ return [
             'edit'  => 'components.background_image.edit',
             'namespace' => 'ServiceBar',
         ],
+        'video_section'  => [
+            'add'   => 'components.card.add',
+            'edit'   => 'components.card.edit',
+            'view'   => 'components.card.view'
+        ]
     ],
     'header'    => [
         [
