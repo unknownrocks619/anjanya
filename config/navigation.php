@@ -111,20 +111,33 @@ return [
                 'icon'  => '',
                 'route' => 'admin.slider.album.list'
             ],
-            [
-                'name'  => 'Header',
-                'children'  => [],
-                'icon'  => '',
-                'route'
-            ],
-            [
-                'name'  => 'Footer',
-                'children'  => [],
-                'icon'  => '',
-                'route' => ''
-            ],
         ],
         'System'    => [
+            [
+                'name' => 'Look & Feel',
+                'children'  => [
+                    [
+                        'name'  => 'Theme',
+                        'children'  => [],
+                        'route' => '',
+                        'icon'  => ''
+                    ],
+                    [
+                        'name'  => 'Header',
+                        'children'  => [],
+                        'route' => 'admin.themes.header.list',
+                        'icon'  => 'icofont icofont-archive'
+                    ],
+                    [
+                        'name'  => 'Footer',
+                        'children'  => [],
+                        'route' => 'admin.themes.footer.list',
+                        'icon'  => 'icofont icofont-briefcase'
+                    ]
+                ],
+                'route' => '',
+                'icon'  => 'icofont icofont-ui-theme'
+            ],
             [
                 'name'  => 'System Health',
                 'children'  => [],
