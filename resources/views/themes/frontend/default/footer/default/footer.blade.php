@@ -8,7 +8,6 @@
                     <span class="copyright">© {{ date('Y') }}
                         {{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }}</span>
                 </div>
-
                 <!-- social icons -->
                 <div class="col-md-4 text-center">
                     <ul class="social-icons list-unstyled list-inline mb-0">
