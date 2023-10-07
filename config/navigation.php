@@ -111,48 +111,20 @@ return [
                 'icon'  => '',
                 'route' => 'admin.slider.album.list'
             ],
-        ],
-//        [
-//            'Template'  => [
-//                [
-//                    'name'  => 'Themes'
-//                ],
-//                [
-//                    'name'  => 'Header',
-//                    'children' => [],
-//                    'route' => ''
-//                ],
-//                [
-//                    'name'  => 'Footer'
-//                ]
-//            ]
-//        ],
-        'System'    => [
             [
-                'name' => 'Look & Feel',
-                'children'  => [
-                    [
-                        'name'  => 'Theme',
-                        'children'  => [],
-                        'route' => '',
-                        'icon'  => ''
-                    ],
-                    [
-                        'name'  => 'Header',
-                        'children'  => [],
-                        'route' => 'admin.themes.header.list',
-                        'icon'  => 'icofont icofont-archive'
-                    ],
-                    [
-                        'name'  => 'Footer',
-                        'children'  => [],
-                        'route' => 'admin.themes.footer.list',
-                        'icon'  => 'icofont icofont-briefcase'
-                    ]
-                ],
-                'route' => '',
-                'icon'  => 'icofont icofont-ui-theme'
+                'name'  => 'Header',
+                'children'  => [],
+                'icon'  => '',
+                'route'
             ],
+            [
+                'name'  => 'Footer',
+                'children'  => [],
+                'icon'  => '',
+                'route' => ''
+            ],
+        ],
+        'System'    => [
             [
                 'name'  => 'System Health',
                 'children'  => [],

@@ -46,14 +46,14 @@
         <div class="main-overlay"></div>
 
         <!-- header -->
-        {!! $user_theme->header() !!}
+        {!! $user_theme->partials('header-master') !!}
 
         @yield('main')
 
 
         {!! $user_theme->partials('insta-feed') !!}
 
-        {!! $user_theme->footer() !!}
+        {!! $user_theme->partials('footer-master') !!}
 
 
     </div><!-- end site wrapper -->

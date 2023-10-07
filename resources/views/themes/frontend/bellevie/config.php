@@ -47,26 +47,4 @@ return [
             'namespace' => 'Testimonial\\Testimonial'
         ]
     ],
-    'header'    => [
-        [
-            'screenshot'    => 'screenshot.png',
-            'author'        => 'Binod Giri',
-            'email'         => 'binod.giri003@gmail.com',
-            'version'       => '1.0',
-            'name'          => "Default Header",
-            'namespace'     => 'default',
-            'themename'     => 'bellevie'
-        ],
-    ],
-    'footer'    => [
-        [
-            'screenshot'    => 'screenshot.png',
-            'author'        => 'Binod Giri',
-            'email'         => 'binod.giri003@gmail.com',
-            'version'       => '1.0',
-            'name'          => "Default Footer",
-            'namespace'     => 'default',
-            'themename'     => 'bellevie'
-        ],
-    ]
 ];
