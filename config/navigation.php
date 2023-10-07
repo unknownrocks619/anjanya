@@ -112,21 +112,6 @@ return [
                 'route' => 'admin.slider.album.list'
             ],
         ],
-//        [
-//            'Template'  => [
-//                [
-//                    'name'  => 'Themes'
-//                ],
-//                [
-//                    'name'  => 'Header',
-//                    'children' => [],
-//                    'route' => ''
-//                ],
-//                [
-//                    'name'  => 'Footer'
-//                ]
-//            ]
-//        ],
         'System'    => [
             [
                 'name' => 'Look & Feel',
