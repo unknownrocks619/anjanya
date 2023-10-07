@@ -1,4 +1,5 @@
 /import
 /uploads
-/build.zip
 /build
+/build/*
+/build.zip
