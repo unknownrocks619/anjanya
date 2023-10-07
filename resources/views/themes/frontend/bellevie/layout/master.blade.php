@@ -37,12 +37,14 @@
         </svg>
     </div>
     {!! $user_theme->header() !!}
+
     <!-- site wrapper -->
     <div class="site-wrapper">
         @yield('main')
     </div>
     <!-- end site wrapper -->
     {!! $user_theme->footer() !!}
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{asset('frontend/bellevie/js/modernizr-2.6.2.min.js')}}"></script>

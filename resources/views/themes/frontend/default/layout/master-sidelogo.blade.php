@@ -41,7 +41,7 @@
         <div class="main-overlay"></div>
 
         <!-- header -->
-        {!! $user_theme->partials('header') !!}
+        {!! $user_theme->header() !!}
 
         @yield('main')
 
@@ -49,7 +49,6 @@
         {!! $user_theme->partials('insta-feed') !!}
 
         {!! $user_theme->footer() !!}
-
 
     </div><!-- end site wrapper -->
 
