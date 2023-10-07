@@ -2,9 +2,9 @@
     /** @var App\Models\ComponentBuilder $_loadComponentBuilder */
     $componentValue = $_loadComponentBuilder->values;
     $view = 'slider';
-    if ($componentValue['type'] == 'category') {
+    if (isset($componentValue['type']) && $componentValue['type'] == 'category') {
         $view = 'category';
-    } elseif($componentValue['type'] == 'post') {
+    } elseif(isset($componentValue['type']) && $componentValue['type'] == 'post') {
         $view = 'post';
     }
 @endphp

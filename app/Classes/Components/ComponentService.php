@@ -88,7 +88,10 @@ class ComponentService
 
     public function getConfiguration()
     {
-        return new ConfigWrapper($this->components->get($this->key));
+        if ($this->components->get($this->key)) {
+            return new ConfigWrapper($this->components->get($this->key));
+        }
+        return [];
     }
 
 
