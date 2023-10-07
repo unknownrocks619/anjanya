@@ -39,7 +39,7 @@ class Component
         if ( is_array($this->config) &&  isset($this->config['view'])) {
             return view($this->config['view'],$params);
         }
-        if ( ! is_array($this->config)) {
+        if (view()->exists($this->config->view)) {
             return view($this->config->view,$params);
         }
     }
