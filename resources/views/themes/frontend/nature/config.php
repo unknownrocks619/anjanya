@@ -12,7 +12,7 @@ return [
             'add'   => 'components.background_image.add',
             'edit'  => 'components.background_image.edit',
             'namespace' => 'ServiceBar',
-        ]
+        ],
     ],
     'header'    => [
         [
