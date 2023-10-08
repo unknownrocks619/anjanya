@@ -13,7 +13,8 @@ class FrontendRoomController extends  Controller
     protected $plugin_name='Rooms';
 
     public function rooms() {
-
+        $rooms = Rooms::where('status','active')->with(['getSeo','getImage','amenities'])->get();
+        return view('Rooms:frontend.list',['rooms' => $rooms]);
     }
 
     public function detail(string $slug) {

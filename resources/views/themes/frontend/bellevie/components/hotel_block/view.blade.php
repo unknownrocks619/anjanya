@@ -5,8 +5,9 @@
                                             $query->where('type','featured');
                                         },'amenities']);
     if ( ! empty ($componentValue['rooms']))  {
-        $rooms->whereIn('id',$componentValue['rooms']);
+        $rooms->whereIn('id',explode(',',$componentValue['rooms'][0]));
     }
+
     $rooms = $rooms->get();
 @endphp
 @if (! empty ($componentValue['rooms']) )
@@ -35,8 +36,8 @@
                     </div>
                     <span class="category"><a href="{{route('room.detail',['slug' => $room->slug])}}">{{$room->room_name}}</a></span>
                     <div class="con">
-                        <h6><a href="room-details.html">{{$room->price}}$ / Night</a></h6>
-                        <h5><a href="room-details.html">{{$room->room_name}}</a> </h5>
+                        <h6><a href="{{route('room.detail',['slug' => $room->slug])}}">{{$room->price}}$ / Night</a></h6>
+                        <h5><a href="{{route('room.detail',['slug' => $room->slug])}}">{{$room->room_name}}</a> </h5>
                         <div class="line"></div>
                         <div class="row facilities">
                             <div class="col col-md-7">
