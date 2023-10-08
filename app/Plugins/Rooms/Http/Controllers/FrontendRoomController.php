@@ -4,6 +4,7 @@ namespace App\Plugins\Rooms\Http\Controllers;
 
 use App\Classes\Plugins\Hook;
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use App\Plugins\Rooms\Http\Models\Rooms;
 use App\Plugins\Rooms\Http\Models\RoomsAmenities;
 use Illuminate\Http\Request;
@@ -13,8 +14,12 @@ class FrontendRoomController extends  Controller
     protected $plugin_name='Rooms';
 
     public function rooms() {
+        $menu = Menu::where('slug', 'room')->where('active',true)->first();
+        if (! $menu ) {
+            abort($menu);
+        }
         $rooms = Rooms::where('status','active')->with(['getSeo','getImage','amenities'])->get();
-        return view('Rooms::frontend.list',['rooms' => $rooms]);
+        return view('Rooms::frontend.list',['rooms' => $rooms,'menu' => $menu]);
     }
 
     public function detail(string $slug) {
