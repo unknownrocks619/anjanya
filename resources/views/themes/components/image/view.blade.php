@@ -10,7 +10,7 @@
                 <div class="row mb-4 align-items-center">
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <div class="lc-block text-center">
-                            <img class="img-fluid w-50"
+                            <img class="img-fluid w-100"
                                  @if ( ! $component['image'])
                                      src="https://cdn.livecanvas.com/media/svg/isometric/app_development_SVG.svg"
                                  @else src="{{$component['image']}}" @endif
@@ -42,7 +42,7 @@
                 <div class="right-image-content row mb-4 align-items-center">
                     <div class="col-lg-6 mb-4 mb-lg-0 order-lg-1">
                         <div class="lc-block text-center">
-                            <img class="img-fluid w-50" @if( ! $component['image'])
+                            <img class="img-fluid w-100" @if( ! $component['image'])
                                 src="https://cdn.livecanvas.com/media/svg/isometric/Startup_SVG.svg"
                                  @else
                                      src="{{$component['image']}}"
