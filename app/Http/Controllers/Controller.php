@@ -49,7 +49,7 @@ class Controller extends BaseController
         $data['extends'] = $layout;
         $base_layout = 'themes.frontend.' . $this->theme_name() . '.views.' . $view;
         if ($this->plugin_name) {
-            $base_layout = $this->plugin_name .':'.$base_layout;
+            $base_layout = $this->plugin_name .'::'.$base_layout;
         }
         return view($base_layout, $data);
     }
