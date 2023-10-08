@@ -15,7 +15,6 @@
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <form action="{{route('admin.themes.header.list')}}" class="ajax-form" method="post">
             <div class="row">

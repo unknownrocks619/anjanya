@@ -1,6 +1,6 @@
 @extends('themes.admin.master')
 @push('page_title')
-    Header
+    Footer
 @endpush
 
 @section('main-content')
@@ -9,13 +9,12 @@
             <div class="row">
                 <div class="col-6">
                     <h3>
-                        Select Default Header
+                        Select Default Footer
                     </h3>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container-fluid">
         <form action="{{route('admin.themes.footer.list')}}" class="ajax-form" method="post">
             <div class="row">
