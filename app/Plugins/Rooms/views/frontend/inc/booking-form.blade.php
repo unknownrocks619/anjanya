@@ -8,7 +8,7 @@
 @endphp
 <!-- Reservation & Booking Form -->
 <section class="testimonials mt-3" id="booking-form">
-    <div class="background bg-img bg-fixed section-padding pb-0" data-background="{{\App\Classes\Helpers\Image::getImageAsSize($bannerImages->image->filepath,'l')}}" data-overlay-dark="2">
+    <div class="background bg-img bg-fixed section-padding pb-0" data-background="{{\App\Classes\Helpers\Image::getImageAsSize($bannerImages?->image?->filepath,'l')}}" data-overlay-dark="2">
         <div class="container">
             <div class="row">
                 <!-- Reservation -->

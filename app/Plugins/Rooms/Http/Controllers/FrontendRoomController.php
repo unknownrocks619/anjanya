@@ -14,12 +14,12 @@ class FrontendRoomController extends  Controller
     protected $plugin_name='Rooms';
 
     public function rooms() {
-        $menu = Menu::where('slug', 'room')->with(['getSeo','getImage'])->where('active',true)->first();
+        $menu = Menu::where('slug', 'room')->with(['getSeo'])->where('active',true)->first();
         if (! $menu ) {
             abort($menu);
         }
         $rooms = Rooms::where('status','active')->with(['getSeo','getImage','amenities'])->get();
-        return $this->frontend_theme('master', 'frontend.list',['rooms' => $rooms,'menu' => $menu,'seo' => $menu->getSeo]);
+        return view('Rooms::frontend.list',['rooms' => $rooms,'menu' => $menu,'extends' => 'master']);
     }
 
     public function detail(string $slug) {
