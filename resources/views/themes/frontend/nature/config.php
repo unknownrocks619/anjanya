@@ -7,16 +7,22 @@ return [
             'edit'  => 'components.background_image.edit',
             'namespace' => 'BackgroundImage'
         ],
-        'service_bar'   => [
-            'view'  => 'components.background_image.view',
-            'add'   => 'components.background_image.add',
-            'edit'  => 'components.background_image.edit',
-            'namespace' => 'ServiceBar',
+        'progress_card'   => [
+            'view'  => 'components.progress_card.view',
+            'add'   => 'components.progress_card.add',
+            'edit'  => 'components.progress_card.edit',
+            'namespace' => 'ProgressCard',
         ],
         'video_section'  => [
-            'add'   => 'components.card.add',
-            'edit'   => 'components.card.edit',
-            'view'   => 'components.card.view'
+            'add'   => 'components.video_section.add',
+            'edit'   => 'components.video_section.edit',
+            'view'   => 'components.video_section.view'
+        ],
+        'testimonials'  => [
+            'add'   => 'components.testimonials.add',
+            'edit'   => 'components.testimonials.edit',
+            'view'   => 'components.testimonials.view',
+            'namespace' => 'Testimonial'
         ]
     ],
     'header'    => [

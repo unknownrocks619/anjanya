@@ -60,6 +60,8 @@
                                             <option value="hotels.com"  @if($testimonial->source == 'hotels.com') selected @endif>hotels</option>
                                             <option value="local-broker"  @if($testimonial->source == 'local-borker') selected @endif>Local Borkers</option>
                                             <option value="walk-in"   @if($testimonial->source == 'walk-in') selected @endif>WalkIn</option>
+                                            <option value="other" @if($testimonial->source == 'other') selected @endif>Other</option>
+
                                         </select>
                                     </div>
                                 </div>

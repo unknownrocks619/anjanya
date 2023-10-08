@@ -313,20 +313,24 @@ export default class CommonComponentSelector {
         let _component_ID = $(this.container).find('input[name="_source-option-id"]').val();
         $.each (componentFields, function (index,field) {
             if (! $(field).val() ) {
-                _form.append($(field).attr('name'),$(field).html());
+                if ($(field).is('textarea') && $(field).hasClass('tiny-mce')) {
+                    console.log(tinyMCE.get($(field).attr('id')).getContent());
+                    _form.append($(field).attr('name'),tinyMCE.get($(field).attr('id')).getContent());
+                } else {
+                    _form.append($(field).attr('name'),$(field).html());
+                }
             }else if($(field).is(':checkbox')) {
                 if ($(field).is(":checked")) {
                     _form.append($(field).attr('name'), $(field).val());
                 }
             }  else {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
-                    console.log('dd',tinyMCE.get($(field).attr('id')).getContent());
                     _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                } else {
+                    _form.append($(field).attr('name'),$(field).val());
                 }
-                _form.append($(field).attr('name'),$(field).val());
             }
         })
-        console.log('hello wolrd');
         axios.post('/admin/components/common/build-update/'+_component_ID,_form)
             .then(function(response){
                 let _response = response.data;

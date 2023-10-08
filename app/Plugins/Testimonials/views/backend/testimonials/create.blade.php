@@ -59,7 +59,8 @@
                                             <option value="agoda.com">Agoda</option>
                                             <option value="hotels.com">hotels</option>
                                             <option value="local-brokder">Local Borkers</option>
-                                            <option value="walk-in" selected>WalkIn</option>
+                                            <option value="walk-in">WalkIn</option>
+                                            <option value="other" selected>Other</option>
                                         </select>
                                     </div>
                                 </div>
