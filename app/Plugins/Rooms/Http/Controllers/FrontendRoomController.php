@@ -14,7 +14,7 @@ class FrontendRoomController extends  Controller
 
     public function rooms() {
         $rooms = Rooms::where('status','active')->with(['getSeo','getImage','amenities'])->get();
-        return view('Rooms:frontend.list',['rooms' => $rooms]);
+        return view('Rooms::frontend.list',['rooms' => $rooms]);
     }
 
     public function detail(string $slug) {
