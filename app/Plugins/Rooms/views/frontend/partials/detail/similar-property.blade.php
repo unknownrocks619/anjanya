@@ -21,8 +21,19 @@
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme">
                     @foreach($rooms as $similar_room)
+                        @php
+                            $image = null;
+                            $image = $room->getImage()->where('type','featured')->first() ??  $room->getImage()->where('type','featured')->first();
+                        @endphp
                     <div class="item">
-                        <div class="position-re o-hidden"> <img src="img/rooms/1.jpg" alt=""> </div> <span class="category"><a href="rooms2.html">Book</a></span>
+                        <div class="position-re o-hidden">
+                            @if($image)
+                                <img src="{{\App\Classes\Helpers\Image::getImageAsSize($image->image->filepath,'m')}}" alt="{{$similar_room->room_name}}">
+                            @endif
+                        </div>
+                            <span class="category">
+                                <a href="{{route('room.detail',['slug' => $similar_room->slug])}}">Book</a>
+                            </span>
                         <div class="con">
                             <h6><a href="{{route('room.detail',['slug' => $similar_room->slug])}}">{{$similar_room->price}}$ / Night</a></h6>
                             <h5><a href="{{route('room.detail',['slug' => $similar_room->slug])}}">{{$similar_room->room_name}}</a> </h5>
