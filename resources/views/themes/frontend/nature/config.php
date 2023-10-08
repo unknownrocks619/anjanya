@@ -13,16 +13,20 @@ return [
             'edit'  => 'components.progress_card.edit',
             'namespace' => 'ProgressCard',
         ],
-        'video_section'  => [
-            'add'   => 'components.video_section.add',
-            'edit'   => 'components.video_section.edit',
-            'view'   => 'components.video_section.view'
+        'promotional_video'  => [
+            'add'   => 'components.promotional_video.add',
+            'edit'   => 'components.promotional_video.edit',
+            'view'   => 'components.promotional_video.view',
+            'namespace' => 'PromotionalVideo'
         ],
         'testimonials'  => [
             'add'   => 'components.testimonials.add',
             'edit'   => 'components.testimonials.edit',
             'view'   => 'components.testimonials.view',
             'namespace' => 'Testimonial'
+        ],
+        'block_builder' => [
+            'view'  => 'components.block_builder.view'
         ]
     ],
     'header'    => [
