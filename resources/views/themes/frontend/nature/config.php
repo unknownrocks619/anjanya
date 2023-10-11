@@ -27,6 +27,9 @@ return [
         ],
         'block_builder' => [
             'view'  => 'components.block_builder.view'
+        ],
+        'card' => [
+            'view' => 'components.card.view'
         ]
     ],
     'header'    => [

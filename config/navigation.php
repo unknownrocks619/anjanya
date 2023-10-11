@@ -34,6 +34,11 @@ return [
                       'route'   => 'admin.clients.list',
                       'icon'    => ''
                   ],
+                  [
+                      'name'    => 'Event',
+                      'route'   => 'admin.events.list',
+                      'icon'    => ''
+                  ]
               ],
               'route'   => '',
               'icon'    => ''

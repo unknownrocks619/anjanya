@@ -52,7 +52,12 @@ class BackgroundImage extends BaseComponent implements ComponentInterface
             'background-text'   => $request->post('background_text'),
             'title' => $request->post('title'),
             'underline_text'    => $request->post('underline_world'),
-
+            'layout_type'   => $request->post('layout_type'),
+            'background_colour' => $request->post('background_image_color'),
+            'video_poster'  => $request->post('video_image'),
+            'video_link'    => $request->post('video_link'),
+            'enquiry_form'  => $request->post('enquiry_form'),
+            'attach_component'  => $request->post('connector_component')
         ];
 
         $componentBuilder->values = $values;
