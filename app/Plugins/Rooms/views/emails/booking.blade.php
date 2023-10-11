@@ -263,8 +263,24 @@
                                                         <td class="pad">
                                                             <div
                                                                 style="color:#44464a;font-family:Nunito, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
-                                                                <p style="margin: 0; word-break: break-word;">Selected Room
+                                                                <p style="margin: 0; word-break: break-word;">Selected Room:
                                                                     {!! $params['room'] !!}</p></div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="paragraph_block block-2" width="100%" border="0"
+                                                       cellpadding="10" cellspacing="0" role="presentation"
+                                                       style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="pad">
+                                                            <div
+                                                                style="color:#44464a;font-family:Nunito, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;">
+                                                                <p style="margin: 0; word-break: break-word;">Total Number of Room:
+                                                                    @if(isset($params['no_of_rooms'])) {{$params['no_of_rooms']}} @else 1  @endif
+                                                                </p>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     </tbody>

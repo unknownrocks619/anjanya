@@ -16,7 +16,7 @@
                         <ul class="footer-explore-list list-unstyled">
                             @foreach (\App\Classes\Helpers\Menu::parentMenu() as $parent_menu)
                                 @if(! $parent_menu->children()->count() )
-                                    <li><a href="href="{{\App\Classes\Helpers\Menu::getLink($parent_menu)}}">{{$parent_menu->menu_name}}</a></li>
+                                    <li><a href="{{\App\Classes\Helpers\Menu::getLink($parent_menu)}}">{{$parent_menu->menu_name}}</a></li>
                                 @endif
                             @endforeach
                         </ul>
@@ -31,11 +31,11 @@
                             <p class="footer-contact-mail">{{\App\Classes\Helpers\SystemSetting::primary_contact_info('primary_email_address')}}</p>
                         </div>
                         <div class="footer-about-social-list">
-                            <a href="#"><i class="ti-instagram"></i></a>
-                            <a href="#"><i class="ti-twitter"></i></a>
-                            <a href="#"><i class="ti-youtube"></i></a>
-                            <a href="#"><i class="ti-facebook"></i></a>
-                            <a href="#"><i class="ti-pinterest"></i></a>
+                            <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_instagram')}}"><i class="ti-instagram"></i></a>
+{{--                            <a href="#"><i class="ti-twitter"></i></a>--}}
+{{--                            <a href="#"><i class="ti-youtube"></i></a>--}}
+                            <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_facebook')}}"><i class="ti-facebook"></i></a>
+{{--                            <a href="#"><i class="ti-pinterest"></i></a>--}}
                         </div>
                     </div>
                 </div>

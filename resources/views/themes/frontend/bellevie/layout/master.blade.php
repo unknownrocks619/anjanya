@@ -18,6 +18,26 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&amp;family=Barlow+Condensed&amp;family=Gilda+Display&amp;display=swap">
     <link rel="stylesheet" href="{{asset('frontend/bellevie/css/plugins.css')}}" />
     <link rel="stylesheet" href="{{asset('frontend/bellevie/css/style.css')}}" />
+    <style type="text/css">
+        .float-reservation {
+            font-family: sans-serif;
+            background: #de8f37;
+            padding: 5px;;
+            width: 230px;
+            z-index: 100;
+            position: fixed;
+            top : 60%;
+            transform: translate(0, -50%);
+            right: 1%;
+            color : #FFF;
+            font-size : 20px;
+            border : 2px solid;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        #ui-datepicker-div {
+            z-index: 9999 !important;
+        }
+    </style>
     @stack('page_settings')
 
 </head>
@@ -36,12 +56,22 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
     </div>
+    <div class="float-reservation py-3">
+        <a href="#" data-bs-target="#reservaton-modal" data-bs-toggle="modal">
+            <div class="icon d-flex justify-content-center align-items-center p-2">
+                <i class="flaticon-call"></i>
+                <div class="call ms-3">Booking / Enquiry</div>
+
+            </div>
+        </a>
+    </div>
     {!! $user_theme->partials('header.navbar') !!}
     <!-- site wrapper -->
     <div class="site-wrapper">
         @yield('main')
     </div>
     <!-- end site wrapper -->
+    {!! $user_theme->partials('modal.booking-modal') !!}
     {!! $user_theme->partials("footer.footer") !!}
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -16,7 +16,7 @@ class BookingController extends Controller
             'email_address' => 'required|email',
             'check_in'      => 'required|date',
             'check_out'     => 'required|date',
-            'adult_count'   => 'required|int',
+            'adult_count'   => 'required|int|min:1',
             'child_count'   => 'required|int',
         ]);
         if ( is_null($slug) ) {

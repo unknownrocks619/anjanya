@@ -15,6 +15,7 @@
 /* == themify & flaticon icons ==*/
 @import url("plugins/themify-icons.css");
 @import url("plugins/flaticon.css");
+@import url('plugins/icofont.css');
 
 /* == magnific-popup gallery  == */
 @import url("plugins/magnific-popup.css");
