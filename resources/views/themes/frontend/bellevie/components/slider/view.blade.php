@@ -15,21 +15,14 @@
                 @php
                     $images = App\Classes\Helpers\Image::getImageAsSize($sliderItem->getImage[0]->image->filepath,'l');
                 @endphp
-                <div class="text-center item bg-img" data-overlay-dark="2" data-background="{{$images}}">
+                <div class="text-center item bg-img" data-overlay-dark="2" data-background="{{$images}}" style="background-position:center">
                     <div class="v-middle caption">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-10 offset-md-1">
-                                        <span>
-                                            <i class="star-rating"></i>
-                                            <i class="star-rating"></i>
-                                            <i class="star-rating"></i>
-                                            <i class="star-rating"></i>
-                                            <i class="star-rating"></i>
-                                        </span>
                                     <h4>{{$sliderItem->subtitle}}</h4>
                                     <h1 style="font-size:28px;">{{$sliderItem->heading_one}}</h1>
-                                    <div class="butn-light mt-30 mb-30"> <a href="#" data-scroll-nav="1"><span>Rooms & Suites</span></a> </div>
+                                    <div class="butn-light mt-30 mb-30"> <a href="/room" data-scroll-nav="1"><span>Rooms & Suites</span></a> </div>
                                 </div>
                             </div>
                         </div>
