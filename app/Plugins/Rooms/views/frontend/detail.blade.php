@@ -9,13 +9,6 @@
             <!-- project content -->
             <div class="row">
                 <div class="col-md-12">
-                    <span>
-                        <i class="star-rating"></i>
-                        <i class="star-rating"></i>
-                        <i class="star-rating"></i>
-                        <i class="star-rating"></i>
-                        <i class="star-rating"></i>
-                    </span>
                     <div class="section-subtitle">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }}</div>
                     <div class="section-title">{{$room->room_name}}</div>
                 </div>

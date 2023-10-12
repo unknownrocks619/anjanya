@@ -33,25 +33,30 @@
                         </div>
                         <div class="booking-inner clearfix">
                             <form method="post" action="{{$bookingAction}}" class="form1 clearfix ajax-form ajax-append  booking-form-submit">
-                                @if(isset($room) )
-                                    <input type="hidden" name="room" value="{{$room->slug}}" class="form-control d-none" />
-                                @else
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="select1_wrapper">
-                                                <label>Rooms</label>
-                                                <div class="select1_inner">
-                                                    <select name="room" class="select2 select" style="width: 100%">
-                                                        @foreach (\App\Plugins\Rooms\Http\Models\Rooms::where('status','active')->get() as $room)
-                                                            <option value="{{$room->slug}}">{{$room->room_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="select1_wrapper">
+                                            <label>Rooms</label>
+                                            <div class="select1_inner">
+                                                <select name="room" class="select2 select" style="width: 100%">
+                                                    @foreach (\App\Plugins\Rooms\Http\Models\Rooms::where('status','active')->get() as $selected_room)
+                                                        <option value="{{$selected_room->slug}}" @if(isset($room) && $room->slug == $selected_room->slug) selected @endif>{{$selected_room->room_name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
-
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input1_wrapper">
+                                            <label for="no_of_rooms">Number of Rooms</label>
+                                            <div class="input2_inner">
+                                                <input type="number" name="no_of_rooms" id="no_of_rooms" class="form-control" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input1_wrapper">
@@ -90,6 +95,7 @@
                                             <label>Adults</label>
                                             <div class="select1_inner">
                                                 <select name="adult_count" class="select2 select" style="width: 100%">
+                                                    <option value="0">Adults</option>
                                                     @for($i = 1 ; $i <= 20; $i++)
                                                         <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
