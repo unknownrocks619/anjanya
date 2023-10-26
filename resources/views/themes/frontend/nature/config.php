@@ -30,6 +30,15 @@ return [
         ],
         'card' => [
             'view' => 'components.card.view'
+        ],
+        'event_list'    => [
+            'add' => 'components.event_list.create',
+            'edit' => 'components.event_list.edit',
+            'view' => 'components.event_list.view',
+            'namespace' => 'EventComponent',
+        ],
+        'contact_form'  => [
+            'view'  => 'components.contact_form.view'
         ]
     ],
     'header'    => [

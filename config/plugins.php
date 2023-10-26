@@ -5,4 +5,5 @@ return [
     'testimonials'  => ['enable' => true],
     'clients'       => ['enable' => true],
     'events'        => ['enable' => true],
+    'gallery'       => ['enable' => true]
 ];

@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import './partials/select2'
 
 Object.defineProperty(window, 'SIDEBAR_TEXT', {
     value: {
@@ -122,7 +123,7 @@ $(function () {
             // $('.ajax-form-message-box').html(_div);
         }
         if (_class =='alert alert-success bg-success text-white') {
-            $('.ajax-append').find('input').val('');
+            // $('.ajax-append').find('input').val('');
         }
     }
 

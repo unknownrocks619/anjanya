@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="en">
-
-<!-- Mirrored from demo.bosathemes.com/html/environ/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 Oct 2023 19:27:32 GMT -->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- favicon -->
     <link rel="icon" type="image/png" href="{{\App\Classes\Helpers\SystemSetting::logo()}}">
@@ -29,7 +28,7 @@
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&amp;display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <title>@section('page_title')</title>
+    <title> @yield('page_title') | {{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}</title>
     @stack('page_setting')
     @vite(['resources/js/themes/nature/css/app.css'])
 </head>
@@ -54,6 +53,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
         <script src="{{asset ('frontend/nature/assets/vendors/slick/slick.min.js')}}"></script>
         <script src="{{asset ('frontend/nature/assets/vendors/slick-nav/jquery.slicknav.js')}}"></script>
-        @vite(['resources/js/themes/nature/js/app.js'])
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        @vite(['resources/js/themes/nature/js/app.js','resources/js/public_app.js'])
     </div>
 </body>

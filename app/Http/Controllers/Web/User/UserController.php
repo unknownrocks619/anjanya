@@ -604,10 +604,10 @@ class UserController extends Controller
     {
         $uploadImage = Image::uploadOnly($request->file('file'))[0];
         $jsCallback = '';
-        if ($request->type == "profile") {
+        if ($request->get('type') == "profile") {
             $jsCallback = 'identityPhoto';
         }
-        if ($request->type == 'verification_card') {
+        if ($request->get('type') == 'verification_card') {
             $jsCallback = 'verificationPhoto';
         }
         return $this->json(true, 'File uploaded', $jsCallback, ['info' => $uploadImage?->getKey()]);

@@ -37,7 +37,8 @@ class Menu extends AdminModel
         'book_upload'   => 'Book Upload Form',
         'book_bundle'   => 'Book Bundle',
         'seo'           => 'SEO',
-        'rooms'         => 'Room List'
+        'rooms'         => 'Room List',
+        'events'        => 'Event List'
     ];
 
     const MENU_POSITIONS = [

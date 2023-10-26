@@ -17,10 +17,8 @@ class FrontendRoomController extends  Controller
     }
 
     public function detail(string $slug) {
-        $room = Rooms::where('slug',$slug)->with(['getSeo','getImage','amenities'])->where('status','active')->first();
-        if ( ! $room ) {
-            abort(404);
-        }
+        $room = Rooms::where('slug',$slug)->with(['getSeo','getImage','amenities'])->where('status','active')->firstOrFail();
+
         $data = [
             'extends'   => 'master',
             'room'      => $room

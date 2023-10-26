@@ -257,11 +257,11 @@ function initializeDropZone() {
 }
 
 window.identityPhoto = function (params) {
-    console.log('params:', params);
     $("input[name='profile']").val(params.info);
 }
 
 window.verificationPhoto = function (params) {
+
     $('input[name="verification_card"]').val(params.info);
 }
 

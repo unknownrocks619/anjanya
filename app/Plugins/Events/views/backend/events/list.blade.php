@@ -45,10 +45,12 @@
                                             {{$event->event_title}}
                                         </td>
                                         <td>
-                                            {!!  \App\Classes\Helpers\Status::active_label($room->active) !!}
+                                            {!!  \App\Classes\Helpers\Status::active_label($event->active) !!}
                                         </td>
                                         <td>
-                                            {{$room->price}}
+
+                                        </td>
+                                        <td>
                                         </td>
                                         <td>
                                             <ul class="action">

@@ -64,7 +64,6 @@ class MenuController extends Controller
         $isFooter = true;
 
         if ($this->active_menu->menu_type == 'page') {
-
             $page = $this->active_menu->pages()->latest()->first();
             if (!$page) {
                 abort(404);

@@ -81,77 +81,34 @@
                 <div class="main-navigation">
                     <nav id="navigation" class="navigation d-none d-lg-inline-block">
                         <ul>
-                            <li class="current-menu-item">
-                                <a href="index-2.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="about.html">Abouts</a>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#">Pages</a>
-                                <ul>
-                                    <li>
-                                        <a href="event-archive.html">Event List</a>
-                                    </li>
-                                    <li>
-                                        <a href="event-single.html">Event Details</a>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">charity</a>
+                            @foreach (\App\Classes\Helpers\Menu::parentMenu() as $parent_menu)
+                                <li
+                                    class="@if ($parent_menu->children->count()) menu-item-has-children @endif @if (\App\Classes\Helpers\Menu::isActiveMenu($parent_menu)) current-menu-item @endif">
+                                    <a
+                                       href="{{($parent_menu->children->count()) ? '#' : \App\Classes\Helpers\Menu::getLink($parent_menu) }}">{{ $parent_menu->menu_name }}</a>
+                                    @if ($parent_menu->children->count())
                                         <ul>
-                                            <li>
-                                                <a href="charity-archive.html">charity List</a>
-                                            </li>
-                                            <li>
-                                                <a href="charity-single.html">charity Details</a>
-                                            </li>
+                                            @foreach ($parent_menu->children as $child_menu)
+                                                <li><a
+                                                       href="{{ ($child_menu->children()->count()) ? '#' : \App\Classes\Helpers\Menu::getLink($child_menu) }}">
+                                                        {{ $child_menu->menu_name }}
+                                                    </a>
+                                                    @if($child_menu->children()->count())
+                                                        <ul>
+                                                            @foreach ($child_menu->children as $children_menu)
+                                                                <li>
+                                                                    <a href="{{\App\Classes\Helpers\Menu::getLink($child_menu)}}">{{$child_menu->menu_name}}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </li>
+                                            @endforeach
                                         </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">Career</a>
-                                        <ul>
-                                            <li><a href="career.html">Career</a></li>
-                                            <li><a href="career-detail.html">Career Single</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="single-page.html">Single Page</a></li>
-                                    <li><a href="volunteer.html">Volunteer</a></li>
-                                    <li><a href="donate.html">Donate</a></li>
-                                    <li><a href="gallery.html">Gallery Page</a></li>
-                                    <li><a href="testimonial-page.html">Testimonial Page</a></li>
-                                    <li><a href="faq.html">FAQ Page</a></li>
-                                    <li><a href="search-page.html">Search Page</a></li>
-                                    <li><a href="404.html">404 Page</a></li>
-                                    <li><a href="comming-soon.html">Comming Soon</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="blog-archive.html">Blog</a>
-                                <ul>
-                                    <li><a href="blog-archive.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#">Shop</a>
-                                <ul>
-                                    <li>
-                                        <a href="product-right.html">Shop Archive</a>
-                                    </li>
-                                    <li>
-                                        <a href="product-detail.html">Shop Single</a>
-                                    </li>
-                                    <li>
-                                        <a href="product-cart.html">Shop Cart</a>
-                                    </li>
-                                    <li>
-                                        <a href="product-checkout.html">Shop Checkout</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li>
+                                    @endif
+                                </li>
+
+                            @endforeach
                         </ul>
                     </nav>
                     <div class="header-btn d-inline-block">
