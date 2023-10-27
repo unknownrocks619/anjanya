@@ -10,6 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        @font-face {
+            font-family: 'gnsmfTagline';
+            src : url('{{asset('gnsmfFonts/taglineFonts.ttf')}}')
+        }
+    </style>
 </head>
 
 <body style="padding:0px;margin:0px; background:#ede8d8">
@@ -18,7 +24,7 @@
             <div class="col-12 text-center">
                 <img src="{{ \App\Classes\Helpers\SystemSetting::logo() }}"
                     class="img-fluid w-25" />
-                <h4>
+                <h4 style="font-family:gnsmfTagline">
                     {{\App\Classes\Helpers\SystemSetting::basic_configuration('tagline')}}
                 </h4>
                 <div class="mt-4">
