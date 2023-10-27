@@ -49,79 +49,79 @@ return [
               'icon'    => ''
           ]  ,
         ],
-        'CRM' => [
-            [
-                'name' => "Content Management",
-                'children' => [
-                    [
-                        'name' => 'Pages',
-                        'route' => 'admin.pages.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                    [
-                        'name' => 'Post',
-                        'route' => 'admin.posts.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                    [
-                        'name' => 'Menus',
-                        'route' => 'admin.menu.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                    [
-                        'name' => 'Categories',
-                        'route' => 'admin.categories.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                    [
-                        'name' => 'Galleries',
-                        'route' => '',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                ],
-                'icon' => '',
-                'route' => ''
-            ]
-
-        ],
-        'User Management' => [
-            [
-                'name'  => 'Users',
-                'children'  => [
-                    [
-                        'name' => 'Staff / Admin',
-                        'route' => 'admin.users.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                    [
-                        'name'  => 'User',
-                        'route' => 'admin.users.customers.index',
-
-                    ],
-                    [
-                        'name' => 'Applications',
-                        'route' => 'admin.users.applications.list',
-                        'icon' => 'icofont icofont-settings-alt'
-                    ],
-                ],
-                'icon' => '',
-                'route' => ''
-            ]
-        ],
-        'Web Builder'   => [
-            [
-                'name' => 'Components',
-                'children'  => [],
-                'icon'  => '',
-                'route' => 'admin.components.common.list'
-            ],
-            [
-                'name' => 'Slider',
-                'children'  => [],
-                'icon'  => '',
-                'route' => 'admin.slider.album.list'
-            ],
-        ],
+//        'CRM' => [
+//            [
+//                'name' => "Content Management",
+//                'children' => [
+//                    [
+//                        'name' => 'Pages',
+//                        'route' => 'admin.pages.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                    [
+//                        'name' => 'Post',
+//                        'route' => 'admin.posts.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                    [
+//                        'name' => 'Menus',
+//                        'route' => 'admin.menu.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                    [
+//                        'name' => 'Categories',
+//                        'route' => 'admin.categories.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                    [
+//                        'name' => 'Galleries',
+//                        'route' => '',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                ],
+//                'icon' => '',
+//                'route' => ''
+//            ]
+//
+//        ],
+//        'User Management' => [
+//            [
+//                'name'  => 'Users',
+//                'children'  => [
+//                    [
+//                        'name' => 'Staff / Admin',
+//                        'route' => 'admin.users.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                    [
+//                        'name'  => 'User',
+//                        'route' => 'admin.users.customers.index',
+//
+//                    ],
+//                    [
+//                        'name' => 'Applications',
+//                        'route' => 'admin.users.applications.list',
+//                        'icon' => 'icofont icofont-settings-alt'
+//                    ],
+//                ],
+//                'icon' => '',
+//                'route' => ''
+//            ]
+//        ],
+//        'Web Builder'   => [
+//            [
+//                'name' => 'Components',
+//                'children'  => [],
+//                'icon'  => '',
+//                'route' => 'admin.components.common.list'
+//            ],
+//            [
+//                'name' => 'Slider',
+//                'children'  => [],
+//                'icon'  => '',
+//                'route' => 'admin.slider.album.list'
+//            ],
+//        ],
         'System'    => [
             [
                 'name' => 'Look & Feel',
