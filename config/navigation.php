@@ -12,31 +12,36 @@ return [
 
         'Plugins'   => [
           [
-              'name'    => 'Hotel Management',
+              'name'    => 'Active Plugins',
               'children'    => [
+//                  [
+//                      'name'    => 'Amenities',
+//                      'route' => 'admin.amenities.list',
+//                      'icon'    => ''
+//                  ],
+//                  [
+//                      'name'    => 'Room',
+//                      'route'   => 'admin.room.list',
+//                      'icon'    => ''
+//                  ],
+//                  [
+//                      'name'    => 'Testimonials',
+//                      'route'   => 'admin.testimonials.list',
+//                      'icon'    => ''
+//                  ],
+//                  [
+//                      'name'    => 'Clients',
+//                      'route'   => 'admin.clients.list',
+//                      'icon'    => ''
+//                  ],
+//                  [
+//                      'name'    => 'Event',
+//                      'route'   => 'admin.events.list',
+//                      'icon'    => ''
+//                  ],
                   [
-                      'name'    => 'Amenities',
-                      'route' => 'admin.amenities.list',
-                      'icon'    => ''
-                  ],
-                  [
-                      'name'    => 'Room',
-                      'route'   => 'admin.room.list',
-                      'icon'    => ''
-                  ],
-                  [
-                      'name'    => 'Testimonials',
-                      'route'   => 'admin.testimonials.list',
-                      'icon'    => ''
-                  ],
-                  [
-                      'name'    => 'Clients',
-                      'route'   => 'admin.clients.list',
-                      'icon'    => ''
-                  ],
-                  [
-                      'name'    => 'Event',
-                      'route'   => 'admin.events.list',
+                      'name'    => 'Maintenance Mode',
+                      'route'   => 'admin.maintenance.list',
                       'icon'    => ''
                   ]
               ],
