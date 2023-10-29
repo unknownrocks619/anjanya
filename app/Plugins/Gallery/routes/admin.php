@@ -8,8 +8,10 @@ Route::middleware(['admin','web'])
          * Album
          */
             Route::prefix('gallery-album')
+                ->name('gallery-album.')
+                ->controller()
                 ->group(function (){
-
+                    Route::get('list')->name('list');
                 });
         /**
          * Gallery Items
