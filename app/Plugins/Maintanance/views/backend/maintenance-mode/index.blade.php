@@ -34,11 +34,40 @@
                                     <th></th>
                                     <th>Setting Name</th>
                                     <th>Status</th>
+                                    <th>
+                                        Total Page
+                                    </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($modes as $mode)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>
+                                                {{$mode->mode_name}}
+                                            </td>
+                                            <td>
+                                                {!! \App\Classes\Helpers\Status::active_label($mode->active) !!}
+                                            </td>
+                                            <td>
+                                                {{$mode->buttons()->count()}}
+                                            </td>
+                                            <td>
+                                                <ul class="action">
+                                                    <li class="edit">
+                                                        <a href="{{route('admin.maintenance.edit',['mode' => $mode])}}">
+                                                            <i class="icon-pencil-alt"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="delete">
+                                                        <a href="#" data-confirm="Are you sure?" class="data-confirm" data-method="post" data-action="{{route('admin.maintenance.delete',['mode' => $mode->getKey()])}}"><i class="icon-trash"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
 
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -15,6 +15,8 @@ Route::prefix('admin/maintenance-mode')
                 ->name('update');
             Route::match(['get','post'],'edit/{mode}',[MaintenanceModeController::class,'edit'])
                 ->name('edit');
+            Route::match(['get','post'],'delete/{mode}',[MaintenanceModeController::class,'edit'])
+                ->name('delete');
             Route::post('store-button/{mode}',[MaintenanceModeController::class,'storeButtons'])
                 ->name('store-button');
             Route::match(['get','post'],'delete-button/{button}',[MaintenanceModeController::class,'deleteButton'])

@@ -40,7 +40,8 @@ class MaintenanceModeController extends Controller
     }
 
     public  function index(){
-        return $this->admin_theme('maintenance-mode.index');
+        $modes = MaintenanaceMode::get();
+        return $this->admin_theme('maintenance-mode.index',['modes' => $modes]);
     }
 
     public function create(Request $request) {

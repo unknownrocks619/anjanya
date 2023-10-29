@@ -6,5 +6,6 @@ return [
     'media'     => 'Media',
     'components'    => 'Components Builder',
     'component'    => 'Component',
+    'buttons'   => 'Pages'
 
 ];
