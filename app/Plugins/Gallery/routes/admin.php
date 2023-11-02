@@ -1,4 +1,6 @@
 <?php
+
+use App\Plugins\Gallery\Http\Controllers\GalleryAlbumsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin','web'])
@@ -7,18 +9,20 @@ Route::middleware(['admin','web'])
         /**
          * Album
          */
-            Route::prefix('gallery-album')
-                ->name('gallery-album.')
+            Route::prefix('admin/album-gallery')
                 ->controller()
                 ->group(function (){
-                    Route::get('list')->name('list');
+
+                    Route::get('/index',[GalleryAlbumsController::class,'index'])->name('admin.gallery-album.index');
+                    Route::post('store',[GalleryAlbumsController::class,'store'])->name('admin.gallery-album.store');
                 });
         /**
          * Gallery Items
          */
-            Route::prefix('gallery-items')
+            Route::prefix('admin/gallery-items/{album}')
+                    ->name('admin.gallery-items.')
                 ->group(function (){
-
+//                    Route::get('list',[Album])
                 });
 
         });
