@@ -38,7 +38,8 @@ class Menu extends AdminModel
         'book_bundle'   => 'Book Bundle',
         'seo'           => 'SEO',
         'rooms'         => 'Room List',
-        'events'        => 'Event List'
+        'events'        => 'Event List',
+        'notices'       => 'Notices'
     ];
 
     const MENU_POSITIONS = [

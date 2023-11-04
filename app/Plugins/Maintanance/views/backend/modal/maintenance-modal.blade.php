@@ -3,7 +3,7 @@
     @csrf
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Create New Maintenance Settings
+            <h3 class="modal-title" id="exampleModalLabel">Create New Notice Group
             </h3>
             <button class="btn-close" data-original-title="test" type="button" data-bs-dismiss="modal"
                     aria-label="Close">
@@ -13,10 +13,10 @@
 
             <div class="row g-2">
                 <div class="mb-3 col-md-12 mt-0">
-                    <label for="name">Maintenance Name</label>
+                    <label for="name">Notice Name</label>
                     <div class="form-group">
                         <input class="form-control" id="name" name="name" type="text" required=""
-                               placeholder="Mode Name" autocomplete="off">
+                               placeholder="Notice Name" autocomplete="off">
                     </div>
                 </div>
 

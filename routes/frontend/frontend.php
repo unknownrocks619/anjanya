@@ -20,11 +20,12 @@ Route::middleware(['web', 'maintenance'])
             return view('maintenance.index');
         })->name('maintenance-mode');
 
-        Route::get('/',function(){
-            return view('maintenance.index');
-        })->name('home');
-//        Route::get('/', [MenuController::class, 'load'])->name('home');
-//        Route::post('/contact-submission-form', [MenuController::class, 'submit_contact_us'])->name('submit_contanct_us');
+//        Route::get('/',function(){
+//            return view('maintenance.index');
+//        })->name('home');
+
+        Route::get('/', [MenuController::class, 'load'])->name('home');
+        Route::post('/contact-submission-form', [MenuController::class, 'submit_contact_us'])->name('submit_contanct_us');
 
         /**
          * Static
@@ -52,7 +53,7 @@ Route::middleware(['web', 'maintenance'])
 //        /**
 //         * Pages
 //         */
-//        include __DIR__ . '/pages.php';
+        include __DIR__ . '/pages.php';
 //
 //        /**
 //         * Category

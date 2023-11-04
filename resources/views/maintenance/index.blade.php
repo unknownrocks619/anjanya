@@ -23,15 +23,15 @@
         <div class="row vh-100 align-items-center">
             <div class="col-12 text-center">
                 <img src="{{ \App\Classes\Helpers\SystemSetting::logo() }}"
-                    class="img-fluid w-25" />
+                    class="img-fluid" />
                 <h4 style="font-family:gnsmfTagline">
                     {{\App\Classes\Helpers\SystemSetting::basic_configuration('tagline')}}
                 </h4>
                 <div class="mt-4">
-                    <button type="button" class="btn btn-primary py-3 px-4 mx-2" data-bs-toggle="collapse" data-bs-target="#hospital-service"
+                    <a type="button" class="btn btn-outline-primary py-3 px-5 mx-2 my-2" data-bs-toggle="collapse" data-bs-target="#hospital-service"
                             aria-expanded="false"  aria-controls="multiCollapseExample2">
-                        Hospital Service</button>
-                    <a @if($lastSettings) href="{{route('frontend.maintenance-mode.mode-settings',['slug' => $lastSettings->slug])}}"  @else href="#" @endif class="btn btn-primary py-3 px-4">Education Service</a>
+                        Hospital Service</a>
+                    <a @if($lastSettings) href="{{route('frontend.maintenance-mode.mode-settings',['slug' => $lastSettings->slug])}}"  @else href="#" @endif class="btn btn-outline-primary py-3 px-5 my-2">Education Service</a>
                 </div>
             </div>
             <div class="collapse col-12 text-center alert alert-danger" id="hospital-service">

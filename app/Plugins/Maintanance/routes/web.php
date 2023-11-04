@@ -8,4 +8,6 @@ Route::prefix('maintenance')
         ->group(function(){
             Route::get('{slug}',[MaintenanceFrontendController::class,'load'])
                 ->name('mode-settings');
+            Route::get('{slug}/{page}',[MaintenanceFrontendController::class,'page'])
+                ->name('mode-setting-page');
         });

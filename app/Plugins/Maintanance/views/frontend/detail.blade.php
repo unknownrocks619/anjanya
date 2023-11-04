@@ -1,11 +1,11 @@
 @php
-    $imageModalHolder = [];
+    use App\Classes\Helpers\Image;use App\Classes\Helpers\SystemSetting;$imageModalHolder = [];
     $styleKey = 'background-color';
     $styleValue = $maintenanceMode->background_color;
     $backgroundImage = $maintenanceMode->getImage()->where('type','background')->latest()->first();
     if ($backgroundImage) {
         $styleKey = 'background';
-        $styleValue = 'url('.\App\Classes\Helpers\Image::getImageAsSize($backgroundImage->image->filepath,'l').');background-position:center;background-size:cover';
+        $styleValue = 'url('.Image::getImageAsSize($backgroundImage->image->filepath,'l').');background-position:center;background-size:cover';
     }
 @endphp
     <!DOCTYPE html>
@@ -15,13 +15,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }}</title>
+    <title>{{ SystemSetting::basic_configuration('site_name') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">
+    <style type="text/css">
         @font-face {
             font-family: 'gnsmfTagline';
             src : url('{{asset('gnsmfFonts/taglineFonts.ttf')}}')
         }
+
+        .nav-item .active {
+            border-radius: 6px;
+            background: linear-gradient(145deg, #ffe7ca, #f5d7b2);
+            box-shadow:  4px 4px 8px #ddc1a0,
+            -4px -4px 8px #f7e5cc;
+        }
+        #neubar .dropdown-menu a:hover {
+            color: #454545
+        }
+        #neubar .nav-item {
+            margin : auto 4px;
+        }
+        #neubar a {
+
+            padding-left:12px;
+            padding-right:12px;
+        }
+        #neubar .dropdown-menu {
+            background : #545454
+        }
+        a.navbar-brand {
+            color: #454545
+        }
+        .btn-gnsmf {
+            --bs-btn-color : #004fab;
+            --bs-btn-bg : #f8f9e7;
+            --bs-btn-hover-color: #f8f9e7;
+            --bs-btn-hover-bg: #004fab;
+        }
+
     </style>
 </head>
 
@@ -29,10 +63,10 @@
 <div class="container-fluid">
     <div class="row align-items-center">
         <div class="col-12 text-center">
-            <img src="{{ \App\Classes\Helpers\SystemSetting::logo() }}"
-                 class="img-fluid" style="max-width:150px;" />
-            <h4 style="font-family: gnsmfTagline">
-                {{\App\Classes\Helpers\SystemSetting::basic_configuration('tagline')}}
+            <img src="{{ SystemSetting::logo() }}"
+                 class="img-fluid"/>
+            <h4 style="font-family: gnsmfTagline;font-size: 43px">
+                Your future in healthcare starts here.
             </h4>
         </div>
     </div>
@@ -44,65 +78,34 @@
         </div>
     @endif
     <div class="row align-items-center justify-content-center mt-5">
-        <div class="col-8 text-center">
-            <div class="table-responsive">
-                <table class="table table-hover table-border">
-                    <tbody>
-                    @foreach ($maintenanceMode->buttons as $button)
-                        <tr>
-                            <th>
-                                {{$button->title}}
-                            </th>
-                            <td>
-                                {!! $button->description !!}
-                            </td>
-                            <td>
-                                @if($button->response_type == 'link')
-                                    <a href="{{$button->button_response}}" class="btn btn-info" target="_blank">
-                                        {{$button->button_label}}
-                                    </a>
-                                @endif
-                                @if($button->response_type == 'image')
-                                    @php
-                                        $imageModalHolder['notificationTitle'.$button->getKey()] = ['image'=> asset($button->button_response),'title' => $button->title];
-                                    @endphp
-                                    <a href="#" class="btn btn-info" data-bs-target="#notificationTitle{{$button->getKey()}}" data-bs-toggle="modal">
-                                        {{$button->button_label}}
-                                    </a>
-                                @endif
-                                @if($button->response_type == 'pdf')
-                                    <a href="{{asset($button->button_response)}}" class="btn btn-info">
-                                        {{$button->button_label}}
-                                    </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+        <div class="col-8 text-center d-flex justify-content-center">
+                <!-- Navigation -->
+                <nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+                    <div class="container">
 
-</div>
-@foreach ($imageModalHolder as $id => $image)
-    <div class="modal fade" id="{{$id}}" tabindex="-1" aria-labelledby="{{$id}}" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{$image['title']}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <img src="{{$image['image']}}" class="img-fluid" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+                        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav ms-auto ">
+                                @foreach ($maintenanceMode->buttons as $navButton)
+                                    <li class="nav-item">
+                                        <a class=" mx-2 btn btn-gnsmf btn-primary px-5  rounded-pill" aria-current="page" href="#">{{$navButton->button_label}}</a>
+                                    </li>
+                                @endforeach
+{{--                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">--}}
+{{--                                        <li><a class="dropdown-item" href="#">Blog</a></li>--}}
+{{--                                        <li><a class="dropdown-item" href="#">About Us</a></li>--}}
+{{--                                        <li><a class="dropdown-item" href="#">Contact us</a></li>--}}
+{{--                                    </ul>--}}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- / Navigation -->
             </div>
         </div>
+
     </div>
-@endforeach
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 </body>
 </html>

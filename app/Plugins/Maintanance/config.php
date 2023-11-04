@@ -1,6 +1,6 @@
 return [
 'plugin_name'  => 'Hotel Management',
-'name'          => 'Maintanance',
+'name'          => 'Notices',
 'default'       => 'admin.maintenance.index',
 'icon'          => ''
 ];

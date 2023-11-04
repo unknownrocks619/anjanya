@@ -11,7 +11,7 @@
                 <div class="card-body py-0 ps-2">
                     <button type="button" data-bs-target="#maintenanceModel" data-bs-toggle="modal" class="btn btn-danger">
                         <i class="fa fa-plus"></i>
-                        New Maintenance Setting
+                        New Group Notice
                     </button>
                 </div>
             </div>
@@ -32,10 +32,10 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Setting Name</th>
+                                    <th>Notice Group Name</th>
                                     <th>Status</th>
                                     <th>
-                                        Total Page
+                                        Total Notices
                                     </th>
                                     <th>Action</th>
                                 </tr>

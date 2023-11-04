@@ -2,10 +2,11 @@
 
 namespace App\Plugins\Maintanance\Http\Models;
 
+use App\Models\AdminModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MaintenanaceModeButtons extends Model
+class MaintenanaceModeButtons extends AdminModel
 {
     use HasFactory;
 

@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\ComponentBuilder;
 use App\Models\Menu as ModelsMenu;
 use App\Models\Page;
+use App\Plugins\Maintanance\Http\Models\MaintenanaceMode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -63,6 +64,13 @@ class MenuController extends Controller
         $isLanding = false;
         $isFooter = true;
 
+
+        if (method_exists($this,$this->active_menu->menu_type) ) {
+            $methodName = $this->active_menu->menu_type;
+            return $this->$methodName();
+        }
+
+
         if ($this->active_menu->menu_type == 'page') {
             $page = $this->active_menu->pages()->latest()->first();
             if (!$page) {
@@ -96,6 +104,7 @@ class MenuController extends Controller
             $bundles = $this->book_bundle();
             $isFooter = false;
         }
+
         return $this->frontend_theme(
             'master',
             'home.index',
@@ -111,7 +120,7 @@ class MenuController extends Controller
         // }
     }
 
-    public function page($slug)
+    public function pageLoad($slug)
     {
         $slug = htmlspecialchars($slug);
         $page = Page::where('active', true)->with(['getImage'])->get();
@@ -154,5 +163,23 @@ class MenuController extends Controller
         }
 
         return $this->json(true, $componentValue['success_message']);
+    }
+
+    public function menuList() {
+        return $this->frontend_theme(
+            'master',
+            'menu.list',
+            [
+                'menus' => Menu::parentMenu(),
+            ]
+        );
+    }
+
+    public function notices() {
+        return $this->frontend_theme('master','notices.list',[
+            'menus' => Menu::parentMenu(),
+            'menu' => $this->active_menu,
+            'notices_group'    =>  MaintenanaceMode::where('active',true)->get()
+        ]);
     }
 }
