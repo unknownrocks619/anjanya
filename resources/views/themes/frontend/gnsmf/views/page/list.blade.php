@@ -35,7 +35,7 @@
             <img src="{{$featuredImage}}" class="img-fluid" />
         </div>
         @endif
-        <div class="col-md-8 d-flex justify-content-center gnsmf-default-color mt-t">
+        <div class="col-md-8 d-flex justify-content-center gnsmf-default-color mt-t" style="text-align: justify !important;">
             <div>
                 {!! $page->full_description !!}
             </div>
