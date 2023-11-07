@@ -137,14 +137,16 @@ class Controller extends BaseController
     public function header() {
         $base_path = env('APP_THEMES') ?? 'default';
         $setting = Setting::where('name','header')->first();
-        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'header/default/header')->render();
+        $header = $setting?->value ?? 'header/default/header';
+        $view = view('themes.frontend.'.$base_path.'.' . $header )->render();
         return $view;
     }
 
     public function footer() {
         $base_path = env('APP_THEMES') ?? 'default';
         $setting = Setting::where('name','footer')->first();
-        $view = view('themes.frontend.'.$base_path.'.' . $setting?->value ?? 'footer.default.footer')->render();
+        $footer = $setting?->value ?? 'footer.default.footer';
+        $view = view('themes.frontend.'.$base_path.'.' . $footer)->render();
         return $view;
     }
 }

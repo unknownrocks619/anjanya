@@ -117,7 +117,7 @@ $userCount = \App\Models\User::countByRole();
                                     <div class="sale-content">
                                         <h3>Total Applicants Transaction</h3>
                                         <p>
-                                            {{ \App\Classes\Helpers\Money::CA($transactions->sum('amount')) }}
+{{--                                            {{ \App\Classes\Helpers\Money::CA($transactions->sum('amount')) }}--}}
                                         </p>
                                     </div>
                                 </div>

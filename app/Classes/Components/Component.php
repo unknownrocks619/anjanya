@@ -30,12 +30,20 @@ class Component
         return $this;
     }
 
+    /**
+     * Component loader
+     * @return mixed
+     */
     public function loader() {
         $this->classLoader();
         return $this->component;
     }
 
-    public function previewBuilder($params = []) {
+    /**
+     * @param $params
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|void
+     */
+    public function previewBuilder(array $params = []) : \Illuminate\Contracts\View\View {
         if ( is_array($this->config) &&  isset($this->config['view'])) {
             return view($this->config['view'],$params);
         }

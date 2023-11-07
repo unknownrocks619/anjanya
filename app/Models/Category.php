@@ -30,7 +30,8 @@ class Category extends AdminModel
         'books' => 'Book Category',
         'genre' => 'Genre',
         'course'    => 'Course Category',
-        'category'  => 'Category'
+        'category'  => 'Category',
+        'blog'      => 'Blog',
     ];
 
     const CACHE_NAME = 'FRONTEND_CATEGORY_CACHE';

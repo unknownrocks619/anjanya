@@ -3,12 +3,11 @@
 namespace App\Plugins\Gallery\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Plugins\Gallery\Http\Models\GalleryAlbums;
+use App\Models\GalleryAlbums;
+use Illuminate\Http\Request;
 
 class GalleryAlbumsController extends Controller
 {
-    protected $plugin_name = 'Gallery';
-
     public function index() {
         $albums = GalleryAlbums::withCount('items')->get();
         return $this->admin_theme('gallery.album.index',['albums' => $albums]);

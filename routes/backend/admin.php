@@ -74,6 +74,11 @@ Route::prefix('admin')
         include __DIR__ . '/categories.php';
 
         /**
+         * Gallery Albums & Items
+         */
+        include __DIR__.'/gallery.php';
+
+        /**
          * Courses
          */
 

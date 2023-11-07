@@ -16,7 +16,7 @@ class ComponentService
     }
 
     public static function allComponents() {
-        return array_merge(array_keys(app('component')),array_keys(app('themes_config')['components']));
+        return array_unique(array_merge(array_keys(app('component')),array_keys(app('themes_config')['components'])));
     }
 
     public function configurations()
@@ -26,12 +26,12 @@ class ComponentService
 
         foreach (app('component') as $componentKey => $componentValue) {
 
+            # If components only exists in default folder
             if (!array_key_exists($componentKey, $themeComponents)) {
                 if ( ! is_array($componentValue) ) {
                     $components[$componentKey] = $componentValue;
                     continue;
                 }
-
                 foreach ($componentValue as $key => $value) {
                     $components[$componentKey][$key] = 'themes.components.'.$componentKey.'.'.$value;
                 }
@@ -41,6 +41,7 @@ class ComponentService
                 continue;
             }
 
+            # for new component or two update configuration for default config replace key value
             $themeConfig = $themeComponents[$componentKey];
 
             if (!is_array($themeConfig)) {
@@ -51,10 +52,19 @@ class ComponentService
             $mergeData = array_merge($componentValue,$themeConfig);
 
             foreach ($mergeData as $key => $value) {
-                if ( $key == 'namespace') {
+
+                # If themes doesn't have namespace for given component. use default.
+                if ( $key == 'namespace' && ! isset($mergeData[$key])) {
                     $components[$componentKey][$key] = '\\App\\Themes\\default\\Components\\'.$value;
                     continue;
                 }
+
+                # use namespace based on theme config
+                if ($key == 'namespace' && isset($mergeData[$key]) ) {
+                    $components[$componentKey][$key] = '\\App\\Themes\\'.env('APP_THEMES','default').'\\Components\\'.$value;
+                    continue;
+                }
+
                 if (! array_key_exists($key,$themeConfig)) {
                     $components[$componentKey][$key] = 'themes.components.'.$componentKey.'.'.$value;
                     continue;

@@ -3,6 +3,7 @@
 @section('page_title')
      {{ $page->title ?? $menu->menu_name }}
 @endsection
+
 @php
     $bannerImage = null;
     // get Banner Image from $page.

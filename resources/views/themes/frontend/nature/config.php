@@ -39,7 +39,22 @@ return [
         ],
         'contact_form'  => [
             'view'  => 'components.contact_form.view'
-        ]
+        ],
+        'gallery'   => [
+            'view'  => 'components.gallery.view'
+        ],
+        'parallax_image'    => [
+            'view'  => 'components.parallax_image.view',
+            'add'   => 'components.parallax_image.add',
+            'edit'  => 'components.parallax_image.edit',
+            'namespace' => 'ParallaxImage'
+        ],
+        'clients'   => [
+            'view'  => 'components.clients.view',
+            'add'   => 'components.clients.add',
+            'edit'  => 'components.clients.edit',
+            'namespace' => 'Clients'
+        ],
     ],
     'header'    => [
         [

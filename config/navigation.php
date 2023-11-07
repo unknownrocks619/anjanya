@@ -38,7 +38,12 @@ return [
                       'name'    => 'Event',
                       'route'   => 'admin.events.list',
                       'icon'    => ''
-                  ]
+                  ],
+                  [
+                      'name'    => 'Donation',
+                      'route'   => 'admin.donation.list',
+                      'icon'    => ''
+                  ],
               ],
               'route'   => '',
               'icon'    => ''
@@ -70,7 +75,7 @@ return [
                     ],
                     [
                         'name' => 'Galleries',
-                        'route' => '',
+                        'route' => 'admin.gallery-album.index',
                         'icon' => 'icofont icofont-settings-alt'
                     ],
                 ],

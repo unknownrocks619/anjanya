@@ -25,7 +25,7 @@
                 <div class="back-title">{{$componentValue['subtitle']}}</div>
                 <h2 class="section-title">
                     @php
-                        $title = $componentValue['heading'];
+                        $title = strip_tags($componentValue['heading']);
                         $explode_title = explode(' ', $title);
                         $last_string = $explode_title[count($explode_title)-1];
                         $final_concat = '<span class="primary-color">' . $last_string .'
@@ -41,16 +41,6 @@
                 <div class="section-disc">
                     {!! $componentValue['description'] !!}
                 </div>
-            </div>
-            <div class="about-list">
-                <ul>
-                    <li>Praesentium voluptatum dolores, vulputate.</li>
-                    <li>Cillum nullam rem volutpat earum.</li>
-                    <li>Odio doloribus lacus quaerat assumenda.</li>
-                    <li>Natoque, cubilia eos ipsa, vehicula.</li>
-                    <li>Cillum nullam rem volutpat earum.</li>
-                </ul>
-
             </div>
         </div>
     </div>

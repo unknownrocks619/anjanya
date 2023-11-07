@@ -3,8 +3,8 @@
 namespace App\Plugins\Gallery\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Plugins\Gallery\Http\Models\GalleryAlbums;
-use App\Plugins\Gallery\Http\Models\GalleryItems;
+use App\Models\GalleryAlbums;
+use App\Models\GalleryItems;
 
 class GalleryItemsController extends Controller
 {

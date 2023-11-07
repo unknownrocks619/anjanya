@@ -75,5 +75,10 @@ return [
         'add'   => 'add',
         'edit'  => 'edit',
         'view'  => 'view'
+    ],
+    'gallery'   => [
+        'add'   => 'add',
+        'edit'  => 'edit',
+        'view'  => 'view'
     ]
 ];

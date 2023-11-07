@@ -126,6 +126,10 @@ class MenuController extends Controller
         return $bookBundle;
     }
 
+    public function events() {
+
+    }
+
     public function submit_contact_us(Request $request)
     {
         $request->validate([
