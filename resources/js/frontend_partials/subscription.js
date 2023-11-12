@@ -1,17 +1,16 @@
 import axios from "axios";
 
-$(document).on('click', 'button.newsletter-button', function (event) {
+$(document).on('submit', 'button.newsletter-button', function (event) {
     let _this = this;
     event.preventDefault();
     $(this).prop('disabled', true);
-
+    $(this).closest('form').attr('disabled')
     if ($('#newsletter-message-div').length) {
         $('#newsletter-message-div').remove();
     }
 
     let _subscriptionEmail = $(this).closest('div.widget-content').find('input[name="email"]');
     $(_subscriptionEmail).prop('disabled', true);
-    console.log('_subscription email> ', _subscriptionEmail);
     axios.post('/newsletter/store', { email: _subscriptionEmail.val() })
         .then(function (response) {
             let _returnData = response.data

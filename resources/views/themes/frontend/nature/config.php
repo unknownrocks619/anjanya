@@ -55,6 +55,21 @@ return [
             'edit'  => 'components.clients.edit',
             'namespace' => 'Clients'
         ],
+        'content'   => [
+            'view'  => 'components.content.view',
+            'edit'  => 'components.content.edit',
+            'add'   => 'components.content.add',
+            'namespace' => 'Content'
+        ],
+        'background_video'  => [
+            'add'  => 'components.background_video.add',
+            'edit'  => 'components.background_video.edit',
+            'view'  => 'components.background_video.view',
+            'namespace' => 'BackgroundVideo'
+        ],
+        'icon_column'   => [
+            'view'  => 'components.icon_column.view'
+        ]
     ],
     'header'    => [
         [

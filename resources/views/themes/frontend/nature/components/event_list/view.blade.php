@@ -8,7 +8,7 @@
                                                     ->with(['getImage' => function($query) {
                                                         $query->with('image');
                                                     }])
-                                                    ->get();
+                                                    ->limit(8);
 @endphp
 <section class="event-section secondary-bg" style="background-color:{{$componentValue['background_colour']}}">
     <div class="container">

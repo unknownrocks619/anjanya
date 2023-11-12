@@ -2,6 +2,8 @@
 
 namespace App\Plugins;
 
+use Illuminate\Support\Facades\View;
+
 class PluginsService
 {
     public static function navigation()
@@ -16,5 +18,27 @@ class PluginsService
             if (! array_key_exists(basename($pluginPath , $plugins)) ) {
             }
         }
+    }
+
+
+    public static function register(string $plugin_name, mixed $modelInstance) {
+        return view($plugin_name.'::frontend.single-post-view',['modelInstance' => $modelInstance])->render();
+    }
+
+
+    /**
+     * @param string $plugin_name
+     * @param mixed $modelInstance
+     * @return bool
+     */
+    public static function hasSidebar(string $plugin_name, mixed $modelInstance) : bool {
+        if (View::exists($plugin_name.'::frontend.sidebar')) {
+//            return true;
+        }
+        return false;
+    }
+
+    public static function getSidebar(string $plugin_name, mixed $modelInstance) {
+        return view($plugin_name.'::frontend.sidebar',['modelInstance' => $modelInstance])->render();
     }
 }

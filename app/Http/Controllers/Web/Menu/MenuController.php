@@ -11,8 +11,11 @@ use App\Jobs\ContactUsMail;
 use App\Models\BookBundle;
 use App\Models\Category;
 use App\Models\ComponentBuilder;
+use App\Models\GalleryAlbums;
 use App\Models\Menu as ModelsMenu;
 use App\Models\Page;
+use App\Plugins\Events\Http\Models\Event;
+use App\Plugins\Maintanance\Http\Models\MaintenanaceMode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -63,39 +66,11 @@ class MenuController extends Controller
         $isLanding = false;
         $isFooter = true;
 
-        if ($this->active_menu->menu_type == 'page') {
-            $page = $this->active_menu->pages()->latest()->first();
-            if (!$page) {
-                abort(404);
-            }
-            $page = $page->eloquentClass()->first();
 
-            if (!$page->active) {
-                abort(404);
-            }
-            $page->load('webComponents.getComponents','getImage.image','getSeo');
-            $pageSeo = Meta::metaInfo($page);
-            if ($pageSeo) {
-                $defaultSEO = $pageSeo;
-            }
-
-            return $this->frontend_theme('master', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
+        if (method_exists($this,$this->active_menu->menu_type) ) {
+            return $this->{$this->active_menu->menu_type}();
         }
 
-        if ($this->active_menu->menu_type == 'category') {
-            $categories = $this->active_menu->categories()->get();
-
-            if (!$categories->count()) {
-                $categories = Category::with('getImage')->get();
-            }
-            $pageSeo = $defaultSEO;
-            return $this->frontend_theme('master', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
-        }
-
-        if ($this->active_menu->menu_type == 'book_bundle') {
-            $bundles = $this->book_bundle();
-            $isFooter = false;
-        }
         return $this->frontend_theme(
             'master',
             'home.index',
@@ -111,25 +86,120 @@ class MenuController extends Controller
         // }
     }
 
-    public function page($slug)
+    public function category() {
+
+        $defaultSEO = Meta::metaInfo($this->active_menu);
+
+        $page = null;
+        $bundles = null;
+        $isLanding = false;
+        $isFooter = true;
+
+
+        $categories = $this->active_menu->categories()->get();
+
+        if (!$categories->count()) {
+            $categories = Category::with('getImage')->get();
+        }
+        $pageSeo = $defaultSEO;
+        return $this->frontend_theme('master', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
+
+    }
+    /**
+     * For menu type page, Display page
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function page(){
+
+        $defaultSEO = Meta::metaInfo($this->active_menu);
+
+        $page = null;
+        $bundles = null;
+        $isLanding = false;
+        $isFooter = true;
+
+
+        $page = $this->active_menu->pages()->latest()->first();
+        if (!$page) {
+            abort(404);
+        }
+        $page = $page->eloquentClass()->first();
+
+        if (!$page->active) {
+            abort(404);
+        }
+        $page->load('webComponents.getComponents','getImage.image','getSeo');
+        $pageSeo = Meta::metaInfo($page);
+        if ($pageSeo) {
+            $defaultSEO = $pageSeo;
+        }
+
+        return $this->frontend_theme('master', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
+
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function gallery() {
+
+        $defaultSEO = Meta::metaInfo($this->active_menu);
+
+        $galleryAlbums = GalleryAlbums::where('active',1)->with(['items' => function($query) {
+            $query->with(['getImage' => function($subQuery){
+                $subQuery->with('image');
+            }])
+                ->where('sort_by','asc');
+        }])->orderBy('sort_by','asc')->get();
+
+        return $this->frontend_theme('master','gallery.list',
+                                        ['menu' => $this->active_menu,'galleryAlbums' => $galleryAlbums,'pageSeo' => $defaultSEO]);
+    }
+
+
+    /**
+     * Display Page Content
+     * @param $slug
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function pageDetail(string $slug)
     {
         $slug = htmlspecialchars($slug);
-        $page = Page::where('active', true)->with(['getImage'])->get();
-
+        $page = Page::where('active', true)->where('slug' , $slug)->with(['getImage','getSeo'])->firstOrFail();
         $pageSeo = Meta::metaInfo($page);
         return $this->frontend_theme('master', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
     }
 
-    public function book_bundle()
-    {
-        $bookBundle = BookBundle::where('active', true)->with(['getImage'])->get();
-        return $bookBundle;
-    }
+    /**
+     * Not In Used for this theme.
+     */
+//    public function book_bundle()
+//    {
+//        $bookBundle = BookBundle::where('active', true)->with(['getImage'])->get();
+//        return $bookBundle;
+//    }
 
+    /**
+     * For menu type events, Display event list page.
+     * @return \Illuminate\Contracts\View\View
+     */
     public function events() {
+        $events = \App\Plugins\Events\Http\Models\Event::where('active',true)->orderBy('event_start_date','desc')->with(['getImage' => function($query){
+            $query->with('image');
+        }])->paginate(15);
 
+        return $this->frontend_theme('master','events.list',[
+            'menu' => $this->active_menu,
+            'events'    =>  $events
+        ]);
     }
 
+    /**
+     * Submit contact form.
+     * @param Request $request
+     * @return \Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     */
     public function submit_contact_us(Request $request)
     {
         $request->validate([
@@ -159,4 +229,5 @@ class MenuController extends Controller
 
         return $this->json(true, $componentValue['success_message']);
     }
+
 }

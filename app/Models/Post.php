@@ -23,7 +23,8 @@ class Post extends AdminModel
         'featured_image'   => 'Featured Image',
         'banner_image'      => 'Banner Image',
         'intro_image'       => 'Intro Image',
-        'seo'               => 'SEO'
+        'seo'               => 'SEO',
+        'slider'        => 'Post Slider'
     ];
 
     protected $with = [
@@ -82,5 +83,11 @@ class Post extends AdminModel
         }
 
         return;
+    }
+
+    public static function recentPost() {
+        return self::where('status','active')->with(['getImage' => function($query){
+            $query->with('image');
+        }])->orderBy('created_at','desc')->limit('5')->get();
     }
 }

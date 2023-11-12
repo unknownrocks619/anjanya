@@ -45,15 +45,12 @@
                         <aside class="widget">
                             <h3 class="widget-title">Quick Link</h3>
                             <ul>
-                                <li>
-                                    <a href="contact.html">Membership Registration</a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">About</a>
-                                </li>
-                                <li>
-                                    <a href="donate.html">Contact us</a>
-                                </li>
+                                @foreach (\App\Classes\Helpers\Menu::parentMenu() as $parent_menu)
+                                    @continue($parent_menu->children->count())
+                                    <li>
+                                        <a href="{{$parent_menu->$parent_menu}}">{{$parent_menu->menu_name}}</a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </aside>
                     </div>
@@ -62,57 +59,56 @@
             <div class="lower-footer">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                        <div class="footer-newsletter">
-                            <h5>Subscribe us for more update & news !!</h5>
-                            <form class="newsletter">
-                                <input type="email" name="subscription" placeholder="Enter Your Email" class="subscription">
-                                <button type="submit" class="button-round-primary">Subscribe</button>
-                            </form>
-                        </div>
+                        {!! $user_theme->widget('newsletter') !!}
                     </div>
                     <div class="col-lg-6 text-right">
                         <div class="social-links">
                             <ul>
-                                @if(\App\Classes\Helpers\SystemSetting::social_media('facebook'))
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_facebook'))
                                     <li>
-                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('facebook')}}" target="_blank">
+                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_facebook')}}" target="_blank">
                                             <i class="fab fa-facebook-f" aria-hidden="true"></i>
                                         </a>
                                     </li>
                                 @endif
-                                <li>
-                                    <a href="https://www.twitter.com/" target="_blank">
-                                        <i class="fab fa-twitter" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.youtube.com/" target="_blank">
-                                        <i class="fab fa-youtube" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/" target="_blank">
-                                        <i class="fab fa-instagram" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/" target="_blank">
-                                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                                    </a>
-                                </li>
+
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_twitter'))
+                                    <li>
+                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_twitter')}}" target="_blank">
+                                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_youtube'))
+                                    <li>
+                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_youtube')}}" target="_blank">
+                                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_instagram'))
+                                    <li>
+                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_instagram')}}" target="_blank">
+                                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_linkedin'))
+                                    <li>
+                                        <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_linkedin')}}" target="_blank">
+                                            <i class="fab fa-linkedin" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="footer-menu">
                             <ul>
+                                @foreach(\App\Classes\Helpers\Menu::parentMenu()->where('menu_position','footer') as  $footer_menu)
                                 <li>
-                                    <a href="policy.html">Privacy Policy</a>
+                                    <a href="{{\App\Classes\Helpers\Menu::getLink($footer_menu)}}">{{$footer_menu->menu_name}}</a>
                                 </li>
-                                <li>
-                                    <a href="policy.html">Term & Condition</a>
-                                </li>
-                                <li>
-                                    <a href="faq.html">FAQ</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -122,7 +118,7 @@
     </div>
     <div class="bottom-footer">
         <div class="container">
-            <div class="copy-right text-center">Copyright &copy; 2022 Environ. All rights reserved.</div>
+            <div class="copy-right text-center">Copyright &copy; {{date('Y')}} {{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}. All rights reserved.</div>
         </div>
     </div>
 </footer>

@@ -65,8 +65,8 @@
                 _column += `<div class='row'>`;
                 _column += `<div class='col-md-12'>
                                 <div class='form-group'>
-                                    <label>Select Icon</label>
-                                    <select name="icon[${i}][${j}]" class="form-control ajax-select-2 component_field" data-action=""></select>
+                                    <label>Icon Name</label>
+                                    <input type='text' name="icon[${i}][${j}]" class="form-control ajax-select-2 component_field" />
                                 </div>
                             </div>
                         <div class="col-md-12 mt-1">

@@ -65,7 +65,7 @@
                                     <div class="col-md-12 pt-2">
                                         <div class="form-group">
                                             <label>Select Icon</label>
-                                            <select name="icon[{{$rowKey}}][{{$column_key}}]" class="form-control component_field"></select>
+                                            <input value="{{$column_value['icon']}}" name="icon[{{$rowKey}}][{{$column_key}}]" class="form-control component_field" />
                                         </div>
                                     </div>
                                     <div class="col-md-12">

@@ -49,7 +49,7 @@
                         {!! $page->full_description !!}
                         <hr class="my-4">
 
-                        @include('frontend.components.lister', ['model' => $page])
+                            @include('frontend.components.lister', ['model' => $page])
 
                         <div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
 

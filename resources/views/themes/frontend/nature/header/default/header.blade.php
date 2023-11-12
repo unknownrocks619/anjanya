@@ -81,7 +81,7 @@
                 <div class="main-navigation">
                     <nav id="navigation" class="navigation d-none d-lg-inline-block">
                         <ul>
-                            @foreach (\App\Classes\Helpers\Menu::parentMenu() as $parent_menu)
+                            @foreach (\App\Classes\Helpers\Menu::parentMenu()->where('menu_position','main') as $parent_menu)
                                 <li
                                     class="@if ($parent_menu->children->count()) menu-item-has-children @endif @if (\App\Classes\Helpers\Menu::isActiveMenu($parent_menu)) current-menu-item @endif">
                                     <a

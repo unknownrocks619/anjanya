@@ -69,6 +69,17 @@ class Menu
         if (array_key_exists($menu->menu_type, self::$menu_types)) {
             return self::$menu_types[$menu->menu_type];
         }
+
+        if ($menu->menu_type == 'page' && $menu->pages()->count() == 1) {
+            $connector = $menu->pages()->first();
+            if ($connector) {
+                $page = $connector->eloquentClass()->first();
+//                dump($page->getKey());
+                return route('frontend.pages.page',['slug' => $page?->slug]);
+            }
+
+        }
+
         return route('frontend.pages.menu', ['slug' => $menu->slug]);
     }
 

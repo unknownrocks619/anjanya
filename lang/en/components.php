@@ -35,6 +35,7 @@
             'parallax_image'        => 'Parallax Content',
             'progress_card'         => 'Progress Card',
             'event_list'            => 'Events',
+            'content'               => 'Content',
             '_failed_save'          => 'Unable to save component',
             '_success_save'         => 'Component Saved',
             '_failed_update'        => 'Unable to update component',

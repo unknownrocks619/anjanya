@@ -41,7 +41,6 @@
             </main>
         {!! $user_theme->footer() !!}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="{{asset ('frontend/nature/assets/vendors/waypoint/jquery.waypoints.min.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <script src="{{asset ('frontend/nature/assets/vendors/progressbar-fill-visible/js/progressBar.min.js')}}"></script>
@@ -56,5 +55,9 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         @vite(['resources/js/themes/nature/js/app.js','resources/js/public_app.js'])
+        <script type='text/javascript'
+                src='https://platform-api.sharethis.com/js/sharethis.js#property=649a0cca6fc24400124f2c47&product=sop'
+                async='async'></script>
+
     </div>
 </body>

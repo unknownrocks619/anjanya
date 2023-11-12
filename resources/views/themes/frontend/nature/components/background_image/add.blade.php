@@ -9,21 +9,31 @@
                         <div class="form-group">
                             <label for="layout_type">Layout Type</label>
                             <select name="layout_type" class="form-control component_field">
-                                <option value="background_image" selected>Background Image</option>
-                                <option value="background_colour">Background Colour</option>
+                                <option value="opening" selected>Opening (Center Content)</option>
+                                <option value="footer">Footer (Content and Button Side)</option>
+                                <option value="overlay">Overlay (Four Element Overlay)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="background_type">Background Type</label>
+                            <select name="background_type" class="form-control component_field">
+                                <option value="background_image" selected>Image</option>
+                                <option value="background_colour">Colour</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12 my-2 background_image layout_type">
+                    <div class="col-md-12 my-2 background_image background_type">
                         <div class="required">
                             <label for="background_image">Background Image</label>
                             <input type="file" name="background_image_upload"
                                    class="form-control background_image_upload"/>
                         </div>
                     </div>
-                    <div class="col-md-12 my-2 background_colour d-none layout_type">
+                    <div class="col-md-12 my-2 background_colour d-none background_type">
                         <div class="required">
                             <label for="background_image">Background Colour</label>
                             <input type="color" name="background_image_color"
@@ -31,72 +41,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="background_text">Background Text</label>
-                            <input type="text" name="background_text" class="form-control component_field"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="">Title</label>
-                            <input type="text" name="title" class="form-control component_field">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description"
-                                      class="tiny-mce form-control component_field"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="underline-text">Underline Text</label>
-                            <input type="text" name="underline_world" class="form-control component_field">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Button One Label</label>
-                            <input type="text" name="first_button_label" class="form-control component_field">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label>Button One Link</label>
-                                <input type="text" name="first_button_link" class="form-control component_field">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Button two Label</label>
-                            <input type="text" name="second_button_label" class="form-control component_field">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label>Button two Link</label>
-                                <input type="text" name="second_button_link" class="form-control component_field">
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
+
+            <!-- Image Preview Tab -->
             <div class="col-lg-4">
                 <img src="" class="background-image-display img-fluid"/>
                 <br />
@@ -106,6 +53,70 @@
                 <input type="hidden" name="video_image" class="component_field">
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="">Title</label>
+                    <input type="text" name="title" class="form-control component_field">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="background_text">Background Text</label>
+                    <input type="text" name="background_text" class="form-control component_field"/>
+                </div>
+            </div>
+            <div class="col-md-12 my-3">
+                <div class="form-group">
+                    <label for="underline-text">Underline Text</label>
+                    <input type="text" name="underline_world" class="form-control component_field">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description"
+                              class="tiny-mce form-control component_field"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Button One Label</label>
+                    <input type="text" name="first_button_label" class="form-control component_field">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Button One Link</label>
+                        <input type="text" name="first_button_link" class="form-control component_field">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Button two Label</label>
+                    <input type="text" name="second_button_label" class="form-control component_field">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Button two Link</label>
+                        <input type="text" name="second_button_link" class="form-control component_field">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -135,7 +146,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="connect_component">Connect Component</label>
-                    <select name="connector_component" id="connector_component" class="form-control component_field">
+                    <select multiple name="connector_component[]" id="connector_component" class="form-control component_field">
                         <option value="">Select Component</option>
                         @foreach (\App\Models\WebComponents::where('active',true)->get() as $component)
                             <option value="{{$component->getKey()}}">{{$component->component_name}}</option>
@@ -148,8 +159,8 @@
 </div>
 <script>
     window.setupTinyMce();
-
-    $(document).on('change','select[name="layout_type"]', function(event){
+    $('select').select2();
+    $(document).on('change','select[name="background_type"]', function(event){
         event.preventDefault();
         $('.layout_type').addClass('d-none')
         $('.'+$(this).find(':selected').val()).removeClass('d-none')

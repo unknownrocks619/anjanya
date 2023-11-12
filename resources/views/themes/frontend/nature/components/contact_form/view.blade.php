@@ -94,54 +94,76 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                        <input type="submit" name="submit" value="Submit Now">
+                                        <input type="submit" name="submit" value="{{$componentValue['button']}}">
                                 </div>
                             </div>
                         </form>
-                        <div class="overlay"></div>
+                        <div class="overlay" style="background: transparent !important;border: 2px solid #ffda10 !important; border-radius: 10%"></div>
                     </div>
-{{--                    <div class="footer-social-icon">--}}
-{{--                        <h4>Follow us on social media..</h4>--}}
-{{--                        <br>--}}
-{{--                        <div class="social-icon-wrap">--}}
-{{--                            <div class="social-icon social-facebook">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-facebook-f"></i>--}}
-{{--                                    <span>Facebook</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="social-icon social-pinterest">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-pinterest"></i>--}}
-{{--                                    <span>Pinterest</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="social-icon social-whatsapp">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-whatsapp"></i>--}}
-{{--                                    <span>WhatsApp</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="social-icon social-linkedin">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-linkedin"></i>--}}
-{{--                                    <span>Linkedin</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="social-icon social-twitter">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-twitter"></i>--}}
-{{--                                    <span>Twitter</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="social-icon social-google">--}}
-{{--                                <a href="#" target="_blank">--}}
-{{--                                    <i class="fab fa-google-plus-g"></i>--}}
-{{--                                    <span>Google</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="footer-social-icon">
+                        @if(\App\Classes\Helpers\SystemSetting::social_media()?->count())
+                            <h4>Follow us on social media..</h4>
+                        <br>
+                        <div class="social-icon-wrap">
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_facebook'))
+                                <div class="social-icon social-facebook">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_facebook')}}" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                        <span>Facebook</span>
+                                    </a>
+                                </div>
+                            @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_pinterest'))
+                                <div class="social-icon social-pinterest">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_pinterest')}}" target="_blank">
+                                        <i class="fab fa-pinterest"></i>
+                                        <span>Pinterest</span>
+                                    </a>
+                                </div>
+                            @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_whatsapp'))
+                                <div class="social-icon social-whatsapp">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_whatsapp')}}" target="_blank">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <span>WhatsApp</span>
+                                    </a>
+                                </div>
+                            @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_linkedin'))
+                                <div class="social-icon social-linkedin">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_linkedin')}}" target="_blank">
+                                        <i class="fab fa-linkedin"></i>
+                                        <span>Linkedin</span>
+                                    </a>
+                                </div>
+                            @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_twitter'))
+                                <div class="social-icon social-twitter">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_twitter')}}" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                        <span>Twitter</span>
+                                    </a>
+                                </div>
+                            @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_google'))
+                                <div class="social-icon social-google">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_google')}}" target="_blank">
+                                        <i class="fab fa-google-plus-g"></i>
+                                        <span>Google</span>
+                                    </a>
+                                </div>
+                           @endif
+                            @if(\App\Classes\Helpers\SystemSetting::social_media('social_instagram'))
+                                <div class="social-icon social-google">
+                                    <a href="{{\App\Classes\Helpers\SystemSetting::social_media('social_google')}}" target="_blank">
+                                        <i class="fab fa-instagram"></i>
+                                        <span>Instagram</span>
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

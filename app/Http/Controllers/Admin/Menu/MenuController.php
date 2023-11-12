@@ -152,6 +152,7 @@ class MenuController extends Controller
         $menu->menu_position = $request->post('menu_position');
         $menu->active = $request->has('active') ? true : false;
         $menu->parent_id = $request->post('parent_menu');
+        $menu->menu_name  = $request->post('menu_name');
         if ($menu->isDirty('slug')) {
             $menu->slug = Menu::getSlug($request->post('slug'), $menu);
         }

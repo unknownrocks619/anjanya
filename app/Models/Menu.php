@@ -31,14 +31,14 @@ class Menu extends AdminModel
         'page'      => 'Page',
         'category'  => 'Category',
         'post'      => 'Post',
-        'coursees'  => 'Courses',
-        'events'    => 'Event',
+        'courses'  => 'Courses',
         'contact'   => 'Contact Us',
         'book_upload'   => 'Book Upload Form',
         'book_bundle'   => 'Book Bundle',
         'seo'           => 'SEO',
         'rooms'         => 'Room List',
-        'events'        => 'Event List'
+        'events'        => 'Event List',
+        'gallery'       => 'Gallery'
     ];
 
     const MENU_POSITIONS = [
