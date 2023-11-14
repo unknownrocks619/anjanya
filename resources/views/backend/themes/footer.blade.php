@@ -30,7 +30,7 @@
                                      style="max-height:175px;"/>
                                 <div class="form-check radio radio-warning">
                                     <input
-                                        @if($setting->additional_text['name'] == $configuration['namespace']) checked
+                                        @if($setting?->additional_text['name'] == $configuration['namespace']) checked
                                         @endif  class="form-check-input" id="defaultHeader_{{str($configuration['namespace'])->slug('_')}}" type="radio"
                                         name="footer" value="{{$configuration['namespace']}}"
                                         data-bs-original-title="" title="">
