@@ -12,24 +12,39 @@ class HeaderController extends Controller
     public function header() {
         $request = Request::capture();
         $setting = Setting::where('name','header')->first();
+
         if ($request->post()) {
+
+            if ( $setting ) {
+                $setting = new Setting();
+                $setting->name = 'header';
+            }
+
             $setting->value = 'header/'.$request->post('header').'/header';
             $setting->additional_text = ['name' => $request->post('header')];
             $setting->save();
             return $this->json(true,'Information Updated.');
         }
+
         // get all
         return $this->admin_theme('themes.header',['configurations' => $this->getConfiguration(),'setting' => $setting]);
     }
     public function footer() {
         $request = Request::capture();
         $setting = Setting::where('name','footer')->first();
+
         if ($request->post()) {
+
+            if (! $setting ) {
+                $setting->name = 'footer';
+            }
+
             $setting->value = 'footer/'.$request->post('footer').'/footer';
             $setting->additional_text = ['name' => $request->post('footer')];
             $setting->save();
             return $this->json(true,'Information Updated.');
         }
+
         // get all
         return $this->admin_theme('themes.footer',['configurations' => $this->getConfiguration('footer'),'setting' => $setting]);
     }
