@@ -1,6 +1,13 @@
 <?php
 return [
-    'components' => [],
+    'components' => [
+        'background_image' => [
+            'edit' => 'components.background_image.edit',
+            'add' => 'components.background_image.add',
+            'view' => 'components.background_image.view',
+            'namespace' => 'BackgroundImage'
+        ],
+    ],
     # Headers for theme
     'header'    => [
         [

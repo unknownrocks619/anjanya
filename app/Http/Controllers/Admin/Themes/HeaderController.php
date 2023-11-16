@@ -5,11 +5,45 @@ namespace App\Http\Controllers\Admin\Themes;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HeaderController extends Controller
 {
     protected array $configs = [];
+
+    public function themeSettings() {
+        $request = Request::capture();
+        $tabs = ['glitters','colour','info'];
+
+
+        $setting = Setting::where('name','glitters')->first();
+
+        if ( ! $setting ) {
+
+            $setting = new Setting();
+            $setting->fill([
+                'name' => 'glitters',
+                'value' => 'images'
+            ]);
+            $setting->save();
+
+        }
+
+        if ( $request->post() ){
+
+        }
+
+        return $this->admin_theme('themes.theme-setting',
+                                    [
+                                        'configurations' => $this->getConfiguration(),
+                                        'setting' => $setting,
+                                        'tabs' => $tabs,
+                                        'current_tab' => 'glitters'
+                                    ]);
+
+    }
     public function header() {
+
         $request = Request::capture();
         $setting = Setting::where('name','header')->first();
 
@@ -52,4 +86,16 @@ class HeaderController extends Controller
         return $config[$type];
 
     }
+
+    /**
+     * @info return all settings related to theme,
+     * @return void
+     */
+    public static function themeConfigurations() {
+        if (Cache::has('theme_setting') ) {
+            return Cache::get('theme_setting');
+        }
+        $themes = Setting::where('name','glitters')->get();
+    }
+
 }
