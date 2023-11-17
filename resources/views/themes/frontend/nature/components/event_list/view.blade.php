@@ -3,11 +3,13 @@
     $componentValue = $_loadComponentBuilder->values;
     $carbonDate = \Carbon\Carbon::now();
     $events = \App\Plugins\Events\Http\Models\Event::where('active',true)
+                                                    ->where('event_end_date' , '>',$carbonDate)
                                                     ->orderBy('event_start_date','asc')
                                                     ->with(['getImage' => function($query) {
                                                         $query->with('image');
                                                     }])
-                                                    ->limit(8);
+                                                    ->limit(8)
+                                                    ->get();
 @endphp
 <section class="event-section secondary-bg" style="background-color:{{$componentValue['background_colour']}}">
     <div class="container">
