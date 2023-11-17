@@ -3,6 +3,7 @@
         <div class="container">
             <div class="inner-banner-content">
                 <h1 class="inner-title">{{$title}}</h1>
+                @if(isset($date))
                 <div class="entry-meta">
                            <span class="byline">
                               <a href="#">{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}</a>
@@ -10,9 +11,7 @@
                     <span class="posted-on">
                               <a href="#">{{$date}}</a>
                            </span>
-                    <span class="comments-link">
-                          <a href="#commentArea">No Comments</a>
-                       </span>
+                    @endif
                 </div>
             </div>
         </div>

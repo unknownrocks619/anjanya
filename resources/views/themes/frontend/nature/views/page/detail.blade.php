@@ -14,6 +14,8 @@
     if ($pageFeaturedImage) {
         $image = \App\Classes\Helpers\Image::getImageAsSize($pageFeaturedImage->image?->filepath, 'm');
     }
+
+
 @endphp
 
 @extends($user_theme->frontend_layout($extends))
