@@ -39,7 +39,7 @@
             @foreach ($events as $event)
                 @php
                     $carbonEventDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_start_date);
-                    $images = null;
+                    $image = null;
                         $eventImage = $event
                                             ->getImage()
                                             ->where('type', 'featured_image')
