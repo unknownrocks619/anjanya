@@ -3,7 +3,7 @@
         <div class="col-lg-4 col-xl-3 col-md-6 col-6">
             <div class="logo">
                 <a href="/">
-                    <img class="logo-light" src="{{\App\Classes\Helpers\SystemSetting::logo()}}" alt="{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}">
+                    <img class="logo-light" src="{{\App\Classes\Helpers\SystemSetting::logo()}}" alt="{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}" style="max-height: 100px !important;">
                 </a>
             </div>
         </div>

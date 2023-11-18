@@ -48,9 +48,12 @@
                 <img src="" class="background-image-display img-fluid"/>
                 <br />
                 <img src="" class="video-poster-display img-fluid mt-3" />
+                <br />
+                <img src="" class="front-image-display img-fluid mt-3" />
 
                 <input type="hidden" name="background_image" class="component_field">
                 <input type="hidden" name="video_image" class="component_field">
+                <input type="hidden" name="front_image" class="component_field">
             </div>
         </div>
         <div class="row">
@@ -116,6 +119,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="row my-3">
+            <div class="col-md-6">
+                    <label>Display Front Image</label>
+                    <input type="file" name="front_image_upload"
+                           class="form-control front_image_upload"/>
+            </div>
+            <div class="col-md-6">
+                <label>Glitter Background</label>
+                <select name="glitter_background"  class="form-control">
+                    <option value="" selected>--</option>
+                    @foreach (\App\Models\GalleryAlbums::where('album_type','glitters')->get() as $glitterAlbum)
+                        <option value="{{$glitterAlbum->getKey()}}">{{$glitterAlbum->album_name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
 
         <div class="row">
             <div class="col-md-6">
@@ -215,6 +236,32 @@
                 let _response = response.data;
                 $('input[name="video_image"]').val(_response.params.image)
                 $('img.video-poster-display').attr('src',_response.params.image);
+            })
+        }
+    })
+
+    $(document).on('change','input.front_image_upload', function(event) {
+        const fileInput = event.target;
+        const file = fileInput.files[0];
+
+        if ( ! file ) {
+            return;
+        }
+
+        if ( file ) {
+            const formData = new FormData();
+            formData.append('image',file);
+            formData.append('name',$(this).attr('name'))
+            formData.append('component','background_image')
+            formData.append('_action','uploadMedia')
+            axios.post('/admin/components/common/upload-image/background_image',formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function(response){
+                let _response = response.data;
+                $('input[name="front_image"]').val(_response.params.image)
+                $('img.front-image-display').attr('src',_response.params.image);
             })
         }
     })

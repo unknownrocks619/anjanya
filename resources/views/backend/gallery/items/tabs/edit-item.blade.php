@@ -38,6 +38,32 @@
                     </div>
                 </div>
                 <div class="row mt-2">
+                    <div class="col-md-3">
+                        <div class="form-group d-flex align-items-center mt-1">
+                            <div class="m-t-15 m-checkbox-inline">
+                                <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                                    <input @if($previewSliderItem->featured_background) checked @endif class="form-check-input" name="featured_background" id="featured" type="checkbox" data-bs-original-title="" title="featured">
+                                    <label class="form-check-label" for="featured">
+                                        Image Background
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group d-flex align-items-center mt-1">
+                            <div class="m-t-15 m-checkbox-inline">
+                                <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                                    <input @if($previewSliderItem->featured_button) checked @endif class="form-check-input" name="featured_button" id="featured_button" type="checkbox" data-bs-original-title="" title="Display Icon on Button side">
+                                    <label class="form-check-label" for="featured_button">
+                                        Aside Button
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
                     <div class="col-md-12 text-end">
                         <button type="submit" class="btn btn-primary">
                             Save Changes

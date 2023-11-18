@@ -58,7 +58,10 @@ class BackgroundImage extends BaseComponent implements ComponentInterface
             'video_poster'  => $request->post('video_image'),
             'video_link'    => $request->post('video_link'),
             'enquiry_form'  => $request->post('enquiry_form'),
-            'attach_component'  => $request->post('connector_component')
+            'attach_component'  => $request->post('connector_component'),
+            'front_image'       => $request->post('front_image'),
+            'glitter_background'    => $request->post('glitter_background')
+
         ];
 
         $componentBuilder->values = $values;
@@ -94,7 +97,9 @@ class BackgroundImage extends BaseComponent implements ComponentInterface
             'video_poster'  => $request->post('video_image'),
             'video_link'    => $request->post('video_link'),
             'enquiry_form'  => $request->post('enquiry_form'),
-            'attach_component'  => $request->post('connector_component')
+            'attach_component'  => $request->post('connector_component'),
+            'front_image'       => $request->post('front_image'),
+            'glitter_background'    => $request->post('glitter_background')
         ];
         $component = ComponentBuilder::find($request->post('_componentID'));
 

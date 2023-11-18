@@ -13,6 +13,7 @@ class GalleryAlbums extends AdminModel
         'album_name',
         'slug',
         'active',
+        'album_type',
         'description',
         'sort_by'
     ];
