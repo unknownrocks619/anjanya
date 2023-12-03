@@ -311,14 +311,14 @@ class WebEventsController extends Controller
         $familyMemberDetail = session()->get('registration_detail');
         $familyMemberDetail['profile_url'] = $request->post('profile_picture_default');
         foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
-            $request->validate([
-                'profile_picture_'.$key => 'required|url'
-            ],[
-                'profile_picture_'.$key.'.required' => 'Please Upload ' . $member['name'].' profile picture',
-                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
-            ]);
+//            $request->validate([
+//                'profile_picture_'.$key => 'required|url'
+//            ],[
+//                'profile_picture_'.$key.'.required' => 'Please Upload ' . $member['name'].' profile picture',
+//                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
+//            ]);
 
-            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  $request->post('profile_picture_'.$key);
+            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
         }
 
          // also save this information in siddhamahayog portal.
