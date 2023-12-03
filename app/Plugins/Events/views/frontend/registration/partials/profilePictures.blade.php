@@ -40,7 +40,7 @@
                                     <div class="col-md-8">
                                         <div class="alert alert-danger error-reporting error-reporting_{{$key}} d-none"></div>
                                         <div class="alert alert-info">
-                                            Please upload an individual Profile Picture (single photo) for each member. This image will be used to create your ID card for the Yagya.
+                                            Please upload an individual Profile Picture (single photo) for each member. This image will be used to create their ID card for the Yagya.
 
                                         </div>
                                         <div class="form-group">
