@@ -21,7 +21,7 @@
                             <div class="p-5">
 
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="jap_start_date">
                                                  Start Date of Hanuman Mantra Jaap
@@ -29,7 +29,7 @@
                                             <input type="date" name="jap_start_date" @if(isset(session()->get('registration_detail')['jap_detail']['jap_start_date'])) value="{{session()->get('registration_detail')['jap_detail']['jap_start_date']}}" @endif class="form-control" id="jap_start_date">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-7">
                                         <div class="form-group">
                                             <label for="jap_count_to_date">
                                                 As of today, how many Jaap have you completed?
@@ -41,8 +41,8 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row mt-3 ">
+                                    <div class="col-md-5">
                                         <div class="form-group mb-5">
                                             <label for="estimated_jap_count">
                                                 By the time of Yayga, what do you estimate your total Jaap count will be?  <span class="text-danger">(e.g., target - 600000)</span>
