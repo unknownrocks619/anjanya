@@ -7,7 +7,7 @@
                 <li id="personal" class="active"><strong>Personal</strong></li>
                 <li id="family" class="active"><strong>Family Information</strong></li>
                 <li id="jap" class="active"><strong>Jap Information</strong></li>
-                <li id="profile"><strong>Profile Image</strong></li>
+                <li id="profile"><strong>Yagya Photo Card</strong></li>
             </ul>
         </div>
     </div>
