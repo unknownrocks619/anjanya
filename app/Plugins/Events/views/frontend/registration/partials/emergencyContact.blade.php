@@ -21,7 +21,7 @@
                         <div class="col-lg-7">
                             <div class="p-5">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label for="total_family_member">Total Family Member(s)
                                             <span class="text-danger">
