@@ -9,9 +9,8 @@
                         <input type="text" name="email" placeholder="Email Address">
 
                     </div>
-                    <span class="text-danger text-start text-left">
-                            If You have filled, any other previous form (Vedanta darshan, Atirudri etc) Please
-                            Provide same email address.
+                        <span class="text-danger text-start text-left">
+                            If you have previously completed any other forms on our site, such as Vedanta Darshan or Atirudri, kindly use the same email address for registration.
                         </span>
                     <button class="rn-btn edu-btn w-100 mb--30" onclick="window.Registration.submitForm(this)" type="button">
                         <span>Proceed</span>
