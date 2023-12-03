@@ -24,7 +24,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jap_start_date">
-                                                When did you start doing Hanuman Mantra Jaap?
+                                                Hanuman Mantra Jaap Start Date ?
                                             </label>
                                             <input type="date" name="jap_start_date" @if(isset(session()->get('registration_detail')['jap_detail']['jap_start_date'])) value="{{session()->get('registration_detail')['jap_detail']['jap_start_date']}}" @endif class="form-control" id="jap_start_date">
                                         </div>
@@ -32,7 +32,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jap_count_to_date">
-                                                As of today, how many Jaap have you completed? <span class="text-danger">(e.g., 200,000)</span>
+                                                As of today, how many Jaap have you completed?
+                                                <span class="text-danger">(e.g., 200000)</span>
 
                                             </label>
                                             <input type="number" min="1" name="total_jap_count" @isset(session()->get('registration_detail')['jap_detail']['total_jap_count']) value="{{session()->get('registration_detail')['jap_detail']['total_jap_count']}}" @endisset  class="form-control" id="jap_count_to_date">
@@ -44,7 +45,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-5">
                                             <label for="estimated_jap_count">
-                                                By the time of Yayga, how many Jaap will you have completed? <span class="text-danger">(e.g., target 600,000)</span>
+                                                By the time of Yayga, what do you estimate your total Jaap count will be?  <span class="text-danger">(e.g., target - 600000)</span>
                                             </label>
                                             <input type="number" name="estimated_jap" @isset(session()->get('registration_detail')['jap_detail']['estimated_jap']) value="{{session()->get('registration_detail')['jap_detail']['estimated_jap']}}" @endisset class="form-control" id="estimated_jap_count">
                                         </div>
