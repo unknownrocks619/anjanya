@@ -86,7 +86,7 @@
                                 <div class="col-md-6 mt-2">
                                     <div class="form-group">
                                         <label for="state">
-                                            State
+                                            State/Province
                                             <sup class="text-danger">*</sup>
                                         </label>
                                         <input type="text" value="{{session()->get('registration_detail')['city']}}" name="state" id="state" class="form-control">
