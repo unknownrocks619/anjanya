@@ -25,6 +25,7 @@ class BackgroundImage extends BaseComponent implements ComponentInterface
         return $this->json(true,'Image upload','',['source' => $source,'image' => \App\Classes\Helpers\Image::getImageAsSize($image[0]->filepath,'m')]);
 
     }
+
     public function store($componentBinder)
     {
         $request = Request::capture();

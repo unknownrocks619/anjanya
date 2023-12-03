@@ -5,6 +5,7 @@
     $featuredBackgroundGlitter = null;
     $imageButtonSide = null;
     $frontImage = $componentValue['front_image'];
+
     if ( $componentValue['glitter_background'] ) {
         $glittersBackground = \App\Models\GalleryAlbums::where('id',$componentValue['glitter_background'])
                                                         ->where('active',true)
@@ -26,15 +27,18 @@
         $styleKey = 'background';
         $styleValue = $componentValue['background_colour'];
     }
+
 @endphp
 <!-- Start Sldier Area  -->
 <div class="slider-area banner-style-2 bg-image d-flex align-items-center"  style="{{$styleKey}} : {{$styleValue}} !important">
     <div class="container">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-8 col-md-12">
                 <div class="inner">
                     <div class="content">
-                        <span class="pre-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">Better Learning Future With Us</span>
+                        <span class="pre-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                            {{$componentValue['underline_text']}}
+                        </span>
                         <h1 class="title" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
                             {{$componentValue['title']}}</h1>
                         <div class="description" data-sal-delay="250" data-sal="slide-up" data-sal-duration="800">
@@ -74,7 +78,7 @@
 
         <div class="shape-dot-wrapper shape-wrapper d-xl-block d-none">
             @if($glittersBackground)
-                @php($count=1);
+                @php($count=1)
                 @foreach ($glittersBackground->items ?? [] as $items)
                     @continue($items->featured_background)
                     @continue($items->featured_button)
@@ -91,4 +95,4 @@
         </div>
     </div>
 </div>
-<!-- End Sldier Area  -->
+<!-- End Slider Area  -->

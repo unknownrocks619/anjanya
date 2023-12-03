@@ -3,9 +3,10 @@
   <head>
       <meta charset="utf-8">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <title> @yield('page_title') | | {{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}</title>
+      <title>{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}@yield('page_title')</title>
       <!-- Favicon -->
       <link rel="shortcut icon" type="image/x-icon" href="{{\App\Classes\Helpers\SystemSetting::logo()}}">
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
 
       <!-- CSS
       ============================================ -->

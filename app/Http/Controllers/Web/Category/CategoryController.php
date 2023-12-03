@@ -24,6 +24,6 @@ class CategoryController extends Controller
         $category = Category::where('active', true)->where('slug', $slug)->firstOrFail();
         $posts = Post::whereJsonContains('categories', $category->getKey())->paginate(30);
 
-        return $this->frontend_theme('contact', 'category.category-post', ['category' => $category, 'posts' => $posts]);
+        return $this->frontend_theme('master-nav', 'category.category-post', ['category' => $category, 'posts' => $posts]);
     }
 }

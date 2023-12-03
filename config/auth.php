@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'portal'    => [
+            'driver'    => 'session',
+            'provider'  => 'portal'
+        ],
         'admin' => [
             'driver'    => 'session',
             'provider'  => 'admin'
@@ -73,6 +77,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin\AdminUser::class,
         ],
+        'portal' => [
+            'driver'    => 'eloquent',
+            'model' => \App\Models\Portal\UserModel::class
+        ]
     ],
 
     /*

@@ -237,4 +237,18 @@ class SystemSetting
         }
         return $basicConfigurationSettings;
     }
+
+    public static function total_readtime(string $article) {
+
+        // Assuming an average reading speed of 200 words per minute
+        $wordsPerMinute = 200;
+
+        // Count the number of words in the content
+        $wordCount = str_word_count(strip_tags($article));
+
+        // Calculate the read time in minutes
+        $readTimeMinutes = ceil($wordCount / $wordsPerMinute);
+
+        return $readTimeMinutes;
+    }
 }

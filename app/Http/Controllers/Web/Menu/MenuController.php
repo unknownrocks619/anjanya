@@ -95,14 +95,13 @@ class MenuController extends Controller
         $isLanding = false;
         $isFooter = true;
 
-
         $categories = $this->active_menu->categories()->get();
 
         if (!$categories->count()) {
             $categories = Category::with('getImage')->get();
         }
         $pageSeo = $defaultSEO;
-        return $this->frontend_theme('master', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
+        return $this->frontend_theme('master-nav', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
 
     }
     /**
@@ -134,7 +133,7 @@ class MenuController extends Controller
             $defaultSEO = $pageSeo;
         }
 
-        return $this->frontend_theme('master', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
+        return $this->frontend_theme('master-nav', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
 
     }
 
@@ -150,10 +149,12 @@ class MenuController extends Controller
             $query->with(['getImage' => function($subQuery){
                 $subQuery->with('image');
             }])
-                ->where('sort_by','asc');
-        }])->orderBy('sort_by','asc')->get();
+            ->where('sort_by','asc');
+        }])
+        ->where('album_type','!=','glitters')
+        ->orderBy('sort_by','asc')->get();
 
-        return $this->frontend_theme('master','gallery.list',
+        return $this->frontend_theme('master-nav','gallery.list',
                                         ['menu' => $this->active_menu,'galleryAlbums' => $galleryAlbums,'pageSeo' => $defaultSEO]);
     }
 
@@ -168,7 +169,7 @@ class MenuController extends Controller
         $slug = htmlspecialchars($slug);
         $page = Page::where('active', true)->where('slug' , $slug)->with(['getImage','getSeo'])->firstOrFail();
         $pageSeo = Meta::metaInfo($page);
-        return $this->frontend_theme('master', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
+        return $this->frontend_theme('master-nav', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
     }
 
     /**
@@ -189,7 +190,7 @@ class MenuController extends Controller
             $query->with('image');
         }])->paginate(15);
 
-        return $this->frontend_theme('master','events.list',[
+        return $this->frontend_theme('master-nav','events.list',[
             'menu' => $this->active_menu,
             'events'    =>  $events
         ]);

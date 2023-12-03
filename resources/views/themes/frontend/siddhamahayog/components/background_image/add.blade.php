@@ -128,7 +128,7 @@
             </div>
             <div class="col-md-6">
                 <label>Glitter Background</label>
-                <select name="glitter_background"  class="form-control">
+                <select name="glitter_background"  class="form-control component_field">
                     <option value="" selected>--</option>
                     @foreach (\App\Models\GalleryAlbums::where('album_type','glitters')->get() as $glitterAlbum)
                         <option value="{{$glitterAlbum->getKey()}}">{{$glitterAlbum->album_name}}</option>

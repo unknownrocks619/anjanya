@@ -17,7 +17,7 @@
 
         <div class="@if($colLoop == false) {{$loop->odd ? 'col-8' : 'col-4'}} @else {{$loop->odd ? 'col-4' : 'col-8'}} @endif lc-block border-3 border border-light">
             <img
-                class="h-100  w-100" style="object-fit:cover" src="https://images.unsplash.com/photo-1496196614460-48988a57fccf?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;ixid=MnwzNzg0fDB8MXxzZWFyY2h8NDJ8fG9jZWFufGVufDB8MHx8fDE2MzQ5OTYyODY&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=1080&amp;h=768" alt="{{ $gallery_item->alt_text }}" loading="lazy">
+                class="h-100  w-100" style="object-fit:cover" src="" alt="{{ $gallery_item->alt_text }}" loading="lazy">
         </div>
 
         @php

@@ -5,6 +5,7 @@
                 <a href="/">
                     <img src="{{\App\Classes\Helpers\SystemSetting::logo()}}" alt="{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}">
                 </a>
+                {{ \App\Classes\Helpers\SystemSetting::basic_configuration('site_name') }}
             </div>
             <div class="close-menu">
                 <button class="close-button">

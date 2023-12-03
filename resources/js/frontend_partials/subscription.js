@@ -1,8 +1,8 @@
 import axios from "axios";
 
 $(document).on('submit', 'button.newsletter-button', function (event) {
-    let _this = this;
     event.preventDefault();
+    let _this = this;
     $(this).prop('disabled', true);
     $(this).closest('form').attr('disabled')
     if ($('#newsletter-message-div').length) {

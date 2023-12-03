@@ -82,6 +82,12 @@ class PostController extends Controller
             $post->type = $request->post('post_type');
             $post->status = $request->post('status');
             $post->categories = $request->post('categories') ? array_map('intval', $request->post('categories')) : [];
+
+            if(env('APP_THEMES') == 'siddhamahayog') {
+                $post->glitter_background = $request->post('glitter_background');
+            }
+
+
             try {
                 $post->save();
             } catch (\Throwable $th) {

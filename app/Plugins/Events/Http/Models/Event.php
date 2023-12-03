@@ -26,7 +26,8 @@ class Event extends AdminModel
         'event_contact_number',
         'event_contact_email',
         'event_location',
-        'event_location_iframe'
+        'event_location_iframe',
+        'glitter_background'
     ];
 
     const IMAGE_TYPES = [

@@ -1,4 +1,7 @@
 import '../../../public_app';
+import '../../../frontend_partials/subscription';
+import './partials/registration-progress';
+import './partials/registration';
 
 (function (window, document, $, undefined) {
     'use strict';

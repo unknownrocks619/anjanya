@@ -102,6 +102,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if(env('APP_THEMES') == 'siddhamahayog')
+                                    <div class="col-md-6">
+                                        @include('themes.frontend.siddhamahayog.components.common.glitter')
+                                    </div>
+                                @endif
                             </div>
 
 

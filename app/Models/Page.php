@@ -15,7 +15,8 @@ class Page extends AdminModel
         'intro_text',
         'short_description',
         'full_description',
-        'active'
+        'active',
+        'glitter_background'
     ];
 
 

@@ -134,10 +134,15 @@ class Controller extends BaseController
 
         return response($error, 422);
     }
-    public function header() {
+    public function header($path = null) {
         $base_path = env('APP_THEMES') ?? 'default';
         $setting = Setting::where('name','header')->first();
         $header = $setting?->value ?? 'header/default/header';
+
+        if ( $path ) {
+            $header = 'header/default/'.$path;
+        }
+
         $view = view('themes.frontend.'.$base_path.'.' . $header )->render();
         return $view;
     }

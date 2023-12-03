@@ -1,3 +1,7 @@
+@php
+    /** @var \App\Models\Menu $menu */
+    $componentValue['glitter_background'] = $menu->glitter_background;
+@endphp
 <form action="{{ route('admin.menu.update', ['menu' => $menu, 'current_tab' => 'general']) }}" class="ajax-form" method="post">
     <div class="row">
         <!-- Zero Configuration  Starts-->
@@ -91,6 +95,11 @@
                                 </div>
                             </div>
                         </div>
+                        @if(env('APP_THEMES') == 'siddhamahayog')
+                            <div class="col-md-6">
+                                @include('themes.frontend.siddhamahayog.components.common.glitter',['componentValue' => $componentValue])
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
