@@ -37,10 +37,10 @@
                         <button class="white-box-icon search-trigger header-search"><i class="ri-search-line"></i></button>
                     </div>
                     <div class="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
-                        <a class="edu-btn btn-medium left-icon header-button" href="login-register.html"><i class="ri-user-line"></i>Login / Register</a>
+                        <a class="edu-btn btn-medium left-icon header-button" href="https://jagadguru.siddhamahayog.org/login"><i class="ri-user-line"></i>Login / Register</a>
                     </div>
                     <div class="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
-                        <a class="white-box-icon" href="login-register.html"><i class="ri-user-line"></i></a>
+                        <a class="white-box-icon" href="https://jagadguru.siddhamahayog.org/login"><i class="ri-user-line"></i></a>
                     </div>
                 </div>
 
