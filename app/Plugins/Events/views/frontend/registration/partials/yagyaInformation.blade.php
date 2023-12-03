@@ -24,7 +24,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="jap_start_date">
-                                                Hanuman Mantra Jaap Start Date ?
+                                                 Start Date of Hanuman Mantra Jaap
                                             </label>
                                             <input type="date" name="jap_start_date" @if(isset(session()->get('registration_detail')['jap_detail']['jap_start_date'])) value="{{session()->get('registration_detail')['jap_detail']['jap_start_date']}}" @endif class="form-control" id="jap_start_date">
                                         </div>
