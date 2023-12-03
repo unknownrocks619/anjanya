@@ -51,6 +51,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-end">
+                                        <button type="button" onclick="window.Registration.stepBack()" class="edu-btn  bg-info">
+                                            <i class="fas fa-arrow-left"></i>
+                                            back
+                                        </button>
                                         <button type="button" class="edu-btn" onclick="window.Registration.submitForm(this)">
                                             Next
                                             <i class="fas fa-arrow-right"></i>
