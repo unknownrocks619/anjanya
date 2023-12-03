@@ -22,8 +22,7 @@
                                 <div class="col-md-8">
                                     <div class="alert alert-danger error-reporting error-reporting_default d-none"></div>
                                     <div class="alert alert-info">
-                                        Please upload your individual Profile Picture for every single member, This image will
-                                        be used to create your ID card for yagya.
+                                        Please upload YOUR individual Profile Picture (single photo). This image will be used to create your ID card for yagya.
 
                                     </div>
                                     <div class="form-group">
