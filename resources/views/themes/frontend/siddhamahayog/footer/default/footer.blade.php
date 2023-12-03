@@ -3,7 +3,7 @@
     <div class="footer-top">
         <div class="container eduvibe-animated-shape">
             <div class="row g-5">
-                <div class="col-lg-2 col-md-6 col-sm-12 col-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="edu-footer-widget">
                         <div class="logo">
                             <a href="/">
@@ -26,7 +26,7 @@
                 </div>
 
 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 d-none">
                     <div class="edu-footer-widget quick-link-widget">
                         <h5 class="widget-title">Useful Links</h5>
                         <div class="inner">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                     <div class="edu-footer-widget">
                         <h5 class="widget-title">Contact Info</h5>
                         <div class="inner">
@@ -58,7 +58,7 @@
                 </div>
 
                 @if(\App\Classes\Helpers\SystemSetting::primary_contact_info('primary_contact_map'))
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="edu-footer-widget quick-link-widget">
                             {!! \App\Classes\Helpers\SystemSetting::primary_contact_info('primary_contact_map') !!}
                         </div>
