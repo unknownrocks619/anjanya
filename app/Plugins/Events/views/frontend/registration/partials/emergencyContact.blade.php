@@ -23,7 +23,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="total_family_member">Total Family Member</label>
+                                            <label for="total_family_member">Total Family Member(s)
+                                            <span class="text-danger">
+                                                 (Attending Hanuman Yagya)
+                                            </span>
+                                            </label>
                                             <input type="number" @if(isset(session()->get('registration_detail')['family_detail']['total_member'])) value="{{session()->get('registration_detail')['family_detail']['total_member']}}" @else value='0' @endif onchange="window.Registration.populateMemberList(this)" name="total_family_member" class="form-control" value="" id="total_family_member">
                                         </div>
                                     </div>
