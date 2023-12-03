@@ -147,6 +147,7 @@ class Image
         return $sotragePath;
     }
 
+
     public static function pdfToImage(string $filepath): array
     {
         $result = [];
