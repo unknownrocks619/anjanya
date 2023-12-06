@@ -7,7 +7,7 @@ $(function () {
 window.setupTinyMce = function () {
     tinymce.init({
         selector: 'textarea.tiny-mce',
-        plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+        plugins: 'preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap  pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools  noneditable help charmap quickbars emoticons',
         toolbar: 'undo redo | blocks | bold italic backcolor | ' +
             'alignleft aligncenter alignright alignjustify | ' +
             'bullist numlist outdent indent | removeformat | mediaembed ',
@@ -22,7 +22,6 @@ window.setupTinyMceAll = function () {
         inline : true,
         menubar : false,
         toolbar : false,
-        // plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
         toolbar: 'undo redo | blocks | bold italic backcolor textcolor| ',
         imagetools_cors_hosts: ['picsum.photos'],
     })
