@@ -38,7 +38,7 @@
             <div class="row g-5">
                 <div class="col-lg-12">
                     <div class="thumbnail">
-                        <img src="{{$welcome_image}}" alt="{{$event->event_title}} Event Image" />
+                        <img src="{{$welcome_image}}" alt="{{$event->event_title}} Event Image" class="w-100" />
                     </div>
                 </div>
             </div>

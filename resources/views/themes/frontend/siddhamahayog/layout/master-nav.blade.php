@@ -78,6 +78,9 @@
 
 @vite(['resources/js/themes/siddhamahayog/js/app.js','resources/js/public_app.js'])
 <script src="https://kit.fontawesome.com/cb35896f9c.js" crossorigin="anonymous"></script>
+<script type='text/javascript'
+        src='https://platform-api.sharethis.com/js/sharethis.js#property=649a0cca6fc24400124f2c47&product=sop'
+        async='async'></script>
 
 @stack('page_script')
 </body>

@@ -44,8 +44,8 @@
             <div class="col-lg-6">
                 <div class="inner">
                     <div class="section-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                        <span class="pre-title">{{$componentValue['subtitle']}}</span>
-                        <h3 class="title">{{$componentValue['heading']}}</h3>
+                        <span class="pre-title">{!! $componentValue['subtitle'] !!}</span>
+                        <h3 class="title">{!! $componentValue['heading'] !!}</h3>
                     </div>
                     <div class="description" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                         {!! $componentValue['description'] !!}
