@@ -59,7 +59,11 @@ $(function () {
     }
 
     window.handle422Case = function (data) {
+
+        clearAllErrors();
+
         let message = data.message;
+
         if (data.msg !== undefined) {
             message = data.msg;
         }

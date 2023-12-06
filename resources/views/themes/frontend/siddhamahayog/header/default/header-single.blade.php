@@ -37,7 +37,7 @@
                 </nav>
             </div>
 
-            <div class="col-lg-6 col-xl-1 col-md-1 col-6">
+            <div class="col-lg-6 col-xl-1 col-md-10 col-6">
                 <div class="header-right d-flex justify-content-end">
                     <div class="header-quote">
                         <div class="quote-icon quote-search">

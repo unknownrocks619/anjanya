@@ -84,10 +84,12 @@ class WebEventsController extends Controller
         if ($request->ajax() ) {
 
             if ( ! session()->has('current_step')) {
+
                 $view = 'validateAccount';
                 session()->put('current_step','validateAccount');
 
             } else {
+
                 $view = session()->get('current_step');
             }
 
@@ -95,6 +97,8 @@ class WebEventsController extends Controller
             return $this->json(true,'Form Loaded','',['view' =>$view]);
 
         }
+
+        $this->complete();
 
         return view ('Events::frontend.registration.'.$view,$data);
     }
@@ -240,14 +244,12 @@ class WebEventsController extends Controller
         $registrationDetail['emergency']['relation'] = $request->post('emergency_contact_person_relation');
 
         // get country data
-        if ( ! session()->get('registration_detail')['country'] != $registrationDetail['country']) {
 
-            $user = PortalCountry::where('id',$request->post('country'))->first();
+        $user = PortalCountry::where('id',$request->post('country'))->first();
 
-            if ( $user ) {
+        if ( $user ) {
 
-                $registrationDetail['country_label'] = $user->name;
-            }
+            $registrationDetail['country_label'] = $user->name;
         }
 
         session()->put('registration_detail', $registrationDetail);
@@ -278,6 +280,7 @@ class WebEventsController extends Controller
             session()->put('current_step', 'account');
 
         }
+
 
         session()->put('registration-email' , $request->post('email'));
 

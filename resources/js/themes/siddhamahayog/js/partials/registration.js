@@ -189,6 +189,8 @@ export default class  Registration  {
 
         axios.post(_url,_formData).then(function(response){
             _this.#elm.html(response.data.params.view)
+            let  _eventRegistrationWrapperElm = document.getElementById('event-registration-wrapper-elm');
+            _eventRegistrationWrapperElm.scrollTop = 0;
         }).catch(error => {
 
             if (error.response.status == 422) {
@@ -198,6 +200,8 @@ export default class  Registration  {
             if (error.response.status == 500 ) {
                 window.handleBadResponse(error.response);
             }
+
+
 
             console.log ('Error: ',error.response.status);
         })

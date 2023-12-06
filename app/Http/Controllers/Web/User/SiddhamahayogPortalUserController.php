@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Portal\MemberEmergencyMeta;
 use App\Models\Portal\MemberInfo;
 use App\Models\Portal\MemberJapInformation;
+use App\Models\Portal\PortalCountry;
+use App\Models\Portal\ProgramUser;
 use App\Models\Portal\UserModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,6 +55,10 @@ class SiddhamahayogPortalUserController extends Controller
             $hasSubmitted = MemberJapInformation::where('member_id', $user->getKey())->first();
 
             $address = ! ($user->address) ? '' : $user->address->street_address;
+            $country_label = '';
+            if ($user->country && is_int($user->country)) {
+                $country_label = (PortalCountry::where('id', $user->country)->first())?->name;
+            }
             $returnArray = [
                 'required_password' => true,
                 'has_submitted' => $hasSubmitted ? true : false,
@@ -65,7 +71,7 @@ class SiddhamahayogPortalUserController extends Controller
                 'last_name'     => $user->last_name,
                 'gender'        => $user->gender,
                 'country'       => $user->country,
-                'country_label' => '',
+                'country_label' => $country_label,
                 'city'          => $user->city,
                 'street_address'    => $address,
                 'phone_number'  => $user->phone_number,
