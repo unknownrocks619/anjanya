@@ -21,3 +21,21 @@
 
     </div>
 @endsection
+
+@push('page_setting')
+        <style>
+            label {
+                font-size: 24px
+            }
+            .select2-selection__rendered {
+                font-size: 24px !important;
+                padding-top: 10px
+            }
+            .select2-selection {
+                height: 50px !important;
+            }
+            .select2-results__option{
+                font-size: 24px;
+            }
+        </style>
+@endpush

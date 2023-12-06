@@ -3,11 +3,11 @@
         <div class="col-md-12 text-center">
             <!-- progressbar -->
             <ul id="progressbar">
-                <li class="active" id="account"><strong>Account</strong></li>
-                <li id="personal"><strong>Personal</strong></li>
-                <li id="family"><strong>Family Information</strong></li>
-                <li id="jap"><strong>Jap Information</strong></li>
-                <li id="profile"><strong>Yagya Photo Card</strong></li>
+                <li class="active" id="account"><strong>{{__('web/registration/events.account') }}</strong></li>
+                <li id="personal"><strong>{{__('web/registration/events.personal') }}</strong></li>
+                <li id="payment"><strong>{{__('web/registration/events.family-information') }}</strong></li>
+                <li id="jap"><strong>{{__('web/registration/events.jaap-information') }}</strong></li>
+                <li id="profile"><strong>{{ __('web/registration/events.yagya-photo-card') }}</strong></li>
             </ul>
         </div>
     </div>

@@ -1,3 +1,6 @@
+@php
+session()->forget('current_step')
+@endphp
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -12,9 +15,11 @@
                         </svg>
                     </div>
                     <div class="text-center">
-                        <h1>Thank You !</h1>
-                        <p>We have received your application. We will get back to you once we start processing your application.</p>
-                        <a href="/" class="btn btn-outline-success fs-1">Home</a>
+                        <h1>{{__('web/registration/events.thank-you')}}</h1>
+                        <p>
+                            {{__('web/registration/events.all-your-information-has-been-submitted')}}
+                        </p>
+                        <a href="/" class="btn btn-outline-success fs-1">{{__('web/registration/events.home')}}</a>
                     </div>
                 </div>
             </div>

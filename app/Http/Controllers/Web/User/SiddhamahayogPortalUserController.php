@@ -65,11 +65,16 @@ class SiddhamahayogPortalUserController extends Controller
                 'last_name'     => $user->last_name,
                 'gender'        => $user->gender,
                 'country'       => $user->country,
+                'country_label' => '',
                 'city'          => $user->city,
                 'street_address'    => $address,
                 'phone_number'  => $user->phone_number,
                 'date_of_birth' => $user->date_of_birth,
                 'profile_url'   => $user->profile?->full_path,
+                'reference_source' => '',
+                'referer_name' => '',
+                'referer_relation' => '',
+                'reference_source_detail' => '',
                 'meta'  => [],
                 'dikshya'   => [],
                 'emergency' => [],
@@ -131,7 +136,13 @@ class SiddhamahayogPortalUserController extends Controller
                 'middle_name'   => $middle_name,
                 'last_name'     => $last_name,
                 'gender'        => $user->gender,
+                'reference_source' => '',
+                'referer_name' => '',
+                'referer_relation' => '',
+                'reference_source_detail' => '',
+
                 'country'       => '',
+                'country_label' => '',
                 'city'          => '',
                 'street_address'       => '',
                 'phone_number'  => $user->phone_number,
@@ -162,7 +173,7 @@ class SiddhamahayogPortalUserController extends Controller
                         'middle_name'   => $sessionUserDetail['middle_name'],
                         'last_name'     => $sessionUserDetail['last_name'],
                         'source'        => 'Website - Hanumant Yagya Form',
-                        'profile'       => ['full_path' => $sessionUserDetail['profile_url']],
+                        'profile'       => ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']],
                         'gender'        => $sessionUserDetail['gender'],
                         'country'       => $sessionUserDetail['country'],
                         'city'          => $sessionUserDetail['city'],
@@ -195,9 +206,11 @@ class SiddhamahayogPortalUserController extends Controller
                 $emergency = MemberEmergencyMeta::where('member_id', $memberRegistration->getKey())->first();
 
                 if (! $emergency ) {
+
                     $emergency = new MemberEmergencyMeta();
                     $emergency->member_id = $memberRegistration->getKey();
                 }
+
                 $emergency->fill([
                     'contact_person' => $sessionUserDetail['emergency']['full_name'],
                     'relation'  => $sessionUserDetail['emergency']['relation'],
@@ -215,7 +228,9 @@ class SiddhamahayogPortalUserController extends Controller
                         'contact_person' => $family_member['name'],
                         'relation'  => $family_member['relation'],
                         'phone_number'  => $family_member['phone_number'],
-                        'profile' => $family_member['profile'],
+                        'profile' => null,//$family_member['profile'],
+                        'contact_type'  => 'family',
+                        'gender'    => $family_member['gender'],
                         'created_at' => date("Y-m-d H:i:s"),
                         'updated_at' => date("Y-m-d H:i:s")
                     ];
@@ -227,6 +242,7 @@ class SiddhamahayogPortalUserController extends Controller
 
                 // jap Information
                 $jap = new MemberJapInformation();
+
                 $jap->fill([
                     'member_id' => $memberRegistration->getKey(),
                     'event_id'  => 5,
@@ -236,7 +252,30 @@ class SiddhamahayogPortalUserController extends Controller
                     'average_jap_count' => 0,
                     'is_family' => false,
                 ]);
+
                 $jap->save();
+
+                // Now Enroll user in Program.
+
+                $batchID = 5;
+                $sectionID = 6;
+                $programID = 5;
+                $studentID = $memberRegistration->getKey();
+
+                if ( ! ProgramUser::where('program_id','=' , $programID)->where('student_id','=',$studentID)->exists()) {
+
+                    $addUserToProgram = new ProgramUser;
+                    $addUserToProgram->fill([
+                        'program_id' => $programID,
+                        'program_section_id' => $sectionID,
+                        'student_id' => $studentID,
+                        'batch_id'  => $batchID,
+                        'active'    => true,
+                    ]);
+
+                    $addUserToProgram->save();
+                }
+
             });
 
         } catch (\Exception $e) {

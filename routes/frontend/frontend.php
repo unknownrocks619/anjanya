@@ -10,7 +10,6 @@ Route::middleware(['web', 'maintenance'])
     ->name('frontend.')
     ->group(function () {
 
-
         /**
          * Code Test Zone
          */

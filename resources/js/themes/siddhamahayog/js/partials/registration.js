@@ -23,6 +23,21 @@ export default class  Registration  {
        })
     }
 
+    /**
+     * Make changes
+     * to select appropirate
+     * reference point
+     * @param elm
+     */
+    referenceSource(elm) {
+        let _currentValue = $(elm).val();
+        $('.reference').addClass('d-none');
+        $('.'+_currentValue).removeClass('d-none');
+    }
+
+    /**
+     *  Check if all image has been uploaded
+     */
     checkProfilePictures() {
         let _enable = true;
         // check if button should be enabled.
@@ -45,24 +60,35 @@ export default class  Registration  {
     }
     populateMemberList(elm) {
         let _currentTotal = $(elm).val();
+        if ( _currentTotal > 12 ) {
+            $(elm).val(12);
+            _currentTotal = 12;
+        }
         let _appendRowCount = $('div.member-list-field').children().length;
-
-        let _toPopulate = `<div class='row'>
-            <div class="col-md-4">
+        let _langDataParam =  $('div.member-list-field').attr('data-language-key');
+        _langDataParam = JSON.parse(_langDataParam);
+        let _toPopulate = `<div class='row border border-1 my-1'>
+            <div class="col-md-6 col-sm-12 col-lg-3">
                 <div class="form-group">
-                    <label>Full name<sup class="text-danger">*</sup></label>
+                    <label>${_langDataParam.full_name}<sup class="text-danger">*</sup></label>
                     <input type="text" name="family_member[]" value="" class="form-control">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-sm-12 col-lg-3">
                 <div class="form-group">
-                    <label>Relation<sup class="text-danger">*</sup></label>
+                    <label>${_langDataParam.relation}<sup class="text-danger">*</sup></label>
                     <input type="text" name="family_relation[]" value="" class="form-control">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-sm-12 col-lg-3">
                 <div class="form-group">
-                    <label>Phone number<sup class="text-danger">*</sup></label>
+                    <label>${_langDataParam.gender}<sup class="text-danger">*</sup></label>
+                    <input type="text" name="family_gender[]" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-lg-3">
+                <div class="form-group">
+                    <label>${_langDataParam.phone_number}<sup class="text-danger">*</sup></label>
                     <input type="text" name="family_phone_number[]" value="" class="form-control">
                 </div>
             </div>
@@ -138,14 +164,17 @@ export default class  Registration  {
 
     alertComplete(elm) {
         let _this = this;
+        let _languageFile = $(elm).attr('data-language-file');
+        _languageFile = JSON.parse(_languageFile);
+
         window.Swal.fire({
-            title: 'Submit Your Information',
-            text: "Please Make sure all your information are correct before submitting your form.",
+            title: _languageFile.dialogue_box_title,
+            text: _languageFile.dialogue_box_description,
             showConfirmButton: true,
-            confirmButtonText: "Submit My Application",
+            confirmButtonText: _languageFile.dialouge_box_approve_label,
             showCloseButton: true,
             showCancelButton: true,
-            cancelButtonText : 'Re-confirm'
+            cancelButtonText : _languageFile.dialouge_box_cancel_label
         }).then((action) => {
             if (action.isConfirmed === true) {
                 // perform ajax query.

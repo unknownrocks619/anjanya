@@ -14,6 +14,18 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
     protected $plugin_name='';
+
+    public function __construct() {
+        /**
+         * Set Language
+         */
+
+        if (request()->get('language') && in_array(request()->get('language'),['en','np'])) {
+            session()->put('language', request()->get('language'));
+        }
+
+        \Illuminate\Support\Facades\App::setLocale(session()->get('language') ?? 'en');
+    }
     /**
      * Admin Panel Access Theme
      *

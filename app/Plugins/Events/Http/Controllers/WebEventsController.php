@@ -7,6 +7,7 @@ use App\Classes\Plugins\Hook;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\FailedRecord;
+use App\Models\Portal\PortalCountry;
 use App\Plugins\Events\Http\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -49,9 +50,11 @@ class WebEventsController extends Controller
     }
 
     public function getEvents() {
+
         if (Cache::has('FRONTEND_EVENTS_LISTS') ) {
             return Cache::get('FRONTEND_EVENTS_LISTS');
         }
+
         $events = Event::with(['getImage'=> function($query){
                             $query->with('image');
                         },'getComponents'])
@@ -169,7 +172,8 @@ class WebEventsController extends Controller
             'profession'    => 'required',
             'emergency_contact_person'  => 'required',
             'emergency_phone' => 'required',
-            'emergency_contact_person_relation' => 'required'
+            'emergency_contact_person_relation' => 'required',
+            'reference_source' => 'required'
         ], [
             'emergency_contact_person_relation.required' => 'Please provide Your relation with emergency contact.',
             'emergency_phone.required' => 'Please provide phone number for emergency contact.',
@@ -177,6 +181,14 @@ class WebEventsController extends Controller
             'country.numeric.numeric' => 'Invalid Country selected.',
             'phone_number.numeric' => 'Invalid Phone Number.'
         ]);
+
+        if ( $request->post('reference_source') == 'other') {
+            $request->validate(['reference_source_detail' => 'required|min:5'],['reference_source_detail.min' => 'Please provide valid source detail.']);
+        }
+
+        if ( $request->post('reference_source') == 'friend') {
+            $request->validate(['referer_name' => 'required']);
+        }
 
         if (! in_array($request->post('education'),['primary','secondary']) ) {
             $request->validate([
@@ -186,7 +198,7 @@ class WebEventsController extends Controller
             ]);
         }
 
-        $registrationDetail = session()->put('registration_detail');
+        $registrationDetail = session()->get('registration_detail');
         $registrationDetail['first_name'] = $request->post('first_name');
         $registrationDetail['middle_name']  = $request->post('middle_name');
         $registrationDetail['last_name'] = $request->post('last_name');
@@ -199,8 +211,13 @@ class WebEventsController extends Controller
         $registrationDetail['place_of_birth'] = $request->post('place_of_birth');
         $registrationDetail['education'] = $request->post('education');
         $registrationDetail['education_major'] = $request->post('field_of_study');
+        $registrationDetail['reference_source'] = $request->post('reference_source');
+        $registrationDetail['referer_name'] = $request->post('referer_name');
+        $registrationDetail['referer_relation'] = $request->post('referer_relation');
+        $registrationDetail['reference_source_detail'] = $request->post('reference_source_detail');
 
         $full_name = $request->post('first_name');
+
         if ($request->post('middle_name') ) {
             $full_name .= ' ' . $request->post('middle_name');
         }
@@ -222,9 +239,22 @@ class WebEventsController extends Controller
         $registrationDetail['emergency']['phone_number'] = $request->post('emergency_phone');
         $registrationDetail['emergency']['relation'] = $request->post('emergency_contact_person_relation');
 
+        // get country data
+        if ( ! session()->get('registration_detail')['country'] != $registrationDetail['country']) {
+
+            $user = PortalCountry::where('id',$request->post('country'))->first();
+
+            if ( $user ) {
+
+                $registrationDetail['country_label'] = $user->name;
+            }
+        }
+
         session()->put('registration_detail', $registrationDetail);
         session()->put('registration_detail',$registrationDetail);
         session()->put('current_step', 'emergencyContact');
+
+
     }
 
     public function validateAccount(Request $request)
@@ -257,7 +287,8 @@ class WebEventsController extends Controller
         $request->validate([
             'family_member.*' => 'required',
             'family_relation.*' => 'required',
-            'family_phone_number.*' => 'required'
+            'family_phone_number.*' => 'required',
+            'family_gender.*' => 'required'
         ]);
 
         $registrationDetail = session()->get('registration_detail');
@@ -270,7 +301,8 @@ class WebEventsController extends Controller
             $registrationDetail['family_detail']['members'][] = [
                 'name' => $family_detail,
                 'relation' => $request->post('family_relation')[$key],
-                'phone_number' => $request->post('family_phone_number')[$key]
+                'phone_number' => $request->post('family_phone_number')[$key],
+                'gender'    => $request->post('family_gender')[$key]
             ];
         }
 
@@ -301,16 +333,23 @@ class WebEventsController extends Controller
     public function profilePictures(Request $request) {
         $request->validate(
             [
-                'profile_picture_default' => 'required|url'
+                'profile_picture_default' => 'required|url',
+                'profile_picture_id'    => 'required|url'
             ],
             [
                 'profile_picture_default.required' => 'Please Upload your profile picture.',
-                'profile_picture_default.url' => 'Unable to identify your picture detail.'
+                'profile_picture_default.url' => 'Unable to identify your picture detail.',
+                'profile_picture_id.required' => 'Please upload your ID card',
+                'profile_picture_id.url'    => 'Unable to identify your ID card',
             ]
         );
+
         $familyMemberDetail = session()->get('registration_detail');
         $familyMemberDetail['profile_url'] = $request->post('profile_picture_default');
+        $familyMemberDetail['profile_id'] = $request->post('profile_picture_id');
+
         foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
+
 //            $request->validate([
 //                'profile_picture_'.$key => 'required|url'
 //            ],[
@@ -319,6 +358,7 @@ class WebEventsController extends Controller
 //            ]);
 
             $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
+
         }
 
          // also save this information in siddhamahayog portal.
@@ -329,16 +369,20 @@ class WebEventsController extends Controller
     }
 
     public function complete() {
+
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
+
         if ( !  $siddhamahayogUser->storeEventDetail() ) {
-            $faliedRecord = new FailedRecord();
+
+            $failedRecord = new FailedRecord();
             $sessionRecord = session()->get('registration_detail');
             $sessionRecord['email'] = session()->get('registration-email');
             $sessionRecord['new_user'] = session()->get('new_registration');
 
-            $faliedRecord->session_info = $sessionRecord;
-            $faliedRecord->save();
+            $failedRecord->session_info = $sessionRecord;
+            $failedRecord->save();
         }
+
         session()->forget('registration_detail');
         session()->forget('new_registration');
         session()->forget('registration-email');
