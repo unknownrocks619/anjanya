@@ -165,6 +165,8 @@
     </div>
 </div>
 <script type="text/javascript">
+    window.setupTinyMceAll()
+    window.setupTinyMce();
 
     $(document).on('click','.upload-image-button', function(event) {
         event.preventDefault();
@@ -233,6 +235,4 @@
 
         }
     })
-    window.setupTinyMceAll()
-
 </script>

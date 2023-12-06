@@ -151,7 +151,8 @@
             _column += `</div>`;
         }
         $('.field_generator').empty().append(_column);
-        window.setupTinyMceAll()
+        // window.setupTinyMceAll()
+        window.setupTinyMce();
     }
 
     $(document).on('change',"input[name=row]", function(event){
