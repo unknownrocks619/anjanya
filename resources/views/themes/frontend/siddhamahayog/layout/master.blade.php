@@ -29,9 +29,11 @@
             {!! $user_theme->partials('mobile-menu') !!}
             <!-- Start Search Popup  -->
             <div class="edu-search-popup">
+
                 <div class="close-button">
                     <button class="close-trigger"><i class="ri-close-line"></i></button>
                 </div>
+
                 <div class="inner">
                     <form class="search-form" action="#">
                         <input type="text" class="eduvibe-search-popup-field" placeholder="Search Here...">

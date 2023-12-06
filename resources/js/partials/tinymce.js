@@ -11,7 +11,6 @@ window.setupTinyMce = function () {
         toolbar: 'undo redo | blocks | bold italic backcolor | ' +
             'alignleft aligncenter alignright alignjustify | ' +
             'bullist numlist outdent indent | removeformat | mediaembed ',
-        imagetools_cors_hosts: ['picsum.photos'],
     })
 }
 
@@ -22,7 +21,5 @@ window.setupTinyMceAll = function () {
         inline : true,
         menubar : false,
         toolbar : false,
-        toolbar: 'undo redo | blocks | bold italic backcolor textcolor| ',
-        imagetools_cors_hosts: ['picsum.photos'],
     })
 }

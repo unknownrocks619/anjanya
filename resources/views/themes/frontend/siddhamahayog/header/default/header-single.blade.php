@@ -1,4 +1,4 @@
-<header class="edu-header  header-sticky sticky disable-transparent">
+<header class="edu-header  header-sticky disable-transparent">
     <div class="container">
         <div class="row align-items-center">
 
