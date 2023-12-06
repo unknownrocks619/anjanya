@@ -41,7 +41,7 @@
 @endphp
 @if($events->count())
     <!-- Start Event Area  -->
-<div class="edu-event-area eduvibe-home-two-event edu-section-gap bg-image video-gallery-overlay-area" style="{{$styleKey}}:{{$styleValue}} !important;background-size: cover">
+<div class="edu-event-area eduvibe-home-two-event edu-section-gap bg-image video-gallery-overlay-area" style="{{$styleKey}}:{{$styleValue}} !important;background-size: cover;padding-top:0px !important;">
     <div class="container eduvibe-animated-shape">
         <div class="row">
             <div class="col-lg-12">
