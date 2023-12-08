@@ -98,8 +98,6 @@ class WebEventsController extends Controller
 
         }
 
-        $this->complete();
-
         return view ('Events::frontend.registration.'.$view,$data);
     }
 
