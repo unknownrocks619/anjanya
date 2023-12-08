@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 text-end">
+                                    <div class="col-md-12 text-end d-flex justify-content-end">
                                         <button type="button" onclick="window.Registration.stepBack()" class="edu-btn  bg-info">
                                             <i class="fas fa-arrow-left"></i>
                                             {{__('web/registration/events.back')}}

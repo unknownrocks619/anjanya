@@ -63,7 +63,7 @@
                         <div class="col-md-11 text-end">
                             <button type="button" onclick="window.Registration.stepBack()" class="edu-btn  bg-info">
                                 <i class="fas fa-arrow-left"></i>
-                                back
+                                {{__('web/registration/events.back')}}
                             </button>
                         </div>
 
