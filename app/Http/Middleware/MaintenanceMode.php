@@ -24,6 +24,16 @@ class MaintenanceMode
             $maintenanceSetting = Setting::where('name', 'maintenance_mode')->first();
         }
 
+        // skip for following url :
+        $whiteListURL = [
+                            'https://himalayan.siddhamahayog.org/event/satsang-and-aashirvachan/registration',
+                            'https://himalayan.siddhamahayog.org/event/registration/2'
+                        ];
+
+        if (in_array(url()->current(),$whiteListURL) ) {
+            return $next($request);
+        }
+
         if ($maintenanceSetting->value && Route::currentRouteName() != 'frontend.maintenance-mode' && !auth()->guard('admin')->check()) {
             return redirect()->to('maintenance');
         }
