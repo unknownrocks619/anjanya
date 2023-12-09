@@ -467,7 +467,7 @@ class WebEventsController extends Controller
         $userModelController = new SiddhamahayogPortalUserController();
         $returnResponse = $userModelController->liveProgramEvent($request, $event->event_title);
 
-        session()->put('zoom_registration','https://jagadguru.localhost/login/join-external?'.http_build_query($returnResponse));
+        session()->put('zoom_registration','https://jagadguru.siddhamahayog.org/login/join-external?'.http_build_query($returnResponse));
         session()->put('current_step','zoomRegistrationComplete');
     }
 }
