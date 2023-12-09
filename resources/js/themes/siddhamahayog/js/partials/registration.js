@@ -182,15 +182,29 @@ export default class  Registration  {
             }
         })
     }
+
+    #loading(_isLoading=true) {
+
+        if ( _isLoading === true) {
+            this.#elm.closest('.main-wrapper').find('.loading').height(this.#elm.height()).removeClass('d-none')
+        } else {
+            this.#elm.closest('.main-wrapper').find('.loading').addClass('d-none');
+        }
+    }
+
     submitForm(elm) {
+        this.#loading();
         let _formData = this.#elm.find('form')[0];
         let _url = '/event/registration/'+this.#eventID;
         let _this = this;
 
         axios.post(_url,_formData).then(function(response){
+
             _this.#elm.html(response.data.params.view)
             let  _eventRegistrationWrapperElm = document.getElementById('event-registration-wrapper-elm');
             _eventRegistrationWrapperElm.scrollTop = 0;
+            _this.#loading(false);
+
         }).catch(error => {
 
             if (error.response.status == 422) {
@@ -201,9 +215,8 @@ export default class  Registration  {
                 window.handleBadResponse(error.response);
             }
 
+            _this.#loading(false);
 
-
-            console.log ('Error: ',error.response.status);
         })
     }
 

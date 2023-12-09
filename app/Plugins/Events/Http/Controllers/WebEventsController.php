@@ -98,6 +98,9 @@ class WebEventsController extends Controller
 
         }
 
+        if ( ! $event ) {
+            $view = 'expired';
+        }
         return view ('Events::frontend.registration.'.$view,$data);
     }
 
