@@ -404,12 +404,7 @@ class WebEventsController extends Controller
 
             $currentStep = session()->get('current_step');
 
-            if (in_array($currentStep,['confirmPassword','account']) ) {
-                session()->put('current_step','validateAccount');
-            }
-
-            if ($currentStep == 'personal') {
-                // throw back to starting page.
+            if (in_array($currentStep,['confirmPassword','account','liveZoomRegistration','personal']) ) {
                 session()->put('current_step','validateAccount');
             }
 
