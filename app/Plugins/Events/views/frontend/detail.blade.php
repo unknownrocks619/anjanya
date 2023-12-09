@@ -27,7 +27,6 @@
         ['label' => 'Events' ,'link' => '/events'],
         ['label' => $event->event_title,'link' => '#'],
     ];
-
 @endphp
 @section('page_title') - {{$event->event_title}} @endsection
 @section('main')
@@ -52,23 +51,26 @@
                     @include('frontend.components.lister', ['model' => $event])
 
                 </div>
+
                 <div class="col-lg-5">
                     <div class="eduvibe-sidebar">
                         <div class="eduvibe-widget eduvibe-widget-details">
                             <h5 class="title">Event Detail</h5>
                             <div class="widget-content">
-                                <ul>
+                                <ul class="mb-2">
                                     <li>
                                         <span>
                                             <i class="icon-calendar-2-line"></i>
-                                            Start Date</span><span>{{$eventStartDate->format('d f, T')}}</span>
+                                            Start Date</span><span>{{$eventStartDate->format('d M, Y')}}</span>
                                     </li>
-                                    <li>
-                                        <span>
-                                            <i class="icon-time-line"></i>
-                                            Start Time</span>
-                                        <span>{{ $eventStartDate->format('H:i A')  }}</span>
-                                    </li>
+
+{{--                                    <li>--}}
+{{--                                        <span>--}}
+{{--                                            <i class="icon-time-line"></i>--}}
+{{--                                            Start Time</span>--}}
+{{--                                        <span>{{ $eventStartDate->format('H:i A')  }}</span>--}}
+{{--                                    </li>--}}
+
                                     @if($event->event_end_date)
                                         @php
                                             $eventEndDate = \Illuminate\Support\Carbon::createFromFormat('Y-m-d\TH:i',$event->event_end_date);
@@ -76,12 +78,13 @@
                                         <li>
                                             <span>
                                                 <i class="icon-calendar-2-line"></i>
-                                                End Date</span><span>{{$eventEndDate->format('d f, T')}}</span></li>
-                                        <li>
-                                            <span>
-                                                <i class="icon-time-line"></i>
-                                                End Time</span>
-                                            <span>{{$eventEndDate->format('H:i A')}}</span></li>
+                                                End Date</span><span>{{$eventEndDate->format('d M, Y')}}</span></li>
+{{--                                        <li>--}}
+{{--                                            <span>--}}
+{{--                                                <i class="icon-time-line"></i>--}}
+{{--                                                End Time</span>--}}
+{{--                                            <span>{{$eventEndDate->format('H:i A')}}</span>--}}
+{{--                                        </li>--}}
                                     @endif
                                     @if($event->event_location)
                                         <li>
@@ -107,7 +110,7 @@
                                         <li>
                                             <span>
                                                 <i class="icon-phone-fill"></i>
-                                                Contact During Event
+                                                Contact
                                             </span>
                                             <span>
                                                 {{$event->event_contact_number}}

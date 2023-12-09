@@ -57,6 +57,18 @@ class UserModel extends Authenticatable
         "profile" => "object",
         "remarks" => "object"
     ];
+
+    public function full_name() {
+        $full_name = $this->first_name;
+        $explodeLastName = explode(' ',$this->last_name);
+
+        foreach ($explodeLastName as $name) {
+            $full_name .=' '.$name;
+        }
+
+        return $full_name;
+    }
+
     public function diskshya()
     {
         return $this->hasMany(MemberDikshya::class,'member_id');

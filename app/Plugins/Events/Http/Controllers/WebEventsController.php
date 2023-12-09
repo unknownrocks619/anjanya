@@ -104,7 +104,7 @@ class WebEventsController extends Controller
     public function event_registration_process(Request $request, Event $event) {
         $data = ['event' => $event];
 
-        $this->{session()->get('current_step')}($request);
+        $this->{session()->get('current_step')}($request,$event);
         $view = session()->get('current_step');
 
         $data['email'] = session()->get('registration-email');
@@ -257,17 +257,27 @@ class WebEventsController extends Controller
 
     }
 
-    public function validateAccount(Request $request)
+    public function validateAccount(Request $request, Event $event)
     {
-
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
         $emailResponse = $siddhamahayogUser->userResponse($request);
+
+        # If event is type live, ask for other detail
+        if ( $event->event_type == 'live') {
+            session()->put('registration-email' , $request->post('email'));
+
+            if (count($emailResponse) && isset($emailResponse['first_name']) && isset($emailResponse['last_name'])) {
+                session()->put('registration_detail', $emailResponse);
+            }
+
+            session()->put('current_step','liveZoomRegistration');
+            return;
+        }
 
         if ( isset ($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
             session()->put('current_step','submitted');
             return;
         }
-
 
         session()->put('registration_detail',$emailResponse);
 
@@ -455,5 +465,14 @@ class WebEventsController extends Controller
             return;
         }
         session()->put('invalid_attempt','Invalid Username / Password');
+    }
+
+    function liveZoomRegistration(Request $request, Event $event) {
+
+        $userModelController = new SiddhamahayogPortalUserController();
+        $returnResponse = $userModelController->liveProgramEvent($request, $event->event_title);
+
+        session()->put('zoom_registration','https://jagadguru.localhost/login/join-external?'.http_build_query($returnResponse));
+        session()->put('current_step','zoomRegistrationComplete');
     }
 }

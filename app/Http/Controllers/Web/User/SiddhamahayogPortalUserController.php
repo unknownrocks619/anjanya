@@ -301,4 +301,57 @@ class SiddhamahayogPortalUserController extends Controller
         }
         return true;
     }
+
+    public function liveProgramEvent(Request $request, string $event='') {
+        $request->validate([
+            'first_name'    => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email',
+            'password'  => 'sometimes|required|confirmed'
+        ]);
+
+        // check now get
+        $user = UserModel::where('email', $request->post('email'))->first();
+
+        if ( ! $user ) {
+            $user = new UserModel();
+            $user->fill([
+                'first_name' => $request->post('first_name'),
+                'last_name' => $request->post('last_name'),
+                'email' => $request->post('email'),
+                'is_email_verified' => false,
+            ]);
+            $user->full_name = $user->full_name();
+            $user->source = 'Event : ' . $event;
+            $user->password  = Hash::make($request->post('password'));
+            $user->role_id = 7;
+            $user->save();
+        }
+
+        $programID = 6;
+        $sectionID = 6;
+        $batchID = 6;
+        // check if user is enrolled
+        $programUser = ProgramUser::where('program_id', $programID)
+                                    ->where('student_id', $user->getKey())
+                                    ->first();
+
+        if ( ! $programUser ) {
+
+            $programUser = new ProgramUser();
+
+            $programUser->fill([
+                'student_id' => $user->getKey(),
+                'program_id'    => $programID,
+                'program_section_id'    => $sectionID,
+                'batch_id'  => $batchID,
+                'active'    => true
+            ]);
+
+            $programUser->save();
+        }
+
+        // now send detail to
+        return ['user' => $user->getKey(),'program' =>$programID];
+    }
 }
