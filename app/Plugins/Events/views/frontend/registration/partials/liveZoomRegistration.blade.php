@@ -6,6 +6,13 @@
                     <div class="row no-gutters justify-content-center">
                         <div class="col-lg-12 col-md-12">
                             <div class="ps-5">
+                                @if( ! session()->has('registration_detail') && ! isset(session()->get('registration_detail')['first_name']))
+                                    <div class="row my-3">
+                                        <div class="col-md-12">
+                                            <h4>Create New Account</h4>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="row my-2">
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group">
