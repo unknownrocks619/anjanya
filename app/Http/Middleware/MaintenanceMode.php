@@ -27,7 +27,8 @@ class MaintenanceMode
         // skip for following url :
         $whiteListURL = [
                             'https://himalayan.siddhamahayog.org/event/satsang-and-aashirvachan/registration',
-                            'https://himalayan.siddhamahayog.org/event/registration/2'
+                            'https://himalayan.siddhamahayog.org/event/registration/2',
+                            'https://himalayan.siddhamahayog.org/event/stepback/2'
                         ];
 
         if (in_array(url()->current(),$whiteListURL) ) {
