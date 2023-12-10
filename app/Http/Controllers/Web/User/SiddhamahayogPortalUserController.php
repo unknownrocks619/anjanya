@@ -329,7 +329,7 @@ class SiddhamahayogPortalUserController extends Controller
         }
 
         $programID = 6;
-        $sectionID = 6;
+        $sectionID = 7;
         $batchID = 6;
         // check if user is enrolled
         $programUser = ProgramUser::where('program_id', $programID)
