@@ -18,6 +18,8 @@ class MemberEmergencyMeta extends Model
         'relation',
         'email_address',
         'phone_number',
-        'profile'
+        'profile',
+        'created_at',
+        'updated_at'
     ];
 }
