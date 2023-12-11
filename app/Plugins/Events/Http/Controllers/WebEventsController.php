@@ -71,7 +71,6 @@ class WebEventsController extends Controller
 
         // get event name
         $event = Event::where('event_slug',$event_slug)
-                        ->where('active',true)
                         ->first();
 
         $data = [
@@ -98,7 +97,7 @@ class WebEventsController extends Controller
 
         }
 
-        if ( ! $event ) {
+        if ( ! $event ||  ! $event->active) {
             $view = 'expired';
         }
         return view ('Events::frontend.registration.'.$view,$data);
