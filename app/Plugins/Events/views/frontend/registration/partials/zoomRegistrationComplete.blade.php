@@ -21,7 +21,7 @@
                         <p>Please wait, while we redirect you to zoom link. If you are not redirected automatically
                             <a href="{{$redirectLink}}">click here...</a>
                         </p>
-                        <a href="/" class="btn btn-outline-success fs-1">{{__('web/registration/events.home')}}</a>
+                        <a href="{{$redirectLink}}" class="btn btn-outline-success fs-1">Join ZOOM Meeting.</a>
                     </div>
                 </div>
             </div>

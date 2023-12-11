@@ -178,7 +178,8 @@ class WebEventsController extends Controller
             'emergency_contact_person'  => 'required',
             'emergency_phone' => 'required',
             'emergency_contact_person_relation' => 'required',
-            'reference_source' => 'required'
+            'reference_source' => 'required',
+            'dikshya_type'  => 'required|in:dikshit,non-dikshit'
         ], [
             'emergency_contact_person_relation.required' => 'Please provide Your relation with emergency contact.',
             'emergency_phone.required' => 'Please provide phone number for emergency contact.',
@@ -201,6 +202,10 @@ class WebEventsController extends Controller
             ],[
                 'field_of_study' => 'Please provide your education major.'
             ]);
+        }
+
+        if ( $request->post('dikshya_type') == 'dikshit') {
+            $request->validate(['dikshya_category' => 'required|in:tarak,saranagati']);
         }
 
         $registrationDetail = session()->get('registration_detail');
@@ -243,6 +248,10 @@ class WebEventsController extends Controller
         $registrationDetail['emergency']['full_name'] = $request->post('emergency_contact_person');
         $registrationDetail['emergency']['phone_number'] = $request->post('emergency_phone');
         $registrationDetail['emergency']['relation'] = $request->post('emergency_contact_person_relation');
+
+
+        $registrationDetail['dikshit']['type'] = $request->post('dikshya_type');
+        $registrationDetail['dikshit']['category'] = $request->post('dikshya_category');
 
         // get country data
 
@@ -397,10 +406,10 @@ class WebEventsController extends Controller
             $failedRecord->save();
         }
 
-        session()->forget('registration_detail');
-        session()->forget('new_registration');
-        session()->forget('registration-email');
-        session()->forget('current_step');
+//        session()->forget('registration_detail');
+//        session()->forget('new_registration');
+//        session()->forget('registration-email');
+//        session()->forget('current_step');
     }
 
     public function stepBack(Request $request, Event $event){

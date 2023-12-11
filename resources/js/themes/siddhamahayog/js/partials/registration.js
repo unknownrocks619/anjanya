@@ -35,6 +35,12 @@ export default class  Registration  {
         $('.'+_currentValue).removeClass('d-none');
     }
 
+    dikshyaInfo(elm) {
+        let _currentValue = $(elm).val();
+        $('.dikshya_type').addClass('d-none');
+        $('.'+_currentValue).removeClass('d-none');
+
+    }
     /**
      *  Check if all image has been uploaded
      */
@@ -161,6 +167,7 @@ export default class  Registration  {
             console.log('Error: Unable to go back.');
         })
     }
+
 
     alertComplete(elm) {
         let _this = this;

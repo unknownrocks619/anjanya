@@ -47,19 +47,20 @@ return [
     'relation-to-emergency-contact-person'  => 'Relation to Emergency Contact Person',
 
 
-    'total-family-member-in-anustan' => 'Total Family Member(s) in Anusthan',
+    'total-family-member-in-anustan' => 'Total Family Member(s) joining you in Hanumad Yagya',
     'full-name' => 'Full Name',
     'relation'  => 'Relation',
     'phone-number'  => 'Phone Number',
 
     'family-sharing-notice' => 'Please Note: Only Kitchen sharing family is considered single family.',
     'start-date-of-hanuman-mantra-jaap'=> 'Start Date of Hanuman Mantra Jaap',
-    'as-of-today-how-many-jaap-have-you-completed' => 'As of today, how many Jaap have you completed',
+    'as-of-today-how-many-jaap-have-you-completed' => 'Until now, total mantra chanted',
     'example'   => 'e.g.',
     'target'    => 'Target',
-    'by-the-time-of-yayga-what-do-you-estimate-your-total-Jaap-count-will-be'=> 'By the time of Yayga, what do you estimate your total Jaap count will be',
+    'by-the-time-of-yayga-what-do-you-estimate-your-total-Jaap-count-will-be'=> 'By the time of the Yayga, total mantra you will have chanted (estimate)',
     'upload-your-individual-image-notice'   => 'Please upload YOUR individual Profile Picture (single photo). This image will be used to create your ID card for yagya.',
     'upload-your-photo' => 'Upload Your Photo',
+    'upload-your-photo-id'  => 'Upload Your ID',
     'submit-my-application' => 'Submit My Application',
     'submit-your-information'   => 'Submit Your Information',
     'submit-your-information-description' => 'Please Make sure all your information are correct before submitting your form.',
@@ -72,4 +73,12 @@ return [
     'how-did-you-hear-about-us' => 'How did you hear about us',
     'please-specify-source' => 'Please specify source',
     'referer-name'  => 'Referer Name',
+
+    'dikshya_information' => 'Dikshya Information',
+    'diskshya_type' => 'Dikshya type',
+    'dikshya_category' => 'Mantra Type',
+    'saranagati' => 'Saranagati',
+    'tarak' => 'Tarak',
+    'select_mantra_type_option' => 'Please select your mantra type.',
+
 ];

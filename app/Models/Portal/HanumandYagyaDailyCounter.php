@@ -5,15 +5,16 @@ namespace App\Models\Portal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberDikshya extends Model
+class HanumandYagyaDailyCounter extends Model
 {
     use HasFactory;
+
     protected $connection = 'portal_connection';
 
-    protected $fillable = [
+    protected  $fillable = [
+        'humand_yagya_id',
         'member_id',
-        'rashi_name',
-        'dikshya_type',
+        'count_date',
+        'total_count'
     ];
-
 }

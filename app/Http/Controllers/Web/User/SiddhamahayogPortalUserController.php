@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Portal\HanumandYagyaCounter;
+use App\Models\Portal\HanumandYagyaDailyCounter;
+use App\Models\Portal\MemberDikshya;
 use App\Models\Portal\MemberEmergencyMeta;
 use App\Models\Portal\MemberInfo;
 use App\Models\Portal\MemberJapInformation;
@@ -282,6 +285,51 @@ class SiddhamahayogPortalUserController extends Controller
                     $addUserToProgram->save();
                 }
 
+                // add Dikshya Information
+                $dikshyaInformationSession = $sessionUserDetail['dikshya'];
+                $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
+                                                ->where('dikshay_type',$dikshyaInformationSession['type'])
+                                                ->first();
+                if ( ! $userDikshay ) {
+                    $userDikshay->fill([
+                        'member_id' => $memberRegistration->getKey(),
+                        'dikshay_type'  => $dikshyaInformationSession['type']
+                    ]);
+
+                    $userDikshay->save();
+                }
+
+                // Add yagya Counter Information.
+                $yagyaInformation = HanumandYagyaCounter::where('memebr_id',$memberRegistration->getKey())
+                                                            ->where('program_id',$programID)
+                                                            ->first();
+                if (! $yagyaInformation ) {
+                    $yagyaInformation = new HanumandYagyaCounter();
+                    $yagyaInformation->fill([
+                        'member_id' => $memberRegistration->getKey(),
+                        'program_id' => $programID,
+                        'total_counter' => $sessionUserDetail['jap_detail']['total_jap_count'],
+                        'is_taking_part'    => true,
+                        'start_date'    => $sessionUserDetail['jap_detail']['jap_start_date'],
+                    ]);
+
+                    $yagyaInformation->save();
+                }
+
+                // check if the information was not filled today. than fill it.
+                $yagyaDailyCounter = HanumandYagyaDailyCounter::where('humand_yagya_id' , $yagyaInformation->getKey())
+                                                                ->where('count_date',now()->format('Y-m-d'))
+                                                                ->first();
+                if ( ! $yagyaDailyCounter ) {
+                    $yagyaDailyCounter = new HanumandYagyaDailyCounter();
+                    $yagyaDailyCounter->fill([
+                        'humand_yagya_id' => $yagyaInformation->getKey(),
+                        'member_id' => $memberRegistration->getKey(),
+                        'count_date'    => now()->format('Y-m-d'),
+                        'total_count'   => $sessionUserDetail['jap_detail']['total_jap_count'],
+                    ]);
+                    $yagyaDailyCounter->save();
+                }
             });
 
         } catch (\Exception $e) {

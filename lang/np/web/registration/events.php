@@ -71,4 +71,14 @@ return [
     'how-did-you-hear-about-us' => 'यस कार्यक्रमकाे बारेमा कहा बाट थाहा पाउनुभयाे',
     'please-specify-source' => 'कृपया विवरण खुलाउनुहाेस',
     'referer-name'  => 'शिफारिस गर्नेकाे नाम',
+
+    'dikshya_information'   => 'दिक्षाकाे विवरण',
+    'diskshya_type' => 'दिक्षा प्रकार',
+    'dikshya_category' => 'मन्त्र दिक्षा',
+    'saranagati' => 'सारणागती',
+    'tarak' => 'तारक',
+    'select_mantra_type_option' => 'कृपया आफ्नाे दीक्षा प्रकार छनाेट गर्नुहाेस ।',
+    'dikshit'   => 'दिक्षित',
+    'non-dikshit'   => 'दिक्षा छैन'
+
 ];
