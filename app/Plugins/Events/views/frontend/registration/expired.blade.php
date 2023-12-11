@@ -1,6 +1,6 @@
 @php
     /** @var  \App\Plugins\Events\Http\Models\Event $event */
-    $bannerImage = $event->getImage()->where('type','banner_image')->first();
+    $bannerImage = null;
 @endphp
 @extends($user_theme->frontend_layout($extends))
 @section('page_title') - {{$event->event_title}} @endsection
