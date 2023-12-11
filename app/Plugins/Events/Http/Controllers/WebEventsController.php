@@ -405,10 +405,10 @@ class WebEventsController extends Controller
             $failedRecord->save();
         }
 
-//        session()->forget('registration_detail');
-//        session()->forget('new_registration');
-//        session()->forget('registration-email');
-//        session()->forget('current_step');
+        session()->forget('registration_detail');
+        session()->forget('new_registration');
+        session()->forget('registration-email');
+        session()->forget('current_step');
     }
 
     public function stepBack(Request $request, Event $event){
