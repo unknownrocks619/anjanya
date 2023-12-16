@@ -1,5 +1,6 @@
 @php /** @var \App\Plugins\Events\Http\Models\Event $event */ @endphp
 <div class="container checkout-page-style">
+
     <div class="row g-5 justify-content-center my-2">
         <div class="col-lg-8">
             <div class="login-form-box border-1">

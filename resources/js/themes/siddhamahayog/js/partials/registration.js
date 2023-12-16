@@ -159,12 +159,15 @@ export default class  Registration  {
     }
 
     stepBack() {
+        this.#loading();
         let _url = '/event/stepback/'+this.#eventID;
         let _this = this;
         axios.post(_url,{}).then(function(response){
-            _this.#elm.html(response.data.params.view)
+            _this.#elm.html(response.data.params.view);
+            _this.#loading(false);
         }).catch(error => {
             console.log('Error: Unable to go back.');
+            _this.#loading(false);
         })
     }
 

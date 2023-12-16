@@ -203,12 +203,17 @@ class SiddhamahayogPortalUserController extends Controller
 
                 // Update meta information
                 $meta = MemberInfo::where('member_id', $memberRegistration->getKey())->first();
+
                 if (! $meta ) {
+
                     $meta = new MemberInfo();
                     $meta->fill(['member_id' => $memberRegistration->getKey()]);
                 }
+
                 $meta->personal = $sessionUserDetail['meta']['personal'];
                 $meta->education = $sessionUserDetail['meta']['education'];
+                $meta->total_connected_family = $sessionUserDetail['total_member_with_gurudev'];
+
                 $meta->save();
                 // Update Emergency Contact Information
 
@@ -286,24 +291,37 @@ class SiddhamahayogPortalUserController extends Controller
                 }
 
                 // add Dikshya Information
-                $dikshyaInformationSession = $sessionUserDetail['dikshya'];
-                $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
-                                                ->where('dikshay_type',$dikshyaInformationSession['type'])
-                                                ->first();
-                if ( ! $userDikshay ) {
-                    $userDikshay->fill([
-                        'member_id' => $memberRegistration->getKey(),
-                        'dikshay_type'  => $dikshyaInformationSession['type']
-                    ]);
+                $dikshyaInformationSession = $sessionUserDetail['dikshit'];
+                if ( $dikshyaInformationSession['type'] == 'dikshit' ) {
+                    $dikshyaType = explode('&',$dikshyaInformationSession['category']);
 
-                    $userDikshay->save();
+                    foreach ($dikshyaType as $userDikshya){
+                        $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
+                            ->where('dikshya_type',$userDikshya)
+                            ->first();
+
+                        if ( ! $userDikshay ) {
+
+                            $userDikshay = new MemberDikshya();
+                            $userDikshay->fill([
+                                'member_id' => $memberRegistration->getKey(),
+                                'dikshay_type'  => $userDikshya,
+                                'rashi_name' => '-',
+                                'ceromony_location' => '-',
+                            ]);
+
+                            $userDikshay->save();
+                        }
+                    }
                 }
 
                 // Add yagya Counter Information.
-                $yagyaInformation = HanumandYagyaCounter::where('memebr_id',$memberRegistration->getKey())
+                $yagyaInformation = HanumandYagyaCounter::where('member_id',$memberRegistration->getKey())
                                                             ->where('program_id',$programID)
                                                             ->first();
+
                 if (! $yagyaInformation ) {
+
                     $yagyaInformation = new HanumandYagyaCounter();
                     $yagyaInformation->fill([
                         'member_id' => $memberRegistration->getKey(),
@@ -314,6 +332,7 @@ class SiddhamahayogPortalUserController extends Controller
                     ]);
 
                     $yagyaInformation->save();
+
                 }
 
                 // check if the information was not filled today. than fill it.
@@ -333,6 +352,7 @@ class SiddhamahayogPortalUserController extends Controller
             });
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             Log::error('Unable to save user jap info. '. $e->getMessage(),['HANUMANT YAGYA']);
             return false;
         }

@@ -34,7 +34,7 @@
                 </rect>
             </svg>
         </div>
-        <div id="event-registration-wrapper-elm" data-event-id="{{$event->getKey()}}" data-event-slug="{{$event->event_slug}}">
+            <div id="event-registration-wrapper-elm" data-event-id="{{$event->getKey()}}" data-event-slug="{{$event->event_slug}}">
         </div>
     </div>
 @endsection

@@ -29,12 +29,24 @@
                     <div class="row no-gutters justify-content-center">
                         <div class="col-lg-12">
                             <div class="p-5">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="total_family_member_with_gurudev">{{ __('web/registration/events.how-many-family-members-are-associated-with-sadgurudev') }}
+                                            </label>
+                                            <input max="12" type="number" @if(isset(session()->get('registration_detail')['family_detail']['total_family_member_with_gurudev'])) value="{{session()->get('registration_detail')['family_detail']['total_family_member_with_gurudev']}}" @else value='0' @endif name="total_family_member_with_gurudev" class="form-control"  id="total_family_member_with_gurudev">
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="total_family_member">{{ __('web/registration/events.total-family-member-in-anustan') }}
                                             </label>
-                                            <input max="12" type="number" @if(isset(session()->get('registration_detail')['family_detail']['total_member'])) value="{{session()->get('registration_detail')['family_detail']['total_member']}}" @else value='0' @endif onchange="window.Registration.populateMemberList(this)" name="total_family_member" class="form-control" value="" id="total_family_member">
+                                            <input max="12" type="number" @if(isset(session()->get('registration_detail')['family_detail']['total_member'])) value="{{session()->get('registration_detail')['family_detail']['total_member']}}" @else value='0' @endif onchange="window.Registration.populateMemberList(this)" name="total_family_member" class="form-control" id="total_family_member">
                                         </div>
                                     </div>
                                 </div>

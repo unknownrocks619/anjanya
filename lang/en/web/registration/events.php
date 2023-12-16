@@ -76,9 +76,14 @@ return [
 
     'dikshya_information' => 'Dikshya Information',
     'diskshya_type' => 'Dikshya type',
+    'non-dikshit'   => 'Non Dikshit',
+    'dikshit'   => 'Dikshit',
     'dikshya_category' => 'Mantra Type',
+    'sadhana'  => 'Sadhana',
     'saranagati' => 'Saranagati',
     'tarak' => 'Tarak',
+    'two'   => 'Sadhana & Saranagati',
+    'three' => 'All Three',
     'select_mantra_type_option' => 'Please select your mantra type.',
-
+    'how-many-family-members-are-associated-with-sadgurudev' => 'How many family members are associated with Sadgurudev?',
 ];

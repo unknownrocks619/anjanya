@@ -11,6 +11,8 @@ class HanumandYagyaCounter extends Model
 
     protected $connection = 'portal_connection';
 
+    protected  $table = 'hanumand_yagya_counters';
+
     protected $fillable = [
         'member_id',
         'program_id',

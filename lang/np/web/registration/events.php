@@ -75,10 +75,14 @@ return [
     'dikshya_information'   => 'दिक्षाकाे विवरण',
     'diskshya_type' => 'दिक्षा प्रकार',
     'dikshya_category' => 'मन्त्र दिक्षा',
-    'saranagati' => 'सारणागती',
+    'saranagati' => 'सारणागति',
     'tarak' => 'तारक',
     'select_mantra_type_option' => 'कृपया आफ्नाे दीक्षा प्रकार छनाेट गर्नुहाेस ।',
     'dikshit'   => 'दिक्षित',
-    'non-dikshit'   => 'दिक्षा छैन'
+    'non-dikshit'   => 'दिक्षा छैन',
+    'sadhana'  => 'साधाना',
+    'two'   => 'साधाना & सारणागति',
+    'three' => 'तिनै प्रकार',
+    'how-many-family-members-are-associated-with-sadgurudev' => 'सद्गुरुदेव सँग परिवारका कति जना सदस्य जोडिनु भएको छ?',
 
 ];

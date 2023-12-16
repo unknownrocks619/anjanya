@@ -204,7 +204,7 @@ class WebEventsController extends Controller
         }
 
         if ( $request->post('dikshya_type') == 'dikshit') {
-            $request->validate(['dikshya_category' => 'required|in:tarak,saranagati']);
+            $request->validate(['dikshya_category' => 'required|in:tarak,saranagati,sadhana,sadhana&saranagati,sadhana&saranagati&tarak']);
         }
 
         $registrationDetail = session()->get('registration_detail');
@@ -327,7 +327,7 @@ class WebEventsController extends Controller
                 'gender'    => $request->post('family_gender')[$key]
             ];
         }
-
+        $registrationDetail['total_member_with_gurudev'] = $request->post('total_family_member_with_gurudev');
         session()->put('registration_detail',$registrationDetail);
         session()->put('current_step','yagyaInformation');
     }

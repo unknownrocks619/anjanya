@@ -241,9 +241,11 @@
                                             </label>
                                             <select name="dikshya_category" id="dikshya_category"
                                                     class="form-control w-100">
-
+                                                <option value="sadhana" {{(isset(session()->get('registration_detail')['dikshit']['category']) && session()->get('registration_detail')['dikshit']['category'] == 'sadhana') ? 'selected' : '' }}>{{__('web/registration/events.sadhana')}}</option>
                                                 <option value="saranagati" {{(isset(session()->get('registration_detail')['dikshit']['category']) && session()->get('registration_detail')['dikshit']['category'] == 'saranagati') ? 'selected' : '' }}>{{__('web/registration/events.saranagati')}}</option>
                                                 <option value="tarak"  {{(isset(session()->get('registration_detail')['dikshit']['category']) && session()->get('registration_detail')['dikshit']['category'] == 'tarak') ? 'selected' : '' }}>{{__('web/registration/events.tarak')}}</option>
+                                                <option value="sadhana&saranagati"  {{(isset(session()->get('registration_detail')['dikshit']['category']) && session()->get('registration_detail')['dikshit']['category'] == 'sadhana&saranagati') ? 'selected' : '' }}>{{__('web/registration/events.two')}}</option>
+                                                <option value="sadhana&saranagati&tarak"  {{(isset(session()->get('registration_detail')['dikshit']['category']) && session()->get('registration_detail')['dikshit']['category'] == 'sadhana&saranagati&tarak') ? 'selected' : '' }}>{{__('web/registration/events.three')}}</option>
                                             </select>
                                         </div>
                                     </div>

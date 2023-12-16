@@ -15,7 +15,8 @@ class MemberInfo extends Model
         'history',
         'personal',
         'education',
-        'remarks'
+        'remarks',
+        'total_member_with_gurudev',
     ];
 
     protected $casts = [

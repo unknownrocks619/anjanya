@@ -40,8 +40,26 @@
             <div class="col-lg-6 col-xl-1 col-md-10 col-6">
                 <div class="header-right d-flex justify-content-end">
                     <div class="header-quote">
-                        <div class="quote-icon quote-search">
-                            <button class="white-box-icon search-trigger header-search"><i class="ri-search-line"></i></button>
+                        <div class="quote-icon header-search">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{\Illuminate\Support\Facades\URL::current()}}/?language=en">
+                                    <img
+                                        src="https://flagcdn.com/h20/us.png"
+                                        srcset="https://flagcdn.com/h40/us.png 2x,
+        https://flagcdn.com/h60/us.png 3x"
+                                        height="20"
+                                        alt="United States">
+                                </a>
+                                <a  class="mx-3" href="{{\Illuminate\Support\Facades\URL::current()}}/?language=np">
+                                    <img
+                                        src="https://flagcdn.com/h24/np.png"
+                                        srcset="https://flagcdn.com/h48/np.png 2x"
+                                        height="24"
+                                        alt="Nepal">
+
+                                </a>
+                            </div>
+
                         </div>
                         <div class="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
                             <a class="edu-btn btn-medium left-icon header-button" href="https://jagadguru.siddhamahayog.org/login"><i class="ri-user-line"></i></a>

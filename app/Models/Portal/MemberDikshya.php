@@ -14,6 +14,7 @@ class MemberDikshya extends Model
         'member_id',
         'rashi_name',
         'dikshya_type',
+        'ceromony_location',
     ];
 
 }
