@@ -19,7 +19,7 @@ session()->forget('current_step')
                         <p>
                             {{__('web/registration/events.all-your-information-has-been-submitted')}}
                         </p>
-                        <a href="/" class="btn btn-outline-success fs-1">{{__('web/registration/events.home')}}</a>
+                        <a href="https://jagadguru.siddhamahayog.org/user/dashboard" class="btn btn-outline-success fs-1">{{__('web/registration/events.home')}}</a>
                     </div>
                 </div>
             </div>
