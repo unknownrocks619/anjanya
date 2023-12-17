@@ -88,4 +88,5 @@ return [
     'three' => 'All Three',
     'select_mantra_type_option' => 'Please select your mantra type.',
     'how-many-family-members-are-associated-with-sadgurudev' => 'How many family members are associated with Sadgurudev?',
+    'portal-dashboard' => 'Go to Dashboard'
 ];
