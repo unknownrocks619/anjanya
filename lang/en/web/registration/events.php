@@ -59,6 +59,8 @@ return [
     'target'    => 'Target',
     'by-the-time-of-yayga-what-do-you-estimate-your-total-Jaap-count-will-be'=> 'By the time of the Yayga, total mantra you will have chanted (estimate)',
     'upload-your-individual-image-notice'   => 'Please upload YOUR individual Profile Picture (single photo). This image will be used to create your ID card for yagya.',
+    'upload-your-individual-image-id-notice'   => 'Please upload your ID card with a photo.',
+
     'upload-your-photo' => 'Upload Your Photo',
     'upload-your-photo-id'  => 'Upload Your ID',
     'submit-my-application' => 'Submit My Application',
