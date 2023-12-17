@@ -124,7 +124,7 @@ export default class  Registration  {
     changeProfile(elm ,params={}) {
         let _this = this;
         $('.error-reporting').addClass('d-none').empty();
-        console.log('params: ', params);
+        this.#loading();
         const fileInput = elm;
         const file = fileInput.files[0];
 
@@ -145,11 +145,14 @@ export default class  Registration  {
                 $('#profile_picture_'+params.profileID).attr('value',_response.image);
 
                 _this.checkProfilePictures();
+                _this.#loading(false)
 
             }).catch(error => {
             $(".error-reporting_"+params.profileID)
                 .html('Oops ! Something went wrong, Please try again.')
                 .removeClass('d-none');
+                _this.#loading(false)
+
         })
 
     }
