@@ -4,7 +4,7 @@
 
             <div class="col-lg-6 col-xl-1 col-md-2 col-6">
                 <div class="logo">
-                    <a href="/">
+                    <a href="https://jagadguru.siddhamahayog.org/user/dashboard">
                         <img class="logo-light" src="{{\App\Classes\Helpers\SystemSetting::logo()}}" alt="{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}" style="max-height: 100px !important;">
                     </a>
                 </div>
@@ -62,7 +62,7 @@
 
                         </div>
                         <div class="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
-                            <a class="edu-btn btn-medium left-icon header-button" href="https://jagadguru.siddhamahayog.org/login"><i class="ri-user-line"></i></a>
+                            <a class="edu-btn btn-medium left-icon header-button" href="https://jagadguru.siddhamahayog.org/user/dashboard"><i class="ri-user-line"></i></a>
                         </div>
                     </div>
 
