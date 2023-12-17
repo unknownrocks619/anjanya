@@ -9,10 +9,12 @@ use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\FailedRecord;
 use App\Models\Portal\PortalCountry;
 use App\Plugins\Events\Http\Models\Event;
+use App\Rules\Unicode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class WebEventsController extends Controller
 {
@@ -93,13 +95,14 @@ class WebEventsController extends Controller
             }
 
             $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
-            return $this->json(true,'Form Loaded','',['view' =>$view]);
+            return $this->json(true,'Form Loaded','window.Registration.insertHTML',['view' =>$view]);
 
         }
 
         if ( ! $event ||  ! $event->active) {
             $view = 'expired';
         }
+        session()->forget('current_step');
         return view ('Events::frontend.registration.'.$view,$data);
     }
 
@@ -112,7 +115,7 @@ class WebEventsController extends Controller
         $data['email'] = session()->get('registration-email');
         $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
 
-        return $this->json(true,'Information Loaded.','',['view' => $view]);
+        return $this->json(true,'Information Loaded.','Registration.insertHTML',['view' => $view]);
 
     }
 
@@ -163,22 +166,22 @@ class WebEventsController extends Controller
     public function personal(Request $request) {
 
         $request->validate([
-            'first_name'    => 'required',
-            'last_name'     => 'required',
-            'gender'        => 'required|in:male,female',
-            'phone_number'  => 'required|numeric',
-            'country'       => 'required|numeric',
-            'state'         => 'required',
-            'street_address'    => 'required',
-            'date_of_birth' => 'required|date:Y-m-d',
-            'place_of_birth'    => 'required',
-            'education'     => 'required',
-            'profession'    => 'required',
-            'emergency_contact_person'  => 'required',
-            'emergency_phone' => 'required',
-            'emergency_contact_person_relation' => 'required',
-            'reference_source' => 'required',
-            'dikshya_type'  => 'required|in:dikshit,non-dikshit'
+            'first_name'    => ['required',new  Unicode()],
+            'last_name'     => ['required',new Unicode()],
+            'gender'        => ['required',Rule::in(['male','female']),new Unicode()],
+            'phone_number'  => ['required','numeric',new Unicode()],
+            'country'       => ['required','numeric',new Unicode()],
+            'state'         => ['required', new Unicode()],
+            'street_address'    => ['required', new Unicode()],
+            'date_of_birth' => ['required','date:Y-m-d', new Unicode()],
+            'place_of_birth'    => ['required',new Unicode()],
+            'education'     => ['required', new Unicode()],
+            'profession'    => ['required',new Unicode()],
+            'emergency_contact_person'  => ['required', new Unicode()],
+            'emergency_phone' => ['required', new Unicode()],
+            'emergency_contact_person_relation' => ['required', new Unicode()],
+            'reference_source' => ['required', new Unicode()],
+            'dikshya_type'  => ['required',Rule::in(['dikshit','non-dikshit']),new Unicode()]
         ], [
             'emergency_contact_person_relation.required' => 'Please provide Your relation with emergency contact.',
             'emergency_phone.required' => 'Please provide phone number for emergency contact.',
@@ -188,16 +191,16 @@ class WebEventsController extends Controller
         ]);
 
         if ( $request->post('reference_source') == 'other') {
-            $request->validate(['reference_source_detail' => 'required|min:5'],['reference_source_detail.min' => 'Please provide valid source detail.']);
+            $request->validate(['reference_source_detail' => ['required','min',new Unicode()]],['reference_source_detail.min' => 'Please provide valid source detail.']);
         }
 
         if ( $request->post('reference_source') == 'friend') {
-            $request->validate(['referer_name' => 'required']);
+            $request->validate(['referer_name' => ['required', new Unicode()]]);
         }
 
         if (! in_array($request->post('education'),['primary','secondary']) ) {
             $request->validate([
-                'field_of_study' => 'required'
+                'field_of_study' => ['required',new Unicode()]
             ],[
                 'field_of_study' => 'Please provide your education major.'
             ]);
@@ -270,6 +273,8 @@ class WebEventsController extends Controller
 
     public function validateAccount(Request $request, Event $event)
     {
+        $request->validate(['email' => ['required','email',new Unicode()]]);
+
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
         $emailResponse = $siddhamahayogUser->userResponse($request);
 
@@ -313,6 +318,12 @@ class WebEventsController extends Controller
             'family_gender.*' => 'required'
         ]);
 
+        $unicodeVerification = $this->check_unicode_character($request->all());
+
+        if ($unicodeVerification ) {
+            return response(['errors' => $unicodeVerification, 'message' => "Unicode Characters are not supported."], 422);
+        }
+
         $registrationDetail = session()->get('registration_detail');
 
         $registrationDetail['family_detail']['members'] = [];
@@ -336,8 +347,8 @@ class WebEventsController extends Controller
 
         $request->validate([
             'jap_start_date' => 'required|date:Y-m-d',
-            'total_jap_count' => 'required|numeric',
-            'estimated_jap' => 'required|numeric'
+            'total_jap_count' => ['required','numeric', new Unicode()],
+            'estimated_jap' => ['required','numeric', new Unicode()]
         ]);
 
         $registrationDetail = session()->get('registration_detail');

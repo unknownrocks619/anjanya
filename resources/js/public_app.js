@@ -43,10 +43,26 @@ $(function () {
             messageBox(response.state, response.msg);
 
             if ((response.callback !== null || response.callback !== '')) {
+
                 let fn = window[response.callback];
+
                 if (typeof (fn) === 'function') {
                     fn(response.params);
+                } else if (response.callback.includes('.') ) {
+
+                    let parts = response.callback.split('.');
+
+                    // Extract the class name and method name
+                    let className = parts[0];
+                    let methodName = parts[1];
+
+                    fn = window[className]
+
+                    if (typeof (fn) === 'object') {
+                        window[className][methodName](response.params);
+                    }
                 }
+
             }
         }
     }

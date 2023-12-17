@@ -212,11 +212,11 @@ export default class  Registration  {
         let _this = this;
 
         axios.post(_url,_formData).then(function(response){
-
-            _this.#elm.html(response.data.params.view)
-            let  _eventRegistrationWrapperElm = document.getElementById('event-registration-wrapper-elm');
-            _eventRegistrationWrapperElm.scrollTop = 0;
-            _this.#loading(false);
+            _this.insertHTML(response.data.params);
+            // _this.#elm.html(response.data.params.view)
+            // let  _eventRegistrationWrapperElm = document.getElementById('event-registration-wrapper-elm');
+            // _eventRegistrationWrapperElm.scrollTop = 0;
+            // _this.#loading(false);
 
         }).catch(error => {
 
@@ -231,6 +231,13 @@ export default class  Registration  {
             _this.#loading(false);
 
         })
+    }
+
+    insertHTML(params) {
+        this.#elm.html(params.view)
+        let  _eventRegistrationWrapperElm = document.getElementById('event-registration-wrapper-elm');
+        _eventRegistrationWrapperElm.scrollTop = 0;
+        this.#loading(false);
     }
 
     #postRequest(url, params) {
