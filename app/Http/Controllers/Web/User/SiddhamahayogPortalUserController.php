@@ -422,4 +422,8 @@ class SiddhamahayogPortalUserController extends Controller
         // now send detail to
         return ['user' => $user->getKey(),'program' =>$programID];
     }
+
+    public function createNewAccountForLiveEvent(Request $request) {
+
+    }
 }

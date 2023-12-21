@@ -1098,4 +1098,5 @@ class UserController extends Controller
         session()->forget('resubmit_key');
         return redirect()->route('frontend.users.register');
     }
+
 }
