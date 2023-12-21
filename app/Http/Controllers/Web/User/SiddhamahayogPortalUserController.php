@@ -79,7 +79,7 @@ class SiddhamahayogPortalUserController extends Controller
                 'street_address'    => $address,
                 'phone_number'  => $user->phone_number,
                 'date_of_birth' => $user->date_of_birth,
-                'profile_url'   => $user->profile?->full_path,
+                'profile_url'   => ($user->profile && isset($user->profile->full_path)) ? $user->profile->full_path : '',
                 'reference_source' => '',
                 'referer_name' => '',
                 'referer_relation' => '',
