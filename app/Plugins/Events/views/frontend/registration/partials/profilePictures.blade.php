@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <img src="@if(isset(session()->get('registration_detail')['profile_url'])){{session()->get('registration_detail')['profile_id']}}@endif" class="img-fluid w-50 display_profile_picture_id">
+                                    <img src="@if(isset(session()->get('registration_detail')['profile_id'])){{session()->get('registration_detail')['profile_id']}}@endif" class="img-fluid w-50 display_profile_picture_id">
                                     <input type="hidden"  class="profile_picture" name="profile_picture_id" id="profile_picture_id" value="@if(isset(session()->get('registration_detail')['profile_id'])){{session()->get('registration_detail')['profile_id']}}@endif">
                                 </div>
                             </div>

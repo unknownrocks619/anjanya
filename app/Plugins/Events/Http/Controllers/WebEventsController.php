@@ -110,7 +110,6 @@ class WebEventsController extends Controller
 //            $view = 'coming-soon';
 //        }
 
-        session()->forget('current_step');
         return view ('Events::frontend.registration.'.$view,$data);
     }
 
