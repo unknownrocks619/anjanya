@@ -98,10 +98,18 @@ class WebEventsController extends Controller
             return $this->json(true,'Form Loaded','window.Registration.insertHTML',['view' =>$view]);
 
         }
+        $eventEndDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
 
-        if ( ! $event ||  ! $event->active) {
+        if ( ! $event ||  ! $event->active || $eventEndDate->greaterThan(now()) ) {
             $view = 'expired';
         }
+
+        $eventStartDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
+
+        if ($eventStartDate->lessThan(now()) ) {
+            $view = 'coming-soon';
+        }
+
         session()->forget('current_step');
         return view ('Events::frontend.registration.'.$view,$data);
     }
