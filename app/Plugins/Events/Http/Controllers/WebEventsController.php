@@ -105,8 +105,8 @@ class WebEventsController extends Controller
         }
 
         $eventStartDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
-
-        if ($eventStartDate->lessThan(now()) ) {
+        dump($eventEndDate->greaterThan(now()),$eventStartDate->greaterThan(now()));
+        if ($eventStartDate->greaterThan(now()) ) {
             $view = 'coming-soon';
         }
 
