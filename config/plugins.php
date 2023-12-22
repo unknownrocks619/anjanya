@@ -6,5 +6,6 @@ return [
     'clients'       => ['enable' => true],
     'events'        => ['enable' => true],
     'gallery'       => ['enable' => false],
-    'donation'      => ['enable'    => true]
+    'donation'      => ['enable'    => true],
+    'volunteer' => ['enable' => true]
 ];

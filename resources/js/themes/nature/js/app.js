@@ -1,4 +1,6 @@
-;(function( $ ){
+import "./partials/volunteer-registration";
+
+(function( $ ){
 
     /* Fixed header nav */
     document.addEventListener("DOMContentLoaded", function(){
