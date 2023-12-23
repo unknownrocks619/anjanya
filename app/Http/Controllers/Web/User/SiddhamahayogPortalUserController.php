@@ -13,6 +13,7 @@ use App\Models\Portal\PortalCountry;
 use App\Models\Portal\ProgramUser;
 use App\Models\Portal\UserModel;
 use App\Models\User;
+use App\Rules\Unicode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -72,6 +73,7 @@ class SiddhamahayogPortalUserController extends Controller
                 'first_name'    => $user->first_name,
                 'middle_name'   => $user->middle_name,
                 'last_name'     => $user->last_name,
+                'gotra'         => $user->gotra,
                 'gender'        => $user->gender,
                 'country'       => $user->country,
                 'country_label' => $country_label,
@@ -145,6 +147,7 @@ class SiddhamahayogPortalUserController extends Controller
                 'middle_name'   => $middle_name,
                 'last_name'     => $last_name,
                 'gender'        => $user->gender,
+                'gotra'         => $user && isset($user->alias_name->family_cast) ? $user->alias_name->family_cast  : '',
                 'reference_source' => '',
                 'referer_name' => '',
                 'referer_relation' => '',
@@ -181,6 +184,7 @@ class SiddhamahayogPortalUserController extends Controller
                         'first_name'    => $sessionUserDetail['first_name'],
                         'middle_name'   => $sessionUserDetail['middle_name'],
                         'last_name'     => $sessionUserDetail['last_name'],
+                        'gotra'         => $sessionUserDetail['gotra'],
                         'source'        => 'Website - Hanumant Yagya Form',
                         'profile'       => ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']],
                         'gender'        => $sessionUserDetail['gender'],
@@ -372,10 +376,10 @@ class SiddhamahayogPortalUserController extends Controller
 
     public function liveProgramEvent(Request $request, string $event='') {
         $request->validate([
-            'first_name'    => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email',
-            'password'  => 'sometimes|required|confirmed'
+            'first_name'    => ['required','string',new Unicode()],
+            'last_name' => ['required','string',new Unicode()],
+            'email' => ['required','email', new Unicode()],
+            'password'  => ['sometimes','required','confirmed',new Unicode()]
         ]);
 
         // check now get

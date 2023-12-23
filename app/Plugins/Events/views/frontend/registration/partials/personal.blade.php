@@ -22,8 +22,19 @@
                                     <div class="row my-2">
                                         <div class="col-lg-6 col-md-12">
                                             <div class="form-group">
-                                                <label for="first_name">{{__('web/registration/events.first-name')}}</label>
+                                                <label for="first_name">
+                                                    {{__('web/registration/events.first-name')}}
+                                                    <sup class="text-danger">*</sup>
+                                                </label>
                                                 <input type="text" name="first_name" value="{{session()->get('registration_detail')['first_name']}}" class="form-control" id="first_name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group">
+                                                <label for="gotra">{{__('web/registration/events.gotra')}}
+                                                    <sup class="text-danger">*</sup>
+                                                </label>
+                                                <input type="text" name="gotra" value="@isset(session()->get('registration_detail')['gotra']){{session()->get('registration_detail')['gotra']}}@endisset" class="form-control" id="gotra">
                                             </div>
                                         </div>
                                     </div>

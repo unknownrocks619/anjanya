@@ -84,5 +84,6 @@ return [
     'two'   => 'साधाना & सारणागति',
     'three' => 'तिनै प्रकार',
     'how-many-family-members-are-associated-with-sadgurudev' => 'सद्गुरुदेव सँग परिवारका कति जना सदस्य जोडिनु भएको छ?',
-    'portal-dashboard' => 'Go to Dashboard'
+    'portal-dashboard' => 'Go to Dashboard',
+    'gotra' => 'गाेत्र'
 ];

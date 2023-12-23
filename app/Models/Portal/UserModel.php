@@ -20,6 +20,7 @@ class UserModel extends Authenticatable
         "first_name",
         "middle_name",
         "last_name",
+        'gotra',
         "country",
         'city',
         'address',

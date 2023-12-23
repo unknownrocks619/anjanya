@@ -175,6 +175,7 @@ class WebEventsController extends Controller
         $request->validate([
             'first_name'    => ['required',new  Unicode()],
             'last_name'     => ['required',new Unicode()],
+            'gotra'         => ['required', new Unicode()],
             'gender'        => ['required',Rule::in(['male','female']),new Unicode()],
             'phone_number'  => ['required','numeric',new Unicode()],
             'country'       => ['required','numeric',new Unicode()],
@@ -221,6 +222,7 @@ class WebEventsController extends Controller
         $registrationDetail['first_name'] = $request->post('first_name');
         $registrationDetail['middle_name']  = $request->post('middle_name');
         $registrationDetail['last_name'] = $request->post('last_name');
+        $registrationDetail['gotra']    = $request->post('gotra');
         $registrationDetail['gender'] = $request->post('gender');
         $registrationDetail['phone_number'] = $request->post('phone_number');
         $registrationDetail['country'] = $request->post('country');
