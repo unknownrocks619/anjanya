@@ -4,7 +4,7 @@ use App\Plugins\Volunteer\Http\Controllers\web\WebVolunteerController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('volunteer')
-        ->middleware(['web','maintenance'])
+        ->middleware(['web'])
         ->group(function() {
             Route::get('registration',[WebVolunteerController::class,'register'])
                     ->name('frontend.volunteer.registration');
