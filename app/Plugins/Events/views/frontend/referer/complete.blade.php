@@ -1,8 +1,11 @@
-<div class="container-fluid">
+@extends($user_theme->frontend_layout($extends))
+@section('page_title')-Reference Complete @endsection
+@section('main')
+    <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="vh-100 d-flex justify-content-center align-items-center">
-                <div class="card col-md-4 bg-white shadow-md p-5">
+                <div class="card col-md-6 bg-white shadow-md p-5">
                     <div class="mb-4 text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="75" height="75"
                              fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -13,20 +16,13 @@
                     </div>
                     <div class="text-center">
                         <h1>{{__('web/registration/events.thank-you')}}</h1>
-                        <p>{{__('web/registration/events.all-your-information-has-been-submitted')}}</p>
+                        <p>{{__('web/registration/events.refer-thank-you')}}</p>
                         <a href="https://jagadguru.siddhamahayog.org/user/dashboard" class="btn btn-success fs-1">{{__('web/registration/events.portal-dashboard')}}</a>
-                        @isset($userDetail)
-                            <a href="{{route('frontend.event.refer-friend-family',['user' => $userDetail->getKey(),'event' => $event->event_slug])}}" class="btn btn-danger fs-1">{{__('web/registration/events.refer-someone')}}</a>
-                        @endisset
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
-    <!-- Row -->
+        <!-- Row -->
     </div>
 </div>
-@if( ! isset ($userDetail) )
-<script>
-    window.Registration.complete();
-</script>
-@endif
+@endsection

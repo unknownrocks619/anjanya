@@ -8,11 +8,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\FailedRecord;
 use App\Models\Portal\PortalCountry;
+use App\Models\Portal\UserModel;
 use App\Plugins\Events\Http\Models\Event;
 use App\Rules\Unicode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -67,6 +69,14 @@ class WebEventsController extends Controller
         return $events;
     }
 
+    /**
+     * @param Request $request
+     * @param string $event_slug
+     * @param $step
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function eventRegistration(Request $request, string $event_slug, $step='first') {
         // $today.
         $today = Carbon::now();
@@ -116,10 +126,15 @@ class WebEventsController extends Controller
     public function event_registration_process(Request $request, Event $event) {
         $data = ['event' => $event];
 
-        $this->{session()->get('current_step')}($request,$event);
+        $process = $this->{session()->get('current_step')}($request,$event);
         $view = session()->get('current_step');
 
         $data['email'] = session()->get('registration-email');
+
+        if ($process && is_array($process) ) {
+            $data = array_merge($data,$process);
+        }
+
         $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
 
         return $this->json(true,'Information Loaded.','Registration.insertHTML',['view' => $view]);
@@ -301,6 +316,11 @@ class WebEventsController extends Controller
 
         if ( isset ($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
             session()->put('current_step','submitted');
+
+            if (isset ($emailResponse['userID']) ) {
+                return ['userID' => $emailResponse['userID']];
+            }
+
             return;
         }
 
@@ -413,6 +433,7 @@ class WebEventsController extends Controller
     public function complete() {
 
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
+        $insertedRecord = $siddhamahayogUser->storeEventDetail();
 
         if ( !  $siddhamahayogUser->storeEventDetail() ) {
 
@@ -423,12 +444,22 @@ class WebEventsController extends Controller
 
             $failedRecord->session_info = $sessionRecord;
             $failedRecord->save();
+            session()->put('current_step','failed');
+
+        } else {
+//            session()->forget('registration_detail');
+//            session()->forget('new_registration');
+//            session()->forget('registration-email');
+//            session()->forget('current_step');
         }
 
-        session()->forget('registration_detail');
-        session()->forget('new_registration');
-        session()->forget('registration-email');
-        session()->forget('current_step');
+
+        return ['userDetail' => $insertedRecord];
+    }
+
+    public function failed(Request $request, Event $event) {
+
+//        session()->forget('current_step');
     }
 
     public function stepBack(Request $request, Event $event){
@@ -500,5 +531,66 @@ class WebEventsController extends Controller
 
         session()->put('zoom_registration','https://jagadguru.siddhamahayog.org/login/join-external?'.http_build_query($returnResponse));
         session()->put('current_step','zoomRegistrationComplete');
+    }
+
+    public function referer(Request $request,UserModel $user, string $event)
+    {
+        $event = Event::where('event_slug',$event)->where('active',true)->firstOrFail();
+
+        if ($request->post() ) {
+
+            $request->validate(
+                                [
+                                    'referer_full_name.*' => ['required','string',new Unicode()],
+                                    'referer_phone_number.*' => ['required','numeric',new Unicode()],
+                                    'referer_email.*' => ['nullable','email', new Unicode()],
+                                ],
+                                [
+                                    'referer_full_name.*.string' => 'Invalid Character in ',
+                                    'referer_full_name.*.required' => 'All Referer Field must have full name',
+                                    'referer_phone_number.*.numeric' => 'Please provide valid phone number. Do not include country code or - ( ) chars',
+                                    'referer_phone_number.*.required' => 'All Phone Number field is required.'
+                                ]);
+
+            $insertReference = [];
+
+            foreach ($request->post('referer_full_name') as $key => $value) {
+
+                $innerArray = [
+                    'full_name' => $value,
+                    'phone_number'  => $request->post('referer_phone_number')[$key],
+                    'country'   => ($request->post('referer_country') && isset($request->post('referer_country')[$key])) ? $request->post('referer_country')[$key] : null,
+                    'email_address' => $request->post('referer_email')[$key],
+                    'created_at'    => now()->format('Y-m-d H:i:s'),
+                    'updated_at'    => now()->format('Y-m-d H:i:s'),
+                    'member_id' => $user->getKey(),
+                    'remarks'   => 'During Event: '. $event->event_title
+                ];
+
+                $insertReference[] = $innerArray;
+            }
+
+            DB::connection('portal_connection')->table('member_refers')->insert($insertReference);
+
+            return $this->json(true,'Reference Saved.','redirect',['location' => route('frontend.event.refer-friend-family-complete',['user' => $user,'event' => $event->event_slug])]);
+        }
+
+
+        $data = [
+            'extends'   => 'master-nav',
+            'user'      => $user,
+            'event' => $event
+        ];
+        return view($this->plugin_name."::"."frontend.referer.create",$data);
+    }
+
+    public function refererComplete(UserModel $user, string $event) {
+        $data = [
+            'extends'   => 'master-nav',
+            'user'      => $user,
+            'event' => $event
+        ];
+
+        return view($this->plugin_name.'::'.'frontend.referer.complete',$data);
     }
 }

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Password;
 
 class SiddhamahayogPortalUserController extends Controller
 {
+    protected  $memberRegistration;
     /**
      * Validate Email Address in
      * Siddhamahayog and return response accordingly.
@@ -89,6 +90,7 @@ class SiddhamahayogPortalUserController extends Controller
                 'meta'  => [],
                 'dikshya'   => [],
                 'emergency' => [],
+                'userID'    => $user?->getKey()
             ];
 
             if ( $user->meta ) {
@@ -170,9 +172,7 @@ class SiddhamahayogPortalUserController extends Controller
     }
 
     public function storeEventDetail() {
-
         try {
-
             DB::transaction(function() {
                 $sessionUserDetail = session()->get('registration_detail');
                 // check if we need to create new user
@@ -204,7 +204,7 @@ class SiddhamahayogPortalUserController extends Controller
                 } else {
                     $memberRegistration = UserModel::where('email',session()->get('registration-email'))->first();
                 }
-
+                $this->memberRegistration = $memberRegistration;
                 // Update meta information
                 $meta = MemberInfo::where('member_id', $memberRegistration->getKey())->first();
 
@@ -353,15 +353,15 @@ class SiddhamahayogPortalUserController extends Controller
                     ]);
                     $yagyaDailyCounter->save();
                 }
+
+                return $memberRegistration;
             });
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             Log::error('Unable to save user jap info. '. $e->getMessage(),['HANUMANT YAGYA']);
             return false;
         }
-
-        return true;
+        return $this->memberRegistration;
     }
 
     public function verifyPassword(Request $request) {

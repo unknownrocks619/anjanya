@@ -14,7 +14,6 @@ class Unicode implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-
         if ($this->check_unicode_character($value) ) {
             $fail('The :attribute contains invalid character');
         }

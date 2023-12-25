@@ -89,5 +89,11 @@ return [
     'select_mantra_type_option' => 'Please select your mantra type.',
     'how-many-family-members-are-associated-with-sadgurudev' => 'How many family members are associated with Sadgurudev?',
     'portal-dashboard' => 'Go to Dashboard',
-    'gotra' => 'Gotra',
+    'gotra' => 'Gotra / Clan',
+    'number-of-referral' => 'Number of Referrals',
+    'refer-thank-you'   => "Thank you for submitting the referral information! Your input has been received, and we appreciate your effort in referring individuals. If there are any additional details or updates, we'll be in touch. Have a great day!",
+    'refer-someone' => 'Refer Someone',
+    'try-again' => 'Try Again',
+    'error' => 'Error',
+    'error-paragraph' => "Oops! There was an error processing your submission. Please try again."
 ];

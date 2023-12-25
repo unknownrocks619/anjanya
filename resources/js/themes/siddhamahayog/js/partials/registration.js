@@ -158,7 +158,15 @@ export default class  Registration  {
     }
 
     complete() {
-        axios.post('/event/registration/'+this.#eventID,{});
+        this.#loading(true);
+        let _this = this;
+        axios.post('/event/registration/'+this.#eventID,{})
+            .then(function(response){
+                _this.insertHTML(response.data.params)
+                _this.#loading(false);
+        }).catch(function (response){
+            _this.#loading(false);
+        });
     }
 
     stepBack() {

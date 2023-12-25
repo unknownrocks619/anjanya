@@ -20,6 +20,9 @@ session()->forget('current_step')
                             {{__('web/registration/events.all-your-information-has-been-submitted')}}
                         </p>
                         <a href="https://jagadguru.siddhamahayog.org/user/dashboard" class="btn btn-success fs-1">{{__('web/registration/events.portal-dashboard')}}</a>
+                        @if(isset($userID))
+                            <a href="{{route('frontend.event.refer-friend-family',['user' => $userID,'event' => $event->event_slug])}}" class="btn btn-danger fs-1 refer-button">{{__('web/registration/events.refer-someone')}}</a>
+                        @endif
                     </div>
                 </div>
             </div>
