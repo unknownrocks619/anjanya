@@ -314,7 +314,17 @@ class WebEventsController extends Controller
             return;
         }
 
+        session()->put('registration_detail',$emailResponse);
+
         if ( isset ($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
+
+            // check if user full_path and id_card has been inserted.
+            if ( !  $emailResponse['profile_url'] ) {
+                session()->put('current_step','profilePictures');
+                session()->put('allow_back',false);
+                return;
+            }
+
             session()->put('current_step','submitted');
 
             if (isset ($emailResponse['userID']) ) {
@@ -324,7 +334,6 @@ class WebEventsController extends Controller
             return;
         }
 
-        session()->put('registration_detail',$emailResponse);
 
         if(isset($emailResponse['required_password']) && $emailResponse['required_password']) {
             session()->put('current_step','confirmPassword');
@@ -410,7 +419,7 @@ class WebEventsController extends Controller
         $familyMemberDetail['profile_url'] = $request->post('profile_picture_default');
         $familyMemberDetail['profile_id'] = $request->post('profile_picture_id');
 
-        foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
+//        foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
 
 //            $request->validate([
 //                'profile_picture_'.$key => 'required|url'
@@ -419,9 +428,9 @@ class WebEventsController extends Controller
 //                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
 //            ]);
 
-            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
+//            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
 
-        }
+//        }
 
          // also save this information in siddhamahayog portal.
 
@@ -433,6 +442,7 @@ class WebEventsController extends Controller
     public function complete() {
 
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
+
         $insertedRecord = $siddhamahayogUser->storeEventDetail();
 
         if ( !  $siddhamahayogUser->storeEventDetail() ) {
@@ -447,10 +457,11 @@ class WebEventsController extends Controller
             session()->put('current_step','failed');
 
         } else {
-//            session()->forget('registration_detail');
-//            session()->forget('new_registration');
-//            session()->forget('registration-email');
-//            session()->forget('current_step');
+            session()->forget('registration_detail');
+            session()->forget('new_registration');
+            session()->forget('registration-email');
+            session()->forget('current_step');
+            session()->forget('allow_back');
         }
 
 

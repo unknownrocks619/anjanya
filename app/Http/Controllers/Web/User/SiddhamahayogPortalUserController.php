@@ -174,7 +174,19 @@ class SiddhamahayogPortalUserController extends Controller
     public function storeEventDetail() {
         try {
             DB::transaction(function() {
+
+
                 $sessionUserDetail = session()->get('registration_detail');
+
+                if (session()->has('allow_back') && isset ($sessionUserDetail['userID']) ) {
+
+                    $memberRegistration = UserModel::where('id',$sessionUserDetail['userID'])->first();
+                    $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    $memberRegistration->save();
+                    $this->memberRegistration = $memberRegistration;
+                    return $memberRegistration;
+                }
+
                 // check if we need to create new user
                 if (session()->has('new_registration') && session()->get('new_registration') == true && UserModel::where('email',session()->get('registration-email'))->exists() === false) {
 
@@ -203,6 +215,21 @@ class SiddhamahayogPortalUserController extends Controller
                     $memberRegistration->save();
                 } else {
                     $memberRegistration = UserModel::where('email',session()->get('registration-email'))->first();
+                    $memberRegistration->fill([
+                        'full_name' => $sessionUserDetail['full_name'],
+                        'first_name'    => $sessionUserDetail['first_name'],
+                        'middle_name'   => $sessionUserDetail['middle_name'],
+                        'last_name'     => $sessionUserDetail['last_name'],
+                        'gotra'         => $sessionUserDetail['gotra'],
+                        'profile'       => ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']],
+                        'gender'        => $sessionUserDetail['gender'],
+                        'country'       => $sessionUserDetail['country'],
+                        'city'          => $sessionUserDetail['city'],
+                        'address'       => ['street_address' => $sessionUserDetail['street_address']],
+                        'date_of_birth' => $sessionUserDetail['date_of_birth'],
+                        'phone_number'  => $sessionUserDetail['phone_number'],
+                    ]);
+
                 }
                 $this->memberRegistration = $memberRegistration;
                 // Update meta information

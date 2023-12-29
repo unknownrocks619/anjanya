@@ -36,7 +36,7 @@
                                     <div class="form-group">
                                         <label>
                                             {{__('web/registration/events.upload-your-photo')}}
-                                            <span class="text-danger">({{session()->get('registration_detail')['full_name']}})</span></label>
+                                            <span class="text-danger">@if(session()->has('registration_detail')) ({{session()->get('registration_detail')['full_name']}})@endif</span></label>
                                         <input onchange="window.Registration.changeProfile(this,{profileID : 'default'})" type="file"  class="form-control">
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
 
                                         <label>
                                             {{__('web/registration/events.upload-your-photo-id')}}
-                                            <span class="text-danger">({{session()->get('registration_detail')['full_name']}})</span>
+                                            <span class="text-danger">@if(session()->has('registration_detail'))({{session()->get('registration_detail')['full_name']}}) @endif</span>
                                         </label>
 
                                         <input onchange="window.Registration.changeProfile(this,{profileID : 'id'})" type="file"  class="form-control">
@@ -71,10 +71,12 @@
                     </div>
                     <div class="row no-gutters my-3">
                         <div class="col-md-11 text-end d-flex justify-content-end">
+                            @if( ! session()->has('allow_back'))
                             <button type="button" onclick="window.Registration.stepBack()" class="edu-btn  bg-info">
                                 <i class="fas fa-arrow-left"></i>
                                 {{__('web/registration/events.back')}}
                             </button>
+                            @endif
                             &nbsp;
                             <button data-language-file="{{json_encode($jsLangFile)}}" class="edu-btn btn-secondary registration-progress-button" disabled type="button">
                                 {{__('web/registration/events.submit-my-application')}}
