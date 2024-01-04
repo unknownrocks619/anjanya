@@ -16,7 +16,6 @@ window.setupTinyMce = function () {
     }
 }
 
-
 window.setupTinyMceAll = function () {
     tinymce.init({
         selector: '.tiny-mce',
@@ -28,3 +27,4 @@ window.setupTinyMceAll = function () {
         imagetools_cors_hosts: ['picsum.photos'],
     })
 }
+
