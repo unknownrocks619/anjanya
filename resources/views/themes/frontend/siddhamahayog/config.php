@@ -55,6 +55,12 @@ return [
         ],
         'gallery' => [
             'view' => 'components.gallery.view'
+        ],
+        'imageonly' => [
+            'view'  => 'components.images.view',
+            'edit'  => 'components.images.edit',
+            'add'   => 'components.images.add',
+            'namespace' => 'Image'
         ]
     ],
 

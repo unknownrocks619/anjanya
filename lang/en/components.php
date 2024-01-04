@@ -39,6 +39,7 @@
             'events'                => 'Events',
             'video'                 => 'Video',
             'banner'                => 'Banner',
+            'imageonly'             => 'Image',
             '_failed_save'          => 'Unable to save component',
             '_success_save'         => 'Component Saved',
             '_failed_update'        => 'Unable to update component',
