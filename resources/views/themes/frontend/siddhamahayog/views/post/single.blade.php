@@ -43,16 +43,15 @@ $glittersBackground = \App\Models\GalleryAlbums::where('id',$post->glitter_backg
                                         </li>
                                     </ul>
                                 </div>
-
-                                <h4 class="title">
-                                {{$post->title}}
-                                </h4>
-
                                 @if($featuredImage)
                                     <div class="thumbnail block-alignwide">
                                         <img class="radius-small w-100 mb--30" src="{{ App\Classes\Helpers\Image::getImageAsSize($featuredImage->image->filepath,'xl')}}" alt="{{$post->title}}">
                                     </div>
                                 @endif
+                                <h4 class="title">
+                                {{$post->title}}
+                                </h4>
+
                             </div>
 
                             <div class="blog-main-content">
