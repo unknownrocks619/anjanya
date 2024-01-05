@@ -229,6 +229,8 @@ class SiddhamahayogPortalUserController extends Controller
                         'date_of_birth' => $sessionUserDetail['date_of_birth'],
                         'phone_number'  => $sessionUserDetail['phone_number'],
                     ]);
+                    $memberRegistration->save();
+
 
                 }
                 $this->memberRegistration = $memberRegistration;
