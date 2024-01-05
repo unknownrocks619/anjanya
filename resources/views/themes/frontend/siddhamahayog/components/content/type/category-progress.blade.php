@@ -23,7 +23,7 @@
             </div>
             <div class="content">
                 <h6 class="title">
-                    {!! $user_theme->links('category-link',['slug' => $record->cat_slug,'label' => $record->title]) !!}
+                    {!! $user_theme->links('category-link-detail',['slug' => $record->cat_slug,'label' => $record->title]) !!}
                 </h6>
                 <div class="description">
                     {!! $record->intro_description !!}

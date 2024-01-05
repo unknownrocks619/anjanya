@@ -33,7 +33,7 @@ $imageLink = '<img src="'.$featuredImage.'" alt="'.$record->title.'">';
                 </div>
                 <div class="card-bottom">
                     <div class="price-list price-style-01">
-                            {!! $user_theme->links('category-link',['slug' => $record->cat_slug,'label' => 'Read More','class' => 'edu-btn']) !!}
+                            {!! $user_theme->links('category-link-detail',['slug' => $record->cat_slug,'label' => 'Read More','class' => 'edu-btn']) !!}
                     </div>
                 </div>
             </div>

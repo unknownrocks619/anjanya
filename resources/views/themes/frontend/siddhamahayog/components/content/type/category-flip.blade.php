@@ -40,7 +40,13 @@
             <div class="hover-content">
                 <div class="content-top">
                     <div class="top-status-bar">
-                        <span class="eduvibe-status status-03">{{$record->cat_name}}</span>
+                        <a href="">
+                            @php
+                                $categoryLink = '<span class="eduvibe-status status-03">'.$record->cat_name. '</span>';
+                             @endphp
+                            {!! $user_theme->links('category-link',['class' => '','slug' => $record->cat_slug,'label' => $categoryLink]) !!}
+
+                        </a>
                     </div>
                     <div class="top-wishlist-bar">
                         <button class="wishlist-btn"><i class="icon-Heart"></i></button>
@@ -55,7 +61,7 @@
                 </div>
 
                 <div class="read-more-btn">
-                    {!! $user_theme->links('category-link',['class' => 'edu-btn btn-medium btn-white','slug' => $record->cat_slug,'label' => 'View Detail <i class="icon-arrow-right-line-right"></i>']) !!}
+                    {!! $user_theme->links('category-link-detail',['post_slug'=>$record->slug,'class' => 'edu-btn btn-medium btn-white','slug' => $record->cat_slug,'label' => 'View Detail <i class="icon-arrow-right-line-right"></i>']) !!}
                 </div>
 
             </div>

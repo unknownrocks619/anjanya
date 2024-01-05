@@ -3,7 +3,7 @@
     $componentValue = $_loadComponentBuilder->values;
 @endphp
 <div class="row">
-    <div class="col-md-12">
-        <img src="{{$componentValue['image']}}" alt="" class="img-fluid w-100" />
+    <div class="col-md-12 text-center">
+        <img src="{{$componentValue['image']}}" alt="" class="img-fluid" />
     </div>
 </div>
