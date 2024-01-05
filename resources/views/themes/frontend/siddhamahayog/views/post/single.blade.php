@@ -1,5 +1,5 @@
 @php
-
+/** @var  \App\Models\Post $post */
 $glittersBackground = \App\Models\GalleryAlbums::where('id',$post->glitter_background)
                                             ->where('active',true)
                                             ->with(['items' => function($query) {
@@ -11,7 +11,7 @@ $glittersBackground = \App\Models\GalleryAlbums::where('id',$post->glitter_backg
                                             ->first();
     $allImages = $post->getImage()->get();
 
-    $featuredImage = $allImages->where('type','featured')->first();
+    $featuredImage = $allImages->where('type','featured_image')->first();
 
     $postCategories = $post->getCategories();
 @endphp
@@ -58,6 +58,9 @@ $glittersBackground = \App\Models\GalleryAlbums::where('id',$post->glitter_backg
                             <div class="blog-main-content">
                                 {!! $post->full_description !!}
                             </div>
+
+                            @include('frontend.components.lister', ['model' => $post])
+
 
                             <div class="blog-tag-and-share mt--50">
                                 <div class="blog-tag">
