@@ -19,5 +19,7 @@ window.setupTinyMceAll = function () {
         selector: '.tiny-mce',
         inline : true,
         menubar : false,
+        plugins: ' anchor autolink  emoticons link lists media table ,accordion,fullscreen,advlist',
+
     })
 }
