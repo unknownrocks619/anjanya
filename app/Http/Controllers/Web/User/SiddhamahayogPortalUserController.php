@@ -325,13 +325,14 @@ class SiddhamahayogPortalUserController extends Controller
                 $dikshyaInformationSession = $sessionUserDetail['dikshit'];
                 if ( $dikshyaInformationSession['type'] == 'dikshit' ) {
                     $dikshyaType = explode('&',$dikshyaInformationSession['category']);
+
                     foreach ($dikshyaType as $selectedDikshya){
 
-                        $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
-                            ->where('dikshya_type',$selectedDikshya)
-                            ->first();
+//                        $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
+//                            ->where('dikshya_type',$selectedDikshya)
+//                            ->first();
 
-                        if ( ! $userDikshay ) {
+//                        if ( ! $userDikshay ) {
 
                             $userDikshay = new MemberDikshya();
                             $userDikshay->fill([
@@ -342,7 +343,7 @@ class SiddhamahayogPortalUserController extends Controller
                             ]);
 
                             $userDikshay->save();
-                        }
+//                        }
                     }
                 }
 
