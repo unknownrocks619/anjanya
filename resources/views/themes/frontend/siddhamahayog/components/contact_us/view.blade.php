@@ -107,7 +107,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <input placeholder="Phone Number"
-                                   type="email"
+                                   type="text"
                                    class="form-control form-control-lg"
                                    id="phone"
                                    required
