@@ -25,8 +25,12 @@
 @section('main')
     {!! $user_theme->partials('page-header',['bannerImage' => $banner_image,'title' => $page->title ?? $menu->menu_name,'glitter_background' => null]) !!}
     @if($image)
-        <div class="thumbnail block-alignwide">
-            <img class="radius-small w-100 mb--30" src="{{$image}}" alt="{{$page->title ?? $menu->menu_name}}">
+        <div class="edu-blog-details-area edu-section-gap bg-color-white">
+            <div class="container">
+                <div class="thumbnail block-alignwide">
+                    <img class="radius-small w-100 mb--30" src="{{$image}}" alt="{{$page->title ?? $menu->menu_name}}">
+                </div>
+            </div>
         </div>
     @endif
     @include('frontend.components.lister', ['model' => $page])
