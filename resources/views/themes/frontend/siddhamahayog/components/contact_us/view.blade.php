@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <div class="section-title text-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <span class="pre-title">Need Help?</span>
-                    <h3 class="title">Get In Touch With us</h3>
+                    <h3 class="title">Send Enquiry</h3>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="content">
                                         <h6 class="title">Our Website</h6>
-                                        <p><a href="{{\App\Classes\Helpers\SystemSetting::basic_configuration('host')}}" target="_blank">{{\App\Classes\Helpers\SystemSetting::basic_configuration('host')}}</a></p>
+                                        <p><a href="{{\App\Classes\Helpers\SystemSetting::basic_configuration('host')}}" target="_blank">{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -100,6 +100,16 @@
                                class="form-control form-control-lg"
                                    id="contact-email"
                                    name="email"  data-error="Email is required.">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input placeholder="Phone Number"
+                                   type="email"
+                                   class="form-control form-control-lg"
+                                   id="phone-number"
+                                   name="phone"  data-error="Phone Number is required.">
                         </div>
                     </div>
 

@@ -207,6 +207,7 @@ class MenuController extends Controller
             'full_name' => 'required|string',
             'email'     => 'required|email',
             'subject'   => 'required',
+            'phone'     => 'required',
             'message'   => 'required|min:10'
         ]);
 
@@ -220,7 +221,8 @@ class MenuController extends Controller
         $params  = [
             'email'     => $request->post('email'),
             'subject'   => $request->post('subject'),
-            'message'   => $request->post('message'),
+            'message'   => 'Phone Number: '. $request->post('phone').'<br />'.$request->post('message'),
+            'phone'     => $request->post('phone'),
             'full_name' => $request->post('full_name')
         ];
         $componentValue = $component->values;
