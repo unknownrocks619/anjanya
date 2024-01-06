@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="content">
                                         <h6 class="title">Our Location</h6>
-                                        <p>{{\App\Classes\Helpers\SystemSetting::primary_contact_info('primary_address')}}</p>
+                                        <p>{{ strip_tags(htmlspecialchars_decode(\App\Classes\Helpers\SystemSetting::primary_contact_info('primary_address')))}}</p>
                                     </div>
                                 </div>
                             </div>
