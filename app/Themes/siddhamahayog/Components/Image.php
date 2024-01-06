@@ -42,6 +42,7 @@ class Image extends BaseComponent implements ComponentInterface
             'subtitle'  => $request->post('subtitle'),
             'heading'   => $request->post('title'),
             'image' => $request->post('background_image'),
+            'link'  => $request->post('link')
         ];
 
         $component->values = $values;
@@ -63,6 +64,7 @@ class Image extends BaseComponent implements ComponentInterface
             'subtitle'  => $request->post('subtitle'),
             'heading'   => $request->post('title'),
             'image' => $request->post('background_image'),
+            'link'  => $request->post('link')
         ];
 
         $component = ComponentBuilder::find($request->post('_componentID'));

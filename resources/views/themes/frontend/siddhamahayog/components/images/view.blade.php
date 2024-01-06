@@ -4,6 +4,12 @@
 @endphp
 <div class="row">
     <div class="col-md-12 text-center">
-        <img src="{{$componentValue['image']}}" alt="" class="img-fluid" />
+        @if( isset($componentValue['link']) )
+            <a href="{{$componentValue['link']}}">
+        @endif
+            <img src="{{$componentValue['image']}}" alt="" class="img-fluid" />
+        @if( isset($componentValue['link']) )
+            </a>
+        @endif
     </div>
 </div>

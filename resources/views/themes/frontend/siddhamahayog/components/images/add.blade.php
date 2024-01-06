@@ -17,6 +17,14 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="">Link</label>
+                    <input type="url" name="link" id="link" class="component_field form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6 my-2 background_type image ">
                 <div class="required">
                     <label>Background Image</label>
