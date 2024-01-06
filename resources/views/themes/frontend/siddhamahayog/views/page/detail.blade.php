@@ -12,7 +12,7 @@
 
     $image = null;
     if ($pageFeaturedImage) {
-        $image = \App\Classes\Helpers\Image::getImageAsSize($pageFeaturedImage->image?->filepath, 'm');
+        $image = \App\Classes\Helpers\Image::getImageAsSize($pageFeaturedImage->image?->filepath, 'xl');
     }
 @endphp
 
@@ -24,6 +24,11 @@
 
 @section('main')
     {!! $user_theme->partials('page-header',['bannerImage' => $banner_image,'title' => $page->title ?? $menu->menu_name,'glitter_background' => null]) !!}
+    @if($image)
+        <div class="thumbnail block-alignwide">
+            <img class="radius-small w-100 mb--30" src="{{$image}}" alt="{{$page->title ?? $menu->menu_name}}">
+        </div>
+    @endif
     @include('frontend.components.lister', ['model' => $page])
 
 @endsection
