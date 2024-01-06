@@ -217,15 +217,35 @@ class MenuController extends Controller
             return $this->json(false, 'Unauthorized Attempt. Please reload your page and try again.');
         }
 
+        $message = "";
 
+        if ( $request->post('page_name') ) {
+            $message .= "<b>Page Source : </b>" . $request->post('page_name');
+            $message .= "<br />";
+        }
+
+        if ($request->post('post_name') ) {
+            $message .= "<b>Course Source</b> : ". $request->post('post_name');
+            $message .= "<br />";
+        }
+
+        $message .= "Full Name : ". $request->post('full_name');
+        $message .= " <br />";
+        $message .= "Email: " . $request->post('email');
+        $message .= "<br />";
+        $message .= "Phone Number  : ". $request->post('phone');
+        $message .= "<br />";
+        $message .= "Message : <br />";
+        $message .= $request->post('message');
         $params  = [
             'email'     => $request->post('email'),
             'subject'   => $request->post('subject'),
-            'message'   => 'Phone Number: '. $request->post('phone').'<br />'.$request->post('message'),
+            'message'   => $message,
             'phone'     => $request->post('phone'),
             'full_name' => $request->post('full_name')
         ];
         $componentValue = $component->values;
+
         if (ContactUsMail::dispatchSync($params)) {
             return $this->json(false, $componentValue['error_message']);
         }

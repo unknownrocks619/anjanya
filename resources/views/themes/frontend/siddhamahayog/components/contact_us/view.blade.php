@@ -9,7 +9,14 @@
             <div class="col-lg-12">
                 <div class="section-title text-center" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <span class="pre-title">Need Help?</span>
-                    <h3 class="title">Send Enquiry</h3>
+
+                    <h3 class="title">
+                        @if(isset($model) && (($model instanceof \App\Models\Page) || ($model instanceof \App\Models\Post)))
+                            Get Enrolled
+                        @else
+                            Send Enquiry
+                        @endif
+                    </h3>
                 </div>
             </div>
         </div>
@@ -86,13 +93,23 @@
             </div>
 
             <div class="col-lg-6">
-                <form class="rnt-contact-form rwt-dynamic-form row contact-form ajax-append ajax-form" id="contact-form" action="{{ route('frontend.submit_contanct_us') }}">
+                <form class="rnt-contact-form rwt-dynamic-form row contact-form ajax-append ajax-form"  method="post" action="{{ route('frontend.submit_contanct_us') }}">
+
+                    <input type="hidden" name="form_id" value="{{ encrypt($_loadComponentBuilder->getKey()) }}" class="form-control">
+
+                    @if(isset($model) && $model instanceof \App\Models\Page)
+                        <input type="hidden" name="page_name" value="{{$model->title}}">
+                    @endif
+
+                    @if(isset($model) && $model instanceof  \App\Models\Post)
+                        <input type="hidden" name="post_name" value="{{$mode->title}}">
+                    @endif
+
                     <div class="col-lg-12">
                         <div class="form-group">
                             <input required data-error="Name is required." name="full_name" id="contact-name" type="text" class="form-control form-control-lg" placeholder="{{ $componentValue['full_name'] }}">
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <div class="form-group">
                             <input placeholder="{{ $componentValue['email'] }}"
@@ -133,6 +150,8 @@
                             <span>{{ $componentValue['button'] }}</span><i class="icon-arrow-right-line-right"></i>
                         </button>
                     </div>
+                    <div class="row mt-3"></div>
+
                 </form>
             </div>
         </div>
