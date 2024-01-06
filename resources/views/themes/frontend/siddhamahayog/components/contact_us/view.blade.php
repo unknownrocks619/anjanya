@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="content">
                                         <h6 class="title">Email Us</h6>
-                                        <p><a href="mailto:{{\App\Classes\Helpers\SystemSetting::primary_contact_info('official_email')}}" target="_blank">{{\App\Classes\Helpers\SystemSetting::primary_contact_info('official_email')}}</a></p>
+                                        <p><a href="mailto:{{\App\Classes\Helpers\SystemSetting::basic_configuration('official_email')}}" target="_blank">{{\App\Classes\Helpers\SystemSetting::basic_configuration('official_email')}}</a></p>
                                     </div>
                                 </div>
                             </div>
