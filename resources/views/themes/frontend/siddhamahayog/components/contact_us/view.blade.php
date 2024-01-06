@@ -102,7 +102,7 @@
                     @endif
 
                     @if(isset($model) && $model instanceof  \App\Models\Post)
-                        <input type="hidden" name="post_name" value="{{$mode->title}}">
+                        <input type="hidden" name="post_name" value="{{$model->title}}">
                     @endif
 
                     <div class="col-lg-12">
