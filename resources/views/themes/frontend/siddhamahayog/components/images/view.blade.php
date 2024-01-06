@@ -7,7 +7,7 @@
         @if( isset($componentValue['link']) )
             <a href="{{$componentValue['link']}}">
         @endif
-            <img src="{{$componentValue['image']}}" alt="" class="img-fluid" />
+            <img src="{{$componentValue['image']}}" alt="" class="img-fluid w-100" />
         @if( isset($componentValue['link']) )
             </a>
         @endif
