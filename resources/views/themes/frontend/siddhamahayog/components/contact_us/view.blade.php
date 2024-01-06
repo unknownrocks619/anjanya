@@ -89,7 +89,7 @@
                 <form class="rnt-contact-form rwt-dynamic-form row contact-form ajax-append ajax-form" id="contact-form" action="{{ route('frontend.submit_contanct_us') }}">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <input data-error="Name is required." name="full_name" id="contact-name" type="text" class="form-control form-control-lg" placeholder="{{ $componentValue['full_name'] }}">
+                            <input required data-error="Name is required." name="full_name" id="contact-name" type="text" class="form-control form-control-lg" placeholder="{{ $componentValue['full_name'] }}">
                         </div>
                     </div>
 
@@ -99,6 +99,7 @@
                                 type="email"
                                class="form-control form-control-lg"
                                    id="contact-email"
+                                   required
                                    name="email"  data-error="Email is required.">
                         </div>
                     </div>
@@ -108,7 +109,8 @@
                             <input placeholder="Phone Number"
                                    type="email"
                                    class="form-control form-control-lg"
-                                   id="phone-number"
+                                   id="phone"
+                                   required
                                    name="phone"  data-error="Phone Number is required.">
                         </div>
                     </div>
