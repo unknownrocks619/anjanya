@@ -33,16 +33,16 @@
 <!-- Start Sldier Area  -->
 <div class="slider-area banner-style-2 bg-image d-flex align-items-center"  style="{{$styleKey}} : {{$styleValue}} !important">
     <div class="container">
-        @if(isset($componentValue['video_poster']))
-            <div class="row  align-items-center">
-                <div class="col-md-12 text-center">
-                    <img src="{{$componentValue['video_poster']}}" class="img-fluid" />
-                </div>
-            </div>
-        @endif
         <div class="row g-5 align-items-center">
+            @if(isset($componentValue['video_poster']))
+                <div class="col-md-12 text-center">
+                    <div class="inner">
+                        <img src="{{$componentValue['video_poster']}}" class="img-fluid" />
+                    </div>
+                </div>
+            @endif
             <div class="col-lg-8 col-md-12">
-                <div class="inner">
+                <div class="inner mt-3">
                     <div class="content">
                         <span class="pre-title" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                             {{$componentValue['underline_text']}}
