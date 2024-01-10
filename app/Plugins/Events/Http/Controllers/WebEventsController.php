@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\FailedRecord;
 use App\Models\Portal\PortalCountry;
 use App\Models\Portal\UserModel;
+use App\Models\SuccessRecords;
 use App\Plugins\Events\Http\Models\Event;
 use App\Rules\Unicode;
 use Illuminate\Http\Request;
@@ -80,7 +81,6 @@ class WebEventsController extends Controller
     public function eventRegistration(Request $request, string $event_slug, $step='first') {
         // $today.
         $today = Carbon::now();
-
         // get event name
         $event = Event::where('event_slug',$event_slug)
                         ->first();
@@ -444,19 +444,24 @@ class WebEventsController extends Controller
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
 
         $insertedRecord = $siddhamahayogUser->storeEventDetail();
+        $sessionRecord = session()->get('registration_detail');
+        $sessionRecord['email'] = session()->get('registration-email');
+        $sessionRecord['new_user'] = session()->get('new_registration');
 
-        if ( !  $siddhamahayogUser->storeEventDetail() ) {
+        if ( !  $insertedRecord ) {
 
             $failedRecord = new FailedRecord();
-            $sessionRecord = session()->get('registration_detail');
-            $sessionRecord['email'] = session()->get('registration-email');
-            $sessionRecord['new_user'] = session()->get('new_registration');
-
             $failedRecord->session_info = $sessionRecord;
             $failedRecord->save();
             session()->put('current_step','failed');
 
         } else {
+
+            $successRecord = new SuccessRecords();
+            $successRecord->session_info = $sessionRecord;
+            $successRecord->source = 'Event Registration';
+            $successRecord->save();
+
             session()->forget('registration_detail');
             session()->forget('new_registration');
             session()->forget('registration-email');
