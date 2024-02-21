@@ -32,6 +32,12 @@ class AdminModel extends Model
         return $this->hasMany(FileRelation::class, 'relation_id')->where('relation', get_class($this));
     }
 
+    public function associatedFiles() {
+        return $this->hasMany(FileRelation::class, 'relation_id')
+                    ->where('relation', get_class($this))
+                    ->where('type','associated-file');
+
+    }
     public function getSeo()
     {
         return $this->hasOne(SeoRelation::class, 'relation_id')->where('relation', get_class($this));

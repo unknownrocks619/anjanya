@@ -42,8 +42,16 @@ if ($('select').length) {
 $(document).on('change', '.update-from-select', function (event) {
     event.preventDefault();
     let url = $(this).data('action');
-    let params = {
-        'record': $(this).find(':selected').val()
+    let params={}
+    if ($(this).is('select') ) {
+        params = {
+            'record': $(this).find(':selected').val()
+        }
+
+    } else if( $(this).is('input') ) {
+        params = {
+            'title': $(this).val()
+        }
     }
     let method = $(this).data('method') ?? 'get';
 
