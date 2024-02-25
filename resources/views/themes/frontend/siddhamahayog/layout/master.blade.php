@@ -26,7 +26,15 @@
       @vite(['resources/js/themes/siddhamahayog/css/app.css'])
    </head>
     <body>
-        <div class="main-wrapper">
+        <div class="container d-md-none d-lg-none d-sm-block">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <a href="https://jagadguru.siddhamahayog.org/login" target="_blank" class="btn edu-btn">Vedanta Darshan Login</a>
+                </div>
+            </div>
+        </div>
+
+    <div class="main-wrapper">
           {!! $user_theme->header() !!}
             {!! $user_theme->partials('mobile-menu') !!}
             <!-- Start Search Popup  -->
