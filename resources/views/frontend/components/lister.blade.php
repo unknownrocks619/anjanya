@@ -3,6 +3,6 @@
         @php
             $componentService = new \App\Classes\Components\Component($component->component_type);
         @endphp
-        {!! $componentService->previewBuilder(['_loadComponentBuilder' => $component]) !!}
+        {!! $componentService->previewBuilder(['_loadComponentBuilder' => $component,'model' => $model]) !!}
   @endforeach
 @endforeach

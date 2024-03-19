@@ -63,7 +63,8 @@ class EventsController extends Controller
                 'event_start_date'  => $request->post('event_start'),
                 'event_end_date'    => $request->post('event_end'),
                 'event_start_time'  => $event_start_carbon->format('H:i:s'),
-                'event_end_time'  => $event_end_carbon->format('H:i:s')
+                'event_end_time'  => $event_end_carbon->format('H:i:s'),
+                'glitter_background'  => $request->post('glitter_background')
             ]);
 
             if (! $event->save()) {
@@ -86,8 +87,10 @@ class EventsController extends Controller
                 'event_end'  => 'required',
                 'event_value'   => 'required'
             ]);
+
             $event_start_carbon = Carbon::createFromFormat('Y-m-d\TH:i',$request->post('event_start'));
             $event_end_carbon = Carbon::createFromFormat('Y-m-d\TH:i',$request->post('event_end'));
+
             $event->fill([
                 'event_title'   => $request->post('event_name'),
                 'active'    => (bool) $request->post('active'),
@@ -103,7 +106,8 @@ class EventsController extends Controller
                 'event_contact_number'  => $request->post('event_contact_number'),
                 'event_contact_email'   => $request->post('event_contact_email'),
                 'event_location'    => $request->post('event_location'),
-                'event_location_iframe' => $request->post('event_map')
+                'event_location_iframe' => $request->post('event_map'),
+                'glitter_background'  => $request->post('glitter_background')
             ]);
 
             if (! $event->save()) {

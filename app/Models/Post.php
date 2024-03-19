@@ -17,7 +17,8 @@ class Post extends AdminModel
         'full_description',
         'type',
         'status',
-        'categories'
+        'categories',
+        'glitter_background'
     ];
     const IMAGE_TYPES = [
         'featured_image'   => 'Featured Image',

@@ -122,6 +122,6 @@ Route::prefix('admin')
         /**
          * Themes
          */
-        include __DIR__.'/header.php';
+        include __DIR__.'/theme.php';
 
     });

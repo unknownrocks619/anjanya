@@ -15,7 +15,9 @@ class Setting extends AdminModel
         'additional_text'
     ];
     const IMAGE_TYPES  = [
-        'footer-insta-gallery' => 'Gallery'
+        'footer-insta-gallery' => 'Gallery',
+        'glitters'              => 'Glitters',
+        'background_image_focus'    => 'Image Focus Background'
     ];
     const BASIC_CONFIGURATION = [
         'site_name' => 'Site Name',

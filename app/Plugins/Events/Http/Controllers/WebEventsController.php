@@ -2,26 +2,43 @@
 
 namespace App\Plugins\Events\Http\Controllers;
 
+use App\Classes\Helpers\Image;
 use App\Classes\Plugins\Hook;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
+use App\Models\FailedRecord;
+use App\Models\Portal\PortalCountry;
+use App\Models\Portal\UserModel;
+use App\Models\SuccessRecords;
 use App\Plugins\Events\Http\Models\Event;
+use App\Rules\Unicode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class WebEventsController extends Controller
 {
     protected $plugin_name = 'Events';
 
     public function index(string $slug) {
-        $event = Event::where('event_slug',$slug)
-                        ->where('active',true)
-                        ->with(['getImage' => function($query){
-                            $query->with('image');
-                        },'getSeo'])
-                        ->firstOrFail();
+
+        if ( Cache::has('EVENT-DETAIL-'.$slug) ) {
+            $event = Cache::get('EVENT-DETAIL-'.$slug);
+        } else {
+            $event = Event::where('event_slug',$slug)
+                ->where('active',true)
+                ->with(['getImage' => function($query){
+                    $query->with('image');
+                },'getSeo'])
+                ->firstOrFail();
+            Cache::put('EVENT-DETAIL-'.$slug,$event);
+        }
+
         $data = [
-            'extends'   => 'master',
+            'extends'   => 'master-nav',
             'event'      => $event,
             'events'    => $this->getEvents()
         ];
@@ -38,9 +55,11 @@ class WebEventsController extends Controller
     }
 
     public function getEvents() {
+
         if (Cache::has('FRONTEND_EVENTS_LISTS') ) {
             return Cache::get('FRONTEND_EVENTS_LISTS');
         }
+
         $events = Event::with(['getImage'=> function($query){
                             $query->with('image');
                         },'getComponents'])
@@ -49,5 +68,545 @@ class WebEventsController extends Controller
                         ->get();
         Cache::put('FRONTEND_EVENTS_LISTS',$events);
         return $events;
+    }
+
+    /**
+     * @param Request $request
+     * @param string $event_slug
+     * @param $step
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function eventRegistration(Request $request, string $event_slug, $step='first') {
+        // $today.
+        $today = Carbon::now();
+        // get event name
+        $event = Event::where('event_slug',$event_slug)
+                        ->first();
+
+        $data = [
+            'extends'   => 'master-nav',
+            'event'      => $event,
+        ];
+
+        $view = 'main';
+
+        if ($request->ajax() ) {
+
+            if ( ! session()->has('current_step')) {
+
+                $view = 'validateAccount';
+                session()->put('current_step','validateAccount');
+
+            } else {
+
+                $view = session()->get('current_step');
+            }
+
+            $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
+            return $this->json(true,'Form Loaded','window.Registration.insertHTML',['view' =>$view]);
+
+        }
+        $eventEndDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
+
+        if ( ! $event ||  ! $event->active ) {
+            $view = 'expired';
+        }
+
+        $eventStartDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
+
+//        if ($eventStartDate->lessThan(now()) ) {
+//            $view = 'coming-soon';
+//        }
+
+        return view ('Events::frontend.registration.'.$view,$data);
+    }
+
+    public function event_registration_process(Request $request, Event $event) {
+        $data = ['event' => $event];
+
+        $process = $this->{session()->get('current_step')}($request,$event);
+        $view = session()->get('current_step');
+
+        $data['email'] = session()->get('registration-email');
+
+        if ($process && is_array($process) ) {
+            $data = array_merge($data,$process);
+        }
+
+        $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
+
+        return $this->json(true,'Information Loaded.','Registration.insertHTML',['view' => $view]);
+
+    }
+
+
+    /**
+     * Set Password and basic personal information field
+     * @param Request $request
+     * @return void
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function account(Request $request) {
+
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+
+        // create new account .
+        $sessionRecord = session()->get('registration_detail');
+
+        if ( ! count ( $sessionRecord) ) {
+
+            $sessionRecord = [
+                'password'  => true,
+                'validated' => true,
+                'has_password'  => true,
+                'full_name' => '',
+                'first_name'    => '',
+                'middle_name'   => '',
+                'last_name'     => '',
+                'gender'        => '',
+                'country'       => '',
+                'city'          => '',
+                'street_address'    => '',
+                'phone_number'  => '',
+                'date_of_birth' => '',
+                'place_of_birth' => '',
+                'meta'  => [],
+                'dikshya'   => []
+            ];
+        }
+
+        $sessionRecord['user_password'] = Hash::make($request->post('password'));
+        session()->put('registration_detail',$sessionRecord);
+        session()->put('current_step','personal');
+    }
+
+    public function personal(Request $request) {
+
+        $request->validate([
+            'first_name'    => ['required',new  Unicode()],
+            'last_name'     => ['required',new Unicode()],
+            'gotra'         => ['required', new Unicode()],
+            'gender'        => ['required',Rule::in(['male','female']),new Unicode()],
+            'phone_number'  => ['required','numeric',new Unicode()],
+            'country'       => ['required','numeric',new Unicode()],
+            'state'         => ['required', new Unicode()],
+            'street_address'    => ['required', new Unicode()],
+            'date_of_birth' => ['required','date:Y-m-d', new Unicode()],
+            'place_of_birth'    => ['required',new Unicode()],
+            'education'     => ['required', new Unicode()],
+            'profession'    => ['required',new Unicode()],
+            'emergency_contact_person'  => ['required', new Unicode()],
+            'emergency_phone' => ['required', new Unicode()],
+            'emergency_contact_person_relation' => ['required', new Unicode()],
+            'reference_source' => ['required', new Unicode()],
+            'dikshya_type'  => ['required',Rule::in(['dikshit','non-dikshit']),new Unicode()]
+        ], [
+            'emergency_contact_person_relation.required' => 'Please provide Your relation with emergency contact.',
+            'emergency_phone.required' => 'Please provide phone number for emergency contact.',
+            'emergency_contact_person.required' => 'Please provide emergency contact person full name.',
+            'country.numeric.numeric' => 'Invalid Country selected.',
+            'phone_number.numeric' => 'Invalid Phone Number.'
+        ]);
+
+        if ( $request->post('reference_source') == 'other') {
+            $request->validate(['reference_source_detail' => ['required','min',new Unicode()]],['reference_source_detail.min' => 'Please provide valid source detail.']);
+        }
+
+        if ( $request->post('reference_source') == 'friend') {
+            $request->validate(['referer_name' => ['required', new Unicode()]]);
+        }
+
+        if (! in_array($request->post('education'),['primary','secondary']) ) {
+            $request->validate([
+                'field_of_study' => ['required',new Unicode()]
+            ],[
+                'field_of_study' => 'Please provide your education major.'
+            ]);
+        }
+
+        if ( $request->post('dikshya_type') == 'dikshit') {
+            $request->validate(['dikshya_category' => 'required|in:tarak,saranagati,sadhana,sadhana&saranagati,sadhana&saranagati&tarak']);
+        }
+
+        $registrationDetail = session()->get('registration_detail');
+        $registrationDetail['first_name'] = $request->post('first_name');
+        $registrationDetail['middle_name']  = $request->post('middle_name');
+        $registrationDetail['last_name'] = $request->post('last_name');
+        $registrationDetail['gotra']    = $request->post('gotra');
+        $registrationDetail['gender'] = $request->post('gender');
+        $registrationDetail['phone_number'] = $request->post('phone_number');
+        $registrationDetail['country'] = $request->post('country');
+        $registrationDetail['city']    = $request->post('state');
+        $registrationDetail['street_address'] = $request->post('street_address');
+        $registrationDetail['date_of_birth'] = $request->post('date_of_birth');
+        $registrationDetail['place_of_birth'] = $request->post('place_of_birth');
+        $registrationDetail['education'] = $request->post('education');
+        $registrationDetail['education_major'] = $request->post('field_of_study');
+        $registrationDetail['reference_source'] = $request->post('reference_source');
+        $registrationDetail['referer_name'] = $request->post('referer_name');
+        $registrationDetail['referer_relation'] = $request->post('referer_relation');
+        $registrationDetail['reference_source_detail'] = $request->post('reference_source_detail');
+
+        $full_name = $request->post('first_name');
+
+        if ($request->post('middle_name') ) {
+            $full_name .= ' ' . $request->post('middle_name');
+        }
+        $full_name .= ' ' . $request->post('last_name');
+
+        $registrationDetail['full_name'] = $full_name;
+
+        $registrationDetail['meta']['personal']['place_of_birth'] = $request->post('place_of_birth');
+        $registrationDetail['meta']['personal']['date_of_birth'] = $request->post('date_of_birth');
+        $registrationDetail['meta']['personal']['street_address'] = $request->post('street_address');
+        $registrationDetail['meta']['personal']['gender'] = $request->post('gender');
+        $registrationDetail['meta']['personal']['state'] = $request->post('state');
+
+        $registrationDetail['meta']['education']['education'] = $request->post('education');
+        $registrationDetail['meta']['education']['education_major'] = $request->post('field_of_study');
+        $registrationDetail['meta']['education']['profession'] = $request->post('profession');
+
+        $registrationDetail['emergency']['full_name'] = $request->post('emergency_contact_person');
+        $registrationDetail['emergency']['phone_number'] = $request->post('emergency_phone');
+        $registrationDetail['emergency']['relation'] = $request->post('emergency_contact_person_relation');
+
+
+        $registrationDetail['dikshit']['type'] = $request->post('dikshya_type');
+        $registrationDetail['dikshit']['category'] = $request->post('dikshya_category');
+
+        // get country data
+
+        $user = PortalCountry::where('id',$request->post('country'))->first();
+
+        if ( $user ) {
+
+            $registrationDetail['country_label'] = $user->name;
+        }
+
+        session()->put('registration_detail', $registrationDetail);
+        session()->put('registration_detail',$registrationDetail);
+        session()->put('current_step', 'emergencyContact');
+
+
+    }
+
+    public function validateAccount(Request $request, Event $event)
+    {
+        $request->validate(['email' => ['required','email',new Unicode()]]);
+
+        $siddhamahayogUser = new SiddhamahayogPortalUserController();
+        $emailResponse = $siddhamahayogUser->userResponse($request);
+
+        # If event is type live, ask for other detail
+        if ( $event->event_type == 'live') {
+            session()->put('registration-email' , $request->post('email'));
+
+            if (count($emailResponse) && isset($emailResponse['first_name']) && isset($emailResponse['last_name'])) {
+                session()->put('registration_detail', $emailResponse);
+            }
+
+            session()->put('current_step','liveZoomRegistration');
+            return;
+        }
+
+        session()->put('registration_detail',$emailResponse);
+
+        if ( isset ($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
+
+            // check if user full_path and id_card has been inserted.
+            if ( !  $emailResponse['profile_url'] ) {
+                session()->put('current_step','profilePictures');
+                session()->put('allow_back',false);
+                return;
+            }
+
+            session()->put('current_step','submitted');
+
+            if (isset ($emailResponse['userID']) ) {
+                return ['userID' => $emailResponse['userID']];
+            }
+
+            return;
+        }
+
+
+        if(isset($emailResponse['required_password']) && $emailResponse['required_password']) {
+            session()->put('current_step','confirmPassword');
+        } else {
+            session()->put('new_registration' , true);
+            session()->put('current_step', 'account');
+
+        }
+
+
+        session()->put('registration-email' , $request->post('email'));
+
+    }
+
+    public function emergencyContact(Request $request) {
+        $request->validate([
+            'family_member.*' => 'required',
+            'family_relation.*' => 'required',
+            'family_phone_number.*' => 'required',
+            'family_gender.*' => 'required'
+        ]);
+
+        $unicodeVerification = $this->check_unicode_character($request->all());
+
+        if ($unicodeVerification ) {
+            return response(['errors' => $unicodeVerification, 'message' => "Unicode Characters are not supported."], 422);
+        }
+
+        $registrationDetail = session()->get('registration_detail');
+
+        $registrationDetail['family_detail']['members'] = [];
+        $registrationDetail['family_detail']['total_member'] = $request->post('total_family_member');
+
+        foreach ($request->post('family_member') ?? [] as $key => $family_detail) {
+
+            $registrationDetail['family_detail']['members'][] = [
+                'name' => $family_detail,
+                'relation' => $request->post('family_relation')[$key],
+                'phone_number' => $request->post('family_phone_number')[$key],
+                'gender'    => $request->post('family_gender')[$key]
+            ];
+        }
+        $registrationDetail['total_member_with_gurudev'] = $request->post('total_family_member_with_gurudev');
+        session()->put('registration_detail',$registrationDetail);
+        session()->put('current_step','yagyaInformation');
+    }
+
+    public function yagyaInformation(Request $request) {
+
+        $request->validate([
+            'jap_start_date' => 'required|date:Y-m-d',
+            'total_jap_count' => ['required','numeric', new Unicode()],
+            'estimated_jap' => ['required','numeric', new Unicode()]
+        ]);
+
+        $registrationDetail = session()->get('registration_detail');
+
+        $registrationDetail['jap_detail'] = [
+            'jap_start_date' => $request->post('jap_start_date'),
+            'total_jap_count' => $request->post('total_jap_count'),
+            'estimated_jap' => $request->post('estimated_jap')
+        ];
+
+        session()->put('registration_detail',$registrationDetail);
+        session()->put('current_step','profilePictures');
+    }
+
+    public function profilePictures(Request $request) {
+        $request->validate(
+            [
+                'profile_picture_default' => 'required|url',
+                'profile_picture_id'    => 'required|url'
+            ],
+            [
+                'profile_picture_default.required' => 'Please Upload your profile picture.',
+                'profile_picture_default.url' => 'Unable to identify your picture detail.',
+                'profile_picture_id.required' => 'Please upload your ID card',
+                'profile_picture_id.url'    => 'Unable to identify your ID card',
+            ]
+        );
+
+        $familyMemberDetail = session()->get('registration_detail');
+        $familyMemberDetail['profile_url'] = $request->post('profile_picture_default');
+        $familyMemberDetail['profile_id'] = $request->post('profile_picture_id');
+
+//        foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
+
+//            $request->validate([
+//                'profile_picture_'.$key => 'required|url'
+//            ],[
+//                'profile_picture_'.$key.'.required' => 'Please Upload ' . $member['name'].' profile picture',
+//                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
+//            ]);
+
+//            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
+
+//        }
+
+         // also save this information in siddhamahayog portal.
+
+        session()->put('registration_detail',$familyMemberDetail);
+
+        session()->put('current_step','complete');
+    }
+
+    public function complete() {
+
+        $siddhamahayogUser = new SiddhamahayogPortalUserController();
+
+        $insertedRecord = $siddhamahayogUser->storeEventDetail();
+        $sessionRecord = session()->get('registration_detail');
+        $sessionRecord['email'] = session()->get('registration-email');
+        $sessionRecord['new_user'] = session()->get('new_registration');
+
+        if ( !  $insertedRecord ) {
+
+            $failedRecord = new FailedRecord();
+            $failedRecord->session_info = $sessionRecord;
+            $failedRecord->save();
+            session()->put('current_step','failed');
+
+        } else {
+
+            $successRecord = new SuccessRecords();
+            $successRecord->session_info = $sessionRecord;
+            $successRecord->source = 'Event Registration';
+            $successRecord->save();
+
+            session()->forget('registration_detail');
+            session()->forget('new_registration');
+            session()->forget('registration-email');
+            session()->forget('current_step');
+            session()->forget('allow_back');
+        }
+
+
+        return ['userDetail' => $insertedRecord];
+    }
+
+    public function failed(Request $request, Event $event) {
+
+//        session()->forget('current_step');
+    }
+
+    public function stepBack(Request $request, Event $event){
+
+            $currentStep = session()->get('current_step');
+
+            if (in_array($currentStep,['confirmPassword','account','liveZoomRegistration','personal']) ) {
+                session()->put('current_step','validateAccount');
+            }
+
+            if ( $currentStep == 'emergencyContact') {
+                session()->put('current_step','personal');
+            }
+
+            if ( $currentStep == 'yagyaInformation') {
+                session()->put('current_step','emergencyContact');
+            }
+
+            if ( $currentStep == 'profilePictures') {
+                session()->put('current_step','yagyaInformation');
+            }
+
+            $finalStep =  session()->get('current_step');
+            $data = ['event' => $event];
+            $data['email'] = session()->get('registration-email');
+
+            $view = view('Events::frontend.registration.partials.'.$finalStep,$data)->render();
+
+            return $this->json(true,'Information Loaded.','',['view' => $view]);
+
+    }
+    public function uploadMedia(Request $request) {
+
+        $image = Image::uploadOnly($request->file('image'));
+
+        if (! $image ) {
+            return $this->json(false,'Unable to upload file.');
+        }
+
+        return $this->json(true,'Image upload','',['image' => Image::getImageAsSize($image[0]->filepath,'m')]);
+    }
+
+    public function confirmPassword(Request $request) {
+        $request->validate(
+            [
+                'password' => 'required',
+            ],
+        );
+
+        if (! $request->post('email') != session()->get('registration-email') ) {
+            return $this->json(false,'Invalid Username / Password');
+        }
+
+        $siddhamahayogUser = new SiddhamahayogPortalUserController();
+        $verifyPassword = $siddhamahayogUser->verifyPassword($request);
+
+        if ( $verifyPassword) {
+            session()->put('current_step','personal');
+            session()->put('has_validated_password',true);
+            return;
+        }
+        session()->put('invalid_attempt','Invalid Username / Password');
+    }
+
+    function liveZoomRegistration(Request $request, Event $event) {
+
+        $userModelController = new SiddhamahayogPortalUserController();
+        $returnResponse = $userModelController->liveProgramEvent($request, $event->event_title);
+
+        session()->put('zoom_registration','https://jagadguru.siddhamahayog.org/login/join-external?'.http_build_query($returnResponse));
+        session()->put('current_step','zoomRegistrationComplete');
+    }
+
+    public function referer(Request $request,UserModel $user, string $event)
+    {
+        $event = Event::where('event_slug',$event)->where('active',true)->firstOrFail();
+
+        if ($request->post() ) {
+
+            $request->validate(
+                                [
+                                    'referer_full_name.*' => ['required','string',new Unicode()],
+                                    'referer_phone_number.*' => ['required','numeric',new Unicode()],
+                                    'referer_email.*' => ['nullable','email', new Unicode()],
+                                ],
+                                [
+                                    'referer_full_name.*.string' => 'Invalid Character in ',
+                                    'referer_full_name.*.required' => 'All Referer Field must have full name',
+                                    'referer_phone_number.*.numeric' => 'Please provide valid phone number. Do not include country code or - ( ) chars',
+                                    'referer_phone_number.*.required' => 'All Phone Number field is required.'
+                                ]);
+
+            $insertReference = [];
+
+            foreach ($request->post('referer_full_name') as $key => $value) {
+
+                $innerArray = [
+                    'full_name' => $value,
+                    'phone_number'  => $request->post('referer_phone_number')[$key],
+                    'country'   => ($request->post('referer_country') && isset($request->post('referer_country')[$key])) ? $request->post('referer_country')[$key] : null,
+                    'email_address' => $request->post('referer_email')[$key],
+                    'created_at'    => now()->format('Y-m-d H:i:s'),
+                    'updated_at'    => now()->format('Y-m-d H:i:s'),
+                    'member_id' => $user->getKey(),
+                    'remarks'   => 'During Event: '. $event->event_title
+                ];
+
+                $insertReference[] = $innerArray;
+            }
+
+            DB::connection('portal_connection')->table('member_refers')->insert($insertReference);
+
+            return $this->json(true,'Reference Saved.','redirect',['location' => route('frontend.event.refer-friend-family-complete',['user' => $user,'event' => $event->event_slug])]);
+        }
+
+
+        $data = [
+            'extends'   => 'master-nav',
+            'user'      => $user,
+            'event' => $event
+        ];
+        return view($this->plugin_name."::"."frontend.referer.create",$data);
+    }
+
+    public function refererComplete(UserModel $user, string $event) {
+        $data = [
+            'extends'   => 'master-nav',
+            'user'      => $user,
+            'event' => $event
+        ];
+
+        return view($this->plugin_name.'::'.'frontend.referer.complete',$data);
     }
 }

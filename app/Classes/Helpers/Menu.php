@@ -17,7 +17,8 @@ class Menu
         'description',
         'menu_type',
         'menu_position',
-        'updated_at'
+        'updated_at',
+        'glitter_background'
     ];
 
     static $menu_types = [

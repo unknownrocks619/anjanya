@@ -20,7 +20,8 @@ class Menu extends AdminModel
         'menu_type',
         'menu_position',
         'sort_by',
-        'active'
+        'active',
+        'glitter_background'
     ];
 
 

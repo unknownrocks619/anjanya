@@ -77,7 +77,7 @@
                                         <div class="lc-block mb-3">
                                             <div>
 
-                                                <input class="h5 component_field tiny-mce form-control" name="title[${i}][${j}]" placeholder="Title"  />
+                                                <input class="h5 component_field form-control" name="title[${i}][${j}]" placeholder="Title"  />
 
                                                 <textarea class="component_field tiny-mce form-control" name="description[${i}][${j}]">Some quick example text to build on the card title and make up the bulk of the card's content..</textarea>
                                             </div>
@@ -95,8 +95,8 @@
             _column += `</div>`;
         }
         $('.field_generator').empty().append(_column);
+
         window.setupTinyMceAll()
-        window.setupTinyMce();
     }
 
     $(document).on('change',"input[name=row]", function(event){

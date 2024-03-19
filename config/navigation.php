@@ -129,7 +129,7 @@ return [
                     [
                         'name'  => 'Theme',
                         'children'  => [],
-                        'route' => '',
+                        'route' => 'admin.themes.theme-setting',
                         'icon'  => ''
                     ],
                     [

@@ -21,6 +21,7 @@ class GalleryAlbumsController extends Controller
         $album = new GalleryAlbums();
         $album->fill([
             'album_name'    => $request->post('album_name'),
+            'album_type'    => $request->post('album_type'),
             'description'   => $request->post('description'),
             'active'        => true,
             'slug_name'     => $album::getSlug($request->post('album_name')),

@@ -34,7 +34,7 @@ class PostController extends Controller
         }
 
 
-        return $this->frontend_theme('master', 'post.single', ['post' => $post, 'category' => $category]);
+        return $this->frontend_theme('master-nav', 'post.single', ['post' => $post, 'category' => $category]);
     }
 
     public function post_type($post_type)

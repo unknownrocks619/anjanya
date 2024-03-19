@@ -76,7 +76,7 @@
                                             <div class="card-body">
                                                 <div class="lc-block mb-3">
                                                     <div>
-                                                        <input class="h5 component_field tiny-mce form-control" value="{{$column_value['title']}}" name="title[{{$rowKey}}][{{$column_key}}]" placeholder="Title"  />
+                                                        <input class="h5 component_field form-control" value="{{$column_value['title']}}" name="title[{{$rowKey}}][{{$column_key}}]" placeholder="Title"  />
                                                         <textarea class="component_field tiny-mce form-control" name="description[{{$rowKey}}][{{$column_key}}]">{{$column_value['description']}}</textarea>
                                                     </div>
                                                 </div>
@@ -97,5 +97,4 @@
 </div>
 <script type="text/javascript">
     window.setupTinyMceAll()
-    window.setupTinyMce();
 </script>
