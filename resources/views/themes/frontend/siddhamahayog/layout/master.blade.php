@@ -26,10 +26,10 @@
       @vite(['resources/js/themes/siddhamahayog/css/app.css'])
    </head>
     <body>
-        <div class="container d-md-none d-lg-none d-sm-block">
+        <div class="container-fluid d-md-block  d-sm-block">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <a href="https://jagadguru.siddhamahayog.org/login" target="_blank" class="btn edu-btn">Vedanta Darshan Login</a>
+                <div class="col-md-12 text-center bg-danger">
+                    <a href="/volunteer/registration" target="_blank" class="btn edu-btn">Sign Up For Hanumand Yagya Volunteer Form</a>
                 </div>
             </div>
         </div>
