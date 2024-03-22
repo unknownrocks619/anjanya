@@ -83,13 +83,25 @@ $(function () {
         if (data.msg !== undefined) {
             message = data.msg;
         }
+
+        if (message === undefined ) {
+            message = data.data.msg;
+        }
+
+
         messageBox(false, message);
+
         if ($('.response-ajax-category').length) {
             $(".response-ajax-category").html("<div class='alert alert-danger'>" + message + "</div>");
         }
+        if (message !== undefined) {
+
+            $('.ajax-form-message-box').html('<div class="alert alert-danger">'+message+'</div>');
+        }
+
         $.each(data.errors ?? data.data.errors, function (index, error) {
             let inputElement = $(`[name="${index}"]`);
-            console.log('input tleme', inputElement);
+
             let parentDiv = $(inputElement).closest('div.form-group');
             if (parentDiv.length) {
                 let element = `<div class='text-danger ajax-response-error'>${error}</div>`

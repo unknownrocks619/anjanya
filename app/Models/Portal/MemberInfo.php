@@ -25,4 +25,5 @@ class MemberInfo extends Model
         "personal" => "object",
         'remarks' => 'object'
     ];
+    
 }

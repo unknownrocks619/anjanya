@@ -31,6 +31,7 @@ class SiddhamahayogPortalUserController extends Controller
      * @return
      */
     public function userResponse(Request $request): array {
+        
         $request->validate([
             'email' => 'required|email'
         ]);

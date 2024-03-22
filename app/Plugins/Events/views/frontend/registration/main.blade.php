@@ -13,6 +13,7 @@
         ['label' => 'Registration' ,'link' => '#']
     ];
 @endphp
+
 @extends($user_theme->frontend_layout($extends))
 @section('page_title') - {{$event->event_title}} @endsection
 @section('main')
@@ -35,8 +36,8 @@
             </svg>
         </div>
             <div id="event-registration-wrapper-elm" data-event-id="{{$event->getKey()}}" data-event-slug="{{$event->event_slug}}">
-        </div>
     </div>
+</div>
 @endsection
 
 @push('page_setting')

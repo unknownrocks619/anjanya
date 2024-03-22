@@ -1,7 +1,7 @@
 @extends($user_theme->frontend_layout($extends))
 @section('page_title') Volunteer Form @endsection
 @section('main')
-    {!! $user_theme->partials('page-header', ['title' => 'Volunteer Registration','bannerImage' => asset('images/registration-background.jpg')]) !!}
+    {!! $user_theme->partials('page-header', ['title' => 'Volunteer Registration','bannerImage' => asset('images/registration-background.jpg'),'breadcrumb' => []]) !!}
     <div class="main-wrapper">
         <div class="loading d-none" style="height: 90vh;position:absolute;z-index: 9;opacity: 0.5;width:100%;display:flex;justify-content:center;align-items: center;">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgb(255, 255, 255); display: block; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
@@ -20,6 +20,7 @@
             </svg>
         </div>
         <div id="volunteer-registration-wrapper-elm">
+            @include('Volunteer::frontend.registration.partials.validateAccount')
         </div>
     </div>
 @endsection

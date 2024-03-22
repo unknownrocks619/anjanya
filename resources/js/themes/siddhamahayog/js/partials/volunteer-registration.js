@@ -23,9 +23,9 @@ export default class  Registration  {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success : function (response) {
-                // console.log('response: ', response.params);
-                // _this.#elm.html(response.params.view)
-                // _this.#loading(false);
+                console.log('response: ', response.params);
+                _this.#elm.html(response.params.view)
+                _this.#loading(false);
             }
         })
     }
@@ -63,7 +63,7 @@ export default class  Registration  {
 
         if ( _enable === true) {
             $('button.registration-progress-button').removeAttr('disabled')
-                .attr('onclick','window.Registration.alertComplete(this)')
+                .attr('onclick','window.VolunteerRegistration.alertComplete(this)')
                 .removeClass('btn-secondary');
         } else {
             $('button.registration-progress-button').attr('disabled','disabled')
@@ -168,11 +168,11 @@ export default class  Registration  {
         axios.post('/volunteer/registration/'+this.#eventID,{});
     }
 
-    stepBack() {
+    stepBack(params={}) {
         this.#loading();
         let _url = '/volunteer/stepback';
         let _this = this;
-        axios.post(_url,{}).then(function(response){
+        axios.post(_url,params).then(function(response){
             _this.#elm.html(response.data.params.view);
             _this.#loading(false);
         }).catch(error => {
@@ -225,7 +225,7 @@ export default class  Registration  {
             _this.#loading(false);
 
         }).catch(error => {
-
+            console.log('error: ', error);
             if (error.response.status == 422) {
                 window.handle422Case(error.response);
             }
@@ -255,5 +255,5 @@ export default class  Registration  {
 }
 
 if ($('#volunteer-registration-wrapper-elm').length) {
-    window.Registration = new Registration($('#volunteer-registration-wrapper-elm'));
+    window.VolunteerRegistration = new Registration($('#volunteer-registration-wrapper-elm'));
 }

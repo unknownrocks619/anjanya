@@ -48,6 +48,12 @@ return [
               'route'   => '',
               'icon'    => ''
           ]  ,
+          [
+            'name' => 'Volunteer',
+            'children' => [],
+            'route' => '',
+            'icon' => ''
+          ]
         ],
         'CRM' => [
             [
