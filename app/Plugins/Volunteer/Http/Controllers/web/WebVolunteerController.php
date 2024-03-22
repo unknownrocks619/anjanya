@@ -551,11 +551,11 @@ class WebVolunteerController extends  Controller
      */
     public function saveSession(string $keyName, mixed $values=[]) {
 
-        if (  ! session()->has(request()->ip()) ){
-            session()->put(request()->ip(),[]);
+        if (  ! session()->has('_volunreerForm') ){
+            session()->put('_volunreerForm',[]);
         }
 
-        $sessionValue = session()->get(request()->ip());
+        $sessionValue = session()->get('_volunreerForm');
 
         if (! isset($sessionValue[$keyName]) ) {
             $sessionValue[$keyName] = [];
@@ -563,7 +563,7 @@ class WebVolunteerController extends  Controller
 
         $sessionValue[$keyName] = $values;
 
-        session()->put(request()->ip(),$sessionValue);
+        session()->put('_volunreerForm',$sessionValue);
 
     }
 
@@ -572,7 +572,7 @@ class WebVolunteerController extends  Controller
      */
     public function getSession(string $keyName, string|null$indexName=null) : mixed {
 
-        $sessionValue = session()->get(request()->ip());
+        $sessionValue = session()->get('_volunreerForm');
 
         if (  ! $sessionValue ) {
             return null;
