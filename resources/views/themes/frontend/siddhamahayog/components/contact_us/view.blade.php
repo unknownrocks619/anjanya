@@ -12,7 +12,7 @@
 
                     <h3 class="title">
                         @if(isset($model) && (($model instanceof \App\Models\Page) || ($model instanceof \App\Models\Post)))
-                            Get Enrolled
+                            We will ring you back 
                         @else
                             Send Enquiry
                         @endif

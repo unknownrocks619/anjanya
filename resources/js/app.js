@@ -767,6 +767,10 @@ window.handleBadResponse = function (response) {
     if (response.status == 422) {
         handle422Case(response.responseJSON);
     }
+    
+    if($(document).find('.form-response-error').length && response.msg) {
+        $(document).find('form-response-error').html('<div class="alert alert-danger">'+response.msg+'</div>');
+    }
 }
 
 window.handle422Case = function (data) {
@@ -795,6 +799,7 @@ window.reload = function () {
 
 window.clearAllErrors = function () {
     $('.ajax-response-error').remove();
+    $('.form-response-error').remove();
 }
 
 window.messageBox = function (status, message, icon = null) {

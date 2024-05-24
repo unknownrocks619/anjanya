@@ -135,8 +135,9 @@ class Controller extends BaseController
         $error = [];
         if (is_array($name)) {
             foreach ($name as $key => $value) {
-                $error[][$key][] = $value;
+                $error['errors'][$key][] = $value;
             }
+            $error['message'] = $message ?? 'Invalid form information.';
         } else {
             $error = [
                 'message' => $message,

@@ -128,6 +128,41 @@ return [
                 'route' => 'admin.slider.album.list'
             ],
         ],
+        'Video LMS' => [
+    [
+        'name' => 'Courses',
+        'children' => [
+            [
+                'name' => 'Course List',
+                'children' => [],
+                'route' => 'admin.courses.list',
+                'icon' => ''
+            ],
+            [
+                'name' => 'Chapters List',
+                'children' => [],
+                'route' => 'admin.chapters.list',
+                'icon' => ''
+            ],
+            [
+                'name' => 'Lessons List',
+                'children' => [],
+                'route' => 'admin.lessions.list',
+                'icon' => ''
+            ],
+        ],
+        'route' => '',
+        'icon' => 'icofont icofont-ui-user-group'
+    ],
+    [
+        'name' => 'Enrollment',
+        'children' => [
+            ['name' => "Users", 'children' => [], 'route' => ''],
+        ],
+        'route' => '',
+        'icon' => 'icofont icofont-ui-image'
+    ]
+],
         'System'    => [
             [
                 'name' => 'Look & Feel',

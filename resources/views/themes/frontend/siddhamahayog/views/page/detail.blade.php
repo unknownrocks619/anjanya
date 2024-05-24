@@ -28,11 +28,24 @@
         <div class="edu-blog-details-area bg-color-white">
             <div class="container">
                 <div class="thumbnail block-alignwide">
-                    <img class="radius-small w-100 mb--30" src="{{$image}}" alt="{{$page->title ?? $menu->menu_name}}">
+
+                    <img @if($page->slug == 'vedanta-darshan') onclick="window.location.href='{{route('frontend.courses.enroll.enroll.complete',['course_slug' => 'vedanta-darshan' ,'course' => '1'])}}'" style="cursor: pointer" @endif class="radius-small w-100 mb--30" src="{{$image}}" alt="{{$page->title ?? $menu->menu_name}}">
                 </div>
             </div>
         </div>
     @endif
     @include('frontend.components.lister', ['model' => $page])
+
+        @if($page->slug == 'vedanta-darshan')
+            <div class="edu blog-details-area bg-color-white">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Click Here to Enroll</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
 @endsection

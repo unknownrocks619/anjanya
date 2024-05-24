@@ -59,4 +59,6 @@ Route::middleware(['web', 'maintenance'])
          * Media
          */
         include __DIR__.'/media.php';
+
+        include __DIR__ .'/courses.php';
     });

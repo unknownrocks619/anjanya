@@ -32,7 +32,8 @@ class UserModel extends Authenticatable
         'phone_number',
         'profile',
         'gender',
-        'street_address'
+        'street_address',
+        'password'
     ];
 
     protected $hidden = [
