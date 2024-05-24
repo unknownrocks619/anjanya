@@ -45,7 +45,7 @@ $glittersBackground = \App\Models\GalleryAlbums::where('id',$post->glitter_backg
                                 </div>
                                 @if($featuredImage)
                                     <div class="thumbnail block-alignwide">
-                                        <img @if($page->slug == 'vedanta-darshan') onclick="window.location.href='{{route('frontend.courses.enroll.enroll',['course_slug' => 'vedanta-darshan','course' => 1])}}'" style="cursor: pointer" @endif  class="radius-small w-100 mb--30" src="{{ App\Classes\Helpers\Image::getImageAsSize($featuredImage->image->filepath,'xl')}}" alt="{{$post->title}}">
+                                        <img @if($post->slug == 'vedanta-darshan') onclick="window.location.href='{{route('frontend.courses.enroll.enroll',['course_slug' => 'vedanta-darshan','course' => 1])}}'" style="cursor: pointer" @endif  class="radius-small w-100 mb--30" src="{{ App\Classes\Helpers\Image::getImageAsSize($featuredImage->image->filepath,'xl')}}" alt="{{$post->title}}">
                                     </div>
                                 @endif
                                 <h4 class="title">
