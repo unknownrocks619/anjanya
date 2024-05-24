@@ -15,7 +15,7 @@
 
 @section('main')
     {!! $user_theme->partials('page-header',['bannerImage' => $bannerImage,'title' => $category->category_name]) !!}
-    
+
     <div class="container">
         <div class="row g-5 my-2">
             <div class="col-lg-12">

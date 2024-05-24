@@ -4,7 +4,7 @@
     if ($bannerImage ) {
         $bannerImage = \App\Classes\Helpers\Image::getImageAsSize($bannerImage->image?->filepath,'xl');
     }
-    
+
 @endphp
 @extends($user_theme->frontend_layout($extends))
 
