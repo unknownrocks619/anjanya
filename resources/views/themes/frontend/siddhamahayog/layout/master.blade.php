@@ -29,10 +29,11 @@
         <div class="container-fluid d-md-block  d-sm-block">
             <div class="row">
                 <div class="col-md-12 text-center bg-danger">
-                    <a href="/volunteer/registration" target="_blank" class="btn edu-btn">Sign Up For Hanumand Yagya Volunteer Form</a>
+                    <a href="/page/vedanta-darshan" target="_blank" class="btn edu-btn">Click Here For Vedanta Darshan Enrollment</a>
                 </div>
             </div>
         </div>
+        
 
     <div class="main-wrapper">
           {!! $user_theme->header() !!}
