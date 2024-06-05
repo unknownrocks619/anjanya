@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::table('gallery_albums', function (Blueprint $table) {
             //
-            $table->renameColumn('slug_name','slug');
+            $table->dropColumn('slug_name');
         });
+
+        Schema::table('gallery_albums', function (Blueprint $table) {
+            //
+            $table->string('slug_name');
+        });
+
     }
 
     /**
@@ -22,9 +28,5 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('gallery_albums', function (Blueprint $table) {
-            //
-            $table->renameColumn('slug','slug_name');
-        });
     }
 };

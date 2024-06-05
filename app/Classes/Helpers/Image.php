@@ -143,7 +143,7 @@ class Image
         }
 
         $domainPath = env('APP_URL');
-        $sotragePath = asset('uploads/' . $size . '/' . $filePath, true);
+        $sotragePath = asset('uploads/' . $size . '/' . $filePath,( env('APP_ENV') != 'production' )? false : true);
         return $sotragePath;
     }
 

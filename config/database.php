@@ -43,6 +43,26 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'defaultConnection' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_DEFAULT_HOST', '127.0.0.1'),
+            'port' => env('DB_DEFAULT_PORT', '3306'),
+            'database' => env('DB_DEFAULT_DATABASE', 'forge'),
+            'username' => env('DB_DEFAULT_USERNAME', 'forge'),
+            'password' => env('DB_DEFAULT_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
@@ -55,26 +75,6 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
-
-        'wpmysql' => [
-            'driver' => 'mysql',
-            'url' => '',
-            'host' => env('DB_WP_HOST', '127.0.0.1'),
-            'port' => env('DB_WP_PORT', '3306'),
-            'database' => env('DB_WP_DATABASE', 'forge'),
-            'username' => env('DB_WP_USERNAME', 'forge'),
-            'password' => env('DB_WP_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => 'wp_',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,

@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\DB;
+
 $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
@@ -52,4 +54,6 @@ $app->singleton(
 |
 */
 
+require_once('domain.php');
+require_once('domain_artisan.php');
 return $app;
