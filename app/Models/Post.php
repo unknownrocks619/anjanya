@@ -85,9 +85,9 @@ class Post extends AdminModel
         return;
     }
 
-    public static function recentPost() {
+    public static function recentPost(Post|null $currentPost = null) {
         return self::where('status','active')->with(['getImage' => function($query){
             $query->with('image');
-        }])->orderBy('created_at','desc')->limit('5')->get();
+        }])->orderBy('updated_at','desc')->limit('5')->get();
     }
 }

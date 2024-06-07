@@ -1,24 +1,23 @@
 import Swal from 'sweetalert2';
 import './partials/select2'
-
-Object.defineProperty(window, 'SIDEBAR_TEXT', {
-    value: {
-        1: 'first',
-        2: "second",
-        3: 'third',
-        4: 'fourth',
-        5: 'five',
-        6: 'six',
-    },
-    writable: false,
-    enumerable: true,
-    configurable: false
-})
-
-import './frontend_partials/ajax_form.js';
-import './frontend_partials/ajax-modal.js'
+import './partials/splide';
+import './partials/ajax-form';
+// Object.defineProperty(window, 'SIDEBAR_TEXT', {
+//     value: {
+//         1: 'first',
+//         2: "second",
+//         3: 'third',
+//         4: 'fourth',
+//         5: 'five',
+//         6: 'six',
+//     },
+//     writable: false,
+//     enumerable: true,
+//     configurable: false
+// });
 
 $(function () {
+
     /**
      * Ajax Setup
      */
@@ -53,6 +52,7 @@ $(function () {
 
     window.handleBadResponse = function (response) {
         clearAllErrors();
+        
         if (response.status == 422) {
             handle422Case(response.responseJSON ? response.responseJSON : response);
         }
@@ -66,6 +66,10 @@ $(function () {
         messageBox(false, message);
         if ($('.response-ajax-category').length) {
             $(".response-ajax-category").html("<div class='alert alert-danger'>" + message + "</div>");
+        }
+
+        if ($('.ajax-form-message-box').length) {
+            $(".ajax-form-message-box").html("<div class='alert alert-danger'>" + message + "</div>");
         }
         $.each(data.errors ?? data.data.errors, function (index, error) {
             let inputElement = $(`[name="${index}"]`);

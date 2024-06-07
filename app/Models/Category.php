@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\Scopes\SortableScope;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Category extends AdminModel
@@ -113,7 +114,8 @@ class Category extends AdminModel
         return $query;
     }
 
-    public function getRelated()
+    public function scopeBlog(Builder $query)
     {
+        return $query->where('category_type','blog');
     }
 }

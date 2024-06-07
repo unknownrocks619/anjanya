@@ -4,7 +4,6 @@ $(function () {
     }
 })
 
-window.setupTinyMce = function () {
 
     window.setupTinyMce = function () {
         tinymce.init({
@@ -14,16 +13,13 @@ window.setupTinyMce = function () {
             fullscreen_native : true,
         });
     }
-}
 
 window.setupTinyMceAll = function () {
     tinymce.init({
         selector: '.tiny-mce',
         inline : true,
-        menubar : false,
-        toolbar : false,
         // plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-        toolbar: 'undo redo | blocks | bold italic backcolor textcolor| ',
+        toolbar: 'undo redo | blocks | bold italic backcolor textcolor | table media image | numlist bullist ',
         imagetools_cors_hosts: ['picsum.photos'],
     })
 }

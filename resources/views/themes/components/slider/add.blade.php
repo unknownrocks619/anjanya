@@ -15,5 +15,16 @@
             </select>
         </div>
     </div>
+    <div class="col-lg-6 col-md-6 col-12 order-1 order-md-2">
+        <div class="form-group">
+            <label>
+                Slider Type
+            </label>
+            <select name="type" class="form-control component_field">
+                <option value="single">Single</option>
+                <option value="single">Multiple</option>
+            </select>
+        </div>
+    </div>
     <!--end col-->
 </div>

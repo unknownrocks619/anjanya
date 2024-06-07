@@ -295,7 +295,12 @@ export default class CommonComponentSelector {
                 _form.append($(field).attr('name'),$(field).val());
             }
         })
-        axios.post('/admin/components/common/build-save/'+_component_name,_form)
+        axios.post('/admin/components/common/build-save/'+_component_name,_form,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
             .then(function(response){
                let _response = response.data;
                window.handleOKResponse(_response);

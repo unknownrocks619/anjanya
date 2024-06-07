@@ -1,42 +1,37 @@
 @php
-    $card_content = json_decode($values->card_content);
+    $card_content = $_loadComponentBuilder->values;
+    $sliderAlbum = \App\Models\SliderAlbum::with(['sliders'])->find($card_content['slider']);
+    
 @endphp
-<div class="image-card-section">
-    <div class="container-fluid">
-        <div class="row">
-            @foreach ($card_content as $card_element)
-                <div class="col-md-{{ $values->size }} text-center">
-                    <div class="card" style="border: none">
-                        @if ($card_element->title)
-                            <div class="card-header"
-                                @if ($card_element->background_color) style="background : {{ $card_element->background_color }};border:none;color:#ffffff" @else style="background:transparent;border:none" @endif>
-                                <h2>{{ $card_element->title }}</h2>
-                            </div>
-                        @endif
-                        <div class="card-body">
-                            @if ($card_element->media->type == 'image')
-                                <img src="{{ \App\Classes\Helpers\Image::getImageAsSize($card_element->media->images, 'm') }}"
-                                    class="img-fluid" />
-                            @endif
-                            @if ($card_element->media->type == 'video')
-                                @if (isset($card_element->media->video->query->host))
-                                    {!! \App\Classes\Helpers\Video::renderCardVimeo($card_element->media->video->id) !!}
-                                @else
-                                    {!! \App\Classes\Helpers\Video::renderCardYoutube($card_element->media->video->id) !!}
-                                @endif
-                            @endif
+<style>
+  
+.splide__optional-button-container {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
 
-                            {!! htmlspecialchars_decode($card_element->body) !!}
-                        </div>
-                        @if (isset($card_element->footer->label) && $card_element->footer->label != '')
-                            <div class="card-footer d-flex justify-content-{{ $card_element->footer->position }}"
-                                style="border: none; background: transparent">
-                                <a href='{{ $card_element->footer->link }}'>{!! htmlspecialchars_decode($card_element->footer->label) !!}</a>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
+.splide__slide {
+  max-height: 450px;
+  text-align: center;
+}
+
+.splide__slide > img {
+    width: 100%
+}
+</style>
+@if( $sliderAlbum && $sliderAlbum->sliders->count())
+<section id="splideComponent__{{$sliderAlbum->getKey()}}_{{uniqid()}}"
+    class="splide my-2"  @if($card_content['type'] == 'single') data-config="{}" @else data-config="{{json_encode(['perPage' => 3,'rewind'=>true])}}" @endif>
+
+    <div class="splide__track">
+            <ul class="splide__list">
+                @foreach ($sliderAlbum->sliders as $slider)
+                <li class="splide__slide @if($card_content['type'] != 'single') mx-2 @endif" >
+                    <img src='{{App\Classes\Helpers\Image::getImageAsSize($slider->getImage()->first()->image->filepath,'m')}}' />
+                </li>
+                @endforeach
+            </ul>
     </div>
-</div>
+</section>
+@endif

@@ -12,6 +12,7 @@ class Component
     protected ComponentService $componentService;
     protected $component;
     protected array $params=[];
+
     public function __construct(string $component_name) {
         $this->componentService = new ComponentService($component_name);
         $this->config = $this->componentService->getConfiguration();
@@ -44,13 +45,32 @@ class Component
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|void
      */
     public function previewBuilder(array $params = []) : \Illuminate\Contracts\View\View {
+        // dd($this->config);
         if ( is_array($this->config) &&  isset($this->config['view'])) {
             return view($this->config['view'],$params);
         }
         if (view()->exists($this->config->view)) {
             return view($this->config->view,$params);
         }
+
+        // check if view for public view is different.
+        if (view()->exists(str_replace('.view','.view.public.view',$this->config->view))) {
+            return view(str_replace('.view','.view.public.view',$this->config->view),$params);
+        }
     }
+
+
+    public function iframeBuilder(array $params = []) {
+
+        if(is_array($this->config) && isset($this->config['preview'])) {
+            return view($this->config['preview'],$params);
+        }
+        
+        if (view()->exists($this->config->preview)) {
+            return view($this->config->preview,$params);
+        }
+    }
+    
     public function builder() {
         return view($this->config->add,$this->params);
     }

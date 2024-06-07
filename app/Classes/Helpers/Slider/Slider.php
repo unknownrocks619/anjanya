@@ -51,6 +51,7 @@ class Slider
     }
     public static function update(Request $request, ComponentBuilder $componentBuilder)
     {
+        dd('gel');
 
         $values = [
             'layout'                  => $request->post('layout'),

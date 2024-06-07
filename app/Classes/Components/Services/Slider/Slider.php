@@ -23,7 +23,7 @@ class Slider extends BaseComponent implements ComponentInterface
             'component_name'    => __('components.'.$this->_component_type),
             'relation_model'    => $componentBinder::class,
             'relation_id'       => $componentBinder->getKey(),
-            'values'            => [$request->post('slider')],
+            'values'            => ['slider' => $request->post('slider'),'type' => $request->post('type')],
             'sort_by'           => ComponentBuilder::getSortBy($componentBinder),
             'active'            => true
         ]);
@@ -37,8 +37,10 @@ class Slider extends BaseComponent implements ComponentInterface
     }
 
     public function update() {
+
         $request = Request::capture();
-        $values = [$request->post('slider')];
+        $values =['slider' => $request->post('slider'),'type' => $request->post('type')];
+        ;
         $component = ComponentBuilder::find($request->post('_componentID'));
 
         if (! $component ) {

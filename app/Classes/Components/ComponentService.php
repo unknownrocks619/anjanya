@@ -23,15 +23,16 @@ class ComponentService
     {
         $components = [];
         $themeComponents = app('themes_config')['components'];
-
         foreach (app('component') as $componentKey => $componentValue) {
-
+            
             # If components only exists in default folder
             if (!array_key_exists($componentKey, $themeComponents)) {
+
                 if ( ! is_array($componentValue) ) {
                     $components[$componentKey] = $componentValue;
                     continue;
                 }
+
                 foreach ($componentValue as $key => $value) {
                     $components[$componentKey][$key] = 'themes.components.'.$componentKey.'.'.$value;
                 }
@@ -40,10 +41,10 @@ class ComponentService
                 }
                 continue;
             }
-
+            
             # for new component or two update configuration for default config replace key value
             $themeConfig = $themeComponents[$componentKey];
-
+            
             if (!is_array($themeConfig)) {
                 $components[$componentKey] = $themeConfig;
                 continue;
@@ -52,7 +53,7 @@ class ComponentService
             $mergeData = array_merge($componentValue,$themeConfig);
 
             foreach ($mergeData as $key => $value) {
-
+                
                 # If themes doesn't have namespace for given component. use default.
                 if ( $key == 'namespace' && ! isset($mergeData[$key])) {
                     $components[$componentKey][$key] = '\\App\\Themes\\default\\Components\\'.$value;
@@ -64,7 +65,7 @@ class ComponentService
                     $components[$componentKey][$key] = '\\App\\Themes\\'.env('APP_THEMES','default').'\\Components\\'.$value;
                     continue;
                 }
-
+                
                 if (! array_key_exists($key,$themeConfig)) {
                     $components[$componentKey][$key] = 'themes.components.'.$componentKey.'.'.$value;
                     continue;
@@ -76,7 +77,7 @@ class ComponentService
                 $components[$componentKey]['namespace'] = $this->componentNamespace($componentKey);
             }
         }
-
+        
         // check if any new component introduced in themes is missed.
         $themes_components = array_diff(array_keys($themeComponents),array_keys($components));
         if (count( $themes_components ) >= 1) {
@@ -85,9 +86,29 @@ class ComponentService
                 if ( array_diff_key(array_flip(['view','add','namespace','edit']),$themeComponents[$theme_component]) ) {
                     continue;
                 }
-                $themeComponents[$theme_component]['view'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['view'];
-                $themeComponents[$theme_component]['edit'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['edit'];
-                $themeComponents[$theme_component]['add'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['add'];
+
+                // dd($themeComponents);
+                $useLoop = false;
+                // foreach ($themeComponents as $themeKey => $themeValue) {
+                //     if (is_array($themeValue) ) {
+                //         $useLoop = true;
+                //         foreach ($themeValue as $key => $value) {
+                //             if ($key == 'namespace') continue;
+                //             $themeComponents[$theme_component][$key] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component][$key];
+                //         }
+                //     }
+                // }
+                // if ( ! $useLoop ) {
+
+                    $themeComponents[$theme_component]['view'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['view'];
+                    $themeComponents[$theme_component]['edit'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['edit'];
+                    $themeComponents[$theme_component]['add'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['add'];
+                    
+                    if (isset($themeComponents[$theme_component]['preview'])) {
+                        $themeComponents[$theme_component]['preview'] = 'themes.frontend.'.env('APP_THEMES').'.'.$themeComponents[$theme_component]['preview'];
+                    }
+                // }
+
                 $themeComponents[$theme_component]['namespace'] = '\\App\\Themes\\'.env('APP_THEMES').'\\Components\\'.$themeComponents[$theme_component]['namespace'];
                 $components[$theme_component] = $themeComponents[$theme_component];
             }

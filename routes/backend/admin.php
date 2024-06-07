@@ -124,4 +124,10 @@ Route::prefix('admin')
          */
         include __DIR__.'/header.php';
 
+        /**
+         * Iframe
+         */
+
+         include __DIR__.'/iframe.php';
+
     });

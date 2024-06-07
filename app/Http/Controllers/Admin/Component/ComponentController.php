@@ -97,6 +97,7 @@ class ComponentController extends Controller
         ]);
 
         $component = new Component($request->post('_component_name'));
+        
         if ( ! $request->post('_componentID') ) {
             return $component->loader()->store($webcomponent);
         }

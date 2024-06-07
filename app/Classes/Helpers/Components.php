@@ -2,6 +2,7 @@
 
 namespace App\Classes\Helpers;
 
+use App\Classes\Components\Component;
 use App\Http\Controllers\Controller;
 use App\Models\CommonComponentConnector;
 use App\Models\ComponentBuilder;
@@ -160,5 +161,10 @@ class Components extends Controller
             $componentConnector->save();
             return $this->json(true,'Status updated');
         }
+    }
+
+    public function previewComponent(Request $request, string $component_name) {
+        $component = new Component($component_name);
+        return $component->iframeBuilder();
     }
 }

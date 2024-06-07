@@ -42,7 +42,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <script src="https://cdn.tiny.cloud/1/6dik18hj4r0g0mkrx8ph3gy6v0vdkymdgzl0l4t6otwofs7b/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/vpe68p8ssqe7gd3zuptrjt7ehee517l3qipcxonbsgvqyshw/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
         integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
     <script src="{{ asset('backend/js/notify/bootstrap-notify.min.js') }}"></script>
@@ -125,6 +125,9 @@
 
     @stack('custom_script')
     <script src="{{ asset('backend/js/icons/feather-icon/feather.min.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
     <script type="text/javascript">
         $(function() {
             feather.replace()
