@@ -11,6 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::connection('portal_connection')->hasColumn('member_emergency_metas','contact_type')){
+            return;
+        }
+
+        if (Schema::connection('portal_connection')->hasColumn('member_emergency_metas','gender')){
+            return;
+        }
+
         Schema::connection('portal_connection')->table('member_emergency_metas', function (Blueprint $table) {
             //
             $table->string('contact_type')->default('emergency')->after('profile');

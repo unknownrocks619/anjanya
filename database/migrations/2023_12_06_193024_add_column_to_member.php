@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if( Schema::connection('portal_connection')->hasColumn('members','id_card')) {
+            return;
+        }
         Schema::connection('portal_connection')->table('members', function (Blueprint $table) {
             //
             $table->longText('id_card')->after('role_id')->nullable();

@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if( Schema::connection('portal_connection')->hasTable('event_jap_information')) {
+            return;
+        }
+
         Schema::connection('portal_connection')->create('event_jap_information', function (Blueprint $table) {
             //
             $table->id();

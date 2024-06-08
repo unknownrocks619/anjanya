@@ -12,6 +12,9 @@ return new class extends Migration
     public function up(): void
     {
 
+        if( Schema::connection('portal_connection')->hasColumn('member_infos','total_connected_family')) {
+            return;
+        }
         Schema::connection('portal_connection')->table('member_infos', function (Blueprint $table) {
             //
             $table->string('total_connected_family')

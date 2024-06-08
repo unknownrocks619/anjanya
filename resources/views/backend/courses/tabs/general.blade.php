@@ -94,25 +94,32 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="course_type">Course Delivery Medium</label>
-                <input type="text" name="course_type"id="course_type" value="{{$course->course_type}}" class="form-control">
+                <input type="text" name="course_type" id="course_type" value="{{$course->course_type}}" class="form-control">
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="total_lectures">Total Lectures</label>
-                <input type="text" name="lectures" id="total_lectures" class="form-control">
+                <input type="text" name="lectures" value="{{$course->total_lecture}}" id="total_lectures" class="form-control">
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="language">Language</label>
-                <input type="text" name="language" id="language" class="form-control">
+                <input type="text" name="language" value="{{$course->language}}" id="language" class="form-control">
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="certification">Certification</label>
-                <input type="text" name="certification" id="total_lectures" class="form-control">
+                <input type="text" name="certification" value="{{$course->certification}}" id="total_lectures" class="form-control">
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="duration">Duration</label>
-                <input type="text" name="duration" id="duration" class="form-control">
+                <input type="text" name="duration" value="{{$course->duration}}" id="duration" class="form-control">
             </div>
-
         </div>
     </div>
     <div class="row">

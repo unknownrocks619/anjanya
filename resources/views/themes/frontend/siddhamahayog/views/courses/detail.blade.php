@@ -213,7 +213,7 @@
                                     <div class="thumbnail video-popup-wrapper">
                                         @if($courseThumbnail)
                                             <img class="radius-small w-100" src="{{ \App\Classes\Helpers\Image::getImageAsSize($courseThumbnail,'m')}}" alt="Course Images">
-                                            
+
                                             <a href="https://www.youtube.com/watch?v={{$course->intro_video->video->id}}" class="video-play-btn position-to-top video-popup-activation">
                                                 <span class="play-icon course-details-video-popup"></span>
                                             </a>
@@ -223,16 +223,16 @@
                                 <div class="eduvibe-widget-details mt--35">
                                     <div class="widget-content">
                                         <ul>
-                                            <li><span><i class="icon-draft-line"></i> Course Type</span><span> Online</span></li>
+                                            <li><span><i class="icon-draft-line"></i> Course Type</span><span> {{$course->course_type}}</span></li>
 
-                                            <li><span><i class="icon-draft-line"></i> Lectures</span><span>{{$course->chapters->count()}}</span></li>
+                                            <li><span><i class="icon-draft-line"></i> Lectures</span><span>{{$coure->total_lecture ?? $course->chapters->count()}}</span></li>
 
-                                            <li><span><i class="icon-translate"></i> Language</span><span>Nepali & Hindi</span></li>
+                                            <li><span><i class="icon-translate"></i> Language</span><span>{{$course->language}}</span></li>
 
-                                            <li><span><i class="icon-award-line"></i> Certificate</span><span>Yes</span></li>
+                                            <li><span><i class="icon-award-line"></i> Certificate</span><span>{{$course->certification}}</span></li>
 
 
-                                            <li><span><i class="icon-calendar-2-line"></i> Duration</span><span> 350 Hours (2 Hours / Day)</span></li>
+                                            <li><span><i class="icon-calendar-2-line"></i> Duration</span><span> {{$course->duration}}</span></li>
 
                                         </ul>
 

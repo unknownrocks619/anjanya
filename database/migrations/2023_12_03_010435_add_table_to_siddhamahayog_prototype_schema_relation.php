@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if ( Schema::connection('portal_connection')->hasTable('member_emergency_metas')) {
+            return;
+        }
+
         Schema::connection('portal_connection')->table('member_emergency_metas', function (Blueprint $table) {
             //
             $table->longText('profile')->nullable()->after('phone_number');
