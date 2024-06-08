@@ -7,6 +7,7 @@ if ( ! $featuredImage ) {
 if ( $featuredImage) {
     $featuredImage = App\Classes\Helpers\Image::getImageAsSize($featuredImage->image->filepath,'m');
 }
+
 @endphp
 @extends($user_theme->frontend_layout($extends))
 @section("page_title"){{$post->title}}@endsection

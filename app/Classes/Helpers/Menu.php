@@ -23,7 +23,7 @@ class Menu
     static $menu_types = [
         'home' => '/',
         'homepage'  => '/',
-        'contact'   => '/contact',
+        // 'contact'   => '/contact',
         'login'         => '/login',
         'register'      => '/register',
     ];

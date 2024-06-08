@@ -1,8 +1,10 @@
 <?php
 
 use App\Classes\Helpers\Menu;
+use App\Classes\Helpers\SystemSetting;
 use App\Http\Controllers\Test\CodeTestZone;
 use App\Http\Controllers\Web\Menu\MenuController;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -17,6 +19,11 @@ Route::middleware(['web', 'maintenance'])
         // Route::get('test-zone', [CodeTestZone::class, 'index']);
 
         Route::get('maintenance', function () {
+            // check if we need to display this.
+            if (! Setting::where('name','maintenance_mode')->where('value',1)->exists() ) {
+                abort(404);
+            }
+            
             return view('maintenance.index');
         })->name('maintenance-mode');
 

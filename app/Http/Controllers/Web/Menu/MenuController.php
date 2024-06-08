@@ -32,8 +32,10 @@ class MenuController extends Controller
 
     public function load($slug = '/')
     {
+
         $slug = htmlspecialchars($slug);
-        if (!$this->cached_menu) {
+
+        if (! $this->cached_menu) {
             abort(404);
         }
 
@@ -48,14 +50,18 @@ class MenuController extends Controller
             $defaultSEO = Meta::metaInfo($this->active_menu);
             return $this->frontend_theme('master', 'home.index', ['menu' => $this->active_menu, 'seo' => $defaultSEO]);
         } else {
+
             $this->active_menu = $this->cached_menu->where('slug', $slug)
                 ->first();
+
             if (!$this->active_menu) {
+
                 $this->active_menu = ModelsMenu::where('slug', $slug)->where('active', true)->first();
             }
+
         }
 
-        if (!$this->active_menu) {
+        if ( ! $this->active_menu) {
             abort(404);
         }
 
@@ -86,6 +92,16 @@ class MenuController extends Controller
         // }
     }
 
+    public function contact() {
+        return $this->frontend_theme(
+            'master',
+            'home.contact',
+            [
+                'menu' => $this->active_menu,
+            ]
+        );
+    }
+
     public function category() {
 
         $defaultSEO = Meta::metaInfo($this->active_menu);
@@ -97,7 +113,7 @@ class MenuController extends Controller
 
 
         $categories = $this->active_menu->categories()->get();
-
+        
         if (!$categories->count()) {
             $categories = Category::with('getImage')->get();
         }

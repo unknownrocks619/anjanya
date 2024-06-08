@@ -54,7 +54,7 @@ class SystemSettingInstagramConfiguration extends Seeder
 
             Setting::create([
                 'name' => 'maintenance_mode',
-                'value' => '0',
+                'value' => '1',
             ]);
         }
 

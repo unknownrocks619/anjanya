@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('active', true)->get();
-        return $this->frontend_theme('contact', 'category.list', ['categories' => $categories]);
+        return $this->frontend_theme('master', 'category.list', ['categories' => $categories]);
     }
 
     public function show($slug)
@@ -24,6 +24,6 @@ class CategoryController extends Controller
         $category = Category::where('active', true)->where('slug', $slug)->firstOrFail();
         $posts = Post::whereJsonContains('categories', $category->getKey())->paginate(30);
 
-        return $this->frontend_theme('contact', 'category.category-post', ['category' => $category, 'posts' => $posts]);
+        return $this->frontend_theme('master', 'category.category-post', ['category' => $category, 'posts' => $posts]);
     }
 }
