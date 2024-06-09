@@ -50,17 +50,17 @@
 
                         <ul class="edu-course-tab nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">सारांश</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">Curriculum</button>
+                                <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab" data-bs-target="#curriculum" type="button" role="tab" aria-controls="curriculum" aria-selected="false">पाठ्यक्रम</button>
                             </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                                 <div class="course-tab-content">
-                                    <h5>Course Description</h5>
+                                    <h5>पाठ्यक्रम विवरण</h5>
                                     {!! $course->course_full_description !!}
                                 </div>
                             </div>
@@ -70,8 +70,14 @@
                                         @foreach ($course->chapters as $chapter)
                                             <div class="edu-accordion-item">
                                                 <div class="edu-accordion-header" id="headingOne">
-                                                    <button class="edu-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    <button class="edu-accordion-button d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#chapter_container_{{$chapter->getKey()}}" aria-expanded="true" aria-controls="collapseOne">
+                                                        <span>
+
                                                         {{$chapter->chapter_name}}
+                                                        </span>
+                                                        <span class="me-3 pe-3">
+                                                            जम्मा पाठ संख्या: ({{$chapter->lessions()->count()}})
+                                                        </span>
                                                     </button>
                                                 </div>
                                                 @include('themes.frontend.siddhamahayog.views.courses.partials.lessions',['chapter' => $chapter])
@@ -223,21 +229,21 @@
                                 <div class="eduvibe-widget-details mt--35">
                                     <div class="widget-content">
                                         <ul>
-                                            <li><span><i class="icon-draft-line"></i> Course Type</span><span> {{$course->course_type}}</span></li>
+                                            <li><span><i class="icon-draft-line"></i> शिक्षण स्थल</span><span> {{$course->course_type}}</span></li>
 
-                                            <li><span><i class="icon-draft-line"></i> Lectures</span><span>{{$coure->total_lecture ?? $course->chapters->count()}}</span></li>
+                                            <li><span><i class="icon-draft-line"></i> लेक्चरहरू</span><span>{{$coure->total_lecture ?? $course->chapters->count()}}</span></li>
 
-                                            <li><span><i class="icon-translate"></i> Language</span><span>{{$course->language}}</span></li>
+                                            <li><span><i class="icon-translate"></i> भाषा</span><span>{{$course->language}}</span></li>
 
-                                            <li><span><i class="icon-award-line"></i> Certificate</span><span>{{$course->certification}}</span></li>
+                                            <li><span><i class="icon-award-line"></i> प्रमाणपत्र</span><span>{{$course->certification}}</span></li>
 
 
-                                            <li><span><i class="icon-calendar-2-line"></i> Duration</span><span> {{$course->duration}}</span></li>
+                                            <li><span><i class="icon-calendar-2-line"></i> अवधि</span><span> {{$course->duration}}</span></li>
 
                                         </ul>
 
                                         <div class="read-more-btn mt--15">
-                                            <a class="edu-btn w-100 text-center" href="{{route('frontend.courses.enroll.enroll',['course' => $course,'course_slug' => $course->slug])}}">Enroll Now</a>
+                                            <a class="edu-btn w-100 text-center" href="{{route('frontend.courses.enroll.enroll',['course' => $course,'course_slug' => $course->slug])}}">फाराम भर्नुहाेस</a>
                                         </div>
 
                                     </div>
