@@ -20,6 +20,7 @@ window.setupTinyMceAll = function () {
         inline : true,
         menubar : false,
         plugins: ' anchor autolink  emoticons link lists media table ,accordion,fullscreen,advlist',
+        toolbar: 'undo redo fullscreen| blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight  | numlist bullist indent outdent | emoticons charmap | removeformat accordion',
 
     })
 }
