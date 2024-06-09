@@ -18,7 +18,8 @@ class Chapter extends AdminModel
         'short_description',
         'full_description',
         'active',
-        'sort_by'
+        'sort_by',
+        'total_lesson',
     ];
 
     public $route = 'chapters';

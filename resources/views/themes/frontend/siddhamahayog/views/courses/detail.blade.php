@@ -72,11 +72,11 @@
                                                 <div class="edu-accordion-header" id="headingOne">
                                                     <button class="edu-accordion-button d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#chapter_container_{{$chapter->getKey()}}" aria-expanded="true" aria-controls="collapseOne">
                                                         <span>
-
                                                         {{$chapter->chapter_name}}
                                                         </span>
-                                                        <span class="me-3 pe-3">
-                                                            जम्मा पाठ संख्या: ({{$chapter->lessions()->count()}})
+
+                                                        <span class="me-3 pe-3 text-muted">
+                                                            जम्मा पाठ संख्या: ({{$chapter->total_lesson ?? $chapter->lessions()->count()}})
                                                         </span>
                                                     </button>
                                                 </div>

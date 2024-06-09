@@ -73,6 +73,12 @@
                                 </div>
                             </div>
                         </div>
+                            <div class="col-md-4">
+                                <div class="form-group mt-1">
+                                    <label for="total_lesson">Total Lesson Count</label>
+                                    <input type="number" name="total_lesson" class="form-control" id="total_lesson" value="{{$chapter->total_lesson}}" />
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>

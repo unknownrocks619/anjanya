@@ -86,7 +86,8 @@ class ChapterController extends Controller
             'intro_text'        => $request->post('intro_text'),
             'short_description' => $request->post('short_description'),
             'full_description'  => $request->post('full_description'),
-            'active'            => $request->has('active') ? true : false
+            'active'            => $request->has('active') ? true : false,
+            'total_lesson'      => $request->post('total_lesson'),
         ]);
 
         if ($course) {
