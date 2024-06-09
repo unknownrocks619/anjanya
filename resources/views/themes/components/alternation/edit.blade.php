@@ -100,7 +100,7 @@
                         <i class="fa fa-image"></i>
                         Upload Image
                     </button>
-                    <button type="button" class="alteration-remove_image_button btn-sm btn-danger @if ( ! $component['image']) d-none @endif">
+                    <button type="button"  onclick="resetContainer(this)" class="alteration-remove_image_button btn-sm btn-danger @if ( ! $component['image']) d-none @endif">
                         <i class="fa fa-trash"></i>
                         Delete Image
                     </button>
@@ -146,7 +146,7 @@
         }
         $(_appendContent).find('h1[name="heading[]"]').addClass('component_field').addClass('tiny-mce');
         $(_appendContent).find('div[name="description[]"]').addClass('component_field').addClass('tiny-mce')
-        $(_appendContent).find('img[name="image_display_value[]"]').addClass('component_field');
+        $(_appendContent).find('input[name="image_display_value[]"]').addClass('component_field');
         $(_containerWrapper).append(_appendContent);
         $(_appendContent).removeClass('d-none').removeClass('alteration-right-original').removeClass('alteration-left-original').addClass('alteration-row');
 
@@ -196,6 +196,7 @@
                 $(_closestDiv).css({"background-image" : "url("+_response.params.image+")"});
                 $(_closestDiv).find('button.alteration-upload_image_button').addClass('d-none')
                 $(_closestDiv).find('button.alteration-remove_image_button').removeClass('d-none')
+                $(_closestDiv).find('button.alteration-remove_image_button').attr('onclick',"resetContainer(this)");
                 $(_closestDiv).find('input[name="image_display_value[]"]').val(_response.params.image);
             })
         }
