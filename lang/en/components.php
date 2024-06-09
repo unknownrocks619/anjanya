@@ -35,6 +35,8 @@
             'parallax_image'        => 'Parallax Content',
             'progress_card'         => 'Progress Card',
             'event_list'            => 'Events',
+            'block_blog'            => 'Blog Block',
+            'service_block'         => 'Service Block',
             'content'               => 'Content',
             '_failed_save'          => 'Unable to save component',
             '_success_save'         => 'Component Saved',

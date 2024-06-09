@@ -16,6 +16,7 @@
 
 <input type="hidden" name="_component_name" value="background_image" class="component_field  d-none">
 <input type="hidden" name="_action" value="store" class="component_field d-none">
+<input type="hidden" name="_componentID" value="{{$_loadComponentBuilder->getKey()}}" class="d-none component_field">
 
 <div class="row">
     <div class="col-md-12" id="componentPreview">

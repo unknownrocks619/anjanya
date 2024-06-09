@@ -12,6 +12,20 @@ return [
         'contact_form'   =>  [
             'view'  => 'components.contact_form.view'
         ],
+        'block_blog'    => [
+            'add'   => 'components.block_blog.add',
+            'edit'  => 'components.block_blog.edit',
+            'view'  => 'components.block_blog.view',
+            'preview'   => 'components.block_blog.preview',
+            'namespace' => 'BlockBlog'
+        ],
+        'service_block'     => [
+            'add'           => 'components.block_blog.add',
+            'edit'          => 'components.block_blog.edit',
+            'preview'       => 'components.block_blog.preview',
+            'view'          => 'components.block_blog.view',
+            'namespace'     => 'ServiceBlock'
+        ]
     ],
     'header'    => [
         [
