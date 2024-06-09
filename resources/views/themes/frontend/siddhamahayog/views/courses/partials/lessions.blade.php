@@ -1,4 +1,4 @@
-@if($chapter->lessions()->count())
+{{--@if($chapter->lessions()->count())--}}
 <div id="chapter_container_{{$chapter->getKey()}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample1">
     <div class="edu-accordion-body">
         <div class="my-2 description">
@@ -14,4 +14,4 @@
         </ul>
     </div>
 </div>
-@endif
+{{--@endif--}}
