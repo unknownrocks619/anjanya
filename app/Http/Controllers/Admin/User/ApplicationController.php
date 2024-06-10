@@ -32,9 +32,9 @@ class ApplicationController extends Controller
 
         $tabs = [
             'general'   => $user,
-            'education' => $guardian,
-            'guardian'  => $guardian,
-            'media'     => $user
+            // 'education' => $guardian,
+            // 'guardian'  => $guardian,
+            // 'media'     => $user
         ];
 
         if ($application->status == 'approved') {
@@ -68,7 +68,11 @@ class ApplicationController extends Controller
         $application->user_profile_approved = true;
         $application->user_identity_approved = true;
         $application->save();
+
         MembershipRegistrationApprovedEmailJob::dispatchSync($user);
+
+        $user->current_step = 'complete';
+        
         return $this->json(true, 'Application Approved.');
     }
 

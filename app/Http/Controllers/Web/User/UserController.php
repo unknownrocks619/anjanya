@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Classes\Helpers\Image;
+use App\Classes\Helpers\Menu;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\OrderController;
 use App\Http\Requests\Web\User\AutheticateRequest;
@@ -103,32 +104,45 @@ class UserController extends Controller
 
         $partial_view = 'frontend.registration.index' . User::REGISTRATION_STEPS[session()->get(session()->getId())['current_step']];
 
-        return $this->frontend_theme('contact', 'registration.index', ['current_step' => session()->get(session()->getId())['current_step'], 'partial_view' => $partial_view]);
+        /**
+         * get Connected Menu.
+         */
+        $registrationMenu = Menu::getBy('menu_type','register')->first();
+        if ( ! $registrationMenu ) {
+            abort (404);
+        }
+
+        return $this->frontend_theme('contact', 'registration.index',
+                                                [
+                                                    'current_step' => session()->get(session()->getId())['current_step'],
+                                                    'partial_view' => $partial_view,
+                                                    'menu'  => $registrationMenu
+                                                ]);
     }
 
 
     private function store_personal_information(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required',
-            'last_name' => 'required',
+            'first_name'    => 'required|string',
+            'last_name' => 'required|string',
             'email' => 'required|email',
-            'landline_number'   => 'required',
+            // 'landline_number'   => 'required',
             'mobile_number' => 'required',
-            'date_of_birth' => 'required|date_format:Y-m-d',
-            'perma_country' => 'required',
-            'perma_state'   => 'required',
-            'perma_street_address'  => 'required'
+            'date_of_birth' => 'nullable|date_format:Y-m-d',
+            // 'perma_country' => 'required',
+            // 'perma_state'   => 'required',
+            // 'perma_street_address'  => 'required'
         ], [
-            'perma_country.required' => 'Country Field is required.',
-            'perma_state.required'  => 'State / City field is required.',
-            'perma_street_address.required' => 'Street address is required.'
+            // 'perma_country.required' => 'Country Field is required.',
+            // 'perma_state.required'  => 'State / City field is required.',
+            // 'perma_street_address.required' => 'Street address is required.'
         ]);
 
 
-        if (!$request->has('male') && !$request->has('female') &&  !$request->has('other')) {
+        if (!$request->has('gender')) {
 
-            return $this->generateValidationError('male', 'Please select your gender');
+            return $this->generateValidationError('gender', 'Please select your gender');
         }
 
         if ($request->post('temp_country')) {
@@ -143,43 +157,62 @@ class UserController extends Controller
         $perma_country = Country::find($request->post('perma_country'));
         $perma_state = City::find($request->post('perma_state'));
 
-        if ($existingUser && ($existingUser->current_step == 'complete'  || $existingUser->current_step == 'waiting')) {
+        if ($existingUser) {
+
+            $this->json(false,'Email Already Exists.');
         }
 
         $session_record = session()->get(session()->getId());
 
         if (empty($session_record['personal_information'])) {
-
             $user = new User();
         } else {
             $user = User::find(decrypt($session_record['personal_information']['_user']));
         }
+
         $user->fill([
             'first_name' => $request->post('first_name'),
             'last_name' => $request->post('last_name'),
             'email' => $request->post('email'),
             'password'  => Hash::make(\Illuminate\Support\Str::random(12)),
-            'current_step'  => 'step_one',
-            'invite_token'  => strtoupper(\Illuminate\Support\Str::random(12)),
+            'current_step'  => 'step_seven',
+            'invite_token'  => strtoupper(\Illuminate\Support\Str::random(8)),
             'date_of_birth' => $request->post('date_of_birth'),
             'phone_number' => $request->post('mobile_number'),
             'landline_number'   => $request->post('landline_number'),
-            'country'     => $request->post('perma_country'),
+            'country'     => 153,
             'state'   => $request->post('perma_state'),
             'street_address'  => $request->post('perma_street_address'),
             'perma_same_as_temp'    => $request->post('temporary_address_checkbox'),
-            'temp_country'      => $request->post('temp_country'),
+            'temp_country'      => 153,
             'temp_state'        => $request->post('temp_state'),
             'temp_street_address'   => $request->post('temp_street_address'),
-            'gender'        => $request->has('male') ? 'male'  : (($request->post('female') ? 'female' : 'other'))
+            'gender'        => $request->post('gender')
         ]);
 
         if ($user->isDirty('email') && User::where('email', $request->post('email'))->exists()) {
-            return response($this->generateValidationError('email', 'Email Already Exists.'), 422);
+            return $this->generateValidationError('email', 'Email Already Exists.');
         }
 
         try {
             $user->save();
+
+            // now check.
+            $membershipApplication = MembershipApplication::where('user_id', $user->getKey())->first();
+
+            if (!$membershipApplication) {
+                $membershipApplication = new MembershipApplication();
+                $membershipApplication->fill([
+                    'user_id' => $user->getKey(),
+                    'application_type'  => 'submitted',
+                    'status'    => "pending",
+                    'resubmitted_count' => 0
+                ]);
+            } else {
+                $membershipApplication->status = 'pending';
+                $membershipApplication->resubmitted_count = $membershipApplication->resubmitted_count + 1;
+            }
+            $membershipApplication->save();
         } catch (\Throwable $th) {
             //throw $th;
             return $this->json(false, 'Unable to save.', '', ['errors' => $th->getMessage()]);
@@ -196,8 +229,8 @@ class UserController extends Controller
             'date_of_birth'     => $request->post('date_of_birth'),
             'perma_country'     => $request->post('perma_country'),
             'perma_state'       => $request->post('perma_state'),
-            'perma_country_name'    => $perma_country->name,
-            'perma_state_name'  => $perma_state->name,
+            // 'perma_country_name'    => $perma_country->name,
+            // 'perma_state_name'  => $perma_state->name,
             'perma_street_address'  => $request->post('perma_street_address'),
             'temp_same_as_perma'    => $request->has('temporary_address_checkbox') ? true : false,
             'temp_country'          => $request->post('temp_country'),
@@ -211,7 +244,7 @@ class UserController extends Controller
         $session_record['current_step'] = 'step_two';
 
         session()->put(session()->getId(), $session_record);
-        return $this->returnPartials(true);
+        return $this->json(true,'Registration Complete','redirect',['location' => route('frontend.users.register',['current_step' => 'step_two'])]);
     }
 
     private function store_education_information(Request $request)

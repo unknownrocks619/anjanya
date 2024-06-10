@@ -8,7 +8,7 @@ use App\Classes\Components\Services\Image\Image;
 use App\Models\ComponentBuilder;
 use Illuminate\Http\Request;
 
-class BlockBlog extends BaseComponent implements ComponentInterface
+class ServiceBlock extends BaseComponent implements ComponentInterface
 {
 
     protected $_component_name='service_block';
@@ -32,9 +32,6 @@ class BlockBlog extends BaseComponent implements ComponentInterface
     public function store($componentBinder)
     {
         $request = Request::capture();
-        $request->validate([
-            'categories'   => 'required'
-        ]);
         
         $componentBuilder = new ComponentBuilder();
         $componentBuilder->fill([
@@ -50,9 +47,24 @@ class BlockBlog extends BaseComponent implements ComponentInterface
             'description'   => $request->post('description'),
             'subtitle'   => $request->post('subtitle'),
             'title' => $request->post('title'),
-            'categories'    => $request->post('categories')
+            'row'   => $request->post('row'),
+            'column'    => $request->post('column'),
+            'service_type'  => $request->post('service_icon_type')
         ];
+        
+        $blocks = [];
+        foreach( $request->post('service_title') as $index => $value) {
+            $innerArray = [
+                'title' => $value,
+                'icon'  => $request->post('icon')[$index],
+                'image' => $request->post('service_image')[$index],
+                'description'   => $request->post('service_description')[$index]
+            ];
+            $blocks[] = $innerArray;
+        }
 
+        $values['blocks'] = $blocks;
+        
         $componentBuilder->values = $values;
 
         try {
@@ -66,14 +78,32 @@ class BlockBlog extends BaseComponent implements ComponentInterface
     public function update()
     {
         $request = Request::capture();
-        $values = [
-                    'description'   => $request->post('description'),
-                    'subtitle'   => $request->post('subtitle'),
-                    'title' => $request->post('title'),
-                    'categories'    => $request->post('categories')
-                ];
 
+        $values = [
+            'description'   => $request->post('description'),
+            'subtitle'   => $request->post('subtitle'),
+            'title' => $request->post('title'),
+            'row'   => $request->post('row'),
+            'column'    => $request->post('column'),
+            'service_type'  => $request->post('service_icon_type')
+        ];
+        
+        $blocks = [];
+
+        foreach( $request->post('service_title') as $index => $value) {
+            $innerArray = [
+                'title' => $value,
+                'icon'  => $request->post('icon')[$index],
+                'image' => $request->post('service_image')[$index],
+                'description'   => $request->post('service_description')[$index]
+            ];
+            $blocks[] = $innerArray;
+        }
+
+        $values['blocks'] = $blocks;
+        
         $component = ComponentBuilder::find($request->post('_componentID'));
+        $component->values = $values;
 
         if (! $component ) {
             return $this->json(false,'Unable to update.',null,['error'=>'component class not found.']);
@@ -86,7 +116,7 @@ class BlockBlog extends BaseComponent implements ComponentInterface
         } catch (\Exception $e) {
             return $this->json(false,'Unable to update.',null,['error'=>$e->getMessage()]);
         }
-        return $this->json(true,'Component Updated.','');
+        return $this->json(true,'Component Updated.','reload');
     }
 
     public function delete($component)

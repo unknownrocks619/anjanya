@@ -28,10 +28,10 @@ class ApprovedMail extends Mailable
     public function build()
     {
         $subject = SystemSetting::member_registration_approved_email_subject('value') ?? 'Application Approved.';
-        $content = EmailContentTemplate::replaceContent(SystemSetting::member_registration_approved_email('value'), $this->user);
-
-
-        return $this->from('noreply@anjanyayouthclub.com', SystemSetting::basic_configuration('site_name'))
+        $content = EmailContentTemplate::replaceContent(SystemSetting::member_registration_approved_email('value') ?? '', $this->user);
+        $host = str_replace('http://','',SystemSetting::basic_configuration('host'));
+        $host = str_replace('https://','',$host);
+        return $this->from('noreply@'.$host, SystemSetting::basic_configuration('site_name'))
             ->to($this->user->email, $this->user->getFullName())
             ->subject($subject)
             ->html($content);

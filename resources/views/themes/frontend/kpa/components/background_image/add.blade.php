@@ -157,6 +157,7 @@
             if ( ! file ) {
                 return;
             }
+            
             if ( file ) {
                 $(this).closest('div').find('.component-loader-wrapper').css('display','block');
     

@@ -28,10 +28,10 @@
                     <li class="breadcrumb-item"><a
                             href="{{ \App\Classes\Helpers\SystemSetting::basic_configuration('host') }}">Home</a></li>
                     @if(isset($category))
-                    <li class="breadcrumb-item">
-                        <a
-                            href="{{ route('frontend.category.detail', ['slug' => $category?->slug]) }}">{{ $category?->category_name }}</a>
-                    </li>
+                        <li class="breadcrumb-item">
+                            <a
+                                href="{{ route('frontend.category.detail', ['slug' => $category?->slug]) }}">{{ $category?->category_name }}</a>
+                        </li>
                     @endif
                     <li class="breadcrumb-item active  @if($enableColorAlter === true) text-white @endif" aria-current="page">{{ $post->title }}</li>
                 </ol>

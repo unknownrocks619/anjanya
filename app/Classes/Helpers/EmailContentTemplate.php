@@ -10,6 +10,7 @@ class EmailContentTemplate
 
     public static function replaceContent(string $content, User $user): string
     {
+
         if (str_contains($content, '[full_name]')) {
             $content = str_replace('[full_name]', $user->getFullName(), $content);
             $content = str_replace(['[first_name]', '[last_name]'], ['', ''], $content);
@@ -38,6 +39,7 @@ class EmailContentTemplate
             }
             $content = str_replace('[company_logo]', $img, $content);
         }
-        return $content;
+        
+        return $content ?? '';
     }
 }

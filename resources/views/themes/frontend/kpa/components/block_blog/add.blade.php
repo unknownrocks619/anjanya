@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class="container-fluid bg-light mt-3 p-4">
+    <div class="container-fluid  mt-3 p-4">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -29,14 +29,14 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row my-4">
             <div class="col-md-12">
                 <h5 for="description" class="text-dark">Description</h5>
                 <textarea name="description"  class="component_field form-control @if(env('APP_ENV') == 'production') tiny-mce @endif text-dark"></textarea>
             </div>
         </div>
-    
+
         <div class="row my-4">
             <div class="col-md-12">
                 <h5 for="category" class="text-dark">Category</h5>
@@ -70,7 +70,7 @@
             }
             if ( file ) {
                 $(this).closest('div').find('.component-loader-wrapper').css('display','block');
-    
+
                 const formData = new FormData();
                 formData.append('image',file);
                 formData.append('name',$(this).attr('name'))
@@ -94,6 +94,6 @@
                 })
             }
         })
-    
+
 
 </script>

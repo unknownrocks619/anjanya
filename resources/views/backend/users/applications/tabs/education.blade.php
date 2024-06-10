@@ -11,7 +11,7 @@
                                 <select name="education_level" id="education_level" class="form-control">
                                     @foreach (\App\Models\UserMeta::USER_EDUCATIONS as $key => $value)
                                         <option value="{{ $key }}"
-                                            @if ($content->education?->level == $key) selected @endif>
+                                            @if ($content?->education?->level == $key) selected @endif>
                                             {{ $value }}
                                         </option>
                                     @endforeach
@@ -21,7 +21,7 @@
                         <div class="mb-3 col-md-6 mt-0">
                             <div class="form-group">
                                 <label for="education_major">Education Major</label>
-                                <input type="text" value="{{ $content->education?->education_major }}"
+                                <input type="text" value="{{ $content?->education?->education_major }}"
                                     name="education_major" id="education_major" class="form-control">
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                                 <select name="citizenship_country" id="citizenship_country" class="form-control">
                                     @foreach (\App\Models\Country::get() as $country)
                                         <option value="{{ $country->getKey() }}"
-                                            @if ($country->getKey() == $user->citizenship_country) selected @endif>
+                                            @if ($country?->getKey() == $user->citizenship_country) selected @endif>
                                             {{ $country->name }}
                                         </option>
                                     @endforeach
@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="profession">Profession</label>
                                 <input type="text" name="profession" id="profession"
-                                    value="{{ $content->profession }}" class="form-control">
+                                    value="{{ $content?->profession }}" class="form-control">
                             </div>
                         </div>
                     </div>

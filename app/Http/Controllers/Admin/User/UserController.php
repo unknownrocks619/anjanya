@@ -96,7 +96,7 @@ class UserController extends Controller
             'password'  => $customer,
             'documents' => $customer,
             'educations'    => $customer->getUserMeta,
-            'parents'       => $customer->getUserMeta
+            // 'parents'       => $customer->getUserMeta
         ];
 
         return $this->admin_theme('users.customers.edit', ['tabs' => $tabs, 'user' => $customer, 'current_tab' => $current_tab]);
@@ -114,16 +114,16 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'username'      => 'required',
+            // 'username'      => 'required',
             'user_role'     => 'required',
-            'country'       => 'required',
-            'billing_state' => 'required',
-            'billing_postcode'   => 'required',
-            'billing_street_address'    => 'required',
-            'shipping_city'          => 'required_without:same_as_billing',
-            'shipping_postcode'      => 'required_without:same_as_billing',
-            'shipping_street_address'    => 'required_without:same_as_billing',
-            'shipping_country'          => 'required_without:same_as_billing',
+            // 'country'       => 'required',
+            // 'billing_state' => 'required',
+            // 'billing_postcode'   => 'required',
+            // 'billing_street_address'    => 'required',
+            // 'shipping_city'          => 'required_without:same_as_billing',
+            // 'shipping_postcode'      => 'required_without:same_as_billing',
+            // 'shipping_street_address'    => 'required_without:same_as_billing',
+            // 'shipping_country'          => 'required_without:same_as_billing',
         ]);
 
         $customer->first_name = $request->post('first_name');
@@ -138,10 +138,10 @@ class UserController extends Controller
 
         $customer->username = $request->post('username');
 
-        if ($customer->isDirty('username') && $customer::check_username($request->post('username'), $customer)) {
-            // verify customer username
-            return $this->generateValidationError('username', 'Username already exists.');
-        }
+        // if ($customer->isDirty('username') && $customer::check_username($request->post('username'), $customer)) {
+        //     // verify customer username
+        //     return $this->generateValidationError('username', 'Username already exists.');
+        // }
 
         $street_address = $customer->street_address;
         $address = [

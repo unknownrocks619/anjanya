@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'components' => [
@@ -20,10 +20,10 @@ return [
             'namespace' => 'BlockBlog'
         ],
         'service_block'     => [
-            'add'           => 'components.block_blog.add',
-            'edit'          => 'components.block_blog.edit',
-            'preview'       => 'components.block_blog.preview',
-            'view'          => 'components.block_blog.view',
+            'add'           => 'components.service_block.add',
+            'edit'          => 'components.service_block.edit',
+            'preview'       => 'components.service_block.preview',
+            'view'          => 'components.service_block.view',
             'namespace'     => 'ServiceBlock'
         ]
     ],
@@ -40,6 +40,6 @@ return [
             'namespace' => 'compact',
             'screenshot'    => 'screenshot.png'
         ],
-        
+
     ]
 ];
