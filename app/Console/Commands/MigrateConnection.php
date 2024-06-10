@@ -35,7 +35,6 @@ class MigrateConnection extends Command
          * Get Default Connection
          */
         if (!  Schema::connection('defaultConnection')->hasTable('primary_api_dbs') ){
-
             Schema::connection('defaultConnection')->create('primary_api_dbs', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
@@ -49,6 +48,7 @@ class MigrateConnection extends Command
 
             });
         }
+
         foreach (PrimaryApiDb::get() as $domain) {
 
 
