@@ -23,12 +23,13 @@ class GalleryAlbumsController extends Controller
             'album_name'    => $request->post('album_name'),
             'description'   => $request->post('description'),
             'active'        => true,
-            'slug_name'     => $album::getSlug($request->post('album_name')),
-            'sort_by'   => $album::getSortOrder()
+            'slug'     => $album::getSlug($request->post('album_name')),
+            'sort_by'   => $album::getSortOrder(),
+            // 'slug_name' => str($request->post('album_name'))->slug()->value()
         ]);
 
         if ($album->save()) {
-            return $this->json(true,'New Gallery Album created.','redirect',['url' => route()]);
+            return $this->json(true,'New Gallery Album created.','redirect',['url' => route('admin.slider.album.edit',['album' => $album])]);
         }
     }
 

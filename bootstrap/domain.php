@@ -14,10 +14,11 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     // $config->load();
 
     try {
-        $connection = mysqli_connect(env('DB_DEFAULT_HOST','127.0.0.1'),
-            env('DB_DEFAULT_USERNAME','cnzkxzpctf'),
-            env('DB_DEFAULT_PASSWORD','AM98qfhGmk'),
-            env('DB_DEFAULT_DATABASE','cnzkxzpctf'));
+        $connection = mysqli_connect(
+                            env('DB_DEFAULT_HOST','localhost'),
+                            env('DB_DEFAULT_USERNAME','root'),
+                            env('DB_DEFAULT_PASSWORD',''),
+                            env('DB_DEFAULT_DATABASE','primary_api'));
 
         $query = 'SELECT * FROM primary_api_dbs WHERE `domain` = ? AND active = 1 LIMIT 1';
         $stmt = $connection->prepare($query);

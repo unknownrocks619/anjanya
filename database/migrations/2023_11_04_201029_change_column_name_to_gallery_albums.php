@@ -18,7 +18,7 @@ return new class extends Migration
 
         Schema::table('gallery_albums', function (Blueprint $table) {
             //
-            $table->string('slug_name');
+            $table->string('slug')->after('album_name');
         });
 
     }
