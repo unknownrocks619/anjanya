@@ -81,6 +81,63 @@ class Image
     }
 
 
+    /**
+     * Upload Non Image files
+     * @param mixed $files
+     * @param Model|null $model
+     * @return array
+     */
+    public static function uploadOther(mixed $files, ?Model $model=null, string|null $type=null): array {
+        $records = [];
+
+        if ( ! is_array($files) ) {
+
+            $files = [$files];
+        }
+
+        foreach ($files as $file) {
+            $generatedFilename = $file->hashName();
+            $baseDir = 'public/uploads/associated-files/';
+            $file->store($baseDir);
+
+            $newImage = new ModelsImage();
+            $newImage->fill([
+                'filename' => $generatedFilename,
+                'filepath' => $baseDir . $generatedFilename,
+                'information' => [
+                    'folders' => $baseDir
+                ],
+                'sizes' => [
+                    'width' => 0,
+                    'height' =>  0,
+                ],
+                'original_filename' => $file->getClientOriginalName(),
+            ]);
+
+            $newImage->save();
+
+            if (!is_null($model)) {
+
+                $fileRelation = new FileRelation();
+
+                $fileRelation->fill([
+                    'image_id' => $newImage->getKey(),
+                    'relation' => $model::class,
+                    'relation_id' => $model->getKey(),
+                    'type'  => $type
+                ]);
+
+                if (!$fileRelation->save()) {
+                    return false;
+                }
+            }
+
+            $records[] = ['image' => $newImage, 'relation' => $fileRelation];
+        }
+
+        return $records;
+    }
+
     public static function uploadOnly(mixed $images): bool|array
     {
         $settings = config('image-settings');
@@ -143,7 +200,7 @@ class Image
         }
 
         $domainPath = env('APP_URL');
-        $sotragePath = asset('uploads/' . $size . '/' . $filePath,( env('APP_ENV') == 'local' )? false : true);
+        $sotragePath = asset('uploads/' . $size . '/' . $filePath, ( env('APP_ENV') == 'local' )? false : true);
         return $sotragePath;
     }
 

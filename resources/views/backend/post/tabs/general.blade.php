@@ -1,3 +1,7 @@
+@php
+    /** @var \App\Models\Post $post */
+    $componentValue['glitter_background'] = $post->glitter_background;
+@endphp
 <form action="{{ route('admin.posts.edit', ['post' => $post]) }}" class="ajax-form" method="post">
     <div class="row">
         <!-- Zero Configuration  Starts-->
@@ -64,6 +68,11 @@
                                 </select>
                             </div>
                         </div>
+                        @if(env('APP_THEMES') == 'siddhamahayog')
+                            <div class='col-md-4'>
+                                @include('themes.frontend.siddhamahayog.components.common.glitter',['componentValue' => $componentValue])
+                            </div>
+                        @endif
                     </div>
 
                     <div class="row">

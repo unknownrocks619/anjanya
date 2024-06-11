@@ -1,5 +1,5 @@
 import Masonry from "masonry-layout";
-// import tinymce from "tinymce";
+import tinymce from "tinymce";
 
 $(document).on('click', '.select-component', function (event) {
     event.preventDefault();

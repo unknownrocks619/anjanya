@@ -93,6 +93,7 @@ class Category extends AdminModel
 
         $sqlQuery .= " WHERE ";
         $sqlQuery .= " cat.active = 1";
+
         if (!$categoryIds && !is_array($categoryIds)) {
 
             $sqlQuery .= ' AND cat.id = ' . $this->getKey();
@@ -100,7 +101,7 @@ class Category extends AdminModel
             $sqlQuery .= ' AND cat.id IN (' . implode(',', $categoryIds) . ')';
         }
 
-        $sqlQuery .= ' ORDER BY post.updated_at DESC';
+        $sqlQuery .= ' ORDER BY post.created_at DESC';
 
         if ($limit) {
             $sqlQuery .= ' LIMIT ' . $limit;
@@ -109,7 +110,7 @@ class Category extends AdminModel
         $sql = <<<SQL
             $sqlQuery
         SQL;
-
+        
         $query = DB::select($sql);
         return $query;
     }

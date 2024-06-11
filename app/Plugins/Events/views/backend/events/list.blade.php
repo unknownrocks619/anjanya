@@ -48,9 +48,10 @@
                                             {!!  \App\Classes\Helpers\Status::active_label($event->active) !!}
                                         </td>
                                         <td>
-
+                                            {{ $event->event_start_date }}
                                         </td>
                                         <td>
+                                            {{$event->event_end_date}}
                                         </td>
                                         <td>
                                             <ul class="action">

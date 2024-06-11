@@ -1,3 +1,8 @@
+@php
+    /** @var \App\Plugins\Events\Http\Models\Event  $event */
+    $componentValue['glitter_background'] = $event->glitter_background;
+@endphp
+
 <form action="{{route('admin.events.edit',['event' => $event])}}" method="post" class="ajax-form">
     <div class="col-sm-12">
         <div class="card rounded-3">
@@ -131,6 +136,17 @@
                             <textarea name="full_description" id="full_description"
                                       class="form-control tiny-mce">{{$event->full_description}}</textarea>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @if(env('APP_THEMES') == 'siddhamahayog')
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    @include('themes.frontend.siddhamahayog.components.common.glitter',['componentValue' => $componentValue])
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

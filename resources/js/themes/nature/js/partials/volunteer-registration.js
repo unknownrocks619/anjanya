@@ -8,7 +8,7 @@ export default class  Registration  {
     constructor(elm) {
         this.#elm = elm;
         this.#eventID = this.#elm.attr('data-event-id');
-        this.defaultLoad();
+        // this.defaultLoad();
     }
 
     defaultLoad() {
@@ -23,9 +23,9 @@ export default class  Registration  {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success : function (response) {
-                console.log('response: ', response.params);
-                _this.#elm.html(response.params.view)
-                _this.#loading(false);
+                // console.log('response: ', response.params);
+                // _this.#elm.html(response.params.view)
+                // _this.#loading(false);
             }
         })
     }

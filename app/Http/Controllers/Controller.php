@@ -14,6 +14,18 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
     protected $plugin_name='';
+
+    public function __construct() {
+        /**
+         * Set Language
+         */
+
+        if (request()->get('language') && in_array(request()->get('language'),['en','np'])) {
+            session()->put('language', request()->get('language'));
+        }
+
+        \Illuminate\Support\Facades\App::setLocale(session()->get('language') ?? 'en');
+    }
     /**
      * Admin Panel Access Theme
      *
@@ -123,8 +135,9 @@ class Controller extends BaseController
         $error = [];
         if (is_array($name)) {
             foreach ($name as $key => $value) {
-                $error[][$key][] = $value;
+                $error['errors'][$key][] = $value;
             }
+            $error['message'] = $message ?? 'Invalid form information.';
         } else {
             $error = [
                 'message' => $message,
@@ -134,10 +147,15 @@ class Controller extends BaseController
 
         return response($error, 422);
     }
-    public function header() {
+    public function header($path = null) {
         $base_path = env('APP_THEMES') ?? 'default';
         $setting = Setting::where('name','header')->first();
         $header = $setting?->value ?? 'header/default/header';
+
+        if ( $path ) {
+            $header = 'header/default/'.$path;
+        }
+
         $view = view('themes.frontend.'.$base_path.'.' . $header )->render();
         return $view;
     }
@@ -148,5 +166,31 @@ class Controller extends BaseController
         $footer = $setting?->value ?? 'footer.default.footer';
         $view = view('themes.frontend.'.$base_path.'.' . $footer)->render();
         return $view;
+    }
+
+
+    function check_unicode_character($character, $exclude = null)
+    {
+        if (is_string($character)) {
+            return (mb_detect_encoding($character, "auto") == "UTF-8") ? $character : false;
+        }
+
+        $unicodes = [];
+        foreach ($character as $key => $value) {
+
+            if ($key == $exclude) {
+                continue;
+            }
+            if (is_array($value)) {
+                // return $this->check_unicode_character($value);
+            } else {
+                if (mb_detect_encoding($value, "auto") == "UTF-8") {
+                    // echo (mb_detect_encoding($value, "auto") == "UTF-8") ?  $value . " is encoding" : $value  . "  is not encoding";
+                    // echo "<br />";
+                    $unicodes[$key] = "Invalid characters.";
+                }
+            }
+        }
+        return $unicodes;
     }
 }

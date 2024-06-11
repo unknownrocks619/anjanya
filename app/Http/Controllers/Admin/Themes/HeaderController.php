@@ -52,7 +52,6 @@ class HeaderController extends Controller
     protected function getConfiguration($type = 'header') {
         $base_path = env('APP_THEMES') ?? 'default';
         $folder = resource_path('views'.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'frontend'.DIRECTORY_SEPARATOR.$base_path);
-
         if (! file_exists($folder.DIRECTORY_SEPARATOR.'config.php') ) {
             return [];
         }

@@ -18,7 +18,9 @@ class GalleryItems extends AdminModel
         'subtitle',
         'heading_two',
         'description',
-        'sort_by'
+        'sort_by',
+        'featured_background',
+        'featured_button'
     ];
 
     /**

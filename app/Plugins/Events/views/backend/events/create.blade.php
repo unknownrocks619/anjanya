@@ -103,6 +103,13 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(env('APP_THEMES') == 'siddhamahayog')
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        @include('themes.frontend.siddhamahayog.components.common.glitter')
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-footer text-end">
                             <button type="submit" class="btn btn-primary">

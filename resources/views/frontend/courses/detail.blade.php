@@ -1,10 +1,10 @@
-@extends('themes.frontend.users.auth', ['bodyAttribute' => ['class' => 'bg-white'], 'isLanding' => true, 'isFooter' => true])
+@extends('themes.frontend.siddhamahayog.layout.master-nav', ['bodyAttribute' => ['class' => 'bg-white'], 'isLanding' => true, 'isFooter' => true])
 
 @push('title')
     | {{ $course->course_name }}
 @endpush
 
-@section('main_content')
+@section('main')
     <?php
     // let's get banner image,
     $bannerImage = '';

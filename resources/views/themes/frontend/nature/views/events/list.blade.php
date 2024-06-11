@@ -17,6 +17,7 @@
     }
 
 @endphp
+
 @section('main')
     {!! $user_theme->partials('page-header',['title' => $menu?->menu_name,'bannerImage' => $bannerImage]) !!}
     <!-- section main content -->

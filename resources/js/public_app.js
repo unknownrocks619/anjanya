@@ -42,38 +42,68 @@ $(function () {
             messageBox(response.state, response.msg);
 
             if ((response.callback !== null || response.callback !== '')) {
+
                 let fn = window[response.callback];
+
                 if (typeof (fn) === 'function') {
                     fn(response.params);
+                } else if (response.callback.includes('.') ) {
+
+                    let parts = response.callback.split('.');
+
+                    // Extract the class name and method name
+                    let className = parts[0];
+                    let methodName = parts[1];
+
+                    fn = window[className]
+
+                    if (typeof (fn) === 'object') {
+                        window[className][methodName](response.params);
+                    }
                 }
+
             }
         }
     }
 
     window.handleBadResponse = function (response) {
         clearAllErrors();
-        
+
         if (response.status == 422) {
             handle422Case(response.responseJSON ? response.responseJSON : response);
         }
     }
 
     window.handle422Case = function (data) {
+
+        clearAllErrors();
+
         let message = data.message;
+
         if (data.msg !== undefined) {
             message = data.msg;
         }
+
+        if (message === undefined ) {
+            message = data.data.msg;
+        }
+
+
         messageBox(false, message);
+
         if ($('.response-ajax-category').length) {
             $(".response-ajax-category").html("<div class='alert alert-danger'>" + message + "</div>");
         }
+        if (message !== undefined) {
 
-        if ($('.ajax-form-message-box').length) {
-            $(".ajax-form-message-box").html("<div class='alert alert-danger'>" + message + "</div>");
+            if ($('.ajax-form-message-box').length) {
+                $(".ajax-form-message-box").html("<div class='alert alert-danger'>" + message + "</div>");
+            }
         }
+
         $.each(data.errors ?? data.data.errors, function (index, error) {
             let inputElement = $(`[name="${index}"]`);
-            console.log('input tleme', inputElement);
+
             let parentDiv = $(inputElement).closest('div.form-group');
             if (parentDiv.length) {
                 let element = `<div class='text-danger ajax-response-error'>${error}</div>`

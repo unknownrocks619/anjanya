@@ -97,6 +97,12 @@ class AlbumItemsController extends Controller
             'description'   => $request->post('description')
         ]);
 
+        if ($request->post('featured_background') ) {
+            $item->featured_background = true;
+        }
+        if ($request->post('featured_button') ) {
+            $item->featured_button = true;
+        }
         try {
             $item->save();
         } catch (\Throwable $th) {

@@ -85,12 +85,17 @@ class CoursesController extends Controller
         $course->enable_intro_video = $request->has('intro_video') ? true : false;
         $course->theme_color = $request->post('theme_color');
         $course->tagline = $request->post('tag_line');
-
+        $course->course_type = $request->post('course_type');
+        $course->total_lecture = $request->post('lectures');
+        $course->language = $request->post('language');
+        $course->certification = $request->post('certification');
+        $course->duration = $request->post('duration');
 
         try {
             $course->save();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th->getMessage());
             return $this->json(false, 'Unable to update course.');
         }
 

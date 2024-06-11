@@ -75,6 +75,10 @@ class MenuController extends Controller
             'sort_by'       => Menu::getSortOrder($request->post('parent_menu'))
         ]);
 
+        if(env('APP_THEMES') == 'siddhamahayog') {
+            $menu->glitter_background = $request->post('glitter_background');
+        }
+
         try {
             $menu->save();
         } catch (\Throwable $th) {
@@ -153,6 +157,12 @@ class MenuController extends Controller
         $menu->active = $request->has('active') ? true : false;
         $menu->parent_id = $request->post('parent_menu');
         $menu->menu_name  = $request->post('menu_name');
+
+        if(env('APP_THEMES') == 'siddhamahayog') {
+            $menu->glitter_background = $request->post('glitter_background');
+        }
+
+
         if ($menu->isDirty('slug')) {
             $menu->slug = Menu::getSlug($request->post('slug'), $menu);
         }

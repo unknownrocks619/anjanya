@@ -12,7 +12,6 @@ Route::middleware(['web', 'maintenance'])
     ->name('frontend.')
     ->group(function () {
 
-
         /**
          * Code Test Zone
          */
@@ -62,4 +61,11 @@ Route::middleware(['web', 'maintenance'])
          * Category
          */
         include __DIR__ . '/category.php';
+
+        /**
+         * Media
+         */
+        include __DIR__.'/media.php';
+
+        include __DIR__ .'/courses.php';
     });

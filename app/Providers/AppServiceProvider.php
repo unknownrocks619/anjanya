@@ -14,6 +14,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        /*
+        |-----------------------------------------
+        | Set Application Language
+        |-----------------------------------------
+        */
+
         //
         $this->app->singleton('hooks', function ($app) {
             return new HookQueue();

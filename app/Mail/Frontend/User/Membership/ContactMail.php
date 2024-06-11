@@ -29,8 +29,8 @@ class ContactMail extends Mailable
     {
 
         return $this->from($this->params['email'], $this->params['full_name'])
-            ->to(SystemSetting::primary_contact_info('primary_email_address'))
+            ->to(SystemSetting::primary_contact_info('primary_email_address') ?? 'info@siddhamahayog.org')
             ->subject($this->params['subject'])
-            ->html(htmlspecialchars($this->params['message']));
+            ->html($this->params['message']);
     }
 }

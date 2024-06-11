@@ -56,7 +56,7 @@
 
         <!-- Contact Form -->
         <form id="contact-form" action="{{ route('frontend.submit_contanct_us') }}"
-              class="contact-form ajax-append ajax-form" method="post">
+              class="ajax-append ajax-form" method="post">
             <input type="hidden" name="form_id" value="{{ encrypt($_loadComponentBuilder->getKey()) }}" class="form-control">
             <div class="row">
                 <div class="column col-md-6">

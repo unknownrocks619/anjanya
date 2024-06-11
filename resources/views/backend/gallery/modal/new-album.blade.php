@@ -11,13 +11,23 @@
         <div class="modal-body">
 
             <div class="row g-2">
-                <div class="mb-3 col-md-12 mt-0">
+                <div class="mb-3 col-md-8 mt-0">
                     <label for="course_name">Album Name</label>
                     <div class="form-group">
                         <input class="form-control" id="album_name" name="album_name" type="text"
                                required="" placeholder="Album name" autocomplete="off">
                     </div>
                 </div>
+                <div class="mb-3 col-md-4 mt-0">
+                    <label for="course_name">Album Type</label>
+                    <div class="form-group">
+                        <select name="album_type" id="album_type" class="form-control">
+                            <option value="general" selected>Gallery</option>
+                            <option value="glitters">Glitters</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
 
             <div class="row g-2">
