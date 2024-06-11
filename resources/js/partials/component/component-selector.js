@@ -1,5 +1,5 @@
 import Masonry from "masonry-layout";
-import tinymce from "tinymce";
+// import tinymce from "tinymce";
 
 $(document).on('click', '.select-component', function (event) {
     event.preventDefault();
@@ -21,7 +21,7 @@ window.componentRenderElement = function (params) {
     $('#component-render').find('input[name="component"]').remove();
     $("#component-render").append(_selectedComponent);
     $("#component-render").append(params.view);
-    window.setupTinyMce();
+    // window.setupTinyMce();
 
     if ($("#component-render").find('select').length) {
         $.each($("#component-render").find('select'), function (index, element) {
@@ -94,7 +94,7 @@ $(document).on('click', '.clone_accordian_component', function (event) {
     $(_toCloneElement).parent('div').append(_clone);
     $(_clone).find('.clone_accordian_component').addClass('d-none');
     $(_clone).find('.remove_accordian_component').removeClass('d-none');
-    window.setupTinyMce();
+    // window.setupTinyMce();
 });
 
 $(document).on('click', '.remove_accordian_component', function (event) {
@@ -289,8 +289,8 @@ export default class CommonComponentSelector {
                 }
             } else {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
-                    console.log('ddd',tinyMCE.get($(field).attr('id')).getContent());
-                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                    // console.log('ddd',tinyMCE.get($(field).attr('id')).getContent());
+                    // _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
                 }
                 _form.append($(field).attr('name'),$(field).val());
             }
@@ -319,8 +319,8 @@ export default class CommonComponentSelector {
         $.each (componentFields, function (index,field) {
             if (! $(field).val() ) {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce')) {
-                    console.log(tinyMCE.get($(field).attr('id')).getContent());
-                    _form.append($(field).attr('name'),tinyMCE.get($(field).attr('id')).getContent());
+                    // console.log(tinyMCE.get($(field).attr('id')).getContent());
+                    // _form.append($(field).attr('name'),tinyMCE.get($(field).attr('id')).getContent());
                 } else {
                     _form.append($(field).attr('name'),$(field).html());
                 }
@@ -330,7 +330,7 @@ export default class CommonComponentSelector {
                 }
             }  else {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
-                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                    // _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
                 } else {
                     _form.append($(field).attr('name'),$(field).val());
                 }

@@ -114,7 +114,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="full_description">Full Description</label>
-                                            <textarea name="full_description" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('full_description') }}</textarea>
+                                            <textarea name="full_description" id="full_description" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::basic_configuration('full_description') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +270,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea name="welcome_email_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::welcomeEmail('value') }}</textarea>
+                                <textarea name="welcome_email_text" class="tiny-mce form-control" id="welcome_email_block">{{ \App\Classes\Helpers\SystemSetting::welcomeEmail('value') }}</textarea>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -305,7 +305,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="user_membership_registration_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_email('value') }}</textarea>
+                                        <textarea name="user_membership_registration_text" id="membership_registration" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_email('value') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -345,7 +345,7 @@
                             <div class="row mt-2">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="user_membership_approved_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}</textarea>
+                                        <textarea name="user_membership_approved_text" id="member_approved_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -384,7 +384,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="user_membership_rejected_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_rejected_email('value') }}</textarea>
+                                        <textarea name="user_membership_rejected_text" id="membership_rejected_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_rejected_email('value') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +438,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="intro_text">Full Description</label>
-                                            <textarea name="intro_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}</textarea>
+                                            <div class="editor-js-wrapper">
+                                                <div class="editor-js" id="taskEditor">{!! \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') !!}</div>
+                                                <input type="hidden" value="{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}" name="intro_text" class="editor-js-input hidden">
+                                            </div>
+                                            {{-- <textarea name="intro_text" id="intro_text" class="tiny-mce form-control">{{ \App\Classes\Helpers\SystemSetting::member_registration_approved_email('value') }}</textarea> --}}
                                         </div>
                                     </div>
                                 </div>

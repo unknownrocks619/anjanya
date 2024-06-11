@@ -19,9 +19,11 @@
         "jquery": "^3.7.1",
         "jquery-ui": "^1.13.2",
         "masonry-layout": "^4.2.2",
+        "quill": "^2.0.2",
+        "quill-autoformat": "^0.1.2",
+        "quill-resize-image": "^1.0.4",
         "select2": "^4.1.0-rc.0",
         "simplebar": "^6.2.5",
-        "sweetalert2": "^11.7.3",
-        "tinymce": "^6.4.1"
+        "sweetalert2": "^11.7.3"
     }
 }

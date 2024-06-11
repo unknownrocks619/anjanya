@@ -14,12 +14,11 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     // $config->load();
 
     try {
-        $connection = mysqli_connect(
-                            env('DB_DEFAULT_HOST','localhost'),
-                            env('DB_DEFAULT_USERNAME','root'),
-                            env('DB_DEFAULT_PASSWORD',''),
-                            env('DB_DEFAULT_DATABASE','primary_api'));
-                        
+        $connection = mysqli_connect(env('DB_DEFAULT_HOST','127.0.0.1'),
+            env('DB_DEFAULT_USERNAME','cnzkxzpctf'),
+            env('DB_DEFAULT_PASSWORD','AM98qfhGmk'),
+            env('DB_DEFAULT_DATABASE','cnzkxzpctf'));
+
         $query = 'SELECT * FROM primary_api_dbs WHERE `domain` = ? AND active = 1 LIMIT 1';
         $stmt = $connection->prepare($query);
         $stmt->bind_param('s',$domain['path']);
@@ -32,12 +31,12 @@ if (isset($_SERVER['HTTP_HOST']) ) {
 
         $domainResult = $result->fetch_assoc();
 
-    
+
     } catch (\Throwable $th) {
         //throw $th;
         die("Failed to load db configuration." . $th->getMessage());
     }
-    
+
     $_ENV['DB_DATABASE']  = $domainResult['database'];
     $_ENV['DB_USERNAME']    = $domainResult['username'];
     $_ENV['DB_PASSWORD']   = $domainResult['password'];
@@ -46,7 +45,7 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     $_ENV['APP_URL']    = $domainResult['domain'];
     $_ENV['APP_NAME']   = $domainResult['name'];
 
-    
+
 }
 
 ?>

@@ -125,8 +125,10 @@
 
     @stack('custom_script')
     <script src="{{ asset('backend/js/icons/feather-icon/feather.min.js') }}"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"> --}}
+    <script src="https://cdn.tiny.cloud/1/hv8rmpnwgj2j6717w8resjuy2s8t7mhiw6ovtpldvdyzw6yi/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script type="text/javascript">
         $(function() {
