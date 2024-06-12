@@ -163,7 +163,7 @@
 @push('page_script')
     <script>
             document.addEventListener("DOMContentLoaded", function() {
-                const sidebar = document.querySelector('.eduvibe-sidebar');
+                const sidebar = document.querySelector('.eduvibe-widget');
                 const desc = document.querySelector('.course-details-content');
                 const stopStickyPoint = desc.offsetHeight - sidebar.offsetHeight;
                 console.log('description offset height: ', desc.offsetHeight)
