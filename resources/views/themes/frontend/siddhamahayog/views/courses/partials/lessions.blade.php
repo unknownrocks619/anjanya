@@ -1,7 +1,7 @@
 {{--@if($chapter->lessions()->count())--}}
-<div id="chapter_container_{{$chapter->getKey()}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample1">
-    <div class="edu-accordion-body">
-        <div class="my-2 description">
+<div id="chapter_container_{{$chapter->getKey()}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample1">
+    <div class="edu-accordion-body pb-0">
+        <div class="my-2 " style="font-size:14pt !important;">
             {!! $chapter->short_description !!}
         </div>
         <ul>
