@@ -92,7 +92,7 @@
                     <div class="eduvibe-sidebar course-details-sidebar">
                         <div class="inner">
                             <div class="eduvibe-widget">
-                                @if(! $courseThumbnail)
+                                @if($courseThumbnail)
                                     <div class="video-area">
                                         <div class="thumbnail video-popup-wrapper">
                                             <img class="radius-small w-100" src="{{ \App\Classes\Helpers\Image::getImageAsSize($courseThumbnail,'m')}}" alt="Course Images">
