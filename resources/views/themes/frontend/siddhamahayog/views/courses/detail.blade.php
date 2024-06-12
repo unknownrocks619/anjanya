@@ -29,7 +29,7 @@
     }
     ?>
     {!! $user_theme->partials('page-header',['bannerImage' => null,'title' => $course->course_name,'glitter_background' => null]) !!}
-    <div class="edu-course-details-area edu-section-gap bg-color-white" style="padding-top:5px !important;">
+    <div class="edu-course-details-area edu-section-gap bg-color-white">
         <div class="container-lg container-md container-fluid">
             @if($bannerImage)
                 <div class="row g-5 mb-5">
@@ -42,7 +42,7 @@
             @endif
 
             <div class="row g-5 course-container" style="position:relative;">
-                <div class="col-xl-8 col-lg-7" style="height:100%;overflow-y:scroll">
+                <div class="col-xl-8 col-lg-7">
                     <div class="course-details-content">
                         <h3 class="title mb-0">{{$course->course_name}}</h3>
                         @if($course->tagline)
