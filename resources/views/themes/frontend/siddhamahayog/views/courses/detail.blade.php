@@ -51,7 +51,6 @@
                         <div class="row div col-md-12">
                             <div class="card">
                                 <div class="card-body border" style="font-size: 14pt !important;">
-                                    <h4 class="mt-3"> पाठ्यक्रम विवरण</h4>
                                     {!! $course->course_full_description !!}
                                 </div>
                             </div>
@@ -148,7 +147,9 @@
             <h5 class="mt-4">
                 {{$course->course_name}}
             </h5>
-            <a class="edu-btn" style="line-height: 35px;height:40px;" href="{{route('frontend.courses.enroll.enroll',['course' => $course,'course_slug' => $course->slug])}}">फाराम भर्नुहाेस</a>
+            <a class="edu-btn" style="line-height: 35px;height:40px;" href="{{route('frontend.courses.enroll.enroll',['course' => $course,'course_slug' => $course->slug])}}">
+                फाराम भर्नुहाेस
+            </a>
 
         </div>
     </div>
