@@ -29,7 +29,7 @@
     }
     ?>
     {!! $user_theme->partials('page-header',['bannerImage' => null,'title' => $course->course_name,'glitter_background' => null]) !!}
-    <div class="edu-course-details-area edu-section-gap bg-color-white">
+    <div class="edu-course-details-area edu-section-gap bg-color-white" style="padding-top:5px !important;">
         <div class="container-lg container-md container-fluid">
             @if($bannerImage)
                 <div class="row g-5 mb-5">
@@ -41,8 +41,8 @@
                 </div>
             @endif
 
-            <div class="row g-5" style="position:relative">
-                <div class="col-xl-8 col-lg-7">
+            <div class="row g-5 course-container" style="position:relative;">
+                <div class="col-xl-8 col-lg-7" style="height:100%;overflow-y:scroll">
                     <div class="course-details-content">
                         <h3 class="title mb-0">{{$course->course_name}}</h3>
                         @if($course->tagline)
@@ -161,26 +161,16 @@
     </style>
 @endpush
 @push('page_script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-sidebar/3.3.1/sticky-sidebar.min.js" integrity="sha512-iVhJqV0j477IrAkkzsn/tVJWXYsEqAj4PSS7AG+z1F7eD6uLKQxYBg09x13viaJ1Z5yYhlpyx0zLAUUErdHM6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const sidebar = document.querySelector('.eduvibe-widget');
-                const desc = document.querySelector('.course-details-content');
-                const stopStickyPoint = desc.offsetHeight - sidebar.offsetHeight;
-                console.log('description offset height: ', desc.offsetHeight)
-                console.log('sidebar offset', sidebar.offsetHeight);
-                window.addEventListener('scroll', function() {
-                    const scrollDistance = window.scrollY;
+        $(()=>{
 
-                    if (scrollDistance >= stopStickyPoint) {
-                        sidebar.style.position = 'absolute';
-                        sidebar.style.top = stopStickyPoint + 'px';
-                    } else {
-                        console.log('hello');
-                        sidebar.style.position = '-webkit-sticky'; // For Safari
-                        sidebar.style.position = 'relative';
-                        sidebar.style.top = '0';
-                    }
-                });
+            var sidebar = new StickySidebar('.eduvibe-widget', {
+                containerSelector: '.course-container',
+                innerWrapperSelector: '.sidebar__inner',
+                topSpacing: 20,
+                bottomSpacing: 20
             });
+        })
     </script>
 @endpush
