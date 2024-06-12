@@ -107,7 +107,7 @@
                                         <ul>
                                             <li><span><i class="icon-draft-line"></i> शिक्षण स्थल</span><span> {{$course->course_type}}</span></li>
 
-                                            <li><span><i class="icon-draft-line"></i> लेक्चरहरू</span><span>{{$coure->total_lecture ?? $course->chapters->count()}}</span></li>
+                                            <li><span><i class="icon-draft-line"></i> लेक्चरहरू</span><span>{{$coure->total_lecture}}</span></li>
 
                                             <li><span><i class="icon-translate"></i> भाषा</span><span>{{$course->language}}</span></li>
 
