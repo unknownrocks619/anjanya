@@ -170,7 +170,7 @@ class MenuController extends Controller
         ->where('album_type','!=','glitters')
         ->orderBy('sort_by','asc')->get();
 
-        return $this->frontend_theme('master-nav','gallery.list',
+        return $this->frontend_theme('master','gallery.list',
                                         ['menu' => $this->active_menu,'galleryAlbums' => $galleryAlbums,'pageSeo' => $defaultSEO]);
     }
 

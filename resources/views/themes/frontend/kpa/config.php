@@ -25,6 +25,9 @@ return [
             'preview'       => 'components.service_block.preview',
             'view'          => 'components.service_block.view',
             'namespace'     => 'ServiceBlock'
+        ],
+        'gallery'   => [
+            'view'  => 'components.gallery.view'
         ]
     ],
     'header'    => [

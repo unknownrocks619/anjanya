@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\map;
+
 return [
     'admin' => [
         'General' => [
@@ -12,18 +15,18 @@ return [
 
         'Plugins'   => [
           [
-              'name'    => 'Hotel Management',
+              'name'    => 'Active Services',
               'children'    => [
-                  [
-                      'name'    => 'Amenities',
-                      'route' => 'admin.amenities.list',
-                      'icon'    => ''
-                  ],
-                  [
-                      'name'    => 'Room',
-                      'route'   => 'admin.room.list',
-                      'icon'    => ''
-                  ],
+                //   [
+                //       'name'    => 'Amenities',
+                //       'route' => 'admin.amenities.list',
+                //       'icon'    => ''
+                //   ],
+                //   [
+                //       'name'    => 'Room',
+                //       'route'   => 'admin.room.list',
+                //       'icon'    => ''
+                //   ],
                   [
                       'name'    => 'Testimonials',
                       'route'   => 'admin.testimonials.list',
@@ -39,15 +42,32 @@ return [
                       'route'   => 'admin.events.list',
                       'icon'    => ''
                   ],
-                  [
-                      'name'    => 'Donation',
-                      'route'   => 'admin.donation.list',
-                      'icon'    => ''
-                  ],
+                //   [
+                //       'name'    => 'Donation',
+                //       'route'   => 'admin.donation.list',
+                //       'icon'    => ''
+                //   ],
               ],
               'route'   => '',
               'icon'    => ''
           ]  ,
+          [
+            'name'  => 'Team Builder',
+            'children'  => [
+                [
+                    'name'  => 'Team Album',
+                    'route' => '',
+                    'icon'  => ''
+                ],
+                [
+                    'name'  => 'Team list',
+                    'route' => '',
+                    'icon'  => ''
+                ]
+                ],
+                'route' => '',
+                'icon'  => ''
+          ] ,
           [
             'name' => 'Volunteer',
             'children' => [],

@@ -259,4 +259,12 @@ $(function () {
                     .removeClass('mce-content-body')
                     .removeAttr('editable')
     };
+
+    $('.toggle-view').on('click', function(event) {
+        event.preventDefault();
+        // review view.
+        let _reviewView = $(this).attr('data-show');
+        $('.collapse').removeClass('show');
+        $(_reviewView).addClass('show');
+    })
 })

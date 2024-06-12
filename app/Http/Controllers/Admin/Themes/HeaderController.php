@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class HeaderController extends Controller
 {
     protected array $configs = [];
-    public function header() {
+
+    public function themeHeader() {
         $request = Request::capture();
         $setting = Setting::where('name','header')->first();
 

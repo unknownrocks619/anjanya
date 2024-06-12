@@ -1,30 +1,32 @@
 
     <!-- start header area -->
     <header class="header-two header--sticky" style="position: relative">
-        <div class="header-top">
-            <div class="content">
-                <div class="left-header-top">
-                    <p class="top-details">
-                        Are you ready to grow up your business? <a href="#">Contact Us <i class="fal fa-arrow-right"></i></a>
-                    </p>
-                </div>
-                <div class="right-header-top">
-                    <div class="working-time">
-                        <i class="far fa-clock"></i>
-                        <span>Working: 8.00am - 5.00pm</span>
+        @if(\App\Classes\Helpers\SystemSetting::basic_configuration('tagline') && \App\Classes\Helpers\SystemSetting::basic_configuration('tagline') !='-')
+            <div class="header-top">
+                <div class="content">
+                    <div class="left-header-top">
+                        <p class="top-details">
+                            {{ \App\Classes\Helpers\SystemSetting::basic_configuration('tagline') }}
+                        </p>
                     </div>
-                    <div class="ht-social">
-                        <span>Visit Us:</span>
-                        <ul>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                        </ul>
+                    <div class="right-header-top">
+                        @if( \App\Classes\Helpers\SystemSetting::social_media('social_instagram') || \App\Classes\Helpers\SystemSetting::social_media('social_facebook'))
+                        <div class="ht-social">
+                            <span>Visit Us:</span>
+                            <ul>
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_instagram'))
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                @endif
+                                @if(\App\Classes\Helpers\SystemSetting::social_media('social_facebook'))
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                @endif
+                            </ul>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
         <div class="main-header">
             <div class="content">
                 <div class="header-left">

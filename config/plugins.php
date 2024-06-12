@@ -1,11 +1,12 @@
 <?php
 return [
-    'amenities' => ['enable' => true],
-    'rooms'     => ['enable' => true],
+    'amenities' => ['enable' => false],
+    'rooms'     => ['enable' => false],
     'testimonials'  => ['enable' => true],
     'clients'       => ['enable' => true],
     'events'        => ['enable' => true],
-    'gallery'       => ['enable' => false],
+    'gallery'       => ['enable' => true],
     'donation'      => ['enable'    => true],
-    'volunteer' => ['enable' => true]
+    'volunteer' => ['enable' => true],
+    'teams'     => ['enable' => true]
 ];

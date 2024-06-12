@@ -181,5 +181,6 @@
   
       @vite(['resources/js/themes/kpa/js/app.js','resources/js/public_app.js'])
 
+      @stack('page_script')
     </body>
 </html>
