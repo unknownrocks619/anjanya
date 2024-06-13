@@ -56,7 +56,7 @@ return [
             'children'  => [
                 [
                     'name'  => 'Team Album',
-                    'route' => '',
+                    'route' => 'admin.teams.index',
                     'icon'  => ''
                 ],
                 [

@@ -1,5 +1,6 @@
 <?php
 
+use App\Plugins\TeamBuilder\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
@@ -8,7 +9,7 @@ Route::prefix('admin')
         ->group(function() {
             Route::prefix('teams')
                 ->name('teams.')
-                ->controller(\App\Plugins\Amenities\Http\Controllers\AmenitiesController::class)
+                ->controller(TeamController::class)
                 ->group(function() {
                     Route::get('list','index')->name('index');
                 });
