@@ -16,6 +16,7 @@ use App\Models\Menu as ModelsMenu;
 use App\Models\Page;
 use App\Plugins\Events\Http\Models\Event;
 use App\Plugins\Maintanance\Http\Models\MaintenanaceMode;
+use App\Plugins\TeamBuilder\Http\Controllers\Web\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -175,6 +176,7 @@ class MenuController extends Controller
     }
 
 
+
     /**
      * Display Page Content
      * @param $slug
@@ -267,6 +269,14 @@ class MenuController extends Controller
         }
 
         return $this->json(true, $componentValue['success_message']);
+    }
+
+    public function team_member() {
+        if ( ! $this->active_menu->active) {
+            abort (404);
+        }
+        $teamGroup = new TeamController;
+        return $teamGroup->load($this->active_menu);
     }
 
 }

@@ -6,5 +6,5 @@ return [
     'media'     => 'Media',
     'components'    => 'Components Builder',
     'component'    => 'Component',
-
+    'member'        => 'Member'
 ];

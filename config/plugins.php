@@ -8,5 +8,5 @@ return [
     'gallery'       => ['enable' => true],
     'donation'      => ['enable'    => true],
     'volunteer' => ['enable' => true],
-    'teams'     => ['enable' => true]
+    'teambuilder'     => ['enable' => true]
 ];

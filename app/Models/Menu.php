@@ -39,7 +39,8 @@ class Menu extends AdminModel
         'seo'           => 'SEO',
         'rooms'         => 'Room List',
         'events'        => 'Event List',
-        'gallery'       => 'Gallery'
+        'gallery'       => 'Gallery',
+        'team_member'       => 'Team / Team Member'
     ];
 
     const MENU_POSITIONS = [

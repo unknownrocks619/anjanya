@@ -36,6 +36,7 @@ class RoomController extends  Controller
             ];
         }));
     }
+    
     public function index() {
         $rooms = Rooms::get();
         return $this->admin_theme('rooms.list',['rooms' => $rooms]);
@@ -88,6 +89,7 @@ class RoomController extends  Controller
 
         $room_amenities::insert($record);
     }
+    
     public function edit(Rooms $room,$current_tab = 'general')
     {
         $room->load(['getSeo', 'getImage' => fn ($query) => $query->with('image'),'amenities']);
@@ -98,6 +100,7 @@ class RoomController extends  Controller
                                                     ->catchHooks('bundle.seo.tab', []), app('hooks')->catchHooks('bundle.component.tab',[]));
         return $this->admin_theme('rooms.edit', ['room' => $room,'tabs' => $tabs,'current_tab' => $current_tab]);
     }
+
     public function update(Request $request, Rooms $room) {
         $request->validate([
             'room_name' => 'required',

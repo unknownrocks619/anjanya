@@ -2,16 +2,16 @@
 
 namespace App\Plugins\TeamBuilder\Http\Models;
 
+use App\Models\AdminModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class TeamMember extends Model
+class TeamMember extends AdminModel
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'id_team_name',
+        'id_team',
         'name',
         'position',
         'description',
@@ -23,4 +23,14 @@ class TeamMember extends Model
         'youtube',
         'website',
     ];
+
+    const IMAGE_TYPES = [
+        'profile'  => 'Profile',
+        'background'    => 'Background',
+        'banner'    => 'Banner'
+    ];
+
+    public function team() {
+        return $this->belongsTo(TeamGroup::class,'id_team');
+    }
 }

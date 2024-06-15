@@ -61,7 +61,7 @@ return [
                 ],
                 [
                     'name'  => 'Team list',
-                    'route' => '',
+                    'route' => 'admin.teams.index.member',
                     'icon'  => ''
                 ]
                 ],

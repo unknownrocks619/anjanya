@@ -28,6 +28,13 @@ return [
         ],
         'gallery'   => [
             'view'  => 'components.gallery.view'
+        ],
+        'events'    => [
+            'add' => 'components.events.add',
+            'edit' => 'components.events.edit',
+            'view' => 'components.events.view',
+            'preview' => 'components.events.preview',
+            'namespace' => 'EventComponent'
         ]
     ],
     'header'    => [

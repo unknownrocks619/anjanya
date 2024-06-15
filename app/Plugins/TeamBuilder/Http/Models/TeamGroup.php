@@ -13,6 +13,16 @@ class TeamGroup extends AdminModel
     protected $fillable = [
         'name',
         'slug',
-        'description'
+        'description',
+        'default_group'
     ];
+
+    const IMAGE_TYPES = [
+        'featured'  => 'Featured Image',
+        'banner'    => 'Banner Image'
+    ];
+
+    public function members() {
+        return $this->hasMany(TeamMember::class,'id_team');
+    }
 }
