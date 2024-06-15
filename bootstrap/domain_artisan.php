@@ -13,8 +13,8 @@ if ( isset ($_SERVER['argv'][0]) && $_SERVER['argv'][0] == 'artisan' && $_SERVER
      * @info Load Env File
      */
 
-    $config = Dotenv::createMutable(realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR));
-    $config->load();
+//    $config = Dotenv::createMutable(realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR));
+//    $config->load();
 
     try {
 
