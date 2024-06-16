@@ -33,7 +33,7 @@
         <div class="row my-4">
             <div class="col-md-12">
                 <h5 for="description" class="text-dark">Description</h5>
-                <textarea name="description"  class="component_field form-control @if(env('APP_ENV') == 'production') tiny-mce @endif text-dark"></textarea>
+                <textarea name="description"  class="component_field form-control tiny-mce text-dark"></textarea>
             </div>
         </div>
 
@@ -186,7 +186,7 @@
                                         
                                         <div class='row mt-3'>
                                             <div class='col-md-12'>
-                                                <textarea placeholder='description' class='form-control @if(env('APP_ENV') !='local') tiny-mce @endif component_field' name='service_description[]'></textarea> 
+                                                <textarea placeholder='description' class='form-control  tiny-mce component_field' name='service_description[]'></textarea> 
                                             </div>
                                         </div>
                                         

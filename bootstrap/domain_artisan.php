@@ -13,20 +13,16 @@ if ( isset ($_SERVER['argv'][0]) && $_SERVER['argv'][0] == 'artisan' && $_SERVER
      * @info Load Env File
      */
 
-//    $config = Dotenv::createMutable(realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR));
-//    $config->load();
+    $config = Dotenv::createMutable(realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR));
+    $config->load();
 
     try {
-
         $host = env('DB_DEFAULT_HOST','localhost');
         $username = env('DB_DEFAULT_USERNAME','root');
         $password = env('DB_DEFAULT_PASSWORD','');
         $db = env('DB_DEFAULT_DATABASE','primary_api');
 
-        $connection = mysqli_connect(env('DB_DEFAULT_HOST','127.0.0.1'),
-                                env('DB_DEFAULT_USERNAME','cnzkxzpctf'),
-                                env('DB_DEFAULT_PASSWORD','AM98qfhGmk'),
-                                env('DB_DEFAULT_DATABASE','cnzkxzpctf'));
+        $connection = mysqli_connect($host,$username,$password,$db);
 
     } catch (\Throwable $th) {
         die('Unable to connect to domain using db credentials');
