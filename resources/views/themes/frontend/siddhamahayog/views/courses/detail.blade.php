@@ -72,7 +72,7 @@
                                                     </span>
 
                                                             <span class="me-3 pe-3 text-muted">
-                                                        जम्मा पाठ संख्या: ({{$chapter->total_lesson ?? $chapter->lessions()->count()}})
+                                                        लेक्चरहरु: ({{$chapter->total_lesson ?? $chapter->lessions()->count()}})
                                                     </span>
                                                         </button>
                                                     </div>
