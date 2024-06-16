@@ -186,7 +186,7 @@
                                         
                                         <div class='row mt-3'>
                                             <div class='col-md-12'>
-                                                <textarea placeholder='description' class='form-control  tiny-mce component_field' name='service_description[]'></textarea> 
+                                                <textarea placeholder='description' class='form-control @if( env('APP_ENV') != 'local') tiny-mce @endif tiny-mce component_field' name='service_description[]'></textarea> 
                                             </div>
                                         </div>
                                         
@@ -200,11 +200,7 @@
             _column += `</div>`;
         }
         $('.field_generator').empty().append(_column);
-
-        @if(env('APP_ENV') != 'local')
-            window.setupTinyMceAll()
-            window.setupTinyMce();
-        @endif
+        window.setupTinyMce();
     }
 
     $(document).on('change',"input[name=row]", function(event){
