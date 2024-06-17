@@ -146,7 +146,7 @@
    
       @yield('main')
 
-      {{-- {!! $user_theme->footer() !!} --}}
+      {!! $user_theme->footer() !!}
 
       
     <!-- start loader -->
