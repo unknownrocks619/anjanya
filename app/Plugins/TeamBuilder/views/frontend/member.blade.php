@@ -42,12 +42,13 @@ $post->title = $menu->menu_name
                             data-bs-toggle='collapse'
                              aria-expanded="false" aria-controls="member_{{$team->getKey()}}"
                             >{{$team->name}}</button>
-
-                    @foreach($team->members as $member )
+                    @if ($team->members->count())
                         <div class="row border my-4 collapse" id='member_{{$team->getKey()}}'>
-                            @include('TeamBuilder::frontend.partials.member-col',['member' => $member])
+                            @foreach($team->members as $member )
+                                @include('TeamBuilder::frontend.partials.member-col',['member' => $member])
+                            @endforeach
                         </div>
-                    @endforeach
+                    @endif
                 @endforeach
             </div>
         </div>
