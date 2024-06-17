@@ -172,7 +172,7 @@
     </div>
 
 <script>
-@if(env('APP_ENV') == 'production')
+@if(env('APP_ENV') != 'local')
     window.setupTinyMce();
 @endif
 
@@ -296,7 +296,6 @@
         $('.field_generator').empty().append(_column);
 
         @if(env('APP_ENV') != 'local')
-            window.setupTinyMceAll()
             window.setupTinyMce();
         @endif
     }
