@@ -43,7 +43,7 @@
         <div class="row my-4">
             <div class="col-md-12">
                 <h5 for="description" class="text-dark">Description</h5>
-                <textarea name="description"  class="component_field form-control @if(env('APP_ENV') == 'production') tiny-mce @endif text-dark">{{$values['description']}}</textarea>
+                <textarea name="description"  class="component_field form-control @if(env('APP_ENV') != 'local') tiny-mce @endif text-dark">{{$values['description']}}</textarea>
             </div>
         </div>
 
