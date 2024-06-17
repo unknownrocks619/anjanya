@@ -21,7 +21,7 @@ window.componentRenderElement = function (params) {
     $('#component-render').find('input[name="component"]').remove();
     $("#component-render").append(_selectedComponent);
     $("#component-render").append(params.view);
-    // window.setupTinyMce();
+    window.setupTinyMce();
 
     if ($("#component-render").find('select').length) {
         $.each($("#component-render").find('select'), function (index, element) {
@@ -290,7 +290,7 @@ export default class CommonComponentSelector {
             } else {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
                     // console.log('ddd',tinyMCE.get($(field).attr('id')).getContent());
-                    // _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
                 }
                 _form.append($(field).attr('name'),$(field).val());
             }

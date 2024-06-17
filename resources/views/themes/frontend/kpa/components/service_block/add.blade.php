@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <h5 for="" class="text-dark">Heading</h5>
-                    <input type="text" name="title" id="" class=" tiny-mce text-dark component_field">
+                    <input type="text" name="title" id="" class=" text-dark component_field">
                 </div>
             </div>
         </div>
@@ -78,9 +78,6 @@
     </div>
 
 <script>
-@if(env('APP_ENV') != 'local')
-    window.setupTinyMce();
-@endif
 
     $.each($('select'), function (index, element) {
         if (!$(element).hasClass('no-select-2')) {
