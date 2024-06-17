@@ -21,20 +21,25 @@ class PostController extends Controller
         $category = $categoryCache->getCache($slug);
         $post = $postCache->getCache($post_slug);
 
-        // For Uncategorised
-        if (!$category && $slug != 'uncategorized') {
-            $category  = Category::where('active', true)->with(['getImage', 'getComponents', 'getSeo'])->where('slug', $slug)->firstOrFail();
-            $categoryCache->setCache($category->slug, $category);
-        }
-
         // if post not found in cache, search in db, then cache it.
         if (!$post) {
             $post = Post::where('status', 'active')->where('slug', $post_slug)->firstOrFail();
             $postCache->setCache($post->slug, $post);
         }
 
+        // For Uncategorised
+        if (!$category && $slug != 'uncategorized') {
+            $category  = Category::where('active', true)->with(['getImage', 'getComponents', 'getSeo'])->where('slug', $slug)->first();
 
-        return $this->frontend_theme('master-nav', 'post.single', ['post' => $post, 'category' => $category]);
+            if ( ! $category ) {
+                // get first category attached to it.
+                $category = $post->getCategories()->first();
+
+            }
+            $categoryCache->setCache($category->slug, $category);
+        }
+
+        return $this->frontend_theme('master', 'post.single', ['post' => $post, 'category' => $category]);
     }
 
     public function post_type($post_type)

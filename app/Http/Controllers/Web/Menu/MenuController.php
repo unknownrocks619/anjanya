@@ -14,6 +14,7 @@ use App\Models\ComponentBuilder;
 use App\Models\GalleryAlbums;
 use App\Models\Menu as ModelsMenu;
 use App\Models\Page;
+use App\Models\Post;
 use App\Plugins\Events\Http\Models\Event;
 use App\Plugins\Maintanance\Http\Models\MaintenanaceMode;
 use App\Plugins\TeamBuilder\Http\Controllers\Web\TeamController;
@@ -111,14 +112,13 @@ class MenuController extends Controller
         $bundles = null;
         $isLanding = false;
         $isFooter = true;
-
         $categories = $this->active_menu->categories()->get();
-        
+
         if (!$categories->count()) {
             $categories = Category::with('getImage')->get();
         }
         $pageSeo = $defaultSEO;
-        return $this->frontend_theme('master-nav', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
+        return $this->frontend_theme('master', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
 
     }
     /**

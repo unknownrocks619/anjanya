@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="col-md-3 d-flex align-items-center">
-                    @isset($model::IMAGE_TYPES[$image->type])
+                    {{-- @isset($model::IMAGE_TYPES[$image->type]) --}}
                         <select name="image_type[]" class="form-control update-from-select"
                             data-action="{{ route('admin.media.update_image_type', ['image_relation' => $image, 'model' => $model::class, 'model_id' => $model->getKey()]) }}">
                             <option value="">Select Option</option>
@@ -46,9 +46,9 @@
                                 </option>
                             @endforeach
                         </select>
-                    @else
+                    {{-- @else
                         <input type="text" value="{{$image->title}}" name="title" class="form-control update-from-select" data-action="{{ route('admin.media.update_image_type', ['image_relation' => $image, 'model' => $model::class, 'model_id' => $model->getKey()]) }}">
-                    @endisset
+                    @endisset --}}
                 </div>
                 <div class="col-md-3 d-flex justify-content-end">
                     <button type='button' data-confirm='Are you Sure ?'
