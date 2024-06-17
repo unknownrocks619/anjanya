@@ -10,9 +10,16 @@
                         </p>
                         <div class="right">
                             <ul>
-                                <li><a href="blog-list.html">Company News</a></li>
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="contactus.html">Contact</a></li>
+                                <li><a href="/">Home</a></li>
+                                @if(\App\Classes\Helpers\Menu::parentMenu()->where('menu_type','register')->first())
+                                    <li><a href="/register">{{\App\Classes\Helpers\Menu::parentMenu()->where('menu_type','register')->first()->menu_name}}</a></li>
+                                @endif
+                                @php
+                                    $contactMenu = \App\Classes\Helpers\Menu::parentMenu()->where('menu_type','contact')->first();
+                                @endphp
+                                @if($contactMenu)
+                                <li><a href="{{\App\Classes\Helpers\Menu::getLink($contactMenu)}}">{{$contactMenu->menu_name}}</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
