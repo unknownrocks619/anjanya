@@ -2,6 +2,7 @@
 
 namespace App\Classes\Helpers;
 
+use App\Models\Course;
 use App\Models\Menu as ModelsMenu;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -79,6 +80,15 @@ class Menu
                 return route('frontend.pages.page',['slug' => $page?->slug]);
             }
 
+        }
+
+        if ($menu->menu_type == 'courses') {
+            // get course
+            $course = Course::latest()->where('active',true)->first();
+
+            if ($course ) {
+                return route('frontend.courses.load',['course_slug' => $course->slug]);
+            }
         }
 
         return route('frontend.pages.menu', ['slug' => $menu->slug]);
