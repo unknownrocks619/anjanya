@@ -25,7 +25,7 @@ $post->title = $menu->menu_name;
         <div class="container g-5">
             <div class="row">
                 <div class="col-md-12">
-                    @include('frontend.components.lister', ['model' => $post])
+                    @include('frontend.components.lister', ['model' => $menu])
                 </div>
             </div>
         </div>
