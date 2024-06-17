@@ -320,7 +320,7 @@ export default class CommonComponentSelector {
             if (! $(field).val() ) {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce')) {
                     // console.log(tinyMCE.get($(field).attr('id')).getContent());
-                    // _form.append($(field).attr('name'),tinyMCE.get($(field).attr('id')).getContent());
+                    _form.append($(field).attr('name'),tinyMCE.get($(field).attr('id')).getContent());
                 } else {
                     _form.append($(field).attr('name'),$(field).html());
                 }
@@ -330,7 +330,7 @@ export default class CommonComponentSelector {
                 }
             }  else {
                 if ($(field).is('textarea') && $(field).hasClass('tiny-mce') ) {
-                    // _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
+                    _form.append($(field).attr('name'), tinyMCE.get($(field).attr('id')).getContent())
                 } else {
                     _form.append($(field).attr('name'),$(field).val());
                 }
