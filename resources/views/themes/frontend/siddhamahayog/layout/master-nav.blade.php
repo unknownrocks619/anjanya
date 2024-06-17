@@ -31,7 +31,7 @@
 <div class="container-fluid d-md-block  d-sm-block">
     <div class="row">
         <div class="col-md-12 text-center bg-danger">
-            <a href="/page/vedanta-darshan" target="_blank" class="btn edu-btn">Click Here For Vedanta Darshan Enrollment</a>
+            <a href="/course/vedanta-darshan" target="_blank" class="btn edu-btn">Click Here For Vedanta Darshan Enrollment</a>
         </div>
     </div>
 </div>
