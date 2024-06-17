@@ -22,6 +22,14 @@ if ( isset ($_SERVER['argv'][0]) && $_SERVER['argv'][0] == 'artisan' && $_SERVER
         $password = env('DB_DEFAULT_PASSWORD','');
         $db = env('DB_DEFAULT_DATABASE','primary_api');
 
+        if (env('APP_ENV') != 'local') {
+            $host = env('DB_DEFAULT_HOST','127.0.0.1');
+            $username = env('DB_DEFAULT_USERNAME','cnzkxzpctf');
+            $password = env('DB_DEFAULT_PASSWORD','AM98qfhGmk');
+            $db = env('DB_DEFAULT_DATABASE','cnzkxzpctf');
+                
+        }
+
         $connection = mysqli_connect($host,$username,$password,$db);
 
     } catch (\Throwable $th) {
