@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Scopes\SortableScope;
+use App\Plugins\Product\Http\Models\ProductCategory;
+use App\Plugins\Product\Http\Models\StoreProduct;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +35,7 @@ class Category extends AdminModel
         'course'    => 'Course Category',
         'category'  => 'Category',
         'blog'      => 'Blog',
+        'product'   => 'Product Category'
     ];
 
     const CACHE_NAME = 'FRONTEND_CATEGORY_CACHE';
@@ -115,8 +118,16 @@ class Category extends AdminModel
         return $query;
     }
 
+    public function categoryProducts() {
+        
+    }
+
     public function scopeBlog(Builder $query)
     {
         return $query->where('category_type','blog');
+    }
+
+    public function products(){
+        return $this->hasManyThrough(StoreProduct::class,ProductCategory::class,'id_cat','id','id','id_pro');
     }
 }

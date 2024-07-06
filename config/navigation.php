@@ -69,6 +69,23 @@ return [
                 'icon'  => ''
           ] ,
           [
+            'name'  => 'E-commerce',
+            'children'  => [
+                [
+                    'name'  => 'Products',
+                    'route' => 'admin.products.index',
+                    'icon'  => ''
+                ],
+                [
+                    'name'  => 'Team list',
+                    'route' => 'admin.teams.index.member',
+                    'icon'  => ''
+                ]
+                ],
+                'route' => '',
+                'icon'  => ''
+          ] ,
+          [
             'name' => 'Volunteer',
             'children' => [],
             'route' => '',

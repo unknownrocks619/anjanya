@@ -56,4 +56,5 @@ $app->singleton(
 
 require_once('domain.php');
 require_once('domain_artisan.php');
+
 return $app;

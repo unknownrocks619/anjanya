@@ -48,6 +48,10 @@ class Select2Controller extends Controller
     {
 
         $categoriesQuery = Category::select('id', 'category_name as text');
+        
+        if ($request->has('source') && $request->get('source') == 'product') {
+            $categoriesQuery->where("category_type",'product');
+        }
 
         if ($request->get('search')) {
             $categoriesQuery->where('catgory_name', 'like', '%' . $request->get('search') . '%');

@@ -35,6 +35,7 @@ class MigrateConnection extends Command
          * Get Default Connection
          */
         if (!  Schema::connection('defaultConnection')->hasTable('primary_api_dbs') ){
+            
             Schema::connection('defaultConnection')->create('primary_api_dbs', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
@@ -49,8 +50,16 @@ class MigrateConnection extends Command
             });
         }
 
-        foreach (PrimaryApiDb::get() as $domain) {
+        /**
+         * Run Primary Universe plugins files.
+         */
+        
+        DB::setDefaultConnection('defaultConnection');
+        Artisan::call("migrate --force --database=defaultConnection  --path=database/primary");
+        echo 'Primary API Plugins ' . Artisan::output() .PHP_EOL;
 
+
+        foreach (PrimaryApiDb::get() as $domain) {
 
             echo 'Running Migration For: '. $domain->domain . PHP_EOL;
             $connection = config('database.connections.mysql');
@@ -60,11 +69,12 @@ class MigrateConnection extends Command
                             'username' => $domain->username,
                             'password' => $domain->password,
                         ]);
+
             config(['database.connections.dbMigrate_'.$domain->getKey() => $connection,['database.default' => 'dbMigrate_'.$domain->getKey()]]);
             DB::setDefaultConnection('dbMigrate_'.$domain->getKey());
 
-
             Artisan::call('migrate --force --database=dbMigrate_'.$domain->getKey());
+            echo Artisan::output();
         }
     }
 }

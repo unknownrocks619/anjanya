@@ -14,12 +14,13 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     // $config->load();
 
     try {
+
         if (str_contains($domain['path'],'local')) {
+
             $connection = mysqli_connect(env('DB_DEFAULT_HOST','127.0.0.1'),
             env('DB_DEFAULT_USERNAME','root'),
             env('DB_DEFAULT_PASSWORD',''),
             env('DB_DEFAULT_DATABASE','primary_api'));
-
         } else {
             $connection = mysqli_connect(env('DB_DEFAULT_HOST','127.0.0.1'),
             env('DB_DEFAULT_USERNAME','cnzkxzpctf'),
@@ -53,8 +54,8 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     $_ENV['DB_PORT']    = $domainResult['port'];
     $_ENV['APP_URL']    = $domainResult['domain'];
     $_ENV['APP_NAME']   = $domainResult['name'];
-
-
+    
+    
 }
 
 ?>

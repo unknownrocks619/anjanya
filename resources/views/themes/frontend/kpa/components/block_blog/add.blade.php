@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <h5 for="category" class="text-dark">Category</h5>
                 <select name="categories[]" multiple id="category" class="form-control select2 component_field" >
-                    @foreach (App\Models\Category::where('category_type','blog')->where('active',true)->get() as $category)
+                    @foreach (App\Models\Category::whereIn('category_type',['blog','product'])->where('active',true)->get() as $category)
                     <option value="{{$category->getKey()}}">{{$category->category_name}}</option>
                     @endforeach
                 </select>

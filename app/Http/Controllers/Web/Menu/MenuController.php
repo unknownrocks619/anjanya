@@ -126,7 +126,6 @@ class MenuController extends Controller
      * @return \Illuminate\Contracts\View\View
      */
     public function page(){
-
         $defaultSEO = Meta::metaInfo($this->active_menu);
 
         $page = null;
@@ -134,22 +133,29 @@ class MenuController extends Controller
         $isLanding = false;
         $isFooter = true;
 
-
         $page = $this->active_menu->pages()->latest()->first();
+
         if (!$page) {
+
             abort(404);
         }
+
         $page = $page->eloquentClass()->first();
 
         if (!$page->active) {
             abort(404);
         }
+
+        if ($this->active_menu->pages->count() == 1) {
+            // return redirect()->route('frontend.pages.page',['slug' => $page->slug]);
+        }
+
+
         $page->load('webComponents.getComponents','getImage.image','getSeo');
         $pageSeo = Meta::metaInfo($page);
         if ($pageSeo) {
             $defaultSEO = $pageSeo;
         }
-
         return $this->frontend_theme('master-nav', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
 
     }
@@ -184,10 +190,11 @@ class MenuController extends Controller
      */
     public function pageDetail(string $slug)
     {
+
         $slug = htmlspecialchars($slug);
         $page = Page::where('active', true)->where('slug' , $slug)->with(['getImage','getSeo'])->firstOrFail();
         $pageSeo = Meta::metaInfo($page);
-        return $this->frontend_theme('master-nav', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
+        return $this->frontend_theme('master', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
     }
 
     /**

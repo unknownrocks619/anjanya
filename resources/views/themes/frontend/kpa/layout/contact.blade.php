@@ -205,7 +205,8 @@
       <script src="{{ asset('frontend/kpa/assets/js/vendor/bootstrap.min.js')}}"></script>
       <script src="{{ asset('frontend/kpa/assets/js/vendor/waw.js')}}"></script>
       <script src="{{ asset('frontend/kpa/assets/js/plugins/contact.form.js')}}"></script>
-  
+      <script src="{{ asset('backend/js/notify/bootstrap-notify.min.js') }}"></script>
+
       @vite(['resources/js/themes/kpa/js/app.js','resources/js/public_app.js'])
 
     </body>

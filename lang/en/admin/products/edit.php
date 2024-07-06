@@ -6,5 +6,9 @@ return [
     'media' => 'Media',
     'component' => 'Component',
     'components'    => 'Components',
-    'general'       => 'General'
+    'general'       => 'General',
+    'associated_files'  => 'Associated Files',
+    'additional_description'    => 'Additional Content',
+    'videos'        => 'Video',
+
 ];

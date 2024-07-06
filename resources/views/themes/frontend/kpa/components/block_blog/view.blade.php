@@ -4,6 +4,10 @@
     $subtitle = $componentValue['subtitle'];
     $title = $componentValue['title'];
     $categoriesPost = App\Models\Category::getPosts($componentValue['categories'],6);
+
+    $products = collect(App\Plugins\Product\Http\Models\StoreProduct::getProductsFromCategory($componentValue['categories']));
+
+
 @endphp
 <!-- banner ten area start -->
 <div id="commonComponentBuilder">
@@ -25,6 +29,11 @@
                     </div>
                 </div>
                 <div class="row g-5 mt--30">
+                    @foreach($products as $product)
+                        <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                            @include("Product::frontend.products.partials.lister-item",['product' => $product])
+                        </div>
+                    @endforeach
                     @foreach ($categoriesPost as $post)
                         {!! $user_theme->partials('post.grid',['post' => $post]) !!}
                     @endforeach

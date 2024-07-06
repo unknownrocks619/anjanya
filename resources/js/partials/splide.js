@@ -5,7 +5,9 @@ $(function(){
     if( $('.splide').length ) {
 
         $.each($('.splide'), function (index,elm) {
-            console.log(JSON.parse($(elm).attr('data-config')))
+            if ($(elm).hasClass('no-component') ) {
+                return;
+            }
             let splide = new Splide($(elm)[0],JSON.parse($(elm).attr('data-config')));
             splide.mount();
         })

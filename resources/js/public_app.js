@@ -40,8 +40,7 @@ $(function () {
     window.handleOKResponse = function (response) {
         if (response.status == 200) {
             messageBox(response.state, response.msg);
-
-            if ((response.callback !== null || response.callback !== '')) {
+            if ((response.callback !== null && response.callback !== '')) {
 
                 let fn = window[response.callback];
 
@@ -145,7 +144,7 @@ $(function () {
         })
     })
 
-    window.messageBox = function (state = null, message = null) {
+    window.messageBox = function (state = null, message = null, icon=null) {
         if (state == null || message == null) {
             return;
         }
@@ -159,6 +158,13 @@ $(function () {
         if (_class =='alert alert-success bg-success text-white') {
             // $('.ajax-append').find('input').val('');
         }
+
+        $.notify(`${message}`, {
+            type: (state) ? 'success' : 'danger',
+            allow_dismiss: true,
+            timer: 100,
+            
+        });
     }
 
 

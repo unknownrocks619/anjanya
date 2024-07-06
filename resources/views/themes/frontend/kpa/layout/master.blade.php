@@ -6,7 +6,12 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        @php
+            $defined = get_defined_vars();
+            if (isset($defined['seo'])) {
+                echo $defined['seo'];
+            }
+        @endphp
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="shortcut icon" type="image/x-icon" href="{{\App\Classes\Helpers\SystemSetting::basic_configuration('logo')}}">
       <link rel="stylesheet" href="{{asset('frontend/kpa/assets/css/plugins/swiper.min.css')}}">
@@ -178,7 +183,8 @@
       <script src="{{ asset('frontend/kpa/assets/js/vendor/bootstrap.min.js')}}"></script>
       <script src="{{ asset('frontend/kpa/assets/js/vendor/waw.js')}}"></script>
       <script src="{{ asset('frontend/kpa/assets/js/plugins/contact.form.js')}}"></script>
-  
+      <script src="{{ asset('backend/js/notify/bootstrap-notify.min.js') }}"></script>
+
       @vite(['resources/js/themes/kpa/js/app.js','resources/js/public_app.js'])
 
       @stack('page_script')
