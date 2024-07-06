@@ -54,8 +54,8 @@ if (isset($_SERVER['HTTP_HOST']) ) {
     $_ENV['DB_PORT']    = $domainResult['port'];
     $_ENV['APP_URL']    = $domainResult['domain'];
     $_ENV['APP_NAME']   = $domainResult['name'];
-    
-    
+
+
 }
 
 ?>

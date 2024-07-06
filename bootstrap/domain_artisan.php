@@ -27,7 +27,7 @@ if ( isset ($_SERVER['argv'][0]) && $_SERVER['argv'][0] == 'artisan' && $_SERVER
             $username = env('DB_DEFAULT_USERNAME','cnzkxzpctf');
             $password = env('DB_DEFAULT_PASSWORD','AM98qfhGmk');
             $db = env('DB_DEFAULT_DATABASE','cnzkxzpctf');
-                
+
         }
 
         $connection = mysqli_connect($host,$username,$password,$db);
@@ -70,4 +70,8 @@ SQL;
      * @info Update default connection to current primary table. To Implement later.
      */
 
+    $_ENV['DB_HOST'] = $host;
+    $_ENV['DB_DATABASE'] = $db;
+    $_ENV['DB_USERNAME'] = $username;
+    $_ENV['DB_PASSWORD'] = $password;
 }
