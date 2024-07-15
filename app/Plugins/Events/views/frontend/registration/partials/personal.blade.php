@@ -5,9 +5,9 @@
             <ul id="progressbar">
                 <li class="active" id="account"><strong>{{__('web/registration/events.account') }}</strong></li>
                 <li id="personal" class="active"><strong>{{__('web/registration/events.personal') }}</strong></li>
-                <li id="payment"><strong>{{__('web/registration/events.family-information') }}</strong></li>
-                <li id="jap"><strong>{{__('web/registration/events.jaap-information') }}</strong></li>
-                <li id="profile"><strong>{{ __('web/registration/events.yagya-photo-card') }}</strong></li>
+{{--                <li id="payment"><strong>{{__('web/registration/events.family-information') }}</strong></li>--}}
+{{--                <li id="jap"><strong>{{__('web/registration/events.jaap-information') }}</strong></li>--}}
+{{--                <li id="profile"><strong>{{ __('web/registration/events.yagya-photo-card') }}</strong></li>--}}
             </ul>
         </div>
     </div>

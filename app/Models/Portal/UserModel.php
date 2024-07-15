@@ -33,7 +33,8 @@ class UserModel extends Authenticatable
         'profile',
         'gender',
         'street_address',
-        'password'
+        'password',
+        'source'
     ];
 
     protected $hidden = [
@@ -96,7 +97,9 @@ class UserModel extends Authenticatable
 
     public function emergency()
     {
-        return $this->hasOne(MemberEmergencyMeta::class, 'member_id')->where('contact_type','emergency')->latest();
+        return $this->hasOne(MemberEmergencyMeta::class, 'member_id')
+                    ->where('contact_type','emergency')
+                    ->latest();
     }
 
     public function emergency_contact()

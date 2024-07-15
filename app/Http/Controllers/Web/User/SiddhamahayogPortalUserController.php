@@ -31,22 +31,22 @@ class SiddhamahayogPortalUserController extends Controller
      * @return
      */
     public function userResponse(Request $request): array {
-        
+
         $request->validate([
             'email' => 'required|email'
         ]);
 
         $user = UserModel::with(['diskshya','meta','emergency'])->where('email', $request->post('email'))->first();
 
-        if ( ! $user ) {
-
-            $userModel = new UserModel();
-            $userModel->setTable('program_users')->setConnection('ramarchan_connection');
-            // check in ramrachan connection
-            $user = $userModel->where('email',$request->post('email'))
-                                ->first();
-
-        }
+//        if ( ! $user ) {
+//
+//            $userModel = new UserModel();
+//            $userModel->setTable('program_users')->setConnection('ramarchan_connection');
+//            // check in ramrachan connection
+//            $user = $userModel->where('email',$request->post('email'))
+//                                ->first();
+//
+//        }
 
         $returnArray = [];
 
@@ -93,7 +93,6 @@ class SiddhamahayogPortalUserController extends Controller
                 'emergency' => [],
                 'userID'    => $user?->getKey()
             ];
-
             if ( $user->meta ) {
                 $returnArray['meta'] = [
                     'history' => $user->meta->history ?  (array) $user->meta->history : [],
@@ -182,8 +181,10 @@ class SiddhamahayogPortalUserController extends Controller
                 if (session()->has('allow_back') && isset ($sessionUserDetail['userID']) ) {
 
                     $memberRegistration = UserModel::where('id',$sessionUserDetail['userID'])->first();
-                    $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
-                    $memberRegistration->save();
+                    if ( isset ($sessionUserDetail['profile_url']) ) {
+                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                        $memberRegistration->save();
+                    }
                     $this->memberRegistration = $memberRegistration;
                     return $memberRegistration;
                 }
@@ -198,8 +199,7 @@ class SiddhamahayogPortalUserController extends Controller
                         'middle_name'   => $sessionUserDetail['middle_name'],
                         'last_name'     => $sessionUserDetail['last_name'],
                         'gotra'         => $sessionUserDetail['gotra'],
-                        'source'        => 'Website - Hanumant Yagya Form',
-                        'profile'       => ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']],
+                        'source'        => $sessionUserDetail['reference_source_detail'] ?? $sessionUserDetail['reference_source'],
                         'gender'        => $sessionUserDetail['gender'],
                         'country'       => $sessionUserDetail['country'],
                         'city'          => $sessionUserDetail['city'],
@@ -211,8 +211,14 @@ class SiddhamahayogPortalUserController extends Controller
                         'is_phone_verified' => false,
                         'sharing_code'  => rand(11111111,9999999999),
                     ]);
+
                     $memberRegistration->password = $sessionUserDetail['user_password'];
                     $memberRegistration->role_id = 7;
+
+                    if ( isset ($sessionUserDetail['profile_url']) ) {
+                        $memberRegistration->profile =  ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    }
+
                     $memberRegistration->save();
                 } else {
                     $memberRegistration = UserModel::where('email',session()->get('registration-email'))->first();
@@ -222,7 +228,6 @@ class SiddhamahayogPortalUserController extends Controller
                         'middle_name'   => $sessionUserDetail['middle_name'],
                         'last_name'     => $sessionUserDetail['last_name'],
                         'gotra'         => $sessionUserDetail['gotra'],
-                        'profile'       => ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']],
                         'gender'        => $sessionUserDetail['gender'],
                         'country'       => $sessionUserDetail['country'],
                         'city'          => $sessionUserDetail['city'],
@@ -230,8 +235,11 @@ class SiddhamahayogPortalUserController extends Controller
                         'date_of_birth' => $sessionUserDetail['date_of_birth'],
                         'phone_number'  => $sessionUserDetail['phone_number'],
                     ]);
-                    $memberRegistration->save();
 
+                    if ( isset ($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
+                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    }
+                    $memberRegistration->save();
 
                 }
                 $this->memberRegistration = $memberRegistration;
@@ -246,12 +254,17 @@ class SiddhamahayogPortalUserController extends Controller
 
                 $meta->personal = $sessionUserDetail['meta']['personal'];
                 $meta->education = $sessionUserDetail['meta']['education'];
-                $meta->total_connected_family = $sessionUserDetail['total_member_with_gurudev'];
+
+                if ( isset ($sessionUserDetail['total_member_with_gurudev']) ) {
+                    $meta->total_connected_family = $sessionUserDetail['total_member_with_gurudev'];
+                }
 
                 $meta->save();
                 // Update Emergency Contact Information
 
-                $emergency = MemberEmergencyMeta::where('member_id', $memberRegistration->getKey())->first();
+                $emergency = MemberEmergencyMeta::where('member_id', $memberRegistration->getKey())
+                                                ->where('contact_type','emergency')
+                                                ->first();
 
                 if (! $emergency ) {
 
@@ -267,47 +280,53 @@ class SiddhamahayogPortalUserController extends Controller
 
                 $emergency->save();
                 // update family information,
-                $familyInsert = [];
+                if (isset($sessionUserDetail['family_detail']) ) {
+                    $familyInsert = [];
 
-                foreach ($sessionUserDetail['family_detail']['members'] as $family_member) {
-                    // create dummy email for family member of this user.
-                    $familyInsert[] = [
+                    foreach ($sessionUserDetail['family_detail']['members'] as $family_member) {
+                        // create dummy email for family member of this user.
+                        $familyInsert[] = [
+                            'member_id' => $memberRegistration->getKey(),
+                            'contact_person' => $family_member['name'],
+                            'relation'  => $family_member['relation'],
+                            'phone_number'  => $family_member['phone_number'],
+                            'profile' => null,//$family_member['profile'],
+                            'contact_type'  => 'emergency',
+                            'gender'    => $family_member['gender'],
+                            'created_at' => date("Y-m-d H:i:s"),
+                            'updated_at' => date("Y-m-d H:i:s")
+                        ];
+                    }
+
+                    if ( count ($familyInsert ) ) {
+                        MemberEmergencyMeta::insert($familyInsert);
+                    }
+                }
+
+
+                if (isset($sessionUserDetail['jap_detail']) ) {
+                    // jap Information
+                    $jap = new MemberJapInformation();
+
+                    $jap->fill([
                         'member_id' => $memberRegistration->getKey(),
-                        'contact_person' => $family_member['name'],
-                        'relation'  => $family_member['relation'],
-                        'phone_number'  => $family_member['phone_number'],
-                        'profile' => null,//$family_member['profile'],
-                        'contact_type'  => 'family',
-                        'gender'    => $family_member['gender'],
-                        'created_at' => date("Y-m-d H:i:s"),
-                        'updated_at' => date("Y-m-d H:i:s")
-                    ];
+                        'event_id'  => 5,
+                        'total_jap_count' => $sessionUserDetail['jap_detail']['total_jap_count'],
+                        'jap_start_date' => $sessionUserDetail['jap_detail']['jap_start_date'],
+                        'total_expected_jap_count' => $sessionUserDetail['jap_detail']['estimated_jap'],
+                        'average_jap_count' => 0,
+                        'is_family' => false,
+                    ]);
+
+                    $jap->save();
+
+
                 }
-
-                if ( count ($familyInsert ) ) {
-                    MemberEmergencyMeta::insert($familyInsert);
-                }
-
-                // jap Information
-                $jap = new MemberJapInformation();
-
-                $jap->fill([
-                    'member_id' => $memberRegistration->getKey(),
-                    'event_id'  => 5,
-                    'total_jap_count' => $sessionUserDetail['jap_detail']['total_jap_count'],
-                    'jap_start_date' => $sessionUserDetail['jap_detail']['jap_start_date'],
-                    'total_expected_jap_count' => $sessionUserDetail['jap_detail']['estimated_jap'],
-                    'average_jap_count' => 0,
-                    'is_family' => false,
-                ]);
-
-                $jap->save();
-
                 // Now Enroll user in Program.
 
-                $batchID = 5;
-                $sectionID = 6;
-                $programID = 5;
+                $batchID = 7;
+                $sectionID = 10;
+                $programID = 9;
                 $studentID = $memberRegistration->getKey();
 
                 if ( ! ProgramUser::where('program_id','=' , $programID)->where('student_id','=',$studentID)->exists()) {
@@ -354,8 +373,7 @@ class SiddhamahayogPortalUserController extends Controller
                 $yagyaInformation = HanumandYagyaCounter::where('member_id',$memberRegistration->getKey())
                                                             ->where('program_id',$programID)
                                                             ->first();
-
-                if (! $yagyaInformation ) {
+                if (! $yagyaInformation && isset($sessionUserDetail['jap_detail'])) {
 
                     $yagyaInformation = new HanumandYagyaCounter();
                     $yagyaInformation->fill([
@@ -371,10 +389,10 @@ class SiddhamahayogPortalUserController extends Controller
                 }
 
                 // check if the information was not filled today. than fill it.
-                $yagyaDailyCounter = HanumandYagyaDailyCounter::where('humand_yagya_id' , $yagyaInformation->getKey())
+                $yagyaDailyCounter = HanumandYagyaDailyCounter::where('humand_yagya_id' , $yagyaInformation?->getKey())
                                                                 ->where('count_date',now()->format('Y-m-d'))
                                                                 ->first();
-                if ( ! $yagyaDailyCounter ) {
+                if ( ! $yagyaDailyCounter  && isset($sessionUserDetail['jap_detail'])) {
                     $yagyaDailyCounter = new HanumandYagyaDailyCounter();
                     $yagyaDailyCounter->fill([
                         'humand_yagya_id' => $yagyaInformation->getKey(),
@@ -389,6 +407,7 @@ class SiddhamahayogPortalUserController extends Controller
             });
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             Log::error('Unable to save user jap info. '. $e->getMessage(),['HANUMANT YAGYA']);
             return false;
         }

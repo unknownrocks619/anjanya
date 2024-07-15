@@ -16,16 +16,16 @@
             <div>
                 @php
 
-                    if (!\Illuminate\Support\Facades\Cache::has('ADMIN_NAVIGATION')) {
+//                    if (!\Illuminate\Support\Facades\Cache::has('ADMIN_NAVIGATION')) {
                         $navigation = [];
                         if (config('navigation.admin')) {
                             $navigation[] = config('navigation.admin');
                         }
 
-                        // \Illuminate\Support\Facades\Cache::add('ADMIN_NAVIGATION', $navigation);
-                    } else {
-                        // $navigation = \Illuminate\Support\Facades\Cache::get('NAVIATION');
-                    }
+//                        // \Illuminate\Support\Facades\Cache::add('ADMIN_NAVIGATION', $navigation);
+//                    } else {
+//                         $navigation = \Illuminate\Support\Facades\Cache::get('NAVIATION');
+//                    }
                 @endphp
                 <ul class="sidebar-links" id="simple-bar">
                     <li class="back-btn"><a href="index.html"><img class="img-fluid for-light"

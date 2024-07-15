@@ -250,7 +250,7 @@ class WebEventsController extends Controller
         $registrationDetail['reference_source'] = $request->post('reference_source');
         $registrationDetail['referer_name'] = $request->post('referer_name');
         $registrationDetail['referer_relation'] = $request->post('referer_relation');
-        $registrationDetail['reference_source_detail'] = $request->post('reference_source_detail');
+        $registrationDetail['reference_source_detail'] = $request->post('reference_source');
 
         $full_name = $request->post('first_name');
 
@@ -290,7 +290,7 @@ class WebEventsController extends Controller
 
         session()->put('registration_detail', $registrationDetail);
         session()->put('registration_detail',$registrationDetail);
-        session()->put('current_step', 'emergencyContact');
+        session()->put('current_step', 'complete');
 
 
     }
@@ -439,8 +439,7 @@ class WebEventsController extends Controller
         session()->put('current_step','complete');
     }
 
-    public function complete() {
-
+    public function complete(Request $request, Event $event) {
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
 
         $insertedRecord = $siddhamahayogUser->storeEventDetail();
@@ -452,6 +451,7 @@ class WebEventsController extends Controller
 
             $failedRecord = new FailedRecord();
             $failedRecord->session_info = $sessionRecord;
+            $failedRecord->id_event = $event->getKey();
             $failedRecord->save();
             session()->put('current_step','failed');
 
@@ -460,6 +460,7 @@ class WebEventsController extends Controller
             $successRecord = new SuccessRecords();
             $successRecord->session_info = $sessionRecord;
             $successRecord->source = 'Event Registration';
+            $successRecord->id_event = $event->getKey();
             $successRecord->save();
 
             session()->forget('registration_detail');

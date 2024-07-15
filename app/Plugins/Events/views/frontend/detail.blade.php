@@ -30,9 +30,16 @@
 @endphp
 @section('page_title') - {{$event->event_title}} @endsection
 @section('main')
+    <style>
+        .description h1,
+        .description h2,
+        .description h3 {
+            background: linear-gradient(45deg, #f6dac2, #e9dfe2);
+        }
+    </style>
     {!! $user_theme->partials('page-header',['title' => $event->event_title,'bannerImage' => $banner_image,'breadCrumb' => $breadCrumb]) !!}
     <div class="edu-event-details-area edu-event-details edu-section-gap bg-color-white">
-        <div class="container">
+        <div class="container-fluid mx-auto p-5">
             @if($welcome_image)
             <div class="row g-5">
                 <div class="col-lg-12">
@@ -43,7 +50,7 @@
             </div>
             @endif
             <div class="row g-5">
-                <div class="col-lg-7">
+                <div class="col-lg-8">
                     <div class="content">
                         <h3 class="title">{{$event->event_title}}</h3>
                         {!! $event->full_description !!}
@@ -56,7 +63,7 @@
 
                 </div>
 
-                <div class="col-lg-5">
+                <div class="col-lg-4">
                     <div class="eduvibe-sidebar">
                         <div class="eduvibe-widget eduvibe-widget-details">
                             <h5 class="title">Event Detail</h5>
