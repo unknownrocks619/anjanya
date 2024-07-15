@@ -35,11 +35,10 @@ class SeoController extends Controller
         if (!$seo->save()) {
             return $this->json(false, 'Unable to save record.');
         }
-
         $seoRelation = new SeoRelation();
         $seoRelation->fill([
             'seo_id'        => $seo->getKey(),
-            'relation'      => $model::class,
+            'relation'      => $model->getTable(),
             'relation_id'   => $model->getKey()
         ]);
 

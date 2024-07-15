@@ -3,6 +3,7 @@
 namespace App\Plugins\Events\Http\Models;
 
 use App\Models\AdminModel;
+use App\Models\SeoRelation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,5 +53,10 @@ class Event extends AdminModel
         }
 
         return $slug;
+    }
+
+    public function getSeo()
+    {
+        return $this->hasOne(SeoRelation::class,'relation_id')->where('relation',$this->getTable());
     }
 }

@@ -60,7 +60,6 @@ class MenuController extends Controller
         }
 
         $defaultSEO = Meta::metaInfo($this->active_menu);
-
         $page = null;
         $bundles = null;
         $isLanding = false;

@@ -124,6 +124,7 @@ class EventsController extends Controller
         ];
         $tabs = array_merge($tabs,app('hooks')->catchHooks('bundle.image.tab', []), app('hooks')
             ->catchHooks('bundle.seo.tab', []), app('hooks')->catchHooks('bundle.component.tab',[]));
+
         return $this->admin_theme('events.edit', ['event' => $event,'tabs' => $tabs,'current_tab' => $current_tab]);
 
     }

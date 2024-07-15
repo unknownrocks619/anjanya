@@ -9,6 +9,12 @@
     <title>{{\App\Classes\Helpers\SystemSetting::basic_configuration('site_name')}}@yield('page_title')</title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{\App\Classes\Helpers\SystemSetting::logo()}}">
+    @php
+        $defined = get_defined_vars();
+        if (isset($defined['seo'])) {
+            echo $defined['seo'];
+        }
+    @endphp
 
     <!-- CSS
     ============================================ -->

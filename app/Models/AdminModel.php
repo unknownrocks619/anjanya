@@ -40,7 +40,8 @@ class AdminModel extends Model
     }
     public function getSeo()
     {
-        return $this->hasOne(SeoRelation::class, 'relation_id')->where('relation', get_class($this));
+        return $this->hasOne(SeoRelation::class, 'relation_id')
+                    ->where('relation', '=',$this->getTable());
     }
 
     public function getComponents()

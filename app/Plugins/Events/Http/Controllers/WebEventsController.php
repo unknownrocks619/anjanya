@@ -3,12 +3,14 @@
 namespace App\Plugins\Events\Http\Controllers;
 
 use App\Classes\Helpers\Image;
+use App\Classes\Helpers\Meta;
 use App\Classes\Plugins\Hook;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\FailedRecord;
 use App\Models\Portal\PortalCountry;
 use App\Models\Portal\UserModel;
+use App\Models\SeoRelation;
 use App\Models\SuccessRecords;
 use App\Plugins\Events\Http\Models\Event;
 use App\Rules\Unicode;
@@ -40,6 +42,7 @@ class WebEventsController extends Controller
         $data = [
             'extends'   => 'master-nav',
             'event'      => $event,
+            'seo'       => Meta::metaInfo($event),
             'events'    => $this->getEvents()
         ];
         return view('Events::frontend.detail',$data);
