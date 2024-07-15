@@ -34,7 +34,9 @@ class Event extends AdminModel
     const IMAGE_TYPES = [
         'featured_image'    => 'Featured Image',
         'banner_image'  => 'Banner Image',
-        'welcome_image' => 'Welcome Image'
+        'welcome_image' => 'Welcome Image',
+        'seo'           => 'Seo',
+        'associated-file'   => 'Associated File'
     ];
 
     public static function getSlug(string $slug, Model $model = null): string
