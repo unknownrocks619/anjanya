@@ -26,6 +26,7 @@ class UserModel extends Authenticatable
         'city',
         'address',
         'date_of_birth',
+        'birth_time',
         'email',
         'remember_token',
         'sharing_code',

@@ -63,9 +63,9 @@ class Meta
         }
 
         if ($seoContent) {
-            $title = $seoContent->seo?->title ?? $model->title;
-            $description = $seoContent->seo?->description ?? $model->intro_text;
-            $keyword = $seoContent->seo?->keyword;
+            $title = strip_tags($seoContent->seo?->title ?? $model->title);
+            $description = strip_tags($seoContent->seo?->description ?? $model->intro_text);
+            $keyword = strip_tags($seoContent->seo?->keyword);
 
             self::$templateString = str_replace(
                 [

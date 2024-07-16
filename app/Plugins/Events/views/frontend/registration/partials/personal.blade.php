@@ -136,6 +136,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12 my-3">
+                                            <div class="form-group">
+                                                <label for="birth_time">Birth Time</label>
+                                                <input type="time" name="birth_time" class="form-control" id="birth_time" value="{{isset(session()->get('registration_detail')['birth_time']) ? session()->get('registration_detail')['birth_time'] : ''}}" />
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row my-3">
                                         <div class="col-md-12 col-lg-6 mt-2  col-sm-12">

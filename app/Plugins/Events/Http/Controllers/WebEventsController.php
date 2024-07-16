@@ -178,6 +178,7 @@ class WebEventsController extends Controller
                 'phone_number'  => '',
                 'date_of_birth' => '',
                 'place_of_birth' => '',
+                'birth_time'    => '',
                 'meta'  => [],
                 'dikshya'   => []
             ];
@@ -248,13 +249,13 @@ class WebEventsController extends Controller
         $registrationDetail['street_address'] = $request->post('street_address');
         $registrationDetail['date_of_birth'] = $request->post('date_of_birth');
         $registrationDetail['place_of_birth'] = $request->post('place_of_birth');
+        $registrationDetail['birth_time'] = $request->post('birth_time');
         $registrationDetail['education'] = $request->post('education');
         $registrationDetail['education_major'] = $request->post('field_of_study');
         $registrationDetail['reference_source'] = $request->post('reference_source');
         $registrationDetail['referer_name'] = $request->post('referer_name');
         $registrationDetail['referer_relation'] = $request->post('referer_relation');
         $registrationDetail['reference_source_detail'] = $request->post('reference_source');
-
         $full_name = $request->post('first_name');
 
         if ($request->post('middle_name') ) {
@@ -266,6 +267,7 @@ class WebEventsController extends Controller
 
         $registrationDetail['meta']['personal']['place_of_birth'] = $request->post('place_of_birth');
         $registrationDetail['meta']['personal']['date_of_birth'] = $request->post('date_of_birth');
+        $registrationDetail['meta']['personal']['birth_time'] = $request->post('birth_time');
         $registrationDetail['meta']['personal']['street_address'] = $request->post('street_address');
         $registrationDetail['meta']['personal']['gender'] = $request->post('gender');
         $registrationDetail['meta']['personal']['state'] = $request->post('state');
