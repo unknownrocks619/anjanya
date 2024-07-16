@@ -49,7 +49,7 @@
                 </div>
             </div>
             @endif
-            <div class="row g-5">
+            <div class="row g-5 main-content-wrapper">
                 <div class="col-lg-8">
                     <div class="content">
                         <h3 class="title">{{$event->event_title}}</h3>
@@ -220,3 +220,17 @@
         </div>
     </div>
 @endsection
+@push('page_script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-sidebar/3.3.1/sticky-sidebar.min.js" integrity="sha512-iVhJqV0j477IrAkkzsn/tVJWXYsEqAj4PSS7AG+z1F7eD6uLKQxYBg09x13viaJ1Z5yYhlpyx0zLAUUErdHM6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(()=>{
+
+            var sidebar = new StickySidebar('.eduvibe-sidebar', {
+                containerSelector: '.main-content-wrapper',
+                innerWrapperSelector: '.eduvide-sidebar',
+                topSpacing: 20,
+                bottomSpacing: 20
+            });
+        })
+    </script>
+@endpush
