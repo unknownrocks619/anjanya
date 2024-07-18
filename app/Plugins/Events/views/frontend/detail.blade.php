@@ -64,7 +64,7 @@
                         }
 
                         .splide__slide {
-                            max-height: 450px;
+                            /*max-height: 450px;*/
                             text-align: center;
                         }
 
