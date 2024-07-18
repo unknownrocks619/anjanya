@@ -274,7 +274,7 @@
 @push('addition_footer')
     <div class="border d-block d-md-none d-lg-none container-fluid" style="position:fixed;bottom: 0px ;background:#fff;z-index:9999999;min-height:75px;box-shadow:0px -3px 5px #9c9c9c">
         <div class="">
-            <a class="edu-btn w-100 text-center mt-2" href="">
+            <a class="edu-btn w-100 text-center mt-2" href="{{route('frontend.event.event-registration',['slug' => $event->event_slug])}}">
                 Register Now
             </a>
 
