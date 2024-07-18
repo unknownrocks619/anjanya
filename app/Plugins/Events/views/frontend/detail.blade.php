@@ -73,7 +73,7 @@
                         }
                     </style>
                     <section id="big_screen_splideComponent__{{$event->getKey()}}"
-                             class="d-none d-md-block d-lg-block border splide my-2" data-config="{{json_encode(['perPage' => 3,'rewind'=>true])}}">
+                             class="d-none d-md-block d-lg-block border splide my-2" data-config="{{json_encode(['perPage' => 2,'rewind'=>true])}}">
 
                         <div class="splide__track">
                             <ul class="splide__list">
