@@ -63,7 +63,7 @@
 
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-4 d-lg-block d-md-block d-none">
                     <div class="eduvibe-sidebar">
                         <div class="eduvibe-widget eduvibe-widget-details">
                             <h5 class="title">Event Detail</h5>
@@ -220,6 +220,17 @@
         </div>
     </div>
 @endsection
+
+@push('addition_footer')
+    <div class="border d-block d-md-none d-lg-none container-fluid" style="position:fixed;bottom: 0px ;background:#fff;z-index:9999999;min-height:75px;box-shadow:0px -3px 5px #9c9c9c">
+        <div class="">
+            <a class="edu-btn w-100 text-center mt-2" href="">
+                Register Now
+            </a>
+
+        </div>
+    </div>
+@endpush
 @push('page_script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-sidebar/3.3.1/sticky-sidebar.min.js" integrity="sha512-iVhJqV0j477IrAkkzsn/tVJWXYsEqAj4PSS7AG+z1F7eD6uLKQxYBg09x13viaJ1Z5yYhlpyx0zLAUUErdHM6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
