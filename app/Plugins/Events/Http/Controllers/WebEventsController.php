@@ -38,12 +38,20 @@ class WebEventsController extends Controller
                 ->firstOrFail();
             Cache::put('EVENT-DETAIL-'.$slug,$event);
         }
+        $seo = Meta::metaInfo($event);
+        $sliders = collect($event->getImage()->where('type','sliders')->get());
+        if ($sliders->count()) {
+            foreach ($sliders as $slider) {
+                $seo .= '<meta property="og:image" content="'.Image::getImageAsSize($slider->image->filepath,'l').'" />'.PHP_EOL;
+            }
+        }
 
         $data = [
             'extends'   => 'master-nav',
             'event'      => $event,
-            'seo'       => Meta::metaInfo($event),
-            'events'    => $this->getEvents()
+            'seo'       => $seo,
+            'events'    => $this->getEvents(),
+            'sliders' => $sliders
         ];
         return view('Events::frontend.detail',$data);
 

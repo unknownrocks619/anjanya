@@ -28,8 +28,6 @@
         ['label' => $event->event_title,'link' => '#'],
     ];
 
-    // check for slider images.
-    $sliders = $event->getImage()->where('type','sliders')->get();
 @endphp
 @section('page_title') - {{$event->event_title}} @endsection
 @section('main')
