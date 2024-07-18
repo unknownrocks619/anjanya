@@ -36,7 +36,8 @@ class Event extends AdminModel
         'banner_image'  => 'Banner Image',
         'welcome_image' => 'Welcome Image',
         'seo'           => 'Seo',
-        'associated-file'   => 'Associated File'
+        'associated-file'   => 'Associated File',
+        'sliders'   => 'Sliders'
     ];
 
     public static function getSlug(string $slug, Model $model = null): string

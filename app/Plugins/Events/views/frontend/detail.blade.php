@@ -27,6 +27,9 @@
         ['label' => 'Events' ,'link' => '/events'],
         ['label' => $event->event_title,'link' => '#'],
     ];
+
+    // check for slider images.
+    $sliders = $event->getImage()->where('type','sliders')->get();
 @endphp
 @section('page_title') - {{$event->event_title}} @endsection
 @section('main')
@@ -39,16 +42,22 @@
     </style>
     {!! $user_theme->partials('page-header',['title' => $event->event_title,'bannerImage' => $banner_image,'breadCrumb' => $breadCrumb]) !!}
     <div class="edu-event-details-area edu-event-details edu-section-gap bg-color-white">
+
         <div class="container-fluid mx-auto p-5">
-            @if($welcome_image)
-            <div class="row g-5">
-                <div class="col-lg-12">
-                    <div class="thumbnail">
-                        <img src="{{$welcome_image}}" alt="{{$event->event_title}} Event Image" class="w-100" />
+            @if($welcome_image &&  !  $sliders->count())
+                <div class="row g-5">
+                    <div class="col-lg-12">
+                        <div class="thumbnail">
+                            <img src="{{$welcome_image}}" alt="{{$event->event_title}} Event Image" class="w-100" />
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
+
+            @if($sliders->count())
+
+            @endif
+
             <div class="row g-5 main-content-wrapper">
                 <div class="col-lg-8">
                     <div class="content">
