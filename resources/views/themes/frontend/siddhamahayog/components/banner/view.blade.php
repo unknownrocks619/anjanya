@@ -12,8 +12,8 @@
 @endphp
 
 <!-- Start Newsletter Area  -->
-<div class="edu-newsletter-area newsletter-overlay-to-another">
-    <div class="container newsletter-style-5 bg-color-primary" style="{{$styleKey}} : {{$styleValue}} !important">
+<div class="edu-newsletter-area newsletter-overlay-to-another" style="margin-top:-45px;">
+    <div class="container newsletter-style-5 bg-color-primary" style="{{$styleKey}} : {{$styleValue}} !important;padding-top:50px; padding-bottom:50px;">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
                 <div class="inner">

@@ -41,7 +41,7 @@
         }
     </style>
     {!! $user_theme->partials('page-header',['title' => $event->event_title,'bannerImage' => $banner_image,'breadCrumb' => $breadCrumb]) !!}
-    <div class="edu-event-details-area edu-event-details edu-section-gap bg-color-white">
+    <div class="edu-event-details-area edu-event-details edu-section-gap bg-color-white" style="padding-top: 10px !important;">
 
         <div class="container-fluid mx-auto p-5">
             @if($welcome_image &&  !  $sliders->count())
@@ -55,7 +55,50 @@
             @endif
 
             @if($sliders->count())
+                    <style>
 
+                        .splide__optional-button-container {
+                            margin-bottom: 1rem;
+                            margin-top: 1rem;
+                            text-align: center;
+                        }
+
+                        .splide__slide {
+                            max-height: 450px;
+                            text-align: center;
+                        }
+
+                        .splide__slide > img {
+                            width: 100%
+                        }
+                    </style>
+                    <section id="big_screen_splideComponent__{{$event->getKey()}}"
+                             class="d-none d-md-block d-lg-block border splide my-2" data-config="{{json_encode(['perPage' => 3,'rewind'=>true])}}">
+
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                @foreach ($sliders as $slider)
+                                    <li class="splide__slide  mx-2" >
+                                        <img src='{{App\Classes\Helpers\Image::getImageAsSize($slider->image->filepath,'m')}}' />
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="small_screen_splideComponent__{{$event->getKey()}}"
+                             class="d-block d-sm-none border splide my-2" data-config="{{json_encode(['perPage' => 1,'rewind'=>true])}}">
+
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                @foreach ($sliders as $slider)
+                                    <li class="splide__slide  mx-2" >
+                                        <img src='{{App\Classes\Helpers\Image::getImageAsSize($slider->image->filepath,'m')}}' />
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </section>
             @endif
 
             <div class="row g-5 main-content-wrapper">
@@ -73,7 +116,7 @@
                 </div>
 
                 <div class="col-lg-4 d-lg-block d-md-block d-none">
-                    <div class="eduvibe-sidebar">
+                    <div class="eduvibe-sidebar" style="margin-top: -35px;">
                         <div class="eduvibe-widget eduvibe-widget-details">
                             <h5 class="title">Event Detail</h5>
                             <div class="widget-content">

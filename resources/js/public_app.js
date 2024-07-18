@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import './partials/select2'
+import './partials/splide'
 
 Object.defineProperty(window, 'SIDEBAR_TEXT', {
     value: {
