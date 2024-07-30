@@ -4,15 +4,16 @@ use App\Http\Controllers\Admin\Select2\Select2Controller;
 use App\Http\Controllers\Admin\User\ApplicationController;
 use App\Http\Controllers\Admin\User\ApplicationPaymentController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Http\Controllers\Ajax\AjaxTabViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('users')
     ->name('users.')
     ->controller(UserController::class)
     ->group(function () {
-        Route::get('/list/', 'index')->name('list');
+        Route::get('/list', 'index')->name('list');
         Route::post('/save', 'store')->name('save');
-
+        Route::post('/ajax-load/tab-view/{source}/{view}', [AjaxTabViewController::class, 'loadTab'])->name('ajax-load.tab-view');;
         Route::prefix('customers')
             ->name('customers.')
             ->group(function () {

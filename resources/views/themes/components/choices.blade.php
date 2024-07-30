@@ -1,3 +1,15 @@
+@if (!isset($model))
+    @php
+
+        $modelReference = $namespace . '\\' . ucfirst($modelName);
+        $model = $modelReference
+            ::where((new $modelReference())->getKeyName(), $$modelName[(new $modelReference())->getKeyName()])
+            ->with('getSeo')
+            ->first();
+        $seo = $model?->getSeo?->seo;
+    @endphp
+@endif
+
 <div class="row mt-3">
     <div class="col-md-12">
         <button class="btn btn-info component-modal ajax-modal" data-bs-target="#ajax_components_modal" data-method="post",

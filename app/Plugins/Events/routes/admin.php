@@ -1,13 +1,20 @@
 <?php
+
+use App\Plugins\Events\Http\Controllers\EventsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin/events')
-    ->name('admin.events.')
-    ->middleware(['web','maintenance'])
-    ->controller(\App\Plugins\Events\Http\Controllers\EventsController::class)
-    ->group(function() {
-        Route::get('/','index')->name('list');
-        Route::match(['post','get'],'create','add')->name('create');
-        Route::match(['post','get'],'edit/{event}/{tab?}','edit')->name('edit');
-        Route::match(['get','post','delete'],'delete/{event}','delete')->name('delete');
+    ->middleware(['web', 'admin', 'maintenance'])
+    ->controller(EventsController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('admin.events.list');
+        Route::match(['post', 'get'], 'create', 'add')->name('admin.events.create');
+        Route::match(['post', 'get'], 'edit/{event}/{tab?}', 'edit')->name('admin.events.edit');
+        Route::match(['get', 'post', 'delete'], 'delete/{event}', 'delete')->name('admin.events.delete');
+
+        Route::prefix('registration/{event}')
+            ->group(function () {
+                Route::match(['get', 'post'], 'registration/{type?}/{currentUser?}', [EventsController::class, 'registration'])->name('admin.events.registration');
+                Route::get('print/{user}', [EventsController::class, 'print'])->name('admin.events.print');
+            });
     });

@@ -12,6 +12,11 @@ class Event extends AdminModel
     use HasFactory;
 
     protected $fillable = [
+
+        'portal_program_id',
+        'portal_program_batch_id',
+        'portal_program_section_id',
+
         'event_title',
         'event_slug',
         'intro_description',
@@ -52,7 +57,7 @@ class Event extends AdminModel
         }
 
         if ($query->exists()) {
-            $slug .= '-'.\Illuminate\Support\Str::slug(\Illuminate\Support\Str::random(6));
+            $slug .= '-' . \Illuminate\Support\Str::slug(\Illuminate\Support\Str::random(6));
         }
 
         return $slug;
@@ -60,6 +65,6 @@ class Event extends AdminModel
 
     public function getSeo()
     {
-        return $this->hasOne(SeoRelation::class,'relation_id')->where('relation',$this->getTable());
+        return $this->hasOne(SeoRelation::class, 'relation_id')->where('relation', $this->getTable());
     }
 }

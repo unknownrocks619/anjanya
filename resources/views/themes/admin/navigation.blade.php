@@ -1,5 +1,5 @@
 <!-- Page Sidebar Start-->
-<div class="sidebar-wrapper h-100">
+<div class="sidebar-wrapper h-100 @isset($closeSidebar) close_icon @endif" >
     <div>
         <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png"
                     alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo-dark.png"
@@ -44,7 +44,9 @@
                             @foreach ($parent_nav as $nav_items)
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title"
-                                        @if (isset($nav_items['route']) && !empty($nav_items['route'] && $nav_items['route'] != '') && count($nav_items['children']) == 0 ) href="{{ route($nav_items['route']) }}" @else href="#" @endif">
+                                        @if (isset($nav_items['route']) &&
+                                                !empty($nav_items['route'] && $nav_items['route'] != '') &&
+                                                count($nav_items['children']) == 0) href="{{ route($nav_items['route']) }}" @else href="#" @endif">
                                         @if (isset($nav_items['icon']) && !empty($nav_items['icon']))
                                             <i class='{{ $nav_items['icon'] }}'></i>
                                         @endif
@@ -79,8 +81,9 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
-        </nav>
-    </div>
+            <div class="right-arrow"
+    id="right-arrow"><i data-feather="arrow-right"></i></div>
+</nav>
+</div>
 </div>
 <!-- Page Sidebar Ends-->

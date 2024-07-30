@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 
 class UserModel extends Authenticatable
 {
-    use HasFactory,SoftDeletes,Notifiable;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected  $table = 'members';
     protected $connection = 'portal_connection';
@@ -31,6 +31,8 @@ class UserModel extends Authenticatable
         'remember_token',
         'sharing_code',
         'phone_number',
+        'father_name',
+        'mother_name',
         'profile',
         'gender',
         'street_address',
@@ -63,32 +65,33 @@ class UserModel extends Authenticatable
         "remarks" => "object"
     ];
 
-    public function full_name() {
+    public function full_name()
+    {
         $full_name = ucfirst($this->first_name);
-        $explodeLastName = explode(' ',$this->last_name);
+        $explodeLastName = explode(' ', $this->last_name);
 
         foreach ($explodeLastName as $name) {
-            $full_name .=' '.ucfirst($name);
+            $full_name .= ' ' . ucfirst($name);
         }
 
         return $full_name;
     }
 
-    public function full_name_with_middle() {
+    public function full_name_with_middle()
+    {
         $full_name = ucfirst($this->first_name);
 
         if ($this->middle_name) {
-            $full_name .=' '.ucfirst($this->middle_name);
+            $full_name .= ' ' . ucfirst($this->middle_name);
         }
 
         $full_name .= ucfirst($this->last_name);
         return $full_name;
-
     }
 
     public function diskshya()
     {
-        return $this->hasMany(MemberDikshya::class,'member_id');
+        return $this->hasMany(MemberDikshya::class, 'member_id');
     }
 
     public function meta()
@@ -99,8 +102,8 @@ class UserModel extends Authenticatable
     public function emergency()
     {
         return $this->hasOne(MemberEmergencyMeta::class, 'member_id')
-                    ->where('contact_type','emergency')
-                    ->latest();
+            ->where('contact_type', 'emergency')
+            ->latest();
     }
 
     public function emergency_contact()
@@ -108,35 +111,38 @@ class UserModel extends Authenticatable
         return $this->hasMany(MemberEmergencyMeta::class, "member_id");
     }
 
-    public function portalCountry() {
-        return $this->belongsTo(PortalCountry::class,'country');
+    public function portalCountry()
+    {
+        return $this->belongsTo(PortalCountry::class, 'country');
     }
 
     /**
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
      */
-    public function profileImage() : HasOneThrough {
+    public function profileImage(): HasOneThrough
+    {
 
-        return $this->hasOneThrough(Images::class,ImageRelation::class,'relation_id','id','id','image_id')
-                    ->where('relation','App\Models\Member')
-                    ->where('type','profile_picture')
-                    ->latest();
+        return $this->hasOneThrough(Images::class, ImageRelation::class, 'relation_id', 'id', 'id', 'image_id')
+            ->where('relation', 'App\Models\Member')
+            ->where('type', 'profile_picture')
+            ->latest();
     }
 
     /**
      * @return HasOneThrough
      */
-    public function memberIDMedia(): HasOneThrough {
-        return $this->hasOneThrough(Images::class,ImageRelation::class,'relation_id','id','id','image_id')
-            ->where('relation','App\Models\Member')
-            ->where('type','id_card')
+    public function memberIDMedia(): HasOneThrough
+    {
+        return $this->hasOneThrough(Images::class, ImageRelation::class, 'relation_id', 'id', 'id', 'image_id')
+            ->where('relation', 'App\Models\Member')
+            ->where('type', 'id_card')
             ->latest();
     }
 
-    public function media() {
-        return $this->hasMany(ImageRelation::class,'relation_id')
-                    ->where('relation',self::class);
+    public function media()
+    {
+        return $this->hasMany(ImageRelation::class, 'relation_id')
+            ->where('relation', self::class);
     }
-
 }

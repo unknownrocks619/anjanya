@@ -25,24 +25,25 @@ class WebEventsController extends Controller
 {
     protected $plugin_name = 'Events';
 
-    public function index(string $slug) {
+    public function index(string $slug)
+    {
 
-        if ( Cache::has('EVENT-DETAIL-'.$slug) ) {
-            $event = Cache::get('EVENT-DETAIL-'.$slug);
+        if (Cache::has('EVENT-DETAIL-' . $slug)) {
+            $event = Cache::get('EVENT-DETAIL-' . $slug);
         } else {
-            $event = Event::where('event_slug',$slug)
-                ->where('active',true)
-                ->with(['getImage' => function($query){
+            $event = Event::where('event_slug', $slug)
+                ->where('active', true)
+                ->with(['getImage' => function ($query) {
                     $query->with('image');
-                },'getSeo'])
+                }, 'getSeo'])
                 ->firstOrFail();
-            Cache::put('EVENT-DETAIL-'.$slug,$event);
+            Cache::put('EVENT-DETAIL-' . $slug, $event);
         }
         $seo = Meta::metaInfo($event);
-        $sliders = collect($event->getImage()->where('type','sliders')->get());
+        $sliders = collect($event->getImage()->where('type', 'sliders')->get());
         if ($sliders->count()) {
             foreach ($sliders as $slider) {
-                $seo .= '<meta property="og:image" content="'.Image::getImageAsSize($slider->image->filepath,'l').'" />'.PHP_EOL;
+                $seo .= '<meta property="og:image" content="' . Image::getImageAsSize($slider->image->filepath, 'l') . '" />' . PHP_EOL;
             }
         }
 
@@ -53,31 +54,32 @@ class WebEventsController extends Controller
             'events'    => $this->getEvents(),
             'sliders' => $sliders
         ];
-        return view('Events::frontend.detail',$data);
-
+        return view('Events::frontend.detail', $data);
     }
 
-    public function events() {
+    public function events()
+    {
         $data = [
             'extends'   => 'master',
             'events'    => $this->getEvents()
         ];
-        return view('Events::frontend.list',$data);
+        return view('Events::frontend.list', $data);
     }
 
-    public function getEvents() {
+    public function getEvents()
+    {
 
-        if (Cache::has('FRONTEND_EVENTS_LISTS') ) {
+        if (Cache::has('FRONTEND_EVENTS_LISTS')) {
             return Cache::get('FRONTEND_EVENTS_LISTS');
         }
 
-        $events = Event::with(['getImage'=> function($query){
-                            $query->with('image');
-                        },'getComponents'])
-                        ->where('active',true)
-                        ->orderBy('event_start_date','asc')
-                        ->get();
-        Cache::put('FRONTEND_EVENTS_LISTS',$events);
+        $events = Event::with(['getImage' => function ($query) {
+            $query->with('image');
+        }, 'getComponents'])
+            ->where('active', true)
+            ->orderBy('event_start_date', 'asc')
+            ->get();
+        Cache::put('FRONTEND_EVENTS_LISTS', $events);
         return $events;
     }
 
@@ -89,12 +91,13 @@ class WebEventsController extends Controller
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function eventRegistration(Request $request, string $event_slug, $step='first') {
+    public function eventRegistration(Request $request, string $event_slug, $step = 'first')
+    {
         // $today.
         $today = Carbon::now();
         // get event name
-        $event = Event::where('event_slug',$event_slug)
-                        ->first();
+        $event = Event::where('event_slug', $event_slug)
+            ->first();
 
         $data = [
             'extends'   => 'master-nav',
@@ -103,53 +106,51 @@ class WebEventsController extends Controller
 
         $view = 'main';
 
-        if ($request->ajax() ) {
+        if ($request->ajax()) {
 
-            if ( ! session()->has('current_step')) {
+            if (!session()->has('current_step')) {
 
                 $view = 'validateAccount';
-                session()->put('current_step','validateAccount');
-
+                session()->put('current_step', 'validateAccount');
             } else {
 
                 $view = session()->get('current_step');
             }
 
-            $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
-            return $this->json(true,'Form Loaded','window.Registration.insertHTML',['view' =>$view]);
-
+            $view = view('Events::frontend.registration.partials.' . $view, $data)->render();
+            return $this->json(true, 'Form Loaded', 'window.Registration.insertHTML', ['view' => $view]);
         }
         $eventEndDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
 
-        if ( ! $event ||  ! $event->active ) {
+        if (!$event ||  !$event->active) {
             $view = 'expired';
         }
 
         $eventStartDate = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i', $event->event_end_date);
 
-//        if ($eventStartDate->lessThan(now()) ) {
-//            $view = 'coming-soon';
-//        }
+        //        if ($eventStartDate->lessThan(now()) ) {
+        //            $view = 'coming-soon';
+        //        }
 
-        return view ('Events::frontend.registration.'.$view,$data);
+        return view('Events::frontend.registration.' . $view, $data);
     }
 
-    public function event_registration_process(Request $request, Event $event) {
+    public function event_registration_process(Request $request, Event $event)
+    {
         $data = ['event' => $event];
 
-        $process = $this->{session()->get('current_step')}($request,$event);
+        $process = $this->{session()->get('current_step')}($request, $event);
         $view = session()->get('current_step');
 
         $data['email'] = session()->get('registration-email');
 
-        if ($process && is_array($process) ) {
-            $data = array_merge($data,$process);
+        if ($process && is_array($process)) {
+            $data = array_merge($data, $process);
         }
 
-        $view = view('Events::frontend.registration.partials.'.$view,$data)->render();
+        $view = view('Events::frontend.registration.partials.' . $view, $data)->render();
 
-        return $this->json(true,'Information Loaded.','Registration.insertHTML',['view' => $view]);
-
+        return $this->json(true, 'Information Loaded.', 'Registration.insertHTML', ['view' => $view]);
     }
 
 
@@ -160,7 +161,8 @@ class WebEventsController extends Controller
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function account(Request $request) {
+    public function account(Request $request)
+    {
 
         $request->validate([
             'password' => 'required|confirmed'
@@ -168,8 +170,7 @@ class WebEventsController extends Controller
 
         // create new account .
         $sessionRecord = session()->get('registration_detail');
-
-        if ( ! count ( $sessionRecord) ) {
+        if (!count($sessionRecord)) {
 
             $sessionRecord = [
                 'password'  => true,
@@ -187,36 +188,39 @@ class WebEventsController extends Controller
                 'date_of_birth' => '',
                 'place_of_birth' => '',
                 'birth_time'    => '',
+                'father_name'   => '',
+                'mother_name'   => '',
                 'meta'  => [],
                 'dikshya'   => []
             ];
         }
 
         $sessionRecord['user_password'] = Hash::make($request->post('password'));
-        session()->put('registration_detail',$sessionRecord);
-        session()->put('current_step','personal');
+        session()->put('registration_detail', $sessionRecord);
+        session()->put('current_step', 'personal');
     }
 
-    public function personal(Request $request) {
+    public function personal(Request $request)
+    {
 
         $request->validate([
-            'first_name'    => ['required',new  Unicode()],
-            'last_name'     => ['required',new Unicode()],
+            'first_name'    => ['required', new  Unicode()],
+            'last_name'     => ['required', new Unicode()],
             'gotra'         => ['required', new Unicode()],
-            'gender'        => ['required',Rule::in(['male','female']),new Unicode()],
-            'phone_number'  => ['required','numeric',new Unicode()],
-            'country'       => ['required','numeric',new Unicode()],
+            'gender'        => ['required', Rule::in(['male', 'female']), new Unicode()],
+            'phone_number'  => ['required', 'numeric', new Unicode()],
+            'country'       => ['required', 'numeric', new Unicode()],
             'state'         => ['required', new Unicode()],
             'street_address'    => ['required', new Unicode()],
-            'date_of_birth' => ['required','date:Y-m-d', new Unicode()],
-            'place_of_birth'    => ['required',new Unicode()],
+            'date_of_birth' => ['required', 'date:Y-m-d', new Unicode()],
+            'place_of_birth'    => ['required', new Unicode()],
             'education'     => ['required', new Unicode()],
-            'profession'    => ['required',new Unicode()],
+            'profession'    => ['required', new Unicode()],
             'emergency_contact_person'  => ['required', new Unicode()],
             'emergency_phone' => ['required', new Unicode()],
             'emergency_contact_person_relation' => ['required', new Unicode()],
             'reference_source' => ['required', new Unicode()],
-            'dikshya_type'  => ['required',Rule::in(['dikshit','non-dikshit']),new Unicode()]
+            'dikshya_type'  => ['required', Rule::in(['dikshit', 'non-dikshit']), new Unicode()]
         ], [
             'emergency_contact_person_relation.required' => 'Please provide Your relation with emergency contact.',
             'emergency_phone.required' => 'Please provide phone number for emergency contact.',
@@ -225,23 +229,31 @@ class WebEventsController extends Controller
             'phone_number.numeric' => 'Invalid Phone Number.'
         ]);
 
-        if ( $request->post('reference_source') == 'other') {
-            $request->validate(['reference_source_detail' => ['required','min',new Unicode()]],['reference_source_detail.min' => 'Please provide valid source detail.']);
+        if ($request->post('reference_source') == 'other') {
+            $request->validate(['reference_source_detail' => ['required', 'min', new Unicode()]], ['reference_source_detail.min' => 'Please provide valid source detail.']);
         }
 
-        if ( $request->post('reference_source') == 'friend') {
+        if ($request->post('father_name')) {
+            $request->validate(['father_name' => [new Unicode()]]);
+        }
+
+        if ($request->post('mother_name')) {
+            $request->validate(['mother_name' => [new Unicode()]]);
+        }
+
+        if ($request->post('reference_source') == 'friend') {
             $request->validate(['referer_name' => ['required', new Unicode()]]);
         }
 
-        if (! in_array($request->post('education'),['primary','secondary']) ) {
+        if (!in_array($request->post('education'), ['primary', 'secondary'])) {
             $request->validate([
-                'field_of_study' => ['required',new Unicode()]
-            ],[
+                'field_of_study' => ['required', new Unicode()]
+            ], [
                 'field_of_study' => 'Please provide your education major.'
             ]);
         }
 
-        if ( $request->post('dikshya_type') == 'dikshit') {
+        if ($request->post('dikshya_type') == 'dikshit') {
             $request->validate(['dikshya_category' => 'required|in:tarak,saranagati,sadhana,sadhana&saranagati,sadhana&saranagati&tarak']);
         }
 
@@ -258,6 +270,8 @@ class WebEventsController extends Controller
         $registrationDetail['date_of_birth'] = $request->post('date_of_birth');
         $registrationDetail['place_of_birth'] = $request->post('place_of_birth');
         $registrationDetail['birth_time'] = $request->post('birth_time');
+        $registrationDetail['father_name']  =  $request->post('father_name');
+        $registrationDetail['mother_name']  = $request->post('mother_name');
         $registrationDetail['education'] = $request->post('education');
         $registrationDetail['education_major'] = $request->post('field_of_study');
         $registrationDetail['reference_source'] = $request->post('reference_source');
@@ -266,7 +280,7 @@ class WebEventsController extends Controller
         $registrationDetail['reference_source_detail'] = $request->post('reference_source');
         $full_name = $request->post('first_name');
 
-        if ($request->post('middle_name') ) {
+        if ($request->post('middle_name')) {
             $full_name .= ' ' . $request->post('middle_name');
         }
         $full_name .= ' ' . $request->post('last_name');
@@ -294,53 +308,51 @@ class WebEventsController extends Controller
 
         // get country data
 
-        $user = PortalCountry::where('id',$request->post('country'))->first();
+        $user = PortalCountry::where('id', $request->post('country'))->first();
 
-        if ( $user ) {
+        if ($user) {
 
             $registrationDetail['country_label'] = $user->name;
         }
 
         session()->put('registration_detail', $registrationDetail);
-        session()->put('registration_detail',$registrationDetail);
+        session()->put('registration_detail', $registrationDetail);
         session()->put('current_step', 'complete');
-
-
     }
 
     public function validateAccount(Request $request, Event $event)
     {
-        $request->validate(['email' => ['required','email',new Unicode()]]);
+        $request->validate(['email' => ['required', 'email', new Unicode()]]);
 
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
         $emailResponse = $siddhamahayogUser->userResponse($request);
 
         # If event is type live, ask for other detail
-        if ( $event->event_type == 'live') {
-            session()->put('registration-email' , $request->post('email'));
+        if ($event->event_type == 'live') {
+            session()->put('registration-email', $request->post('email'));
 
             if (count($emailResponse) && isset($emailResponse['first_name']) && isset($emailResponse['last_name'])) {
                 session()->put('registration_detail', $emailResponse);
             }
 
-            session()->put('current_step','liveZoomRegistration');
+            session()->put('current_step', 'liveZoomRegistration');
             return;
         }
 
-        session()->put('registration_detail',$emailResponse);
+        session()->put('registration_detail', $emailResponse);
 
-        if ( isset ($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
+        if (isset($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
 
             // check if user full_path and id_card has been inserted.
-            if ( !  $emailResponse['profile_url'] ) {
-                session()->put('current_step','profilePictures');
-                session()->put('allow_back',false);
+            if (!$emailResponse['profile_url']) {
+                session()->put('current_step', 'profilePictures');
+                session()->put('allow_back', false);
                 return;
             }
 
-            session()->put('current_step','submitted');
+            session()->put('current_step', 'submitted');
 
-            if (isset ($emailResponse['userID']) ) {
+            if (isset($emailResponse['userID'])) {
                 return ['userID' => $emailResponse['userID']];
             }
 
@@ -348,20 +360,19 @@ class WebEventsController extends Controller
         }
 
 
-        if(isset($emailResponse['required_password']) && $emailResponse['required_password']) {
-            session()->put('current_step','confirmPassword');
+        if (isset($emailResponse['required_password']) && $emailResponse['required_password']) {
+            session()->put('current_step', 'confirmPassword');
         } else {
-            session()->put('new_registration' , true);
+            session()->put('new_registration', true);
             session()->put('current_step', 'account');
-
         }
 
 
-        session()->put('registration-email' , $request->post('email'));
-
+        session()->put('registration-email', $request->post('email'));
     }
 
-    public function emergencyContact(Request $request) {
+    public function emergencyContact(Request $request)
+    {
         $request->validate([
             'family_member.*' => 'required',
             'family_relation.*' => 'required',
@@ -371,7 +382,7 @@ class WebEventsController extends Controller
 
         $unicodeVerification = $this->check_unicode_character($request->all());
 
-        if ($unicodeVerification ) {
+        if ($unicodeVerification) {
             return response(['errors' => $unicodeVerification, 'message' => "Unicode Characters are not supported."], 422);
         }
 
@@ -390,16 +401,17 @@ class WebEventsController extends Controller
             ];
         }
         $registrationDetail['total_member_with_gurudev'] = $request->post('total_family_member_with_gurudev');
-        session()->put('registration_detail',$registrationDetail);
-        session()->put('current_step','yagyaInformation');
+        session()->put('registration_detail', $registrationDetail);
+        session()->put('current_step', 'yagyaInformation');
     }
 
-    public function yagyaInformation(Request $request) {
+    public function yagyaInformation(Request $request)
+    {
 
         $request->validate([
             'jap_start_date' => 'required|date:Y-m-d',
-            'total_jap_count' => ['required','numeric', new Unicode()],
-            'estimated_jap' => ['required','numeric', new Unicode()]
+            'total_jap_count' => ['required', 'numeric', new Unicode()],
+            'estimated_jap' => ['required', 'numeric', new Unicode()]
         ]);
 
         $registrationDetail = session()->get('registration_detail');
@@ -410,11 +422,12 @@ class WebEventsController extends Controller
             'estimated_jap' => $request->post('estimated_jap')
         ];
 
-        session()->put('registration_detail',$registrationDetail);
-        session()->put('current_step','profilePictures');
+        session()->put('registration_detail', $registrationDetail);
+        session()->put('current_step', 'profilePictures');
     }
 
-    public function profilePictures(Request $request) {
+    public function profilePictures(Request $request)
+    {
         $request->validate(
             [
                 'profile_picture_default' => 'required|url',
@@ -432,42 +445,45 @@ class WebEventsController extends Controller
         $familyMemberDetail['profile_url'] = $request->post('profile_picture_default');
         $familyMemberDetail['profile_id'] = $request->post('profile_picture_id');
 
-//        foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
+        //        foreach ($familyMemberDetail['family_detail']['members'] as $key => $member) {
 
-//            $request->validate([
-//                'profile_picture_'.$key => 'required|url'
-//            ],[
-//                'profile_picture_'.$key.'.required' => 'Please Upload ' . $member['name'].' profile picture',
-//                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
-//            ]);
+        //            $request->validate([
+        //                'profile_picture_'.$key => 'required|url'
+        //            ],[
+        //                'profile_picture_'.$key.'.required' => 'Please Upload ' . $member['name'].' profile picture',
+        //                'profile_picture_'.$key.'.url' => 'Unable to identify  ' . $member['name'].' picture detail'
+        //            ]);
 
-//            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
+        //            $familyMemberDetail['family_detail']['members'][$key]['profile'] =  '';
 
-//        }
+        //        }
 
-         // also save this information in siddhamahayog portal.
+        // also save this information in siddhamahayog portal.
 
-        session()->put('registration_detail',$familyMemberDetail);
+        session()->put('registration_detail', $familyMemberDetail);
 
-        session()->put('current_step','complete');
+        session()->put('current_step', 'complete');
     }
 
-    public function complete(Request $request, Event $event) {
+    public function complete(Request $request, Event $event)
+    {
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
+        $siddhamahayogUser->programID = $event->portal_program_id ?? 9;
+        $siddhamahayogUser->sectionID = $event->portal_program_section_id ?? 10;
+        $siddhamahayogUser->batchID = $event->portal_program_batch_id ?? 9;
 
         $insertedRecord = $siddhamahayogUser->storeEventDetail();
         $sessionRecord = session()->get('registration_detail');
         $sessionRecord['email'] = session()->get('registration-email');
         $sessionRecord['new_user'] = session()->get('new_registration');
 
-        if ( !  $insertedRecord ) {
+        if (!$insertedRecord) {
 
             $failedRecord = new FailedRecord();
             $failedRecord->session_info = $sessionRecord;
             $failedRecord->id_event = $event->getKey();
             $failedRecord->save();
-            session()->put('current_step','failed');
-
+            session()->put('current_step', 'failed');
         } else {
 
             $successRecord = new SuccessRecords();
@@ -487,100 +503,106 @@ class WebEventsController extends Controller
         return ['userDetail' => $insertedRecord];
     }
 
-    public function failed(Request $request, Event $event) {
+    public function failed(Request $request, Event $event)
+    {
 
-//        session()->forget('current_step');
+        //        session()->forget('current_step');
     }
 
-    public function stepBack(Request $request, Event $event){
+    public function stepBack(Request $request, Event $event)
+    {
 
-            $currentStep = session()->get('current_step');
+        $currentStep = session()->get('current_step');
 
-            if (in_array($currentStep,['confirmPassword','account','liveZoomRegistration','personal']) ) {
-                session()->put('current_step','validateAccount');
-            }
+        if (in_array($currentStep, ['confirmPassword', 'account', 'liveZoomRegistration', 'personal'])) {
+            session()->put('current_step', 'validateAccount');
+        }
 
-            if ( $currentStep == 'emergencyContact') {
-                session()->put('current_step','personal');
-            }
+        if ($currentStep == 'emergencyContact') {
+            session()->put('current_step', 'personal');
+        }
 
-            if ( $currentStep == 'yagyaInformation') {
-                session()->put('current_step','emergencyContact');
-            }
+        if ($currentStep == 'yagyaInformation') {
+            session()->put('current_step', 'emergencyContact');
+        }
 
-            if ( $currentStep == 'profilePictures') {
-                session()->put('current_step','yagyaInformation');
-            }
+        if ($currentStep == 'profilePictures') {
+            session()->put('current_step', 'yagyaInformation');
+        }
 
-            $finalStep =  session()->get('current_step');
-            $data = ['event' => $event];
-            $data['email'] = session()->get('registration-email');
+        $finalStep =  session()->get('current_step');
+        $data = ['event' => $event];
+        $data['email'] = session()->get('registration-email');
 
-            $view = view('Events::frontend.registration.partials.'.$finalStep,$data)->render();
+        $view = view('Events::frontend.registration.partials.' . $finalStep, $data)->render();
 
-            return $this->json(true,'Information Loaded.','',['view' => $view]);
-
+        return $this->json(true, 'Information Loaded.', '', ['view' => $view]);
     }
-    public function uploadMedia(Request $request) {
+
+    public function uploadMedia(Request $request)
+    {
 
         $image = Image::uploadOnly($request->file('image'));
 
-        if (! $image ) {
-            return $this->json(false,'Unable to upload file.');
+        if (!$image) {
+            return $this->json(false, 'Unable to upload file.');
         }
 
-        return $this->json(true,'Image upload','',['image' => Image::getImageAsSize($image[0]->filepath,'m')]);
+        return $this->json(true, 'Image upload', '', ['image' => Image::getImageAsSize($image[0]->filepath, 'm')]);
     }
 
-    public function confirmPassword(Request $request) {
+    public function confirmPassword(Request $request)
+    {
         $request->validate(
             [
                 'password' => 'required',
             ],
         );
 
-        if (! $request->post('email') != session()->get('registration-email') ) {
-            return $this->json(false,'Invalid Username / Password');
+        if (!$request->post('email') != session()->get('registration-email')) {
+            return $this->json(false, 'Invalid Username / Password');
         }
 
         $siddhamahayogUser = new SiddhamahayogPortalUserController();
         $verifyPassword = $siddhamahayogUser->verifyPassword($request);
 
-        if ( $verifyPassword) {
-            session()->put('current_step','personal');
-            session()->put('has_validated_password',true);
+        if ($verifyPassword) {
+            session()->put('current_step', 'personal');
+            session()->put('has_validated_password', true);
             return;
         }
-        session()->put('invalid_attempt','Invalid Username / Password');
+        session()->put('invalid_attempt', 'Invalid Username / Password');
     }
 
-    function liveZoomRegistration(Request $request, Event $event) {
+    function liveZoomRegistration(Request $request, Event $event)
+    {
 
         $userModelController = new SiddhamahayogPortalUserController();
         $returnResponse = $userModelController->liveProgramEvent($request, $event->event_title);
 
-        session()->put('zoom_registration','https://jagadguru.siddhamahayog.org/login/join-external?'.http_build_query($returnResponse));
-        session()->put('current_step','zoomRegistrationComplete');
+        session()->put('zoom_registration', 'https://jagadguru.siddhamahayog.org/login/join-external?' . http_build_query($returnResponse));
+        session()->put('current_step', 'zoomRegistrationComplete');
     }
 
-    public function referer(Request $request,UserModel $user, string $event)
+    public function referer(Request $request, UserModel $user, string $event)
     {
-        $event = Event::where('event_slug',$event)->where('active',true)->firstOrFail();
+        $event = Event::where('event_slug', $event)->where('active', true)->firstOrFail();
 
-        if ($request->post() ) {
+        if ($request->post()) {
 
             $request->validate(
-                                [
-                                    'referer_full_name.*' => ['required','string',new Unicode()],
-                                    'referer_phone_number.*' => ['required','numeric',new Unicode()],
-                                    'referer_email.*' => ['nullable','email', new Unicode()],
-                                ],
-                                [
-                                    'referer_full_name.*.string' => 'Invalid Character in ',
-                                    'referer_full_name.*.required' => 'All Referer Field must have full name',
-                                    'referer_phone_number.*.numeric' => 'Please provide valid phone number. Do not include country code or - ( ) chars',
-                                    'referer_phone_number.*.required' => 'All Phone Number field is required.'
-                                ]);
+                [
+                    'referer_full_name.*' => ['required', 'string', new Unicode()],
+                    'referer_phone_number.*' => ['required', 'numeric', new Unicode()],
+                    'referer_email.*' => ['nullable', 'email', new Unicode()],
+                ],
+                [
+                    'referer_full_name.*.string' => 'Invalid Character in ',
+                    'referer_full_name.*.required' => 'All Referer Field must have full name',
+                    'referer_phone_number.*.numeric' => 'Please provide valid phone number. Do not include country code or - ( ) chars',
+                    'referer_phone_number.*.required' => 'All Phone Number field is required.'
+                ]
+            );
 
             $insertReference = [];
 
@@ -594,7 +616,7 @@ class WebEventsController extends Controller
                     'created_at'    => now()->format('Y-m-d H:i:s'),
                     'updated_at'    => now()->format('Y-m-d H:i:s'),
                     'member_id' => $user->getKey(),
-                    'remarks'   => 'During Event: '. $event->event_title
+                    'remarks'   => 'During Event: ' . $event->event_title
                 ];
 
                 $insertReference[] = $innerArray;
@@ -602,7 +624,7 @@ class WebEventsController extends Controller
 
             DB::connection('portal_connection')->table('member_refers')->insert($insertReference);
 
-            return $this->json(true,'Reference Saved.','redirect',['location' => route('frontend.event.refer-friend-family-complete',['user' => $user,'event' => $event->event_slug])]);
+            return $this->json(true, 'Reference Saved.', 'redirect', ['location' => route('frontend.event.refer-friend-family-complete', ['user' => $user, 'event' => $event->event_slug])]);
         }
 
 
@@ -611,16 +633,17 @@ class WebEventsController extends Controller
             'user'      => $user,
             'event' => $event
         ];
-        return view($this->plugin_name."::"."frontend.referer.create",$data);
+        return view($this->plugin_name . "::" . "frontend.referer.create", $data);
     }
 
-    public function refererComplete(UserModel $user, string $event) {
+    public function refererComplete(UserModel $user, string $event)
+    {
         $data = [
             'extends'   => 'master-nav',
             'user'      => $user,
             'event' => $event
         ];
 
-        return view($this->plugin_name.'::'.'frontend.referer.complete',$data);
+        return view($this->plugin_name . '::' . 'frontend.referer.complete', $data);
     }
 }

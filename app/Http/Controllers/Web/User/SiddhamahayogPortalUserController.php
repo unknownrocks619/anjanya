@@ -24,33 +24,37 @@ use Illuminate\Support\Facades\Password;
 class SiddhamahayogPortalUserController extends Controller
 {
     protected  $memberRegistration;
+    public int $programID;
+    public int $batchID;
+    public int $sectionID;
     /**
      * Validate Email Address in
      * Siddhamahayog and return response accordingly.
      * @param Request $request
      * @return
      */
-    public function userResponse(Request $request): array {
+    public function userResponse(Request $request): array
+    {
 
         $request->validate([
             'email' => 'required|email'
         ]);
 
-        $user = UserModel::with(['diskshya','meta','emergency'])->where('email', $request->post('email'))->first();
+        $user = UserModel::with(['diskshya', 'meta', 'emergency'])->where('email', $request->post('email'))->first();
 
-//        if ( ! $user ) {
-//
-//            $userModel = new UserModel();
-//            $userModel->setTable('program_users')->setConnection('ramarchan_connection');
-//            // check in ramrachan connection
-//            $user = $userModel->where('email',$request->post('email'))
-//                                ->first();
-//
-//        }
+        //        if ( ! $user ) {
+        //
+        //            $userModel = new UserModel();
+        //            $userModel->setTable('program_users')->setConnection('ramarchan_connection');
+        //            // check in ramrachan connection
+        //            $user = $userModel->where('email',$request->post('email'))
+        //                                ->first();
+        //
+        //        }
 
         $returnArray = [];
 
-        if ( ! $user ) {
+        if (!$user) {
             return $returnArray;
         }
 
@@ -60,11 +64,12 @@ class SiddhamahayogPortalUserController extends Controller
 
             $hasSubmitted = MemberJapInformation::where('member_id', $user->getKey())->first();
 
-            $address = ! ($user->address) ? '' : $user->address->street_address;
+            $address = !($user->address) ? '' : $user->address->street_address;
             $country_label = '';
             if ($user->country && is_int($user->country)) {
                 $country_label = (PortalCountry::where('id', $user->country)->first())?->name;
             }
+
             $returnArray = [
                 'required_password' => true,
                 'has_submitted' => $hasSubmitted ? true : false,
@@ -84,8 +89,10 @@ class SiddhamahayogPortalUserController extends Controller
                 'phone_number'  => $user->phone_number,
                 'date_of_birth' => $user->date_of_birth,
                 'birth_time'    => $user->birth_time,
+                'father_name'   => $user->father_name,
+                'mother_name'   => $user->mother_name,
                 'profile_url'   => ($user->profile && isset($user->profile->full_path)) ? $user->profile->full_path : '',
-                'reference_source' => '',
+                'reference_source' => $user->source ?? '',
                 'referer_name' => '',
                 'referer_relation' => '',
                 'reference_source_detail' => '',
@@ -94,7 +101,8 @@ class SiddhamahayogPortalUserController extends Controller
                 'emergency' => [],
                 'userID'    => $user?->getKey()
             ];
-            if ( $user->meta ) {
+
+            if ($user->meta) {
                 $returnArray['meta'] = [
                     'history' => $user->meta->history ?  (array) $user->meta->history : [],
                     'education'  => $user->meta->education ? (array) $user->meta->education : [],
@@ -102,7 +110,7 @@ class SiddhamahayogPortalUserController extends Controller
                 ];
             }
 
-            if ( $user->emergency) {
+            if ($user->emergency) {
 
                 $returnArray['emergency'] = [
                     'full_name' => $user->emergency->contact_person,
@@ -111,7 +119,7 @@ class SiddhamahayogPortalUserController extends Controller
                 ];
             }
 
-            if ( $user->diskshya->count() ) {
+            if ($user->diskshya->count()) {
 
                 foreach ($user->diskshya as $dikshya) {
                     $returnArray['dikshya'][] = [
@@ -127,14 +135,14 @@ class SiddhamahayogPortalUserController extends Controller
 
         if ($user->getConnection()->getName() == 'ramarchan_connection') {
 
-            $name_explode = explode(' ' , $user->full_name);
+            $name_explode = explode(' ', $user->full_name);
             $first_name = $name_explode[0];
             $middle_name = '';
             $last_name = '';
             unset($name_explode[0]);
 
 
-            if ( isset ($name_explode[2]) ) {
+            if (isset($name_explode[2])) {
                 $middle_name = $name_explode[1];
                 unset($name_explode[1]);
             }
@@ -169,21 +177,21 @@ class SiddhamahayogPortalUserController extends Controller
         }
 
         return $returnArray;
-
     }
 
-    public function storeEventDetail() {
+    public function storeEventDetail()
+    {
         try {
-            DB::transaction(function() {
+            DB::transaction(function () {
 
 
                 $sessionUserDetail = session()->get('registration_detail');
 
-                if (session()->has('allow_back') && isset ($sessionUserDetail['userID']) ) {
+                if (session()->has('allow_back') && isset($sessionUserDetail['userID'])) {
 
-                    $memberRegistration = UserModel::where('id',$sessionUserDetail['userID'])->first();
-                    if ( isset ($sessionUserDetail['profile_url']) ) {
-                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    $memberRegistration = UserModel::where('id', $sessionUserDetail['userID'])->first();
+                    if (isset($sessionUserDetail['profile_url'])) {
+                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                         $memberRegistration->save();
                     }
                     $this->memberRegistration = $memberRegistration;
@@ -191,7 +199,7 @@ class SiddhamahayogPortalUserController extends Controller
                 }
 
                 // check if we need to create new user
-                if (session()->has('new_registration') && session()->get('new_registration') == true && UserModel::where('email',session()->get('registration-email'))->exists() === false) {
+                if (session()->has('new_registration') && session()->get('new_registration') == true && UserModel::where('email', session()->get('registration-email'))->exists() === false) {
 
                     $memberRegistration = new UserModel();
                     $memberRegistration->fill([
@@ -204,6 +212,8 @@ class SiddhamahayogPortalUserController extends Controller
                         'gender'        => $sessionUserDetail['gender'],
                         'country'       => $sessionUserDetail['country'],
                         'city'          => $sessionUserDetail['city'],
+                        'father_name'   => $sessionUserDetail['father_name'] ?? '',
+                        'mother_name'   => $sessionUserDetail['mother_name'] ?? '',
                         'address'       => ['street_address' => $sessionUserDetail['street_address']],
                         'date_of_birth' => $sessionUserDetail['date_of_birth'],
                         'birth_time'    => $sessionUserDetail['birth_time'] ?? null,
@@ -211,19 +221,19 @@ class SiddhamahayogPortalUserController extends Controller
                         'phone_number'  => $sessionUserDetail['phone_number'],
                         'is_email_verified' => false,
                         'is_phone_verified' => false,
-                        'sharing_code'  => rand(11111111,9999999999),
+                        'sharing_code'  => rand(11111111, 9999999999),
                     ]);
 
                     $memberRegistration->password = $sessionUserDetail['user_password'];
                     $memberRegistration->role_id = 7;
 
-                    if ( isset ($sessionUserDetail['profile_url']) ) {
-                        $memberRegistration->profile =  ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    if (isset($sessionUserDetail['profile_url'])) {
+                        $memberRegistration->profile =  ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                     }
 
                     $memberRegistration->save();
                 } else {
-                    $memberRegistration = UserModel::where('email',session()->get('registration-email'))->first();
+                    $memberRegistration = UserModel::where('email', session()->get('registration-email'))->first();
                     $memberRegistration->fill([
                         'full_name' => $sessionUserDetail['full_name'],
                         'first_name'    => $sessionUserDetail['first_name'],
@@ -236,19 +246,20 @@ class SiddhamahayogPortalUserController extends Controller
                         'address'       => ['street_address' => $sessionUserDetail['street_address']],
                         'date_of_birth' => $sessionUserDetail['date_of_birth'],
                         'phone_number'  => $sessionUserDetail['phone_number'],
+                        'father_name'   => $sessionUserDetail['father_name'] ?? '',
+                        'mother_name'   => $sessionUserDetail['mother_name'] ?? '',
                     ]);
 
-                    if ( isset ($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
-                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'],'id_card' => $sessionUserDetail['profile_id']];
+                    if (isset($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
+                        $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                     }
                     $memberRegistration->save();
-
                 }
                 $this->memberRegistration = $memberRegistration;
                 // Update meta information
                 $meta = MemberInfo::where('member_id', $memberRegistration->getKey())->first();
 
-                if (! $meta ) {
+                if (!$meta) {
 
                     $meta = new MemberInfo();
                     $meta->fill(['member_id' => $memberRegistration->getKey()]);
@@ -257,18 +268,21 @@ class SiddhamahayogPortalUserController extends Controller
                 $meta->personal = $sessionUserDetail['meta']['personal'];
                 $meta->education = $sessionUserDetail['meta']['education'];
 
-                if ( isset ($sessionUserDetail['total_member_with_gurudev']) ) {
+                if (isset($sessionUserDetail['total_member_with_gurudev'])) {
                     $meta->total_connected_family = $sessionUserDetail['total_member_with_gurudev'];
+                }
+                if (isset($sessionUserDetail['meta']['history']['medicine_history']) && $sessionUserDetail['meta']['history']['medicine_history']) {
+                    $meta->history = ['medicine_history' => 'yes', 'mental_health_history' => 'no', 'regular_medicine_history_detail' => $sessionUserDetail['meta']['history']['medicine_history'], 'mental_health_detail_problem' => '', 'practiced_info' => 'no', 'support_in_need' => 'yes', 'terms_and_condition' => '1', 'sadhak' => null];
                 }
 
                 $meta->save();
                 // Update Emergency Contact Information
 
                 $emergency = MemberEmergencyMeta::where('member_id', $memberRegistration->getKey())
-                                                ->where('contact_type','emergency')
-                                                ->first();
+                    ->where('contact_type', 'emergency')
+                    ->first();
 
-                if (! $emergency ) {
+                if (!$emergency) {
 
                     $emergency = new MemberEmergencyMeta();
                     $emergency->member_id = $memberRegistration->getKey();
@@ -282,7 +296,7 @@ class SiddhamahayogPortalUserController extends Controller
 
                 $emergency->save();
                 // update family information,
-                if (isset($sessionUserDetail['family_detail']) ) {
+                if (isset($sessionUserDetail['family_detail'])) {
                     $familyInsert = [];
 
                     foreach ($sessionUserDetail['family_detail']['members'] as $family_member) {
@@ -292,7 +306,7 @@ class SiddhamahayogPortalUserController extends Controller
                             'contact_person' => $family_member['name'],
                             'relation'  => $family_member['relation'],
                             'phone_number'  => $family_member['phone_number'],
-                            'profile' => null,//$family_member['profile'],
+                            'profile' => null, //$family_member['profile'],
                             'contact_type'  => 'emergency',
                             'gender'    => $family_member['gender'],
                             'created_at' => date("Y-m-d H:i:s"),
@@ -300,13 +314,13 @@ class SiddhamahayogPortalUserController extends Controller
                         ];
                     }
 
-                    if ( count ($familyInsert ) ) {
+                    if (count($familyInsert)) {
                         MemberEmergencyMeta::insert($familyInsert);
                     }
                 }
 
 
-                if (isset($sessionUserDetail['jap_detail']) ) {
+                if (isset($sessionUserDetail['jap_detail'])) {
                     // jap Information
                     $jap = new MemberJapInformation();
 
@@ -321,8 +335,6 @@ class SiddhamahayogPortalUserController extends Controller
                     ]);
 
                     $jap->save();
-
-
                 }
                 // Now Enroll user in Program.
 
@@ -331,7 +343,7 @@ class SiddhamahayogPortalUserController extends Controller
                 $programID = 9;
                 $studentID = $memberRegistration->getKey();
 
-                if ( ! ProgramUser::where('program_id','=' , $programID)->where('student_id','=',$studentID)->exists()) {
+                if (!ProgramUser::where('program_id', '=', $programID)->where('student_id', '=', $studentID)->exists()) {
 
                     $addUserToProgram = new ProgramUser;
                     $addUserToProgram->fill([
@@ -347,35 +359,35 @@ class SiddhamahayogPortalUserController extends Controller
 
                 // add Dikshya Information
                 $dikshyaInformationSession = $sessionUserDetail['dikshit'];
-                if ( $dikshyaInformationSession['type'] == 'dikshit' ) {
-                    $dikshyaType = explode('&',$dikshyaInformationSession['category']);
+                if ($dikshyaInformationSession['type'] == 'dikshit') {
+                    $dikshyaType = explode('&', $dikshyaInformationSession['category']);
 
-                    foreach ($dikshyaType as $selectedDikshya){
+                    foreach ($dikshyaType as $selectedDikshya) {
 
-//                        $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
-//                            ->where('dikshya_type',$selectedDikshya)
-//                            ->first();
+                        //                        $userDikshay = MemberDikshya::where('member_id',$memberRegistration->getKey())
+                        //                            ->where('dikshya_type',$selectedDikshya)
+                        //                            ->first();
 
-//                        if ( ! $userDikshay ) {
+                        //                        if ( ! $userDikshay ) {
 
-                            $userDikshay = new MemberDikshya();
-                            $userDikshay->fill([
-                                'member_id' => $memberRegistration->getKey(),
-                                'dikshay_type'  => $selectedDikshya,
-                                'rashi_name' => '-',
-                                'ceromony_location' => '-',
-                            ]);
+                        $userDikshay = new MemberDikshya();
+                        $userDikshay->fill([
+                            'member_id' => $memberRegistration->getKey(),
+                            'dikshay_type'  => $selectedDikshya,
+                            'rashi_name' => '-',
+                            'ceromony_location' => '-',
+                        ]);
 
-                            $userDikshay->save();
-//                        }
+                        $userDikshay->save();
+                        //                        }
                     }
                 }
 
                 // Add yagya Counter Information.
-                $yagyaInformation = HanumandYagyaCounter::where('member_id',$memberRegistration->getKey())
-                                                            ->where('program_id',$programID)
-                                                            ->first();
-                if (! $yagyaInformation && isset($sessionUserDetail['jap_detail'])) {
+                $yagyaInformation = HanumandYagyaCounter::where('member_id', $memberRegistration->getKey())
+                    ->where('program_id', $programID)
+                    ->first();
+                if (!$yagyaInformation && isset($sessionUserDetail['jap_detail'])) {
 
                     $yagyaInformation = new HanumandYagyaCounter();
                     $yagyaInformation->fill([
@@ -387,14 +399,13 @@ class SiddhamahayogPortalUserController extends Controller
                     ]);
 
                     $yagyaInformation->save();
-
                 }
 
                 // check if the information was not filled today. than fill it.
-                $yagyaDailyCounter = HanumandYagyaDailyCounter::where('humand_yagya_id' , $yagyaInformation?->getKey())
-                                                                ->where('count_date',now()->format('Y-m-d'))
-                                                                ->first();
-                if ( ! $yagyaDailyCounter  && isset($sessionUserDetail['jap_detail'])) {
+                $yagyaDailyCounter = HanumandYagyaDailyCounter::where('humand_yagya_id', $yagyaInformation?->getKey())
+                    ->where('count_date', now()->format('Y-m-d'))
+                    ->first();
+                if (!$yagyaDailyCounter  && isset($sessionUserDetail['jap_detail'])) {
                     $yagyaDailyCounter = new HanumandYagyaDailyCounter();
                     $yagyaDailyCounter->fill([
                         'humand_yagya_id' => $yagyaInformation->getKey(),
@@ -407,37 +418,42 @@ class SiddhamahayogPortalUserController extends Controller
 
                 return $memberRegistration;
             });
-
         } catch (\Exception $e) {
             dd($e->getMessage());
-            Log::error('Unable to save user jap info. '. $e->getMessage(),['HANUMANT YAGYA']);
+            Log::error('Unable to save user jap info. ' . $e->getMessage(), ['HANUMANT YAGYA']);
             return false;
         }
         return $this->memberRegistration;
     }
 
-    public function verifyPassword(Request $request) {
-        if ( ! Auth::guard('portal')->attempt(
-                        ['email'=> session()->get('registration-email'),
-                            'password' => $request->post('password')], false) ) {
+    public function verifyPassword(Request $request)
+    {
+        if (!Auth::guard('portal')->attempt(
+            [
+                'email' => session()->get('registration-email'),
+                'password' => $request->post('password')
+            ],
+            false
+        )) {
 
             return false;
         }
         return true;
     }
 
-    public function liveProgramEvent(Request $request, string $event='') {
+    public function liveProgramEvent(Request $request, string $event = '')
+    {
         $request->validate([
-            'first_name'    => ['required','string',new Unicode()],
-            'last_name' => ['required','string',new Unicode()],
-            'email' => ['required','email', new Unicode()],
-            'password'  => ['sometimes','required','confirmed',new Unicode()]
+            'first_name'    => ['required', 'string', new Unicode()],
+            'last_name' => ['required', 'string', new Unicode()],
+            'email' => ['required', 'email', new Unicode()],
+            'password'  => ['sometimes', 'required', 'confirmed', new Unicode()]
         ]);
 
         // check now get
         $user = UserModel::where('email', $request->post('email'))->first();
 
-        if ( ! $user ) {
+        if (!$user) {
             $user = new UserModel();
             $user->fill([
                 'first_name' => $request->post('first_name'),
@@ -452,15 +468,15 @@ class SiddhamahayogPortalUserController extends Controller
             $user->save();
         }
 
-        $programID = 7;
-        $sectionID = 8;
-        $batchID = 7;
+        $programID = $this->programID ?? 7;
+        $sectionID = $this->sectionID ?? 8;
+        $batchID = $this->batchID ?? 7;
         // check if user is enrolled
         $programUser = ProgramUser::where('program_id', $programID)
-                                    ->where('student_id', $user->getKey())
-                                    ->first();
+            ->where('student_id', $user->getKey())
+            ->first();
 
-        if ( ! $programUser ) {
+        if (!$programUser) {
 
             $programUser = new ProgramUser();
 
@@ -476,10 +492,10 @@ class SiddhamahayogPortalUserController extends Controller
         }
 
         // now send detail to
-        return ['user' => $user->getKey(),'program' =>$programID];
+        return ['user' => $user->getKey(), 'program' => $programID];
     }
 
-    public function createNewAccountForLiveEvent(Request $request) {
-
+    public function createNewAccountForLiveEvent(Request $request)
+    {
     }
 }

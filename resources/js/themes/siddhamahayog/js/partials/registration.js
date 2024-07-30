@@ -8,7 +8,10 @@ export default class  Registration  {
     constructor(elm) {
         this.#elm = elm;
         this.#eventID = this.#elm.attr('data-event-id');
-        this.defaultLoad();
+
+        if ( this.#eventID ) {
+            this.defaultLoad();
+        }
     }
 
     defaultLoad() {

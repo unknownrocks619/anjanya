@@ -23,8 +23,9 @@ import './partials/course/permission.js'
 import './partials/lessions/lession.js'
 import './partials/orders/order.js'
 import './partials/sortable/sort.js'
-
+import './partials/ajaxTabView.js'
 import './partials/users/users.js'
+import './themes/siddhamahayog/js/partials/registration.js'
 
 $(function () {
     "use strict";
@@ -50,6 +51,15 @@ $(function () {
             $(this).remove();
         }, 100);
     });
+
+
+    $(document).on('click','.js-dynamic-url-mapping', function(event) {
+        console.log('hello world');
+        if ($(this).attr('data-js-url'))  {
+            window.history.pushState({},'',$(this).attr('data-js-url'));
+        }
+    })
+
 
     // Tap To Top Button
     $(".tap-top").on("click", function () {
@@ -777,8 +787,14 @@ window.handle422Case = function (data) {
     messageBox(false, data.msg ? data.msg : data.message);
     $.each(data.errors, function (index, error) {
         let inputElement = $(`input[name="${index}"]`);
+        if ( ! inputElement.length ){
+            inputElement = $(`select[name="${index}"]`);
+        }
+        if ( ! inputElement.length) {
+            inputElement = $(`textarea[name="${index}"]`);
+        }
         let parentDiv = $(inputElement).closest('div.form-group');
-
+        
         if (parentDiv.length) {
             let element = `<div class='text-danger ajax-response-error'>${error}</div>`
             parentDiv.append(element);
@@ -818,4 +834,5 @@ window.messageBox = function (status, message, icon = null) {
             exit: 'animated fadeOutUp'
         }
     });
+
 }
