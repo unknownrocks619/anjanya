@@ -12,23 +12,23 @@ use Illuminate\Http\Request;
 class BlockBuilder extends BaseComponent implements ComponentInterface
 {
     protected $_component_type = 'block_builder';
-    public function generate() {
+    public function generate() {}
 
-    }
-
-    public function uploadMedia() {
+    public function uploadMedia()
+    {
         $request = Request::capture();
         $image = Image::uploadOnly($request->file('image'));
 
 
         $source = str($request->post('name'))->before('_')->value();
-        if (! $image ) {
-            return $this->json(false,'Unable to upload image.','clearImage',['source' => $source]);
+        if (! $image) {
+            return $this->json(false, 'Unable to upload image.', 'clearImage', ['source' => $source]);
         }
-        return $this->json(true,'Image upload','enablePreviewImage',['source' => $source,'image' => Image::getImageAsSize($image[0]->filepath,'m')]);
+        return $this->json(true, 'Image upload', 'enablePreviewImage', ['source' => $source, 'image' => Image::getImageAsSize($image[0]->filepath, 'm')]);
     }
 
-    public function store($componentBinder) {
+    public function store($componentBinder)
+    {
         $request = Request::capture();
         $request->validate([
             'primary_image_value'   => 'required',
@@ -41,7 +41,7 @@ class BlockBuilder extends BaseComponent implements ComponentInterface
             'relation_id'       => $componentBinder?->getKey(),
             'active'            => false,
             'sort_by'           => ComponentBuilder::getSortBy($componentBinder),
-            'component_name'    => __('components.'.$this->_component_type)
+            'component_name'    => __('components.' . $this->_component_type)
         ]);
 
         // build value.
@@ -58,12 +58,13 @@ class BlockBuilder extends BaseComponent implements ComponentInterface
         try {
             $componentBuilder->save();
         } catch (\Exception $e) {
-            return $this->json(false,__('components._failed_save'),null,['error'=>$e->getMessage()]);
+            return $this->json(false, __('components._failed_save'), null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,__('components._success_save'),'reload');
+        return $this->json(true, __('components._success_save'), 'reload');
     }
 
-    public function update() {
+    public function update()
+    {
         $request = Request::capture();
         $values = [
             'subtitle'  => $request->post('subtitle'),
@@ -75,8 +76,8 @@ class BlockBuilder extends BaseComponent implements ComponentInterface
         ];
         $component = ComponentBuilder::find($request->post('_componentID'));
 
-        if (! $component ) {
-            return $this->json(false,'Unable to update.',null,['error'=>'component class not found.']);
+        if (! $component) {
+            return $this->json(false, 'Unable to update.', null, ['error' => 'component class not found.']);
         }
 
         $component->values = $values;
@@ -84,12 +85,13 @@ class BlockBuilder extends BaseComponent implements ComponentInterface
         try {
             $component->save();
         } catch (\Exception $e) {
-            return $this->json(false,'Unable to update.',null,['error'=>$e->getMessage()]);
+            return $this->json(false, 'Unable to update.', null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,'Component Updated.','');
+        return $this->json(true, 'Component Updated.', '');
     }
 
-    public function delete($component){
+    public function delete($component)
+    {
         return $component->delete();
     }
 }

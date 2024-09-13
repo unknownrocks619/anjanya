@@ -81,6 +81,85 @@
                 left: -100%;
             }
         }
+
+        .component-with-thumb {
+            position: absolute;
+            top: 30%;
+            left: 0px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            outline: dashed;
+            width: 100%;
+            background: #504e4e80;
+
+        }
+
+        .component-with-thumb .animate {
+            animation: move linear 20000ms infinite;
+        }
+
+        @keyframes move {
+            0% {
+                text-shadow:
+                    4px -4px 0 hsla(0, 100%, 50%, 1),
+                    3px -3px 0 hsla(0, 100%, 50%, 1),
+                    2px -2px 0 hsla(0, 100%, 50%, 1),
+                    1px -1px 0 hsla(0, 100%, 50%, 1),
+                    -4px 4px 0 hsla(180, 100%, 50%, 1),
+                    -3px 3px 0 hsla(180, 100%, 50%, 1),
+                    -2px 2px 0 hsla(180, 100%, 50%, 1),
+                    -1px 1px 0 hsla(180, 100%, 50%, 1);
+            }
+
+            25% {
+                text-shadow:
+                    -4px -4px 0 hsla(180, 100%, 50%, 1),
+                    -3px -3px 0 hsla(180, 100%, 50%, 1),
+                    -2px -2px 0 hsla(180, 100%, 50%, 1),
+                    -1px -1px 0 hsla(180, 100%, 50%, 1),
+                    4px 4px 0 hsla(0, 100%, 50%, 1),
+                    3px 3px 0 hsla(0, 100%, 50%, 1),
+                    2px 2px 0 hsla(0, 100%, 50%, 1),
+                    1px 1px 0 hsla(0, 100%, 50%, 1);
+            }
+
+            50% {
+                text-shadow:
+                    -4px 4px 0 hsla(0, 100%, 50%, 1),
+                    -3px 3px 0 hsla(0, 100%, 50%, 1),
+                    -2px 2px 0 hsla(0, 100%, 50%, 1),
+                    -1px 1px 0 hsla(0, 100%, 50%, 1),
+                    4px -4px 0 hsla(180, 100%, 50%, 1),
+                    3px -3px 0 hsla(180, 100%, 50%, 1),
+                    2px -2px 0 hsla(180, 100%, 50%, 1),
+                    1px -1px 0 hsla(180, 100%, 50%, 1);
+            }
+
+            75% {
+                text-shadow:
+                    4px 4px 0 hsla(180, 100%, 50%, 1),
+                    3px 3px 0 hsla(180, 100%, 50%, 1),
+                    2px 2px 0 hsla(180, 100%, 50%, 1),
+                    1px 1px 0 hsla(180, 100%, 50%, 1),
+                    -4px -4px 0 hsla(0, 100%, 50%, 1),
+                    -3px -3px 0 hsla(0, 100%, 50%, 1),
+                    -2px -2px 0 hsla(0, 100%, 50%, 1),
+                    -1px -1px 0 hsla(0, 100%, 50%, 1);
+            }
+
+            100% {
+                text-shadow:
+                    4px -4px 0 hsla(0, 100%, 50%, 1),
+                    3px -3px 0 hsla(0, 100%, 50%, 1),
+                    2px -2px 0 hsla(0, 100%, 50%, 1),
+                    1px -1px 0 hsla(0, 100%, 50%, 1),
+                    -4px 4px 0 hsla(180, 100%, 50%, 1),
+                    -3px 3px 0 hsla(180, 100%, 50%, 1),
+                    -2px 2px 0 hsla(180, 100%, 50%, 1),
+                    -1px 1px 0 hsla(180, 100%, 50%, 1);
+            }
+        }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -94,28 +173,32 @@
         <div class="loader"></div>
     </div>
     @if (auth()->guard('admin')->check())
-        <div class="page-wrapper horizontal-wrapper auth-user" id="pageWrapper">
+        <div class=" @if (!isset($builder)) page-wrapper horizontal-wrapper auth-user @endif"
+            id="pageWrapper">
 
-            <!-- Page Header -->
-            @include('themes.admin.header')
-            <!-- End Page Header -->
-
+            @if (!isset($builder))
+                <!-- Page Header -->
+                @include('themes.admin.header')
+                <!-- End Page Header -->
+            @endif
 
             <!-- Page Page Wrapper -->
             <div class="page-body-wrapper">
-
-                <!-- Sidebar -->
-                @include('themes.admin.navigation')
-                <!-- End Sidebar -->
+                @if (!isset($builder))
+                    <!-- Sidebar -->
+                    @include('themes.admin.navigation')
+                    <!-- End Sidebar -->
+                @endif
 
                 <div class="page-body">
                     @yield('main-content')
                 </div>
 
-                <!-- Footer -->
-                @include('themes.admin.footer')
-                <!-- End Footer -->
-
+                @if (!isset($builder))
+                    <!-- Footer -->
+                    @include('themes.admin.footer')
+                    <!-- End Footer -->
+                @endif
             </div>
             <!-- End Page Wrapper -->
         </div>
@@ -129,7 +212,8 @@
     {{-- <script src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> --}}
     {{-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"> --}}
-    <script src="https://cdn.tiny.cloud/1/hv8rmpnwgj2j6717w8resjuy2s8t7mhiw6ovtpldvdyzw6yi/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/hv8rmpnwgj2j6717w8resjuy2s8t7mhiw6ovtpldvdyzw6yi/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
 
     <script type="text/javascript">
         $(function() {

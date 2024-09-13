@@ -1,5 +1,5 @@
 <!-- Page Sidebar Start-->
-<div class="sidebar-wrapper h-100">
+<div class="sidebar-wrapper h-100  @isset($closeMenu) close_icon @endisset">
     <div>
         <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light" src="../assets/images/logo/logo.png"
                     alt=""><img class="img-fluid for-dark" src="../assets/images/logo/logo-dark.png"
@@ -17,14 +17,14 @@
                 @php
 
                     // if (!\Illuminate\Support\Facades\Cache::has('ADMIN_NAVIGATION')) {
-                        $navigation = [];
-                        if (config('navigation.admin')) {
-                            $navigation[] = config('navigation.admin');
-                        }
+                    $navigation = [];
+                    if (config('navigation.admin')) {
+                        $navigation[] = config('navigation.admin');
+                    }
 
-                        \Illuminate\Support\Facades\Cache::add('ADMIN_NAVIGATION', $navigation);
+                    \Illuminate\Support\Facades\Cache::add('ADMIN_NAVIGATION', $navigation);
                     // } else {
-                        // $navigation = \Illuminate\Support\Facades\Cache::get('NAVIATION');
+                    // $navigation = \Illuminate\Support\Facades\Cache::get('NAVIATION');
                     // }
                 @endphp
                 <ul class="sidebar-links" id="simple-bar">
@@ -44,7 +44,9 @@
                             @foreach ($parent_nav as $nav_items)
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title"
-                                        @if (isset($nav_items['route']) && !empty($nav_items['route'] && $nav_items['route'] != '') && count($nav_items['children']) == 0 ) href="{{ route($nav_items['route']) }}" @else href="#" @endif">
+                                        @if (isset($nav_items['route']) &&
+                                                !empty($nav_items['route'] && $nav_items['route'] != '') &&
+                                                count($nav_items['children']) == 0) href="{{ route($nav_items['route']) }}" @else href="#" @endif">
                                         @if (isset($nav_items['icon']) && !empty($nav_items['icon']))
                                             <i class='{{ $nav_items['icon'] }}'></i>
                                         @endif

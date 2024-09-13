@@ -13,14 +13,15 @@ use Illuminate\Support\Facades\Response;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
-    protected $plugin_name='';
+    protected $plugin_name = '';
 
-    public function __construct() {
+    public function __construct()
+    {
         /**
          * Set Language
          */
 
-        if (request()->get('language') && in_array(request()->get('language'),['en','np'])) {
+        if (request()->get('language') && in_array(request()->get('language'), ['en', 'np'])) {
             session()->put('language', request()->get('language'));
         }
 
@@ -39,7 +40,7 @@ class Controller extends BaseController
     {
         $base_path = 'backend.';
         if ($this->plugin_name) {
-            $base_path = $this->plugin_name.'::'.$base_path;
+            $base_path = $this->plugin_name . '::' . $base_path;
         }
         return view($base_path . $view, $data);
     }
@@ -61,13 +62,20 @@ class Controller extends BaseController
         $data['theme_view'] = $view;
         $data['extends'] = $layout;
         $base_layout = 'themes.frontend.' . $this->theme_name() . '.views.' . $view;
-        if ($this->plugin_name) {
-            $base_layout = $this->plugin_name .'::'.$base_layout;
+        if (isset($_ENV['ENABLE_PREVIEW_MODE'])) {
+            $layout = 'preview-layout';
+            $data['extends'] = $layout;
         }
+
+        if ($this->plugin_name) {
+            $base_layout = $this->plugin_name . '::' . $base_layout;
+        }
+
         return view($base_layout, $data);
     }
 
-    public function components($view, array $data = []) {
+    public function components($view, array $data = [])
+    {
         $base_path = env('APP_THEMES') ?? 'default';
         return view('themes.frontend.' . $base_path . '.components.' . $view, $data);
     }
@@ -147,24 +155,26 @@ class Controller extends BaseController
 
         return response($error, 422);
     }
-    public function header($path = null) {
+    public function header($path = null)
+    {
         $base_path = env('APP_THEMES') ?? 'default';
-        $setting = Setting::where('name','header')->first();
+        $setting = Setting::where('name', 'header')->first();
         $header = $setting?->value ?? 'header/default/header';
 
-        if ( $path ) {
-            $header = 'header/default/'.$path;
+        if ($path) {
+            $header = 'header/default/' . $path;
         }
 
-        $view = view('themes.frontend.'.$base_path.'.' . $header )->render();
+        $view = view('themes.frontend.' . $base_path . '.' . $header)->render();
         return $view;
     }
 
-    public function footer() {
+    public function footer()
+    {
         $base_path = env('APP_THEMES') ?? 'default';
-        $setting = Setting::where('name','footer')->first();
+        $setting = Setting::where('name', 'footer')->first();
         $footer = $setting?->value ?? 'footer.default.footer';
-        $view = view('themes.frontend.'.$base_path.'.' . $footer)->render();
+        $view = view('themes.frontend.' . $base_path . '.' . $footer)->render();
         return $view;
     }
 

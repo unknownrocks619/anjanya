@@ -6,6 +6,7 @@ use App\Classes\Components\Component;
 use App\Http\Controllers\Controller;
 use App\Models\CommonComponentConnector;
 use App\Models\ComponentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class Components extends Controller
@@ -41,20 +42,26 @@ class Components extends Controller
 
     public function getComponentList(Request $request)
     {
-        return view('themes.components.modal.list', ['options' => array_keys(self::TYPES),'model' => $request->get('modal'),'modelID'=> $request->get('modal_id')]);
+        return view('themes.components.modal.list', ['options' => array_keys(self::TYPES), 'model' => $request->get('modal'), 'modelID' => $request->get('modal_id')]);
     }
 
-    public function renderElement(Request $request)
+    public function renderElement(Request $request, ?Model $model = null)
     {
-        $model = $request->post('_model');
-        $relationModel = $model::find($request->post('_modelID'));
+        if (! $model) {
+            $model = $request->post('_model');
+            $relationModel = $model::find($request->post('_modelID'));
+        } else {
+            $relationModel = $model;
+        }
+
         foreach ($request->post('web_component_enable') as $componentID => $value) {
+
             // check if record exists.
-            $connectorInstance = CommonComponentConnector::where('relation_id',$request->post('_modelID'))
-                                                            ->where('relation_model', $request->post('_model'))
-                                                            ->where('web_component_id', $componentID)
-                                                            ->exists();
-            if (! $connectorInstance ) {
+            $connectorInstance = CommonComponentConnector::where('relation_id', $request->post('_modelID'))
+                ->where('relation_model', $request->post('_model'))
+                ->where('web_component_id', $componentID)
+                ->exists();
+            if (! $connectorInstance) {
                 $connectorInstance = new CommonComponentConnector;
                 $connectorInstance->fill([
                     'relation_id'   => $request->post('_modelID'),
@@ -65,9 +72,8 @@ class Components extends Controller
                 $connectorInstance->save();
             }
         }
-        $view = view("themes.components.view",['model' => $relationModel])->render();
+        $view = view("themes.components.view", ['model' => $relationModel])->render();
         return $this->json(true, 'Success', 'componentRenderElement', ['view' => $view]);
-
     }
 
     public function save(Request $request)
@@ -159,11 +165,12 @@ class Components extends Controller
 
         if ($componentConnector->isDirty('active')) {
             $componentConnector->save();
-            return $this->json(true,'Status updated');
+            return $this->json(true, 'Status updated');
         }
     }
 
-    public function previewComponent(Request $request, string $component_name) {
+    public function previewComponent(Request $request, string $component_name)
+    {
         $component = new Component($component_name);
         return $component->iframeBuilder();
     }

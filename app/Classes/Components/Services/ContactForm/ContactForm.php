@@ -20,7 +20,7 @@ class ContactForm extends BaseComponent implements ComponentInterface
             'relation_id'       => $componentBinder?->getKey(),
             'active'            => false,
             'sort_by'           => ComponentBuilder::getSortBy($componentBinder),
-            'component_name'    => __('components.'.$this->_component_type)
+            'component_name'    => __('components.' . $this->_component_type)
         ]);
 
         $values = [
@@ -30,16 +30,18 @@ class ContactForm extends BaseComponent implements ComponentInterface
             'message_box'   => $request->post('message_box_label'),
             'button'        => $request->post('button_text'),
             'success_message'   => $request->post('success_message'),
-            'error_message'     => $request->post('fail_message')
+            'error_message'     => $request->post('fail_message'),
+            'heading'           => $request->post('heading'),
+            'description'       => $request->post('description')
         ];
         $componentBuilder->values = $values;
 
         try {
             $componentBuilder->save();
         } catch (\Exception $e) {
-            return $this->json(false,__('components._failed_save'),null,['error'=>$e->getMessage()]);
+            return $this->json(false, __('components._failed_save'), null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,__('components._success_save'),'reload');
+        return $this->json(true, __('components._success_save'), 'reload');
     }
 
     public function update()
@@ -52,12 +54,15 @@ class ContactForm extends BaseComponent implements ComponentInterface
             'message_box'   => $request->post('message_box_label'),
             'button'        => $request->post('button_text'),
             'success_message'   => $request->post('success_message'),
-            'error_message'     => $request->post('fail_message')
+            'error_message'     => $request->post('fail_message'),
+            'heading'           => $request->post('heading'),
+            'description'       => $request->post('description')
+
         ];
         $component = ComponentBuilder::find($request->post('_componentID'));
 
-        if (! $component ) {
-            return $this->json(false,'Unable to update.',null,['error'=>'component class not found.']);
+        if (! $component) {
+            return $this->json(false, 'Unable to update.', null, ['error' => 'component class not found.']);
         }
 
         $component->values = $values;
@@ -65,9 +70,9 @@ class ContactForm extends BaseComponent implements ComponentInterface
         try {
             $component->save();
         } catch (\Exception $e) {
-            return $this->json(false,'Unable to update.',null,['error'=>$e->getMessage()]);
+            return $this->json(false, 'Unable to update.', null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,'Component Updated.','');
+        return $this->json(true, 'Component Updated.', '');
     }
 
     public function delete($component)

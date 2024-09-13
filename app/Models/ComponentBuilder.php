@@ -34,6 +34,7 @@ class ComponentBuilder extends AdminModel
         'active',
         'display_location',
         'values',
+        'display_type'
     ];
 
     public $casts = [
@@ -48,10 +49,11 @@ class ComponentBuilder extends AdminModel
         static::addGlobalScope(new SortableScope);
     }
 
-    public static function getSortBy($model) {
+    public static function getSortBy($model)
+    {
         $max_value = 0;
         $sort = self::where('relation_model', $model::class)
-                        ->where('relation_id',$model->getKey())->max('sort_by');
+            ->where('relation_id', $model->getKey())->max('sort_by');
         if (!is_null($sort)) {
             $max_value = $sort + 1;
         }

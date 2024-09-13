@@ -39,6 +39,7 @@ class Post extends AdminModel
         'categories'    => 'array'
     ];
 
+
     public function getCategories()
     {
         if (empty($this->categories)) {
@@ -86,9 +87,10 @@ class Post extends AdminModel
         return;
     }
 
-    public static function recentPost(Post|null $currentPost = null) {
-        return self::where('status','active')->with(['getImage' => function($query){
+    public static function recentPost(Post|null $currentPost = null)
+    {
+        return self::where('status', 'active')->with(['getImage' => function ($query) {
             $query->with('image');
-        }])->orderBy('updated_at','desc')->limit('5')->get();
+        }])->orderBy('updated_at', 'desc')->limit('5')->get();
     }
 }

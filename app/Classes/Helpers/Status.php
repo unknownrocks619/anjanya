@@ -23,12 +23,19 @@ class Status
         'draft' => ['class' => 'badge rounded-pill badge-info', 'text' => 'Draft']
     ];
 
-    public static function active_label($active)
+    public static function active_label($active, $type = 'pill')
     {
         if (!in_array($active, array_keys(self::$active_choice))) {
             return;
         }
-        return "<span class='px-2 " . self::$active_choice[$active]['class'] . "'>" . self::$active_choice[$active]['text'] . "</span>";
+        $span  = "<span  class='px-2 " . self::$active_choice[$active]['class'] . "'";
+        if ($type == 'badge') {
+            $span .= "style='border-radius: 0px !important;' ";
+        }
+
+        $span .=  ">";
+        $span .= self::$active_choice[$active]['text'] . "</span>";
+        return $span;
     }
 
     public static function  status_label($status)

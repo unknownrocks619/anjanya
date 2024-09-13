@@ -1,4 +1,5 @@
 import Masonry from "masonry-layout";
+import Swal from "sweetalert2";
 
 
 $(document).on('click', '.select-component', function (event) {
@@ -257,18 +258,27 @@ export default class CommonComponentSelector {
         console.log('elm: ',elm)
     }
 
-    selectComponent(elm) {
+    selectComponent(elm,type='iframe') {
         this.#setLoading(true);
         let _this = this;
         this.#fetchView($(elm).data('url'))
             .then(function (view) {
-                $(_this.container).find('.component-builder-loader').html(view.params.view)
-                if ($(_this.container).find('button.action-button').length) {
-                    // let's make few adjustment.
-                    if ($(_this.container).find('input[name="_source-option-id"]').length) {
-                        $(_this.container).find('button.action-button').html('Save Component')
+                if ( type === 'iframe') {
+                    $(_this.container).find('.component-builder-loader').html(view.params.view)
+                    if ($(_this.container).find('button.action-button').length) {
+                        // let's make few adjustment.
+                        if ($(_this.container).find('input[name="_source-option-id"]').length) {
+                            $(_this.container).find('button.action-button').html('Save Component')
+                        }
                     }
+                } else {
+                    $(_this.container).find('.component-edit-options').html(view.params.view)
+                    $(_this.container).find('.component-edit-holder-wrapper').removeClass('d-none');
+                    $(_this.container).find('.componentLister').addClass('d-none');
+                    let _componenntID = $(_this.container).find('input[name="_componentID"]')
+                    $(_this.container).find('.component-remove').attr('data-component-id', _componenntID.val())
                 }
+
                 _this.#setLoading(false);
             });
     }
@@ -336,14 +346,15 @@ export default class CommonComponentSelector {
                 }
             }
         })
+
         axios.post('/admin/components/common/build-update/'+_component_ID,_form)
             .then(function(response){
                 let _response = response.data;
-                window.handleOKResponse(_response);
+                // window.handleOKResponse(_response);
             }).catch(function(response) {
                 _this.#setLoading(false);
                let _response =response.data;
-               window.handleBadResponse(_response);
+            //    window.handleBadResponse(_response);
         });
     }
 
@@ -352,11 +363,25 @@ export default class CommonComponentSelector {
         let _this = this;
         let _componentID = $(elm).attr('data-component-id');
         let _webComponentID = $(this.container).find('input[name="_source-option-id"]').val();
-        axios.post('/admin/components/common/delete-component/'+_webComponentID+'/'+_componentID)
-            .then(function(response) {
-                let _response = response.data;
-                window.handleOKResponse(_response);
-            })
+        if ( _webComponentID == undefined ) {
+            _webComponentID = $(elm).attr('data-web-id');
+        }
+        Swal.fire({
+            title: 'Remove component ?',
+            text: "You are about to delete the component associated this page / post. This action can not be undone. Do you wish to continue ? ",
+            showConfirmButton: true,
+            showCloseButton: true,
+            showCancelButton: true
+        }).then((action) => {
+            if (action.isConfirmed === true) {
+                // perform ajax query.
+                 axios.post('/admin/components/common/delete-component/'+_webComponentID+'/'+_componentID)
+                .then(function(response) {
+                    let _response = response.data;
+                    window.handleOKResponse(_response);
+                })
+            }
+        })
     }
 }
 if ($('#commonComponentBuilder').length) {

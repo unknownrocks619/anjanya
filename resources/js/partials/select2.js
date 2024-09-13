@@ -31,13 +31,17 @@ window.ajaxReinitalize = function (element, options = {}) {
     }
 }
 
-if ($('select').length) {
-    $.each($('select'), function (index, element) {
-        if (!$(element).hasClass('no-select-2')) {
-            window.ajaxReinitalize(element);
-        }
-    });
+window.initSelect2 = function() {
+    if ($('select').length) {
+        $.each($('select'), function (index, element) {
+            if (!$(element).hasClass('no-select-2')) {
+                window.ajaxReinitalize(element);
+            }
+        });
+    }
+
 }
+
 
 $(document).on('change', '.update-from-select', function (event) {
     event.preventDefault();
@@ -76,4 +80,9 @@ $(document).on('change', 'select[name="slider_layout"]', function (event) {
     if ($('.' + _sliderValue).length) {
         $('.' + _sliderValue).removeClass('d-none');
     }
+})
+
+
+$(()=>{
+    window.initSelect2();
 })

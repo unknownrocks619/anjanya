@@ -7,5 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::name('pages.')
     ->group(function () {
         Route::get("{slug}", [MenuController::class, 'load'])->name('menu');
-        Route::get("page/{slug}", [MenuController::class, 'pageDetail'])->name('page');
+        Route::get("page/{slug}/{previewMode?}", [MenuController::class, 'pageDetail'])->name('page');
     });

@@ -5,7 +5,9 @@ return [
             'view'  => 'components.background_image.view',
             'add'   => 'components.background_image.add',
             'edit'  => 'components.background_image.edit',
-            'namespace' => 'BackgroundImage'
+            'thumb' => 'thumbnail.png',
+            'namespace' => 'BackgroundImage',
+            'preview'   => 'components.background_image.preview'
         ],
         'progress_card'   => [
             'view'  => 'components.progress_card.view',

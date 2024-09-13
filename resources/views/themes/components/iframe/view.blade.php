@@ -4,6 +4,6 @@
 @endphp
 <div class="row align-items-center">
     <div class="col-md-12">
-        {!! $componentValue !!}
+        {!! $componentValue['iframe'] ?? $componentValue !!}
     </div>
 </div>

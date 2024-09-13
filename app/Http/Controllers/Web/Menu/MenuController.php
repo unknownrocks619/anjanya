@@ -27,9 +27,25 @@ class MenuController extends Controller
 
     protected $cached_menu;
     protected $active_menu;
-    public function __construct()
+    protected bool $previewMode = false;
+
+    public function __construct(bool $previewMode = false)
     {
         $this->cached_menu =  Menu::all();
+        // $this->previewMode = $previewMode;
+        // $this->setPreviewModel();
+    }
+
+    public function setPreviewModel()
+    {
+        if ($this->previewMode && auth()->guard('admin')->check()) {
+            $_ENV['ENABLE_PREVIEW_MODE'] = true;
+        } else {
+            $this->previewMode = false;
+            if (isset($_ENV['ENABLE_PREVIEW_MODE'])) {
+                unset($_ENV['ENABLE_PREVIEW_MODE']);
+            }
+        }
     }
 
     public function load($slug = '/')
@@ -60,10 +76,9 @@ class MenuController extends Controller
 
                 $this->active_menu = ModelsMenu::where('slug', $slug)->where('active', true)->first();
             }
-
         }
 
-        if ( ! $this->active_menu) {
+        if (! $this->active_menu) {
             abort(404);
         }
 
@@ -75,7 +90,7 @@ class MenuController extends Controller
         $isFooter = true;
 
 
-        if (method_exists($this,$this->active_menu->menu_type) ) {
+        if (method_exists($this, $this->active_menu->menu_type)) {
             return $this->{$this->active_menu->menu_type}();
         }
 
@@ -94,7 +109,8 @@ class MenuController extends Controller
         // }
     }
 
-    public function contact() {
+    public function contact()
+    {
         return $this->frontend_theme(
             'master',
             'home.contact',
@@ -104,7 +120,8 @@ class MenuController extends Controller
         );
     }
 
-    public function category() {
+    public function category()
+    {
 
         $defaultSEO = Meta::metaInfo($this->active_menu);
 
@@ -119,13 +136,13 @@ class MenuController extends Controller
         }
         $pageSeo = $defaultSEO;
         return $this->frontend_theme('master', 'category.category-list', ['categories' => $categories, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu]);
-
     }
     /**
      * For menu type page, Display page
      * @return \Illuminate\Contracts\View\View
      */
-    public function page(){
+    public function page()
+    {
         $defaultSEO = Meta::metaInfo($this->active_menu);
 
         $page = null;
@@ -151,34 +168,37 @@ class MenuController extends Controller
         }
 
 
-        $page->load('webComponents.getComponents','getImage.image','getSeo');
+        $page->load('webComponents.getComponents', 'getImage.image', 'getSeo');
         $pageSeo = Meta::metaInfo($page);
         if ($pageSeo) {
             $defaultSEO = $pageSeo;
         }
-        return $this->frontend_theme('master-nav', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu,'seo' => $pageSeo]);
-
+        return $this->frontend_theme('master-nav', 'page.list', ['page' => $page, 'pageSeo' => $pageSeo, 'menu' => $this->active_menu, 'seo' => $pageSeo]);
     }
 
 
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function gallery() {
+    public function gallery()
+    {
 
         $defaultSEO = Meta::metaInfo($this->active_menu);
 
-        $galleryAlbums = GalleryAlbums::where('active',1)->with(['items' => function($query) {
-            $query->with(['getImage' => function($subQuery){
+        $galleryAlbums = GalleryAlbums::where('active', 1)->with(['items' => function ($query) {
+            $query->with(['getImage' => function ($subQuery) {
                 $subQuery->with('image');
             }])
-            ->where('sort_by','asc');
+                ->where('sort_by', 'asc');
         }])
-        ->where('album_type','!=','glitters')
-        ->orderBy('sort_by','asc')->get();
+            ->where('album_type', '!=', 'glitters')
+            ->orderBy('sort_by', 'asc')->get();
 
-        return $this->frontend_theme('master','gallery.list',
-                                        ['menu' => $this->active_menu,'galleryAlbums' => $galleryAlbums,'pageSeo' => $defaultSEO]);
+        return $this->frontend_theme(
+            'master',
+            'gallery.list',
+            ['menu' => $this->active_menu, 'galleryAlbums' => $galleryAlbums, 'pageSeo' => $defaultSEO]
+        );
     }
 
 
@@ -188,11 +208,17 @@ class MenuController extends Controller
      * @param $slug
      * @return \Illuminate\Contracts\View\View
      */
-    public function pageDetail(string $slug)
+    public function pageDetail(string $slug, bool $previewMode = false)
     {
+        $this->previewMode = $previewMode;
+        $this->setPreviewModel();
+
+        if ($previewMode &&  ! isset($_ENV['ENABLE_PREVIEW_MODE'])) {
+            return redirect()->route('frontend.pages.page', ['slug' => $slug]);
+        }
 
         $slug = htmlspecialchars($slug);
-        $page = Page::where('active', true)->where('slug' , $slug)->with(['getImage','getSeo'])->firstOrFail();
+        $page = Page::where('active', true)->where('slug', $slug)->with(['getImage', 'getSeo'])->firstOrFail();
         $pageSeo = Meta::metaInfo($page);
         return $this->frontend_theme('master', 'page.detail', ['page' => $page, 'pageSeo' => $pageSeo]);
     }
@@ -200,22 +226,23 @@ class MenuController extends Controller
     /**
      * Not In Used for this theme.
      */
-//    public function book_bundle()
-//    {
-//        $bookBundle = BookBundle::where('active', true)->with(['getImage'])->get();
-//        return $bookBundle;
-//    }
+    //    public function book_bundle()
+    //    {
+    //        $bookBundle = BookBundle::where('active', true)->with(['getImage'])->get();
+    //        return $bookBundle;
+    //    }
 
     /**
      * For menu type events, Display event list page.
      * @return \Illuminate\Contracts\View\View
      */
-    public function events() {
-        $events = \App\Plugins\Events\Http\Models\Event::where('active',true)->orderBy('event_start_date','desc')->with(['getImage' => function($query){
+    public function events()
+    {
+        $events = \App\Plugins\Events\Http\Models\Event::where('active', true)->orderBy('event_start_date', 'desc')->with(['getImage' => function ($query) {
             $query->with('image');
         }])->paginate(15);
 
-        return $this->frontend_theme('master-nav','events.list',[
+        return $this->frontend_theme('master-nav', 'events.list', [
             'menu' => $this->active_menu,
             'events'    =>  $events
         ]);
@@ -244,21 +271,21 @@ class MenuController extends Controller
 
         $message = "";
 
-        if ( $request->post('page_name') ) {
+        if ($request->post('page_name')) {
             $message .= "<b>Page Source : </b>" . $request->post('page_name');
             $message .= "<br />";
         }
 
-        if ($request->post('post_name') ) {
-            $message .= "<b>Course Source</b> : ". $request->post('post_name');
+        if ($request->post('post_name')) {
+            $message .= "<b>Course Source</b> : " . $request->post('post_name');
             $message .= "<br />";
         }
 
-        $message .= "Full Name : ". $request->post('full_name');
+        $message .= "Full Name : " . $request->post('full_name');
         $message .= " <br />";
         $message .= "Email: " . $request->post('email');
         $message .= "<br />";
-        $message .= "Phone Number  : ". $request->post('phone');
+        $message .= "Phone Number  : " . $request->post('phone');
         $message .= "<br />";
         $message .= "Message : <br />";
         $message .= $request->post('message');
@@ -278,12 +305,12 @@ class MenuController extends Controller
         return $this->json(true, $componentValue['success_message']);
     }
 
-    public function team_member() {
-        if ( ! $this->active_menu->active) {
-            abort (404);
+    public function team_member()
+    {
+        if (! $this->active_menu->active) {
+            abort(404);
         }
         $teamGroup = new TeamController;
         return $teamGroup->load($this->active_menu);
     }
-
 }

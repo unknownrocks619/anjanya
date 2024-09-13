@@ -15,7 +15,7 @@ class Iframe extends BaseComponent implements ComponentInterface
     {
         $request = Request::capture();
         $request->validate([
-            'iframe'    => 'required'
+            // 'iframe'    => 'required'
         ]);
         $componentBuilder = new ComponentBuilder();
         $componentBuilder->fill([
@@ -24,16 +24,16 @@ class Iframe extends BaseComponent implements ComponentInterface
             'relation_id'       => $componentBinder?->getKey(),
             'active'            => false,
             'sort_by'           => ComponentBuilder::getSortBy($componentBinder),
-            'component_name'    => __('components.'.$this->_component_type),
-            'values'            => $request->post('iframe')
+            'component_name'    => __('components.' . $this->_component_type),
+            'values'            => ['iframe' => '', 'width' => '0', 'height' => 0, 'border' => '0']
         ]);
 
         try {
             $componentBuilder->save();
         } catch (\Exception $e) {
-            return $this->json(false,'Unable to save.',null,['error'=>$e->getMessage()]);
+            return $this->json(false, 'Unable to save.', null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,'Component Save.','reload');
+        return $this->json(true, 'Component Save.', 'reload');
     }
 
     public function update()
@@ -43,20 +43,26 @@ class Iframe extends BaseComponent implements ComponentInterface
             'iframe'    => 'required'
         ]);
 
+        $values = [
+            'iframe'    => $request->post('iframe'),
+            'width' => $request->post('iframe_width'),
+            'height'    => $request->post('iframe_height'),
+            'border'    => $request->post('iframe_border')
+        ];
+
         $component = ComponentBuilder::find($request->post('_componentID'));
-        $component->values = $request->post('iframe');
-        if (! $component ) {
-            return $this->json(false,'Unable to update.',null,['error'=>'component class not found.']);
+
+        if (! $component) {
+            return $this->json(false, 'Unable to update.', null, ['error' => 'component class not found.']);
         }
 
-        $component->values = $request->post('iframe');
-
+        $component->values = $values;
         try {
             $component->save();
         } catch (\Exception $e) {
-            return $this->json(false,'Unable to update.',null,['error'=>$e->getMessage()]);
+            return $this->json(false, 'Unable to update.', null, ['error' => $e->getMessage()]);
         }
-        return $this->json(true,'Component Updated.','');
+        return $this->json(true, 'Component Updated.', '');
     }
 
     public function delete($component)

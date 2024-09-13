@@ -16,10 +16,11 @@ class CommonComponentConnector extends Model
         'sort_by'
     ];
 
-    public static function sortBy($model) {
+    public static function sortBy($model)
+    {
         $max_value = 0;
         $sort = self::where('relation_model', $model::class)
-            ->where('relation_id',$model->getKey())->max('sort_by');
+            ->where('relation_id', $model->getKey())->max('sort_by');
         if (!is_null($sort)) {
             $max_value = $sort + 1;
         }

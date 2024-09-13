@@ -1,4 +1,4 @@
-<div class="row align-items-center">
+<div class="row align-items-center d-none">
     <div class="col-md-12">
         <div class="component-container">
             <input type="hidden" name="_component_name" value="iframe" class="component_field  d-none">
@@ -14,3 +14,12 @@
         </div>
     </div>
 </div>
+<script>
+    $(() => {
+        window.CB.updateComponent();
+        setTimeout(() => {
+            // reload iframe,
+            document.getElementById('slider_frame').contentWindow.location.reload();
+        }, 1000);
+    });
+</script>

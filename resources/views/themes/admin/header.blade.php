@@ -1,5 +1,5 @@
 <!-- Page Header Start-->
-<div class="page-header">
+<div class="page-header @isset($closeMenu) close_icon @endisset">
     <div class="header-wrapper row m-0">
         <form class="form-inline search-full col" action="#" method="get">
             <div class="form-group w-100">

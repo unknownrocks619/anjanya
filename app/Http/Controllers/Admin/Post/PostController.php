@@ -37,7 +37,7 @@ class PostController extends Controller
         }));
     }
 
-    public function index()
+    public function index(Request $request)
     {
         if (request()->method() === 'POST') {
             request()->validate([
@@ -60,7 +60,16 @@ class PostController extends Controller
 
             return $this->json(true, 'New Post Created.', 'redirect', ['location' => route('admin.posts.edit', ['post' => $post])]);
         }
-        $posts = Post::get();
+
+        $postQuery = Post::query();
+        if ($request->get('search')) {
+            $postQuery->where('title', 'LIKE', '%' . $request->get('search') . '%');
+            $postQuery->orWhere('slug', 'LIKE', '%' . $request->get('search') . '%');
+            $postQuery->orWhere('type', 'LIKE', '%' . $request->get('search') . '%');
+            $postQuery->orWhere('status', 'LIKE', '%' . $request->get('search') . '%');
+        }
+        $posts = $postQuery->paginate(15);
+
         return $this->admin_theme('post.index', ['posts' => $posts]);
     }
 
@@ -83,7 +92,7 @@ class PostController extends Controller
             $post->status = $request->post('status');
             $post->categories = $request->post('categories') ? array_map('intval', $request->post('categories')) : [];
 
-            if(env('APP_THEMES') == 'siddhamahayog') {
+            if (env('APP_THEMES') == 'siddhamahayog') {
                 $post->glitter_background = $request->post('glitter_background');
             }
 

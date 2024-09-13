@@ -13,6 +13,7 @@ class Slider
 
     public static function save(Request $request)
     {
+        dd('hello world');
 
         $componentBuilder = new ComponentBuilder();
         $componentBuilder->component_name = __('components.' . self::$type);;
@@ -24,12 +25,15 @@ class Slider
             'type'                  => $request->post('slider_layout'),
             'limit'                    => $request->post('number_of_slider') ?? 15,
         ];
-        if ($request->post('slider_layout') == 'categories') {
-            $value = $request->post('categories') ?? [];
-        }
 
-        if ($request->post('slider_layout') == 'posts') {
-            $value = $request->post('posts') ?? [];
+        $values['value'] = $request->post($request->post('slider_layout')) ?? [];
+        $values['buttons'] = [];
+
+        foreach ($request->post('button_label') ?? [] as $index => $buttonLabel) {
+            $values['buttons'][] = [
+                'label' => $buttonLabel,
+                'link'  => $request->post('button_link')[$index] ?? '/'
+            ];
         }
 
         if ($request->has('latest_posts')) {
@@ -38,7 +42,6 @@ class Slider
             $values['latest'] = false;
         }
 
-        $values['values'] = $value;
         $componentBuilder->values = json_encode($values);
 
         try {
