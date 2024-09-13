@@ -25,18 +25,19 @@ class MaintenanceMode
         }
 
         // skip for following url :
-        $whiteListURL = [
-                            'https://himalayan.siddhamahayog.org/event/satsang-and-aashirvachan/registration',
-                            'https://himalayan.siddhamahayog.org/event/registration/2',
-                            'https://himalayan.siddhamahayog.org/event/stepback/2',
-                            'https://himalayan.siddhamahayog.org/newsletter/store',
-                            'https://himalayan.siddhamahayog.org/event/hanumad-mahayagya/registration',
-                            'https://himalayan.siddhamahayog.org/event/registration/1',
-                            'https://himalayan.siddhamahayog.org/event/stepback/1',
-                            'https://himalayan.siddhamahayog.org/event/registration/upload-photo/1',
-                            'https://himalayan.siddhamahayog.org/event/registration/3',
-                            'https://himalayan.siddhamahayog.org/event/anjaneya-youth-meeting/registration'
-                    ];
+        // $whiteListURL = [
+        //                     'https://himalayan.siddhamahayog.org/event/satsang-and-aashirvachan/registration',
+        //                     'https://himalayan.siddhamahayog.org/event/registration/2',
+        //                     'https://himalayan.siddhamahayog.org/event/stepback/2',
+        //                     'https://himalayan.siddhamahayog.org/newsletter/store',
+        //                     'https://himalayan.siddhamahayog.org/event/hanumad-mahayagya/registration',
+        //                     'https://himalayan.siddhamahayog.org/event/registration/1',
+        //                     'https://himalayan.siddhamahayog.org/event/stepback/1',
+        //                     'https://himalayan.siddhamahayog.org/event/registration/upload-photo/1',
+        //                     'https://himalayan.siddhamahayog.org/event/registration/3',
+        //                     'https://himalayan.siddhamahayog.org/event/anjaneya-youth-meeting/registration'
+        //             ];
+        $whiteListURL = [];
 
         if (in_array(url()->current(),$whiteListURL) ) {
             return $next($request);
