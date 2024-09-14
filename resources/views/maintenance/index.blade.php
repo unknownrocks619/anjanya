@@ -19,9 +19,10 @@
                     Sorry this website is currently under maintenance.
                 </h2>
                 <p>
-                    Please be patient, we're either experiencing technical issues or performing upgrades. We will be
+                    जय श्रीसीताराम । आज वेदान्त दर्शन प्रवेश पोर्टलमा मर्मत कार्य चलिरहेको हुनाले कक्षा नहुने जानकारी गराउन चाहन्छौँ । हजुरहरुमा पर्न गएको यो असुविधाको लागी  क्षमाप्रार्थी छौँ । जय श्रीसीताराम ॥।
+<!--                     Please be patient, we're either experiencing technical issues or performing upgrades. We will be
                     back
-                    shortly, Thank you.
+                    shortly, Thank you. -->
                 </p>
             </div>
         </div>
