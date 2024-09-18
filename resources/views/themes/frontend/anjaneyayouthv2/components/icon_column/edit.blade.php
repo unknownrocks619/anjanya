@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Layout Type</label>
-                    <select name="builder_source" class="form-control">
+                    <select name="layout_type" class="form-control">
                         <option value="default">Default</option>
                         <option value="circular">Circular</option>
                         <option value="icon">Icon Only</option>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="row mt-2">
+        <div class="row mt-2 ">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="media" class="text-dark">
@@ -63,8 +63,8 @@
             </div>
         </div>
 
-        <div class="row mt-2">
-            <div class="col-md-4">
+        <div class="row mt-2 ">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="media" class="text-dark">
                         Subtitle
@@ -73,7 +73,7 @@
                         class="form-control component_field" />
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="media" class="text-dark">
                         Heading
@@ -83,12 +83,13 @@
                 </div>
             </div>
         </div>
-        <div class="row post">
+
+        <div class="row post builder_source">
             <div class="alert alert-primary text-bold fs-6">
                 <h5 class="alert-header alert-title fs-5 border-bottom pb-2">
                     Select Your Post More Wisely
                 </h5>
-                E.G: Row = 2, Column 3, Max Post displyed will be 6. 3 on First Row and 3 on Second Row
+                E.G: Row = 2, Column 3, Max Post displayed will be 6. 3 on First Row and 3 on Second Row
             </div>
 
             <div class="col-md-12 post-append-to">
@@ -113,7 +114,93 @@
                     Post</button>
             </div>
         </div>
-        <div class="row mt-2 bg-white">
+
+        <div class="row category builder_source">
+            <div class="alert alert-primary text-bold fs-6">
+                <h5 class="alert-header alert-title fs-5 border-bottom pb-2">
+                    Select Your Category More Wisely
+                </h5>
+                E.G: Row = 2, Column 3, Max Category displayed will be 6. 3 on First Row and 3 on Second Row
+            </div>
+
+            <div class="col-md-12 category-append-to">
+                <div class="row align-items-center">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label>Select Category</label>
+                            <select name="category[]" class="form-control select2">
+                                <option value="1">Post one</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 pt-2 remove-icon d-none">
+                        <button class="btn btn-icon btn-danger btn-sm p-2" type="button" onclick="removeSection(this)">
+                            <i class="icon-trash fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary" onclick="addSection('.category-append-to')" type="button">Add More
+                    Category</button>
+            </div>
+        </div>
+
+        <div class="row page builder_source">
+            <div class="alert alert-primary text-bold fs-6">
+                <h5 class="alert-header alert-title fs-5 border-bottom pb-2">
+                    Select Your Page More Wisely
+                </h5>
+                E.G: Row = 2, Column 3, Max Page displayed will be 6. 3 on First Row and 3 on Second Row
+            </div>
+
+            <div class="col-md-12 page-append-to">
+                <div class="row align-items-center">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label>Select Page</label>
+                            <select name="page[]" class="form-control select2">
+                                <option value="1">Post one</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 pt-2 remove-icon d-none">
+                        <button class="btn btn-icon btn-danger btn-sm p-2" type="button" onclick="removeSection(this)">
+                            <i class="icon-trash fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary" onclick="addSection('.page-append-to')" type="button">Add More
+                    Page</button>
+            </div>
+        </div>
+
+        <div class="row layout_type circular">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Circle Background</label>
+                    <input type="color" name="circle_background" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>First Line </label>
+                    <input type="text" name="circle_first_line" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Second Line</label>
+                    <input type="text" name="circle_second_line" class="form-control" />
+                </div>
+            </div>
+
+        </div>
+        <div class="row layout_type featured_team"></div>
+
+        <div class="row mt-2 bg-white builder_source custom">
             @php
                 $data = $componentValue['data'];
             @endphp
@@ -260,7 +347,7 @@
             2: 6
         }
         $.each($('.field_generator').children(), function(index, item) {
-            // we are inside row 
+            // we are inside row
             let _currentColumns = $(item).children().length;
             console.log('current column: ', _currentColumns, _columnReverse[_no_column]);
             if (_currentColumns > _columnReverse[_no_column]) {
