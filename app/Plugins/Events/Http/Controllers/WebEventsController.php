@@ -138,7 +138,7 @@ class WebEventsController extends Controller
     public function event_registration_process(Request $request, Event $event)
     {
         $data = ['event' => $event];
-
+        
         $process = $this->{session()->get('current_step')}($request, $event);
         $view = session()->get('current_step');
 
@@ -344,13 +344,14 @@ class WebEventsController extends Controller
         if (isset($emailResponse['has_submitted']) && $emailResponse['has_submitted'] === true) {
 
             // check if user full_path and id_card has been inserted.
-            if (!$emailResponse['profile_url']) {
-                session()->put('current_step', 'profilePictures');
-                session()->put('allow_back', false);
-                return;
-            }
+            session()->put('current_step', 'complete');
+            // if (!$emailResponse['profile_url']) {
+            //     session()->put('current_step', 'profilePictures');
+            //     session()->put('allow_back', false);
+            //     return;
+            // }
 
-            session()->put('current_step', 'submitted');
+            // session()->put('current_step', 'submitted');
 
             if (isset($emailResponse['userID'])) {
                 return ['userID' => $emailResponse['userID']];

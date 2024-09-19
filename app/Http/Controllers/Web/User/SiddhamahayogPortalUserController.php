@@ -187,16 +187,19 @@ class SiddhamahayogPortalUserController extends Controller
 
                 $sessionUserDetail = session()->get('registration_detail');
 
-                if (session()->has('allow_back') && isset($sessionUserDetail['userID'])) {
+                if (isset($sessionUserDetail['userID'])) {
 
                     $memberRegistration = UserModel::where('id', $sessionUserDetail['userID'])->first();
-                    if (isset($sessionUserDetail['profile_url'])) {
+
+                    if (isset($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
                         $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                         $memberRegistration->save();
                     }
+
                     $this->memberRegistration = $memberRegistration;
                     return $memberRegistration;
                 }
+
 
                 // check if we need to create new user
                 if (session()->has('new_registration') && session()->get('new_registration') == true && UserModel::where('email', session()->get('registration-email'))->exists() === false) {
@@ -227,13 +230,19 @@ class SiddhamahayogPortalUserController extends Controller
                     $memberRegistration->password = $sessionUserDetail['user_password'];
                     $memberRegistration->role_id = 7;
 
-                    if (isset($sessionUserDetail['profile_url'])) {
+                    if (isset($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
                         $memberRegistration->profile =  ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                     }
 
                     $memberRegistration->save();
                 } else {
                     $memberRegistration = UserModel::where('email', session()->get('registration-email'))->first();
+
+                    if (! $memberRegistration) {
+                        $memberRegistration = new UserModel;
+                        $memberRegistration->email = session()->get('registration-email');
+                    }
+
                     $memberRegistration->fill([
                         'full_name' => $sessionUserDetail['full_name'],
                         'first_name'    => $sessionUserDetail['first_name'],
@@ -253,8 +262,10 @@ class SiddhamahayogPortalUserController extends Controller
                     if (isset($sessionUserDetail['profile_url']) && isset($sessionUserDetail['profile_id'])) {
                         $memberRegistration->profile = ['full_path' => $sessionUserDetail['profile_url'], 'id_card' => $sessionUserDetail['profile_id']];
                     }
+
                     $memberRegistration->save();
                 }
+
                 $this->memberRegistration = $memberRegistration;
                 // Update meta information
                 $meta = MemberInfo::where('member_id', $memberRegistration->getKey())->first();
@@ -419,10 +430,10 @@ class SiddhamahayogPortalUserController extends Controller
                 return $memberRegistration;
             });
         } catch (\Exception $e) {
-            dd($e->getMessage());
-            Log::error('Unable to save user jap info. ' . $e->getMessage(), ['HANUMANT YAGYA']);
+            Log::error('Unable to save user jap info. ' . $e->getMessage(), ['EVENT REGISTRATION']);
             return false;
         }
+
         return $this->memberRegistration;
     }
 
@@ -495,7 +506,5 @@ class SiddhamahayogPortalUserController extends Controller
         return ['user' => $user->getKey(), 'program' => $programID];
     }
 
-    public function createNewAccountForLiveEvent(Request $request)
-    {
-    }
+    public function createNewAccountForLiveEvent(Request $request) {}
 }
