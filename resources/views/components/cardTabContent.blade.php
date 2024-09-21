@@ -6,8 +6,9 @@
     }
     $reformUrl = route(Illuminate\Support\Facades\Route::currentRouteName(), $parameters);
 @endphp
-
-<div class="card">
+@if(! isset ($transparent))
+    <div class="card">
+@endif
     <div class="card-header pt-0">
         <ul class="nav nav-tabs card-header-tabs border-none p-4" role="tablist" style="background: #e9deeb">
             @foreach ($tabs as $tab)
@@ -23,8 +24,10 @@
             @endforeach
         </ul>
     </div>
-    <div class="card-body">
-        <div class="tab-content p-0 pt-4">
+    @if(! isset ($transparent))
+        <div class="card-body">
+    @endif
+        <div class="tab-content p-0">
 
             @foreach ($tabs as $tab)
                 <div class="tab-pane fade @if ((!$activeTab && isset($tab['default'])) || $activeTab == $tab['name']) active show @endif"
@@ -42,5 +45,10 @@
                 </div>
             @endforeach
         </div>
+    @if(! isset ($transparent))
+        </div>
+    @endif
+    
+@if(! isset ($transparent))
     </div>
-</div>
+@endif

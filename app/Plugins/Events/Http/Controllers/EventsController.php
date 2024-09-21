@@ -2,13 +2,16 @@
 
 namespace App\Plugins\Events\Http\Controllers;
 
+use App\Classes\ExcelExport\ExcelMultipleSheet;
 use App\Classes\Plugins\Hook;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\User\SiddhamahayogPortalUserController;
 use App\Models\Portal\PortalCountry;
 use App\Models\Portal\UserModel;
+use App\Models\User;
 use App\Plugins\Events\Http\Models\Event;
 use App\Rules\Unicode;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +21,9 @@ class EventsController extends Controller
 {
     protected $plugin_name = 'Events';
 
+    /**
+     *
+     */
     public function __construct()
     {
         //         'type' => 'ajax-tab',
@@ -68,12 +74,20 @@ class EventsController extends Controller
             ];
         }));
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index()
     {
         $events = Event::all();
         return $this->admin_theme('events.list', ['events' => $events]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     */
     public function add(Request $request)
     {
         if ($request->ajax() && $request->post()) {
@@ -109,6 +123,12 @@ class EventsController extends Controller
         return $this->admin_theme('events.create');
     }
 
+    /**
+     * @param Request $request
+     * @param Event $event
+     * @param $current_tab
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     */
     public function edit(Request $request, Event $event, $current_tab = 'general')
     {
 
@@ -173,11 +193,11 @@ class EventsController extends Controller
                 'type' => 'ajax-tab',
                 'name' => 'user-registrations',
                 'event'   => $event,
-                'data' => ['modalVar' => 'model', 'type' => 'plugin', 'event' => $event, 'filename' => 'Events::backend.events.tabs.user-registrations', 'reference' => 'plugins'],
+                'data' => ['modalVar' => 'model', 'type' => 'plugin', 'event' => $event, 'filename' => 'Events::backend.events.tabs.user-registrations', 'reference' => 'plugins','query' => $request->query()],
                 'label' => 'Registrations',
                 'default' => false,
                 'base'  => 'ssd/sdfs',
-                'link'  => route('admin.events.edit', ['event' => $event, 'tab' => 'user-registrations']),
+                'link'  => route('admin.events.edit', array_merge(['event' => $event, 'tab' => 'user-registrations'],$request->query())),
                 'modelName' => 'event',
                 'view'  => 'users/som',
                 'ajax-view' => 'user-registrations',
@@ -212,6 +232,14 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * @param Event $event
+     * @param string $type
+     * @param UserModel|null $currentUser
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\Response|\Illuminate\Support\Facades\Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function registration(Event $event, string $type = 'registration', ?UserModel $currentUser = null)
     {
 
@@ -316,6 +344,12 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * @param Event $event
+     * @return array|false
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function registrationProcess(Event $event)
     {
         $request = Request::capture();
@@ -443,11 +477,113 @@ class EventsController extends Controller
         return $insertRecord;
     }
 
+    /**
+     * @param Event $event
+     * @param UserModel $user
+     * @return \Illuminate\Contracts\View\View
+     */
     public function print(Event $event, UserModel $user)
     {
         return $this->admin_theme('events.print', [
             'event' => $event,
             'user' => $user
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Event $event
+     * @param $returnRecords
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|string
+     */
+    public function searchUser(Request $request, Event $event, $returnRecords=false){
+        $programUser = new \App\Models\Portal\ProgramUser();
+        $userModelQuery = \App\Models\Portal\UserModel::query();
+        $query = $query ?? [];
+        $page = $request->get('page') ?? 1;
+
+        $userModelQuery->join($programUser->getTable(), function (JoinClause $join) use (
+            $programUser,
+            $event,
+        ) {
+            $join->on('student_id', 'members.id');
+            $join->where('program_id', $event->portal_program_id);
+        })
+        ->selectRaw('members.* , ' . $programUser->getTable() . '.created_at AS user_registration_date')
+        ->with(['diskshya', 'meta', 'emergency', 'profileImage']);
+
+        if ($request->get('filter_term')){
+            $term = '%'. strip_tags(trim($request->get('filter_term'))) . '%';
+
+            $userModelQuery->where(function($query) use ($term, $programUser){
+                $query->where('first_name','LIKE',$term)
+                            ->orWhere('full_name','LIKE', $term)
+                            ->orWhere('last_name', 'LIKE',$term)
+                            ->orWhere('email','LIKE',$term)
+                            ->orWhere('phone_number','LIKE',$term)
+                            ->orWhere('city','LIKE',$term)
+                            ->orWhere($programUser->getTable().'.created_at' ,'LIKE', $term);
+            });
+        }
+        if ($request->get('filter_date') ) {
+            $date = strtolower($request->get('filter_date'));
+            $explodeDate = explode('to', $date);
+            $startDate = trim ($explodeDate[0]);
+            $endDate  = trim ($explodeDate[1] ?? '');
+
+            $userModelQuery->where(function ($query) use ( $programUser, $startDate, $endDate) {
+                $query->whereRaw("DATE(".$programUser->getTable() . ".created_at) >= ? ", [$startDate]);
+                if ($endDate) {
+                    $query->whereRaw("DATE(".$programUser->getTable() . ".created_at) <= ? ", [$endDate]);
+                }
+            });
+        }
+
+        if ($request->get('filter_country') ) {
+            $filterCountry = (int) $request->get('filter_country');
+            if ($filterCountry) {
+                $userModelQuery->where('country', '=', $filterCountry);
+
+            }
+        }
+
+        if ($returnRecords) {
+            return $userModelQuery->get();
+        }
+
+        $totalRecord = $userModelQuery->toBase()->getCountForPagination();
+        $usersForCurrentPage = $userModelQuery->forPage($page, 20)->get();
+
+
+        $users = new \Illuminate\Pagination\LengthAwarePaginator(
+            $usersForCurrentPage,
+            $totalRecord,
+            60,
+            $page,
+            [
+                'path'  => route('admin.events.edit', array_merge(['tab' => 'user-registrations', 'event' => $event->getKey()], $request->query()))
+            ]
+        );
+
+        return view('Events::backend.events.tabs.partials.users',['users' => $users,'event' => $event->toArray()])->render();
+    }
+
+    /**
+     * @param Request $request
+     * @param Event $event
+     * @return mixed
+     */
+    public function download(Request $request, Event $event) {
+        $results = $this->searchUser($request, $event, true);
+
+        $params = [
+            'event'   => $event,
+            'users'      => $results
+        ];
+        $sheet = [
+            'Event Registred User' => ['view' => 'Events::backend.events.tabs.partials.users-export', 'params' => $params]
+        ];
+        $exportFromView = new ExcelMultipleSheet($sheet);
+        return $exportFromView->download('registrations-list.xlsx');
     }
 }

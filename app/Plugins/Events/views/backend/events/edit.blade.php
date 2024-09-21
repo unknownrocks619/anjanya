@@ -21,7 +21,7 @@
         <div class="row">
             <!-- Zero Configuration  Starts-->
             <div class="col-sm-12">
-                <x-cardTabContent :event="$event" :base="$base" :active_tab="$current_tab"
+                <x-cardTabContent :transparent='true' :event="$event" :base="$base" :active_tab="$current_tab"
                     :tabs="$tabs"></x-cardTabContent>
             </div>
             <!-- Zero Configuration  Ends-->
