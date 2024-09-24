@@ -42,6 +42,13 @@
                 right: 2%;
                 padding: 0px !important;
             }
+            .logo-img{
+                max-width: 85px !important;
+            }
+            .about .section-padding {
+                padding-top: 40px !important;
+            }
+
         }
 
         /* Adjustments for smaller screens like mobile devices */
@@ -53,6 +60,13 @@
                 top: 95%;
                 padding: 0px !important;
             }
+            .logo-img{
+                max-width: 85px !important;
+            }
+            .about .section-padding {
+                padding-top: 40px !important;
+            }
+
         }
 
         /* Further adjustments for very small screens */
@@ -63,6 +77,13 @@
                 padding: 3px;
                 right: 0%;
                 top: 95%;
+            }
+            .logo-img{
+                max-width: 85px !important;
+            }
+
+            .about .section-padding {
+                padding-top: 40px !important;
             }
         }
         #ui-datepicker-div {
