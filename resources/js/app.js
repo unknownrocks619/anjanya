@@ -16,6 +16,7 @@ import './partials/datatable.js'
 import './partials/tinymce.js'
 import './partials/pricing-breaks.js'
 import './partials/slider.js'
+import './partials/splide.js'
 //================== Components ====================//
 import './partials/component/component-selector.js'
 import './partials/course/course.js'

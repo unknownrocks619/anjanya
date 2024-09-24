@@ -79,10 +79,10 @@
                                                 {{ $menu->menu_name }}
                                             </td>
                                             <td>
-                                                {{ \App\Models\Menu::MENU_TYPES[$menu->menu_type] }}
+                                                {{ \App\Models\Menu::MENU_TYPES[$menu->menu_type] ?? $menu->menu_type }}
                                             </td>
                                             <td>
-                                                {{ \App\Models\Menu::MENU_POSITIONS[$menu->menu_position] }}
+                                                {{ \App\Models\Menu::MENU_POSITIONS[$menu->menu_position] ?? $menu->menu_type }}
                                             </td>
                                             <td>
                                                 <ul class="action">
@@ -109,9 +109,9 @@
                                                         <i class="fa fa-sort fs-4"></i>
                                                     </td>
                                                     <td>{{ $children->menu_name }}</td>
-                                                    <td>{{ \App\Models\Menu::MENU_TYPES[$children->menu_type] }}</td>
+                                                    <td>{{ \App\Models\Menu::MENU_TYPES[$children->menu_type] ?? $children->menu_type }}</td>
                                                     <td>
-                                                        {{ \App\Models\Menu::MENU_POSITIONS[$children->menu_position] }}
+                                                        {{ \App\Models\Menu::MENU_POSITIONS[$children->menu_position]  ?? $children->menu_position}}
                                                     </td>
                                                     <td>
                                                         <ul class="action">

@@ -3,6 +3,9 @@
 namespace App\Classes\Helpers;
 
 
+use Mockery\Exception;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodArgumentValueNotImplementedException;
+
 class Money
 {
 
@@ -21,7 +24,14 @@ class Money
             return '0.00';
         }
 
-        $numberFormatter = new \NumberFormatter('en_CA', \NumberFormatter::CURRENCY);
-        return $prefix . $numberFormatter->format($amount);
+        return $amount;
+        try {
+            $numberFormatter = new \NumberFormatter('en_CA', \NumberFormatter::CURRENCY);
+            return $prefix . $numberFormatter->format($amount);
+
+        } catch (MethodArgumentValueNotImplementedException $e) {
+            return $amount;
+        }
+
     }
 }

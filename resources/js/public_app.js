@@ -16,6 +16,7 @@ Object.defineProperty(window, 'SIDEBAR_TEXT', {
 
 import './frontend_partials/ajax_form.js';
 import './frontend_partials/ajax-modal.js'
+import './partials/splide.js'
 
 $(function () {
     /**
@@ -224,4 +225,5 @@ $(function () {
                     .removeClass('mce-content-body')
                     .removeAttr('editable')
     };
+
 })

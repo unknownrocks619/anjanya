@@ -34,6 +34,37 @@
             border : 2px solid;
             box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
         }
+        /* Adjustments for tablets and larger phones */
+        @media (max-width: 768px) {
+            .float-reservation {
+                width: 180px;
+                font-size: 18px;
+                right: 2%;
+                padding: 0px !important;
+            }
+        }
+
+        /* Adjustments for smaller screens like mobile devices */
+        @media (max-width: 480px) {
+            .float-reservation {
+                width: 116px;
+                font-size: 16px;
+                right: 0%;
+                top: 95%;
+                padding: 0px !important;
+            }
+        }
+
+        /* Further adjustments for very small screens */
+        @media (max-width: 320px) {
+            .float-reservation {
+                width: 116px;
+                font-size: 14px;
+                padding: 3px;
+                right: 0%;
+                top: 95%;
+            }
+        }
         #ui-datepicker-div {
             z-index: 9999 !important;
         }
