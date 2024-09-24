@@ -45,9 +45,6 @@
             .logo-img{
                 max-width: 85px !important;
             }
-            .about .section-padding {
-                padding-top: 40px !important;
-            }
 
         }
 
@@ -63,7 +60,7 @@
             .logo-img{
                 max-width: 85px !important;
             }
-            .about .section-padding {
+            .section-padding {
                 padding-top: 40px !important;
             }
 
@@ -82,7 +79,7 @@
                 max-width: 85px !important;
             }
 
-            .about .section-padding {
+            .section-padding {
                 padding-top: 40px !important;
             }
         }
