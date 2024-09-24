@@ -43,8 +43,13 @@
                 padding: 0px !important;
             }
             .logo-img{
-                max-width: 85px !important;
+                max-width: 80px !important;
             }
+
+            .logo-wrapper {
+                padding-top: 5px !important;
+            }
+
 
         }
 
@@ -58,10 +63,13 @@
                 padding: 0px !important;
             }
             .logo-img{
-                max-width: 85px !important;
+                max-width: 80px !important;
             }
             .section-padding {
                 padding-top: 40px !important;
+            }
+            .logo-wrapper {
+                padding-top: 0px !important;
             }
 
         }
@@ -76,11 +84,14 @@
                 top: 95%;
             }
             .logo-img{
-                max-width: 85px !important;
+                max-width: 80px !important;
             }
 
             .section-padding {
                 padding-top: 40px !important;
+            }
+            .logo-wrapper {
+                padding-top: 0px !important;
             }
         }
         #ui-datepicker-div {
