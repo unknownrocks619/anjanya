@@ -86,11 +86,11 @@
                     @php
                         $images = App\Classes\Helpers\Image::getImageAsSize(
                             $sliderItem->getImage[0]->image->filepath,
-                            'l',
+                            'cus',
                         );
                     @endphp
                     <li class="splide__slide">
-                        <img src='{{ $images }}' style="max-height: 100vh" />
+                        <img src='{{ $images }}' />
                     </li>
                 @endforeach
             @endforeach

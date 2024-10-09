@@ -33,8 +33,18 @@ import '../../../public_app';
 $(function () {
     "use strict";
     var wind = $(window);
+    $('nav').attr('style','background:linear-gradient(0.25turn, #e8dfd1, #b8904dd1)');
 
-
+    if (wind.innerWidth() <= 990 ) {
+        $('nav').removeAttr('style');
+    }
+    window.addEventListener('resize', function(){
+        if (wind.innerWidth() <= 990 ) {
+            $('nav').removeAttr('style')
+        } else {
+            $('nav').attr('style','background:linear-gradient(0.25turn, #e8dfd1, #b8904dd1)')
+        }
+    });
     // ScrollIt
     $.scrollIt({
         upKey: 38, // key code to navigate to the next section
@@ -47,8 +57,16 @@ $(function () {
     });
 
     // Close navbar-collapse when a  clicked
-    $(".navbar-nav .dropdown-item a").on('click', function () {
-        $(".navbar-collapse").removeClass("show");
+    $(".navbar-toggler").on('click', function (event) {
+        event.preventDefault();
+    //     event.stopImmediatePropagation();
+    //     console.log($(this).attr('aria-expanded'));
+    //     if($(this).attr('aria-expanded') == true) {
+    //         console.log('sdfsf');
+    //         setTimeout(function(){
+                $(".navbar-collapse").toggleClass("show");
+    //         },500)
+    //     }
     });
 
 
