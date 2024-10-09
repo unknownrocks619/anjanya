@@ -86,7 +86,7 @@
                     @php
                         $images = App\Classes\Helpers\Image::getImageAsSize(
                             $sliderItem->getImage[0]->image->filepath,
-                            'cus',
+                            'xl',
                         );
                     @endphp
                     <li class="splide__slide">
