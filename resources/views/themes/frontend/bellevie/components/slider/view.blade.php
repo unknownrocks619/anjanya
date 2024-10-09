@@ -90,7 +90,8 @@
                         );
                     @endphp
                     <li class="splide__slide">
-                        <img src='{{ $images }}' />
+                        <img @if ($loop->first) src="{{ $images }}" @endif
+                            data-splide-lazy="{{ $images }}" />
                     </li>
                 @endforeach
             @endforeach

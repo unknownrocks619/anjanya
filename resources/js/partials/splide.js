@@ -12,7 +12,7 @@ $(function(){
             if ($(elm).hasClass('no-component') ) {
                 return;
             }
-            let splide = new Splide($(elm)[0],{perPage : 1});
+            let splide = new Splide($(elm)[0],{perPage : 1,lazyLoad: 'nearby'});
             splide.mount();
             
             $.each($(elm).find('.splide__slide'), function (index,imageElement) {
